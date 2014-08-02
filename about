@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">	
+	<head>
+	    
+	    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	    
+	    <title>About</title>
+	    <meta name="description" content="" />
+	    <link rel="shortcut icon" href="content/images/2014/Jul/me.jpg"/>
+			
+	    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,700italic,300,700' rel='stylesheet' type='text/css'>
+			<link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
+			<link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet">
+			<link rel="stylesheet" type="text/css" href="assets/styles/crisp.css?v=b4769c5003">
+			
+	    <meta name="HandheldFriendly" content="True" />
+	    <meta name="MobileOptimized" content="320" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+			<!--[if lt IE 9]>
+				<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+				<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+			<![endif]-->  
+			  
+	    <meta name="generator" content="Ghost 0.4" />
+<link rel="alternate" type="application/rss+xml" title="hawker.io" href="rss/index.html">
+<link rel="canonical" href="about" />
+	</head>
+	<body class="post-template page">
+		<header id="header">
+			<a id="logo" href="index.html"><img src="content/images/2014/Jul/me.jpg" alt="hawker.io" /></a>
+			<h1><a href="index.html">hawker.io</a></h1>
+			<p>Under slept, over caffeinated. Senior Engineer @AppThwack.</p>
+			<div id="follow-icons">
+	<a href="http://github.com/ahawker"><i class="fa fa-github-alt fa-2x social-icon"></i></a>
+	<a href="http://linkedin.com/in/ahawker"><i class="fa fa-linkedin-square fa-2x social-icon"></i></a>
+	<a href="http://twitter.com/rekwah"><i class="fa fa-twitter fa-2x social-icon"></i></a>
+	<a href="mailto:andrew.r.hawker@gmail.com"><i class="fa fa-envelope fa-2x social-icon"></i></a>
+</div>                                                                  
+
+			<div>
+	<a class="nav-icon" href="index.html" title="Blog">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-square-o fa-stack-2x"></i>
+			<i class="fa fa-pencil fa-stack-1x"></i>
+		</span>
+		Blog
+	</a>
+</div>
+
+<div>
+	<a class="nav-icon" href="code" title="Code">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-square-o fa-stack-2x"></i>
+			<i class="fa fa-keyboard-o fa-stack-1x"></i>
+		</span>
+		Code
+	</a>
+</div>
+
+<div>
+	<a class="nav-icon" href="about" title="About">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-square-o fa-stack-2x"></i>
+			<i class="fa fa-question fa-stack-1x"></i>
+		</span>
+		About
+	</a>
+</div>
+
+		</header>
+		<main id="content">
+			
+
+<article id="2" class="post page">
+	<h1 class="post-title">About</h1>
+	<p>I'm Andrew Hawker. Don't call me Shirley.</p>
+</article>
+
+		</main>
+		<footer id="footer">
+			<section id="footer-message">&copy; 2014 hawker.io. All rights reserved. Powered by <a href="http://ghost.org" target="_blank">Ghost</a>. <a href="https://github.com/kathyqian/crisp-ghost-theme" target="_blank">Crisp</a> theme by <a href="http://kathyqian.com" target="_blank">Kathy Qian</a>.</section>
+		</footer>
+	<script src="public/jquery.js?v=b4769c5003"></script>
+	</body>
+</html>
