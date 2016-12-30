@@ -1,2 +1,4 @@
-# Blog
-Powered by [Ghost](http://ghost.org) and [Buster](https://github.com/axitkhurana/buster/).
+# ahawker.github.io/hawker.io
+A super simple website where I rarely, if ever, post things.
+
+Powered by [Markdeep](https://casual-effects.com/markdeep).
