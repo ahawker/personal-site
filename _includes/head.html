@@ -1,0 +1,27 @@
+<head>
+  <meta charset="utf-8" lang="en">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/grids-responsive-min.css">
+  <link rel="stylesheet" href="/assets/styles/site.css">
+
+  <!-- Icons -->
+  <link rel="shortcut icon" href="/assets/images/favicon.jpg"/>
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/images/apple-touch-icon-144-precomposed.png">
+
+  <!-- RSS -->
+  {% feed_meta %}
+
+  <!-- Google Analytics -->
+  {% if jekyll.environment == "production" and site.ga_tracking_id %}
+    {% include google-analytics.html %}
+  {% endif %}
+
+  <!-- SEO -->
+  {% seo %}
+</head>

@@ -1,0 +1,19 @@
+title: Andrew Hawker
+tagline: The Man, The Myth, The Legend
+email: andrew.r.hawker@gmail.com
+description: Personal website of Andrew Hawker
+baseurl: ""
+url: andrew.hawker.io
+twitter_username: jekyllrb
+github_username:  jekyll
+
+markdown: kramdown
+theme: minima
+gems:
+  - jekyll-feed
+  - jekyll-seo-tag
+exclude:
+  - Gemfile
+  - Gemfile.lock
+
+ga_tracking_id: UA-36365256-1
