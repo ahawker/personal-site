@@ -4,8 +4,8 @@ email: andrew.r.hawker@gmail.com
 description: Personal website of Andrew Hawker
 baseurl: ""
 url: andrew.hawker.io
-twitter_username: jekyllrb
-github_username:  jekyll
+twitter_username: rekwah
+github_username:  ahawker
 
 markdown: kramdown
 theme: minima
