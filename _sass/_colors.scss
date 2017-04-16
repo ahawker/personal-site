@@ -1,0 +1,30 @@
+// Base
+$link-color: #3d92c9 !default;
+
+// Header
+$header-bg-color: #3d4f5d !default;
+$header-color: #ffffff !default;
+$header-tagline-color: #b0cadb !default;
+
+// Footer
+$footer-bg-color: $header-bg-color !default;
+
+// Social
+$social-color: #ffffff !default;
+$social-stack-overflow-color: #FF9900 !default;
+$social-github-color: #151013 !default;
+$social-twitter-color: #00aced !default;
+$social-linkedin-color: #0073a4 !default;
+$social-email-color: #808080 !default;
+$social-employer-color: #E51F39 !default;
+$social-location-color: #3cba54 !default;
+
+$social-colors: (
+  stack-overflow: $social-stack-overflow-color,
+  github: $social-github-color,
+  twitter: $social-twitter-color,
+  linkedin: $social-linkedin-color,
+  email: $social-email-color,
+  employer: $social-employer-color,
+  location: $social-location-color
+);
