@@ -1,31 +1,8 @@
-* {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
+---
+# Front Matter so .scss file is picked up by Jekyll.
+---
 
-.pure-g > div {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    }
-
-.l-box {
-    padding: 10em;
-}
-
-a {
-    text-decoration: none;
-    color: rgb(61, 146, 201);
-}
-
-h3 {
-    font-weight: 100;
-}
-
-html, body {
-    height: 100%;
-}
+@import "site";
 
 #layout {
     padding: 0;
@@ -33,58 +10,6 @@ html, body {
 
 .reading, .writing {
     padding: 1em;
-}
-
-
-.footer {
-    max-width: 100%;
-    background: rgb(61, 79, 93);
-}
-
-.footer-content {
-    top: auto;
-    margin: 1em 1em 1em;
-}
-.footer img {
-    margin: 1em auto;
-    width: 100px;
-    height: 30px;
-}
-
-.header {
-    background: rgb(61, 79, 93);
-    color: #ffffff;
-}
-
-.header-content {
-    top: auto;
-    margin: 1em 1em 1em;
-}
-
-.header img {
-    border-radius: 5%;
-    margin: 1em auto;
-}
-
-.header h1,
-.header h2,
-.header h3 {
-    text-align: center;
-    margin: 0;
-}
-
-.header h2 {
-    text-transform: uppercase;
-}
-
-.header h3 {
-    font-size: 80%;
-    font-weight: 400;
-    color: rgb(176, 202, 219);
-}
-
-.header hr {
-    margin: 1em auto;
 }
 
 .details ul {
@@ -98,62 +23,6 @@ html, body {
 }
 .details a {
     color: #ffffff;
-}
-
-.social-icons {
-    margin: 1em auto;
-}
-
-.social-icons ul {
-    text-align: center;
-    padding: 0;
-    margin: auto 0;
-}
-
-.social-icons li {
-    display: inline-block;
-}
-
-.social-icons a {
-    color: #ffffff;
-    text-decoration: none;
-}
-
-.social-icon {
-    border-radius: 10px;
-    width: 1.15em;
-    -o-transition: .4s;
-    -moz-transition: .4s;
-    -webkit-transition: .4s;
-    transition: .4s;
-}
-
-.fa-stack-overflow:hover {
-    color: #FF9900;
-}
-
-.fa-github-alt:hover {
-    color: #151013;
-}
-
-.fa-twitter:hover {
-    color: #00aced;
-}
-
-.fa-linkedin-square:hover {
-    color: #0073a4;
-}
-
-.fa-envelope:hover {
-    color: #808080;
-}
-
-.employer:hover i, .fa-building:hover {
-    color: #E51F39;
-}
-
-.location:hover i, .fa-map-marker:hover {
-    color: #3cba54;
 }
 
 .content-subhead {
@@ -197,9 +66,11 @@ html, body {
     float: left;
     margin-left: 0.1em;
 }
+
 .post-date {
     float: right;
 }
+
 .post-excerpt {
     font-family: Georgia, "Cambria", serif;
     color: #444;
