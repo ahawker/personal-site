@@ -1,0 +1,9 @@
+.pure-g > div {
+  @include box-sizing-border-box;
+}
+
+.pure-g img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}

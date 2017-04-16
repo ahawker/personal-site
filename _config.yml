@@ -7,8 +7,10 @@ url: andrew.hawker.io
 twitter_username: rekwah
 github_username:  ahawker
 
+sass:
+  style: compressed
+
 markdown: kramdown
-theme: minima
 gems:
   - jekyll-feed
   - jekyll-seo-tag

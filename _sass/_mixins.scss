@@ -1,0 +1,16 @@
+@mixin box-sizing-border-box {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@mixin transition($duration) {
+  -o-transition: $duration;
+  -moz-transition: $duration;
+  -webkit-transition: $duration;
+  transition: $duration;
+}
+
+@mixin social_color($name-to-color-name-map, $name) {
+  color: map-get($social-colors, map-get($name-to-color-name-map, $name));
+}

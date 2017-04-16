@@ -1,0 +1,66 @@
+$social-icon-names: (
+  fa-stack-overflow,
+  fa-github-alt,
+  fa-twitter,
+  fa-linkedin-square,
+  fa-envelope,
+  fa-building,
+  fa-map-marker
+);
+
+$social-icon-name-to-color-name: (
+  fa-stack-overflow: stack-overflow,
+  fa-github-alt: github,
+  fa-twitter: twitter,
+  fa-linkedin-square: linkedin,
+  fa-envelope: email,
+  fa-building: employer,
+  fa-map-marker: location
+);
+
+$social-icon-containers: (
+  employer,
+  location
+);
+
+$social-icon-container-name-to-color-name: (
+  employer: employer,
+  location: location
+);
+
+.social-icons {
+  margin: 1em auto;
+}
+
+.social-icons ul {
+  text-align: center;
+  padding: 0;
+  margin: auto 0;
+}
+
+.social-icons li {
+  display: inline-block;
+}
+
+.social-icons a {
+  color: $social-color;
+  text-decoration: none;
+}
+
+.social-icon {
+  @include transition(.4s);
+  border-radius: 10px;
+  width: 1.15em;
+}
+
+@each $name in $social-icon-names {
+  .#{$name}:hover {
+    @include social_color($social-icon-name-to-color-name, $name);
+  }
+}
+
+@each $name in $social-icon-containers {
+  .#{$name}:hover i {
+    @include social_color($social-icon-container-name-to-color-name, $name);
+  }
+}

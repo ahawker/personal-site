@@ -1,0 +1,35 @@
+.header {
+  background: $header-bg-color;
+  color: $header-color;
+}
+
+.header-content {
+  top: auto;
+  margin: 1em 1em 1em;
+}
+
+.header img {
+  border-radius: 5%;
+  margin: 1em auto;
+}
+
+.header h1,
+.header h2,
+.header h3 {
+  text-align: center;
+  margin: 0;
+}
+
+.header h2 {
+  text-transform: uppercase;
+}
+
+.header h3 {
+  font-size: 80%;
+  font-weight: 400;
+  color: $header-tagline-color;
+}
+
+.header hr {
+    margin: 1em auto;
+}

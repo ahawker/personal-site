@@ -1,0 +1,16 @@
+* {
+  @include box-sizing-border-box;
+}
+
+a {
+  text-decoration: none;
+  color: $link-color;
+}
+
+h3 {
+  font-weight: 100;
+}
+
+html, body {
+  height: 100%;
+}
