@@ -31,5 +31,19 @@
 }
 
 .header hr {
-    margin: 1em auto;
+  margin: 1em auto;
+}
+
+.topline-icons ul {
+  text-align: center;
+  padding: 0;
+  margin: auto 0;
+}
+
+.topline-icons li {
+  display: inline;
+}
+
+.topline-icons a {
+  color: $header-topline-icons-color;
 }
