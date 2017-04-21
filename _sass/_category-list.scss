@@ -1,3 +1,7 @@
+.reading, .writing {
+    padding: 1em;
+}
+
 .items {
   list-style: none;
   padding: 0;
@@ -9,7 +13,7 @@
 }
 
 .item-title-link {
-  color: $category-list-item-title-link;
+  color: inherit;
 }
 
 .item {
@@ -21,6 +25,10 @@
   font-size: 90%;
   margin: 0.2em 0;
   overflow: hidden;
+}
+
+.item-meta a {
+  color: inherit;
 }
 
 .item p {
