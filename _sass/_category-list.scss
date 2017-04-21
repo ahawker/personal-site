@@ -1,0 +1,40 @@
+.items {
+  list-style: none;
+  padding: 0;
+}
+
+.items h2 {
+  color: $category-list-item-title;
+  margin: 0 0 0.2em;
+}
+
+.item-title-link {
+  color: $category-list-item-title-link;
+}
+
+.item {
+  padding-bottom: 2em;
+}
+
+.item-meta {
+  color: $category-list-item-meta;
+  font-size: 90%;
+  margin: 0.2em 0;
+  overflow: hidden;
+}
+
+.item p {
+  color: $category-list-item-excerpt;
+  line-height: 1.8em;
+}
+
+.item-images {
+  margin: 1em 0;
+}
+
+.item-image-meta {
+  margin-top: -3.5em;
+  margin-left: 1em;
+  color: #ffffff;
+  text-shadow: 0 1px 1px #333333;
+}
