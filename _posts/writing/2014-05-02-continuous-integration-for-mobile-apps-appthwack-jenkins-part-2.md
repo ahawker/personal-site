@@ -6,10 +6,9 @@ author: me
 category: writing
 tags: appthwack jenkins archive announcement
 ---
-![AppThwack Jenkins](/assets/images/posts/jenkins-appthwack-header.png)
 This is a two part blog post about continuous integration for mobile apps. Be sure to check out Part 1 for getting started with AppThwack and Jenkins.
 
----
+![AppThwack Jenkins](/assets/images/posts/jenkins-appthwack-header.png)
 
 Back in September, we announced the initial release of the official AppThwack Jenkins plugin. Since its inception, we’re pleased to see many developers seamlessly integrate AppThwack and testing on real mobile devices into their development workflow; testing on a per-commit and nightly-build basis.
 
