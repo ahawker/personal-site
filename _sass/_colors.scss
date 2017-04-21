@@ -35,10 +35,12 @@ $tag-color: #ffffff !default;
 $tag-bg-color: #999999 !default;
 $tag-appthwack-color: #083250 !default;
 $tag-jenkins-color: #d33833 !default;
+$tag-gradle-color: #00c489 !default;
 
 $tag-colors: (
   appthwack: $tag-appthwack-color,
-  jenkins: $tag-jenkins-color
+  jenkins: $tag-jenkins-color,
+  gradle: $tag-gradle-color
 );
 
 // Category List

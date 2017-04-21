@@ -6,6 +6,11 @@ $float-positions: (
   inherit
 );
 
+.post h3 {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
 .post-meta {
   color: $post-meta;
   font-size: 110%;
