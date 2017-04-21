@@ -1,3 +1,11 @@
+$float-positions: (
+  none,
+  left,
+  right,
+  initial,
+  inherit
+);
+
 .post-meta {
   color: $post-meta;
   font-size: 110%;
@@ -7,4 +15,10 @@
 
 .post-meta a {
   color: inherit;
+}
+
+@each $position in $float-positions {
+  .float-#{$position} {
+    @include float($position);
+  }
 }

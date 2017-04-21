@@ -18,3 +18,7 @@
 @mixin tag_bg_color($name) {
   background-color: map-get($tag-colors, $name);
 }
+
+@mixin float($position) {
+  float: $position;
+}
