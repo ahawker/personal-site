@@ -29,3 +29,14 @@ $social-colors: (
   employer: $social-employer-color,
   location: $social-location-color
 );
+
+// Tags
+$tag-color: #ffffff !default;
+$tag-bg-color: #999999 !default;
+$tag-appthwack-color: #083250 !default;
+$tag-jenkins-color: #d33833 !default;
+
+$tag-colors: (
+  appthwack: $tag-appthwack-color,
+  jenkins: $tag-jenkins-color
+);
