@@ -6,7 +6,8 @@ author: me
 category: writing
 tags: appthwack jenkins archive announcement
 ---
-This is a two part blog post about continuous integration for mobile apps. Be sure to check out Part 1 for getting started with AppThwack and Jenkins.
+This is a two part blog post about continuous integration for mobile apps.
+Be sure to check out [Part 1]({% post_url /writing/2013-09-03-continuous-integration-for-mobile-apps-appthwack-jenkins %}) for getting started with AppThwack and Jenkins.
 
 ![AppThwack Jenkins](/assets/images/posts/jenkins-appthwack-header.png)
 
@@ -51,7 +52,7 @@ Easily view and identify trends in test passes, failures and warnings for every 
 You can also drill down and view the highlights of a single AppThwack run.
 
 This will display all the high level result data you’ve come to expect, including latest trends in performance data (CPU, Memory, Threads, Network Traffic, FPS, etc).
-![Recent Results](/assets/images/posts/jenkins-appthwack-report-graphs.png){:class="float-right"}
+![Report Graphs](/assets/images/posts/jenkins-appthwack-report-graphs.png){:class="float-right"}
 
 Individual tests are grouped by result (pass/fail/warn) and then by each device, enabling you to quickly identify which test and/or device(s) are encountering errors.
 
