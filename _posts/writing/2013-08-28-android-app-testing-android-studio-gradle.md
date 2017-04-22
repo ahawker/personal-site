@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Android app testing with Android Studio (Gradle) and AppThwack
-date: 2013-09-28 11:43:00-8000
+date: 2013-08-28 11:43:00-8000
 author: me
 category: writing
 tags: appthwack gradle archive announcement
