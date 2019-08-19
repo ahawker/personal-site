@@ -1,5 +1,7 @@
-<div class="pure-g">
-  <div class="content">
-  {{ content }}
-  </div>
-</div>
+{{ content }}
+
+{% if page.layout != 'home' %}
+<section>
+  <p class="return-home"><em><a href="{{ site.baseurl }}">Return home</a></em></p>
+</section>
+{% endif %}

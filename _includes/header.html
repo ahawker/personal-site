@@ -1,25 +1,11 @@
-<div class="pure-g">
-  <div class="header pure-u-1 pure-u-md-1-4">
-    <div class="header-content">
-      <a href="{{ site.baseurl }}"><img class="pure-img" src="/assets/images/sidebar-header.jpg"/></a>
-      <h2>{{ site.title }}</h2>
-      <h3>{{ site.tagline }}</h3>
-      <hr/>
-      <div class="topline-icons">
-        <ul>
-          <li><a class="employer" href="https://www.apptentive.com" target="_blank"><i class="fa fa-2x fa-building social-icon"></i>Apptentive</a></li>
-          <li><a class="location" href="https://goo.gl/maps/kUBP3GgPGiG2" target="_blank"><i class="fa fa-2x fa-map-marker social-icon"></i>Seattle, WA</a></li>
-        </ul>
-      </div>
-      <div class="social-icons">
-        <ul>
-          <li><a href="https://stackoverflow.com/users/84942/ahawker" target="_blank"><i class="fa fa-2x fa-stack-overflow social-icon"></i></a></li>
-          <li><a href="https://github.com/ahawker" target="_blank"><i class="fa fa-2x fa-github-alt social-icon"></i></a></li>
-          <li><a href="https://linkedin.com/in/ahawker" target="_blank"><i class="fa fa-2x fa-linkedin-square social-icon"></i></a></li>
-          <li><a href="https://twitter.com/rekwah" target="_blank"><i class="fa fa-2x fa-twitter social-icon"></i></a></li>
-          <li><a href="mailto:andrew.r.hawker@gmail.com" target="_blank"><i class="fa fa-2x fa-envelope social-icon"></i></a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+{% if page.title %}
+<header>
+  <h1 class="title"><a name="{{ page.title }}"></a>{{ page.title }}</h1>
+  {% if page.subtitle %}
+  <p class="subtitle">{{ page.subtitle }}</p>
+  {% endif %}
+  {% if page.date %}
+  <p class="byline">{{ page.date | date: "%B %-d, %Y"}}</p>
+  {% endif %}
+</header>
+{% endif %}

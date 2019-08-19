@@ -28,29 +28,8 @@ $social-icon-container-name-to-color-name: (
   location: location
 );
 
-.social-icons {
-  margin: 1em auto;
-}
-
-.social-icons ul {
-  text-align: center;
-  padding: 0;
-  margin: auto 0;
-}
-
-.social-icons li {
-  display: inline-block;
-}
-
-.social-icons a {
-  color: $social-color;
-  text-decoration: none;
-}
-
 .social-icon {
   @include transition(.4s);
-  border-radius: 10px;
-  width: 1.15em;
 }
 
 @each $name in $social-icon-names {
@@ -60,7 +39,7 @@ $social-icon-container-name-to-color-name: (
 }
 
 @each $name in $social-icon-containers {
-  .#{$name}:hover i {
+  .#{$name}:hover span {
     @include social_color($social-icon-container-name-to-color-name, $name);
   }
 }

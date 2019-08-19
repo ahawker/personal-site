@@ -1,0 +1,12 @@
+<footer>
+    <hr class="footer-hr">
+    <ul class="social-links">
+      {% for entry in site.data.social %}
+        <li><a href="{{ entry.link }}" target="_blank" title="{{ entry.title }}"><span class="{{ entry.class }}"></span></a></li>
+      {% endfor %}  
+    </ul>
+  <div class="credits">
+    <span>&copy; {{ site.time | date: '%Y' }} &nbsp;&nbsp;{{ site.author | upcase }}</span></br> <br>
+    <span>Code for this website can be found <a href="https://github.com/ahawker/ahawker.github.io">here</a>.</span>
+  </div>  
+</footer>

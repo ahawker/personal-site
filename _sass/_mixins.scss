@@ -1,24 +1,10 @@
-@mixin box-sizing-border-box {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
 @mixin transition($duration) {
-  -o-transition: $duration;
-  -moz-transition: $duration;
-  -webkit-transition: $duration;
-  transition: $duration;
+    -o-transition: $duration;
+    -moz-transition: $duration;
+    -webkit-transition: $duration;
+    transition: $duration;
 }
 
 @mixin social_color($icon-name-to-color-name-map, $name) {
-  color: map-get($social-colors, map-get($icon-name-to-color-name-map, $name));
-}
-
-@mixin tag_bg_color($name) {
-  background-color: map-get($tag-colors, $name);
-}
-
-@mixin float($position) {
-  float: $position;
+    color: map-get($social-colors, map-get($icon-name-to-color-name-map, $name));
 }

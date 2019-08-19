@@ -1,17 +1,12 @@
-// Base
-$link-color: #3d92c9 !default;
-
-// Header
-$header-bg-color: #3d4f5d !default;
-$header-color: #ffffff !default;
-$header-tagline-color: #b0cadb !default;
-$header-topline-icons-color: #ffffff !default;
-
-// Footer
-$footer-bg-color: $header-bg-color !default;
+// Global
+$background-color: #fffff8 !default;
+$text-color: #111111 !default;
+$danger-color: red !default;
+$contrast-color: #a00000 !default;
+$border-color: #333333 !default;
 
 // Social
-$social-color: #ffffff !default;
+$social-color: $text-color !default;
 $social-stack-overflow-color: #FF9900 !default;
 $social-github-color: #151013 !default;
 $social-twitter-color: #00aced !default;
@@ -29,24 +24,3 @@ $social-colors: (
   employer: $social-employer-color,
   location: $social-location-color
 );
-
-// Tags
-$tag-color: #ffffff !default;
-$tag-bg-color: #999999 !default;
-$tag-appthwack-color: #083250 !default;
-$tag-jenkins-color: #d33833 !default;
-$tag-gradle-color: #00c489 !default;
-
-$tag-colors: (
-  appthwack: $tag-appthwack-color,
-  jenkins: $tag-jenkins-color,
-  gradle: $tag-gradle-color
-);
-
-// Category List
-$category-list-item-title: #222222 !default;
-$category-list-item-meta: #999999 !default;
-$category-list-item-excerpt: #444444 !default;
-
-// Post
-$post-meta: #999999 !default;

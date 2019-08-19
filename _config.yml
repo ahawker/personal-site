@@ -1,8 +1,9 @@
 title: Andrew Hawker
-tagline: The Man, The Myth, The Legend
+author: Andrew Hawker
 email: andrew.r.hawker@gmail.com
 description: Personal website of Andrew Hawker
-baseurl: "/"
+baseurl: '/'
+permalink: /:categories/:year/:month/:day/:title/
 url: andrew.hawker.io
 twitter_username: rekwah
 github_username:  ahawker
@@ -10,12 +11,23 @@ github_username:  ahawker
 sass:
   style: compressed
 
-markdown: kramdown
+markdown: Pandoc
+
+pandoc:
+  extensions:
+    - section-divs
+    - from: 'markdown+tex_math_single_backslash'
+    - filter: 'pandoc-sidenote'
+
 gems:
   - jekyll-feed
   - jekyll-seo-tag
+  - jekyll-pandoc
 exclude:
   - Gemfile
   - Gemfile.lock
+  - README.md
+  - .git
+  - .gitignore
 
 ga_tracking_id: UA-36365256-1

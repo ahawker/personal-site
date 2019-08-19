@@ -1,0 +1,21 @@
+- title: Employer
+  link: https://www.apptentive.com
+  class: fa fa-2x fa-building social-icon
+- title: Location
+  link: https://goo.gl/maps/kUBP3GgPGiG2
+  class: fa fa-2x fa-map-marker social-icon
+- title: Stack Overflow
+  link: https://stackoverflow.com/users/84942/ahawker
+  class: fa fa-2x fa-stack-overflow social-icon
+- title: GitHub
+  link: https://github.com/ahawker
+  class: fa fa-2x fa-github-alt social-icon
+- title: LinkedIn
+  link: https://linkedin.com/in/ahawker
+  class: fa fa-2x fa-linkedin-square social-icon
+- title: Twitter
+  link: https://twitter.com/rekwah
+  class: fa fa-2x fa-twitter social-icon
+- title: Email
+  link: mailto:andrew.r.hawker@gmail.com
+  class: fa fa-2x fa-envelope social-icon
