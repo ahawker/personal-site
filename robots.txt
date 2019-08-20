@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /ghost/
+Disallow: /bin/
+Disallow: /.git/

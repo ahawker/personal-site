@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.3">Jekyll</generator><link href="andrew.hawker.io//feed.xml" rel="self" type="application/atom+xml" /><link href="andrew.hawker.io//" rel="alternate" type="text/html" /><updated>2019-08-19T17:21:50-07:00</updated><id>andrew.hawker.io//</id><title type="html">Andrew Hawker</title><subtitle>Personal website of Andrew Hawker</subtitle><author><name>Andrew Hawker</name></author><entry><title type="html">Continuous Integration for Mobile Apps with AppThwack and Jenkins (Part 2)</title><link href="andrew.hawker.io//writings/2014/05/02/continuous-integration-for-mobile-apps-appthwack-jenkins-part-2/" rel="alternate" type="text/html" title="Continuous Integration for Mobile Apps with AppThwack and Jenkins (Part 2)" /><published>2014-05-02T03:43:00-07:00</published><updated>2014-05-02T03:43:00-07:00</updated><id>andrew.hawker.io//writings/2014/05/02/continuous-integration-for-mobile-apps-appthwack-jenkins-part-2</id><content type="html" xml:base="andrew.hawker.io//writings/2014/05/02/continuous-integration-for-mobile-apps-appthwack-jenkins-part-2/">&lt;p&gt;&lt;img src=&quot;/assets/images/posts/jenkins-appthwack-header.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Back in September, we announced the initial release of the official AppThwack Jenkins plugin.&lt;span&gt;&lt;label for=&quot;sn-1&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-1&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; This is part two of the continuous integration for mobile apps series. Be sure to check out &lt;a href=&quot;/writings/2013/09/03/continuous-integration-for-mobile-apps-appthwack-jenkins/&quot;&gt;Part 1&lt;/a&gt; for getting started with AppThwack and Jenkins.&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt; Since its inception, we’re pleased to see many developers seamlessly integrate AppThwack and testing on real mobile devices into their development workflow; testing on a per-commit and nightly-build basis.&lt;/p&gt;
+&lt;p&gt;While the plugin was perfect for capturing build artifacts and kicking off automated tests, it lacked Jenkins UI integration for displaying results. Customer feedback showed that this is an extremely important feature and we couldn’t agree more. The benefits of continuous testing are diminished if developers cannot quickly view results and historical trends. This is essential data for promptly diagnosing problems which facilitates a quick development process.&lt;/p&gt;
+&lt;p&gt;We’ve been adding features over the past few months and as of today (v1.8) of our plugin, we now have &lt;strong&gt;real-time&lt;/strong&gt; AppThwack results right in your Jenkins UI. We have plenty more cool Jenkins features up our sleeves, but we’re happy with the initial release and hope you are too! Let’s jump right in and check it out!&lt;/p&gt;
+&lt;section id=&quot;instant-feedback&quot; class=&quot;level2&quot;&gt;
+&lt;h2&gt;Instant Feedback&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/jenkins-appthwack-build-status.png&quot; alt=&quot;Build Status&quot; /&gt; It’s important to see the status of your builds as quickly as possible. The AppThwack plugin now attaches to your project view on the Jenkins homepage to display the status of the latest build.&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id=&quot;choose-your-own-adventure&quot; class=&quot;level2&quot;&gt;
+&lt;h2&gt;Choose your own Adventure&lt;/h2&gt;
+&lt;p&gt;Previously, users were required to enter the names of the project and device pool they wanted to use. This wasn’t very user friendly and was prone to typos. Enough of that foolishness! The project and device pool entry fields are now drop-down selections populated automatically for you.&lt;span&gt;&lt;label for=&quot;sn-2&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-2&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; Interested in testing on real devices for free? Check out our Intel sponsored devices.&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt; &lt;span&gt;&lt;label for=&quot;sn-3&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-3&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;img src=&quot;/assets/images/posts/jenkins-appthwack-settings.png&quot; alt=&quot;Project Settings&quot; /&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id=&quot;gotta-catch-em-all&quot; class=&quot;level2&quot;&gt;
+&lt;h2&gt;Gotta catch ’em all&lt;/h2&gt;
+&lt;p&gt;It’s your data, use it when you need it. Continuous testing generates tons of logs, screenshots and important device specific data imperative for debugging.&lt;span&gt;&lt;label for=&quot;sn-4&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-4&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;img src=&quot;/assets/images/posts/jenkins-appthwack-artifacts.png&quot; alt=&quot;Artifacts list&quot; /&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;All of these test artifacts are now automatically downloaded and stored as part of every Jenkins build, available for deeper analysis whenever you need it.&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id=&quot;bell-bottoms-jnco-jeans-macarena&quot; class=&quot;level2&quot;&gt;
+&lt;h2&gt;Bell-bottoms? JNCO jeans? Macarena?&lt;/h2&gt;
+&lt;p&gt;Stay hip with the latest trends of your build results. &lt;span&gt;&lt;label for=&quot;sn-5&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-5&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;img src=&quot;/assets/images/posts/jenkins-appthwack-result-graph.png&quot; alt=&quot;Project Result Trends&quot; /&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Easily view and identify trends in test passes, failures and warnings for every build and see high level results for your most recent AppThwack runs, right on your Jenkins project homepage.&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id=&quot;individual-results&quot; class=&quot;level2&quot;&gt;
+&lt;h2&gt;Individual Results&lt;/h2&gt;
+&lt;p&gt;You can also drill down and view the highlights of a single AppThwack run.&lt;span&gt;&lt;label for=&quot;sn-6&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-6&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;img src=&quot;/assets/images/posts/jenkins-appthwack-results-table.png&quot; alt=&quot;Recent Results&quot; /&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;This will display all the high level result data you’ve come to expect, including latest trends in performance data (CPU, Memory, Threads, Network Traffic, FPS, etc).&lt;/p&gt;
+&lt;p&gt;Individual tests are grouped by result (pass/fail/warn) and then by each device, enabling you to quickly identify which test and/or device(s) are encountering errors. &lt;span&gt;&lt;label for=&quot;sn-7&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-7&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;img src=&quot;/assets/images/posts/jenkins-appthwack-report-graphs.png&quot; alt=&quot;Report Graphs&quot; /&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Additionally, each test links back to its own report on AppThwack, allowing for even deeper analysis.&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id=&quot;getting-started&quot; class=&quot;level2&quot;&gt;
+&lt;h2&gt;Getting Started&lt;/h2&gt;
+&lt;p&gt;Interested in mobile Continuous Integration using real devices but not sure where to start? Check out our partner &lt;a href=&quot;https://www.cloudbees.com/&quot;&gt;CloudBees&lt;/a&gt; who specializes in cloud based CI. &lt;span&gt;&lt;label for=&quot;sn-8&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-8&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; This post was migrated from the &lt;a href=&quot;https://blog.appthwack.com&quot;&gt;AppThwack Blog&lt;/a&gt; which is no longer available. A copy of the original post can be viewed from &lt;a href=&quot;https://web.archive.org/web/20140718005710/http://blog.appthwack.com/continuous-integration-for-mobile-apps-appthwack-jenkins-part-2/&quot;&gt;archive.org&lt;/a&gt;.&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/section&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="writings" /><category term="appthwack" /><category term="jenkins" /><category term="archive" /><category term="announcement" /><summary type="html"></summary></entry><entry><title type="html">Continuous Integration for Mobile Apps with AppThwack and Jenkins</title><link href="andrew.hawker.io//writings/2013/09/03/continuous-integration-for-mobile-apps-appthwack-jenkins/" rel="alternate" type="text/html" title="Continuous Integration for Mobile Apps with AppThwack and Jenkins" /><published>2013-09-03T06:51:00-07:00</published><updated>2013-09-03T06:51:00-07:00</updated><id>andrew.hawker.io//writings/2013/09/03/continuous-integration-for-mobile-apps-appthwack-jenkins</id><content type="html" xml:base="andrew.hawker.io//writings/2013/09/03/continuous-integration-for-mobile-apps-appthwack-jenkins/">&lt;p&gt;&lt;img src=&quot;/assets/images/posts/jenkins-appthwack-header.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Today, were happy to announce the initial release of our &lt;a href=&quot;https://jenkins.io/&quot;&gt;Jenkins&lt;/a&gt; plugin, which introduces AppThwack into your &lt;a href=&quot;https://en.wikipedia.org/wiki/Continuous_integration&quot;&gt;Continuous Integration&lt;/a&gt; cycle.&lt;span&gt;&lt;label for=&quot;sn-1&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-1&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; This is part one of a blog post series about continuous integration for mobile apps. Be sure to check out &lt;a href=&quot;/writings/2014/05/02/continuous-integration-for-mobile-apps-appthwack-jenkins-part-2/&quot;&gt;Part 2&lt;/a&gt; for more advanced plugin features such as results integration and performance graphs.&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;As developers ourselves, we understand the importance of seamless tool integrations within the development workflow. Last week we announced the release of our &lt;a href=&quot;/writings/2013/08/28/android-app-testing-android-studio-gradle/&quot;&gt;Android Studio/Gradle&lt;/a&gt; plugin, which enables testing of Android apps on hundreds of devices directly from your IDE.&lt;/p&gt;
+&lt;p&gt;Ready to get started? Here’s a quick tutorial to get started with &lt;a href=&quot;http://web.archive.org/web/20140929012749/https://appthwack.com&quot;&gt;AppThwack&lt;/a&gt;, &lt;a href=&quot;https://jenkins.io/&quot;&gt;Jenkins&lt;/a&gt; and &lt;a href=&quot;https://en.wikipedia.org/wiki/Continuous_integration&quot;&gt;Continuous Integration&lt;/a&gt; for mobile apps. Once you’re up and running, you’ll be able to kick off tests on our &lt;a href=&quot;http://web.archive.org/web/20140929012749/https://appthwack.com/devicelab&quot;&gt;device lab&lt;/a&gt; from your own Jenkins server!&lt;/p&gt;
+&lt;section id=&quot;installation&quot; class=&quot;level2&quot;&gt;
+&lt;h2&gt;Installation&lt;/h2&gt;
+&lt;p&gt;The AppThwack plugin lives in the official Jenkins-CI maven repository. That means you can download/install it directly from within your running Jenkins server.&lt;/p&gt;
+&lt;p&gt;Starting at the Jenkins homepage, navigate to the &lt;strong&gt;Manage Jenkins &amp;gt; Manage Plugins&lt;/strong&gt; page.&lt;/p&gt;
+&lt;p&gt;&lt;span&gt;&lt;label for=&quot;sn-2&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-2&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;img src=&quot;/assets/images/posts/jenkins-appthwack-plugin-select.png&quot; alt=&quot;Plugin Select&quot; /&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt; From the plugin view, click the &lt;strong&gt;Available&lt;/strong&gt; tab and scroll to find the AppThwack plugin.&lt;/p&gt;
+&lt;p&gt;Finally, scroll to the bottom and click &lt;strong&gt;Install&lt;/strong&gt;.&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id=&quot;system-settings&quot; class=&quot;level2&quot;&gt;
+&lt;h2&gt;System Settings&lt;/h2&gt;
+&lt;p&gt;Navigate to &lt;strong&gt;Manage Jenkins &amp;gt; Configure System&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Scroll down to the &lt;em&gt;AppThwack&lt;/em&gt; settings section to add your &lt;a href=&quot;https://web-beta.archive.org/web/20150303112303/https://appthwack.com/user/profile&quot;&gt;API Key&lt;/a&gt;.&lt;span&gt;&lt;label for=&quot;sn-3&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-3&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;img src=&quot;/assets/images/posts/jenkins-appthwack-api-key.png&quot; alt=&quot;API Key&quot; /&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt; This key is used to authenticate your Jenkins server with AppThwack and is used across all of your Jenkins projects.&lt;/p&gt;
+&lt;p&gt;Now that your API key added, its time to navigate to a Jenkins project and configure the post-build action.&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id=&quot;project-settings&quot; class=&quot;level2&quot;&gt;
+&lt;h2&gt;Project Settings&lt;/h2&gt;
+&lt;p&gt;Navigate to a project of your choice and click &lt;strong&gt;Configure&lt;/strong&gt; button from the left-hand side menu.&lt;/p&gt;
+&lt;section id=&quot;add-post-build-action&quot; class=&quot;level3&quot;&gt;
+&lt;h3&gt;Add Post-build action&lt;/h3&gt;
+&lt;p&gt;&lt;span&gt;&lt;label for=&quot;sn-4&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-4&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;img src=&quot;/assets/images/posts/jenkins-appthwack-action.png&quot; alt=&quot;Post Build Action&quot; /&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt; Click the &lt;em&gt;Add post-build action&lt;/em&gt; button, select &lt;strong&gt;Run Tests on AppThwack&lt;/strong&gt; and you’ll notice a new, AppThwack specific settings section appear. All remaining configuration will happen here.&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id=&quot;choose-your-project-and-device-pool&quot; class=&quot;level3&quot;&gt;
+&lt;h3&gt;Choose your Project and Device Pool&lt;/h3&gt;
+&lt;p&gt;&lt;span&gt;&lt;label for=&quot;sn-5&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-5&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;img src=&quot;/assets/images/posts/jenkins-appthwack-settings-fields.png&quot; alt=&quot;Settings&quot; /&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt; First up is selecting your AppThwack project and selecting which devices to test on.&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id=&quot;find-your-application&quot; class=&quot;level3&quot;&gt;
+&lt;h3&gt;Find your Application&lt;/h3&gt;
+&lt;p&gt;Next up is configuring the plugin to find your newly built mobile app. The application field allows for standard Jenkins (ant) &lt;a href=&quot;http://stackoverflow.com/questions/69835/how-do-i-use-nant-ant-naming-patterns&quot;&gt;pattern matching&lt;/a&gt; with expandable &lt;a href=&quot;https://wiki.jenkins-ci.org/display/JENKINS/Building+a+software+project#Buildingasoftwareproject-JenkinsSetEnvironmentVariables&quot;&gt;environment variables&lt;/a&gt;. Please note that this pattern is relative to the Jenkins &lt;strong&gt;workspace&lt;/strong&gt; currently being used by the project/build.&lt;/p&gt;
+&lt;/section&gt;
+&lt;/section&gt;
+&lt;section id=&quot;test-settings&quot; class=&quot;level2&quot;&gt;
+&lt;h2&gt;Test Settings&lt;/h2&gt;
+&lt;p&gt;The next step is selecting which tests you wish to run. If you dont have custom tests written for your app (yet), you can still run the AppThwack built-in compatibility test suites. These suites will Install, Launch, Explore and Stress your app with no code changes necessary.&lt;/p&gt;
+&lt;p&gt;Lets walk-through configuring some tests for both Android and iOS.&lt;/p&gt;
+&lt;section id=&quot;built-in-test-suites&quot; class=&quot;level3&quot;&gt;
+&lt;h3&gt;Built-in Test Suites&lt;/h3&gt;
+&lt;p&gt;&lt;span&gt;&lt;label for=&quot;sn-6&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-6&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;img src=&quot;/assets/images/posts/jenkins-appthwack-builtin-android.png&quot; alt=&quot;Built-in Android&quot; /&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt; AppThwack provides a built-in compatibility test suite for both Android and iOS.&lt;/p&gt;
+&lt;p&gt;The built-in Android test suite supports additional options for configuring our AppExplorer. These are &lt;em&gt;optional&lt;/em&gt; and should configured on a case-by-case basis.&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id=&quot;calabash&quot; class=&quot;level3&quot;&gt;
+&lt;h3&gt;Calabash&lt;/h3&gt;
+&lt;p&gt;&lt;span&gt;&lt;label for=&quot;sn-7&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-7&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;img src=&quot;/assets/images/posts/jenkins-appthwack-calabash.png&quot; alt=&quot;Calabash&quot; /&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt; You can run your custom &lt;a href=&quot;http://calaba.sh/&quot;&gt;Calabash&lt;/a&gt; scripts for both Android and iOS. Please note that the features field supports the same pattern matching and environment variables as the application one above.&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id=&quot;junitrobotium&quot; class=&quot;level3&quot;&gt;
+&lt;h3&gt;JUnit/Robotium&lt;/h3&gt;
+&lt;p&gt;&lt;span&gt;&lt;label for=&quot;sn-8&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-8&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;img src=&quot;/assets/images/posts/jenkins-appthwack-junit.png&quot; alt=&quot;JUnit&quot; /&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt; Have a JUnit/Robotium project building with your app? Same pattern matching rules apply.&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id=&quot;kif&quot; class=&quot;level3&quot;&gt;
+&lt;h3&gt;KIF&lt;/h3&gt;
+&lt;p&gt;&lt;span&gt;&lt;label for=&quot;sn-9&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-9&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;img src=&quot;/assets/images/posts/jenkins-appthwack-kif.png&quot; alt=&quot;KIF&quot; /&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt; Functional tests on iOS with KIF are supported too; no configuration required&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id=&quot;uia&quot; class=&quot;level3&quot;&gt;
+&lt;h3&gt;UIA&lt;/h3&gt;
+&lt;p&gt;&lt;span&gt;&lt;label for=&quot;sn-10&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-10&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;img src=&quot;/assets/images/posts/jenkins-appthwack-uia.png&quot; alt=&quot;UIA&quot; /&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt; Last, but certainly not least, iOS UI Automation. Same pattern rules apply for finding your Javascript tests.&lt;/p&gt;
+&lt;p&gt;Click &lt;em&gt;Save&lt;/em&gt; as the configuration is complete!&lt;/p&gt;
+&lt;/section&gt;
+&lt;/section&gt;
+&lt;section id=&quot;buildtest&quot; class=&quot;level2&quot;&gt;
+&lt;h2&gt;Build/Test&lt;/h2&gt;
+&lt;p&gt;To manually kick off a build from a Jenkins project, click the &lt;strong&gt;Build Now&lt;/strong&gt; button from the left-side menu.&lt;/p&gt;
+&lt;p&gt;Once your app builds successfully, an examination of the Console Output will yield the following:&lt;/p&gt;
+&lt;figure class=&quot;fullwidth&quot;&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb1&quot;&gt;&lt;pre class=&quot;sourceCode bash&quot;&gt;&lt;code class=&quot;sourceCode bash&quot;&gt;&lt;span id=&quot;cb1-1&quot;&gt;&lt;a href=&quot;#cb1-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;...&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb1-2&quot;&gt;&lt;a href=&quot;#cb1-2&quot;&gt;&lt;/a&gt;[&lt;span class=&quot;ex&quot;&gt;AppThwack&lt;/span&gt;] Using Project &lt;span class=&quot;st&quot;&gt;&amp;#39;demoproject-ios&amp;#39;&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb1-3&quot;&gt;&lt;a href=&quot;#cb1-3&quot;&gt;&lt;/a&gt;[&lt;span class=&quot;ex&quot;&gt;AppThwack&lt;/span&gt;] Using DevicePool &lt;span class=&quot;st&quot;&gt;&amp;#39;hawker-test-pool-ios&amp;#39;&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb1-4&quot;&gt;&lt;a href=&quot;#cb1-4&quot;&gt;&lt;/a&gt;[&lt;span class=&quot;ex&quot;&gt;AppThwack&lt;/span&gt;] Archiving artifact &lt;span class=&quot;st&quot;&gt;&amp;#39;IOSTestApp.ipa&amp;#39;&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb1-5&quot;&gt;&lt;a href=&quot;#cb1-5&quot;&gt;&lt;/a&gt;[&lt;span class=&quot;ex&quot;&gt;AppThwack&lt;/span&gt;] Using App &lt;span class=&quot;st&quot;&gt;&amp;#39;/home/ahawker/src/appthwack-jenkins/work/jobs/test/builds/2013-08-30_17-54-09/archive/IOSTestApp.ipa&amp;#39;&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb1-6&quot;&gt;&lt;a href=&quot;#cb1-6&quot;&gt;&lt;/a&gt;[&lt;span class=&quot;ex&quot;&gt;AppThwack&lt;/span&gt;] Archiving artifact &lt;span class=&quot;st&quot;&gt;&amp;#39;calabash.zip&amp;#39;&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb1-7&quot;&gt;&lt;a href=&quot;#cb1-7&quot;&gt;&lt;/a&gt;[&lt;span class=&quot;ex&quot;&gt;AppThwack&lt;/span&gt;] Using &lt;span class=&quot;st&quot;&gt;&amp;#39;calabash&amp;#39;&lt;/span&gt; test content from &lt;span class=&quot;st&quot;&gt;&amp;#39;/home/ahawker/src/appthwack-jenkins/work/jobs/test/builds/2013-08-30_17-54-09/archive/calabash.zip&amp;#39;&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb1-8&quot;&gt;&lt;a href=&quot;#cb1-8&quot;&gt;&lt;/a&gt;[&lt;span class=&quot;ex&quot;&gt;AppThwack&lt;/span&gt;] Scheduling &lt;span class=&quot;st&quot;&gt;&amp;#39;calabash&amp;#39;&lt;/span&gt; run &lt;span class=&quot;st&quot;&gt;&amp;#39;IOSTestApp.ipa (Jenkins)&amp;#39;&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb1-9&quot;&gt;&lt;a href=&quot;#cb1-9&quot;&gt;&lt;/a&gt;[&lt;span class=&quot;ex&quot;&gt;AppThwack&lt;/span&gt;] Congrats! See your test run at https://appthwack.com/project/demoproject-ios/run/24549&lt;/span&gt;
+&lt;span id=&quot;cb1-10&quot;&gt;&lt;a href=&quot;#cb1-10&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;Finished&lt;/span&gt;: SUCCESS&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/figure&gt;
+&lt;p&gt;You’re done! You can now schedule tests on AppThwack from your own Jenkins Continuous Integration server!&lt;/p&gt;
+&lt;p&gt;Using the AppThwack Jenkins plugin (or any of our tools) in your development process? Let us know! Wed love to hear success stories and feedback about how we can improve our integration into your workflow.&lt;/p&gt;
+&lt;p&gt;Having a problem or want to contribute? The plugin is open source! Check out the Github page for more details! &lt;span&gt;&lt;label for=&quot;sn-11&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-11&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; This post was migrated from the &lt;a href=&quot;https://blog.appthwack.com&quot;&gt;AppThwack Blog&lt;/a&gt; which is no longer available. A copy of the original post can be viewed from &lt;a href=&quot;https://web-beta.archive.org/web/20150303112303/http://blog.appthwack.com:80/continuous-integration-for-mobile-apps/&quot;&gt;archive.org&lt;/a&gt;.&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/section&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="writings" /><category term="appthwack" /><category term="jenkins" /><category term="archive" /><category term="announcement" /><summary type="html"></summary></entry><entry><title type="html">Android app testing with Android Studio (Gradle) and AppThwack</title><link href="andrew.hawker.io//writings/2013/08/28/android-app-testing-android-studio-gradle/" rel="alternate" type="text/html" title="Android app testing with Android Studio (Gradle) and AppThwack" /><published>2013-08-28T04:43:00-07:00</published><updated>2013-08-28T04:43:00-07:00</updated><id>andrew.hawker.io//writings/2013/08/28/android-app-testing-android-studio-gradle</id><content type="html" xml:base="andrew.hawker.io//writings/2013/08/28/android-app-testing-android-studio-gradle/">&lt;p&gt;Heres a quick tutorial to get started with &lt;a href=&quot;http://web.archive.org/web/20140717021901/https://appthwack.com&quot;&gt;AppThwack&lt;/a&gt;, &lt;a href=&quot;https://developer.android.com/studio/index.html&quot;&gt;Android Studio&lt;/a&gt; and &lt;a href=&quot;https://gradle.org/&quot;&gt;Gradle&lt;/a&gt;. Once you’re up and running you’ll be able to kick off tests on our &lt;a href=&quot;http://web.archive.org/web/20140717021901/https://appthwack.com/devicelab&quot;&gt;device lab&lt;/a&gt; from the IDE or command line. You can run our built-in compatibility tests or run your own (JUnit/Robotium, Calabash, MonkeyTalk, etc), giving you full control over when, what, and where youre testing your app.&lt;/p&gt;
+&lt;p&gt;Having a problem or interested in contributing? This plugin is open source! Check out the &lt;a href=&quot;http://web.archive.org/web/20140717021901/https://github.com/appthwack/gradle-plugin&quot;&gt;Github&lt;/a&gt; page for more details.&lt;/p&gt;
+&lt;section id=&quot;configure-gradle&quot; class=&quot;level2&quot;&gt;
+&lt;h2&gt;Configure Gradle&lt;/h2&gt;
+&lt;p&gt;&lt;span&gt;&lt;label for=&quot;sn-1&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-1&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;img src=&quot;/assets/images/posts/gradle-appthwack-project-layout.png&quot; alt=&quot;Project Layout&quot; /&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt; To add AppThwack support to an existing Android Studio project, we must modify the project specific build.gradle file. Be sure to select your app specific build.gradle file as the top-level file is for configuration options across all projects.&lt;/p&gt;
+&lt;section id=&quot;apply-the-plugin&quot; class=&quot;level3&quot;&gt;
+&lt;h3&gt;Apply the plugin&lt;/h3&gt;
+&lt;p&gt;Adding any custom plugin to Gradle is a simple call to &lt;em&gt;apply&lt;/em&gt; plugin.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apply plugin: &amp;#39;appthwack&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;/section&gt;
+&lt;section id=&quot;add-plugin-dependencies&quot; class=&quot;level3&quot;&gt;
+&lt;h3&gt;Add plugin dependencies&lt;/h3&gt;
+&lt;p&gt;Add the AppThwack plugin+dependencies to the classpath so it can be built.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dependencies {
+    //...
+    classpath &amp;#39;com.sun.jersey:jersey-core:1.8&amp;#39;
+
+    // Version needs to match current version of the plugin (See the github readme for current version)
+    classpath &amp;#39;com.appthwack:gradle:1.3&amp;#39;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/section&gt;
+&lt;section id=&quot;appthwack-settings&quot; class=&quot;level3&quot;&gt;
+&lt;h3&gt;AppThwack settings&lt;/h3&gt;
+&lt;p&gt;All AppThwack specific configuration happens within the appthwack closure of your build.gradle file. The first step is adding your account &lt;a href=&quot;http://web.archive.org/web/20140717021901/https://appthwack.com/user/profile&quot;&gt;API Key&lt;/a&gt;, the target project to use and a pool of devices to test on.&lt;/p&gt;
+&lt;p&gt;&lt;span&gt;&lt;label for=&quot;sn-2&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-2&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; Visit &lt;a href=&quot;https://appthwack.com/user/profile&quot;&gt;https://appthwack.com/user/profile&lt;/a&gt; for your API Key.&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;appthwack {
+    apiKey=&amp;#39;...&amp;#39;
+    project=&amp;#39;My Android App Project&amp;#39;
+    devicePool=&amp;#39;Top 10 devices&amp;#39;
+    // ...
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;With the account and project configured, now its time to configure the tests. Within the same appthwack closure, we can configure JUnit/Robotium, Calabash or AppExplorer test runs.&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id=&quot;junitrobotium-tests&quot; class=&quot;level3&quot;&gt;
+&lt;h3&gt;JUnit/Robotium Tests&lt;/h3&gt;
+&lt;p&gt;Selecting a JUnit run will automatically use the test APK which is built with your application.&lt;/p&gt;
+&lt;p&gt;&lt;span&gt;&lt;label for=&quot;sn-3&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-3&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; The ‘testFilter’ parameter is optional and should be omitted if you wish to run the entire JUnit test suite built with your app.&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;appthwack {
+    // ...
+    junit (
+        &amp;#39;com.appthwack.MyApp.tests#TestFoo&amp;#39; // testFilter
+    )
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/section&gt;
+&lt;section id=&quot;calabash-tests&quot; class=&quot;level3&quot;&gt;
+&lt;h3&gt;Calabash Tests&lt;/h3&gt;
+&lt;p&gt;Selecting a Calabash run will test your newly built application with the selected features.&lt;/p&gt;
+&lt;p&gt;&lt;span&gt;&lt;label for=&quot;sn-4&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-4&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; The ‘path’ parameter is required and should point to a local copy of your Calabash features zip.&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt; &lt;span&gt;&lt;label for=&quot;sn-5&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-5&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; The ‘tags’ parameter is optional and represents a set of Cucumber based tags to pass to Calabash and should be omitted if you wish to run the entire test suite.&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;appthwack {
+    // ...
+    calabash (
+        &amp;#39;/src/app/tests/calabash/features.zip&amp;#39;, // path
+        &amp;#39;@uitest&amp;#39; // tags
+    )
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/section&gt;
+&lt;section id=&quot;appexplorer-tests&quot; class=&quot;level3&quot;&gt;
+&lt;h3&gt;AppExplorer Tests&lt;/h3&gt;
+&lt;p&gt;Selecting an AppExplorer run will test your newly built application with the AppThwack AppExplorer and Exerciser Monkey.&lt;/p&gt;
+&lt;p&gt;&lt;span&gt;&lt;label for=&quot;sn-6&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-6&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; The ‘username’ parameter is optional and should contain a string value to inject into signin forms.&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt; &lt;span&gt;&lt;label for=&quot;sn-7&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-7&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; The ‘username’ parameter is optional and should contain a string value to inject into signin forms.&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt; &lt;span&gt;&lt;label for=&quot;sn-8&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-8&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; The ‘launchdata’ parameter is optional and should contain URI to pass to the launch activity.&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt; &lt;span&gt;&lt;label for=&quot;sn-9&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-9&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; The ‘eventcount’ parameter is optional and should be the number of events the exerciser monkey should run.&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt; &lt;span&gt;&lt;label for=&quot;sn-10&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-10&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; The ‘monkeyseed’ parameter is optional and is the seed value for the exerciser monkey randomized. Using the same value across runs should yield the same set of events.&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;appthwack {
+    //...
+    appexplorer (
+        &amp;#39;test_account&amp;#39;, // username
+        &amp;#39;testpassword123&amp;#39;, // password
+        &amp;#39;...&amp;#39;, // launchdata
+        1000, // eventcount
+        0 // monkeyseed
+    )
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Thats it! Now that our build.gradle is complete, lets setup a quick task in Android Studio to upload and run our tests.&lt;/p&gt;
+&lt;/section&gt;
+&lt;/section&gt;
+&lt;section id=&quot;configure-android-studio&quot; class=&quot;level2&quot;&gt;
+&lt;h2&gt;Configure Android Studio&lt;/h2&gt;
+&lt;p&gt;We’ll need to add a new &lt;em&gt;Run Configuration&lt;/em&gt; in Android Studio so we can quickly start our test runs.&lt;/p&gt;
+&lt;section id=&quot;add-a-new-run-configuration&quot; class=&quot;level3&quot;&gt;
+&lt;h3&gt;Add a new Run Configuration&lt;/h3&gt;
+&lt;p&gt;&lt;span&gt;&lt;label for=&quot;sn-11&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-11&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;img src=&quot;/assets/images/posts/gradle-appthwack-task.png&quot; alt=&quot;Add Configuration&quot; /&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt; Select &lt;strong&gt;Run &amp;gt; Edit Configurations&lt;/strong&gt; from the Android Studio menu bar.&lt;/p&gt;
+&lt;p&gt;In the Run/Debug Configurations dialog, click the Add New Configuration in the top left-hand corner and add a new Gradle configuration. &lt;img src=&quot;/assets/images/posts/gradle-appthwack-task-config.png&quot; alt=&quot;Task Configuration&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Add the &lt;strong&gt;appthwackUpload&lt;/strong&gt; task to your new Run Configuration.&lt;/p&gt;
+&lt;p&gt;Thats it for Android Studio! Now its time to run our tests.&lt;/p&gt;
+&lt;/section&gt;
+&lt;/section&gt;
+&lt;section id=&quot;running-tests&quot; class=&quot;level2&quot;&gt;
+&lt;h2&gt;Running Tests&lt;/h2&gt;
+&lt;p&gt;Now that our configuration is complete, we can kick off AppThwack test runs from Android Studio or directly through Gradle.&lt;/p&gt;
+&lt;section id=&quot;android-studio&quot; class=&quot;level3&quot;&gt;
+&lt;h3&gt;Android Studio&lt;/h3&gt;
+&lt;p&gt;&lt;span&gt;&lt;label for=&quot;sn-12&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-12&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;img src=&quot;/assets/images/posts/gradle-appthwack-run-configuration.png&quot; alt=&quot;Run Configuration&quot; /&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt; Select our &lt;strong&gt;Run Tests on AppThwack&lt;/strong&gt; configuration from the drop down on the menu bar and hit play!&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id=&quot;gradle&quot; class=&quot;level3&quot;&gt;
+&lt;h3&gt;Gradle&lt;/h3&gt;
+&lt;p&gt;All Android Studio projects are packaged with the GradleWrapper, which gives us Gradle command line access from any platform.&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb7&quot;&gt;&lt;pre class=&quot;sourceCode bash&quot;&gt;&lt;code class=&quot;sourceCode bash&quot;&gt;&lt;span id=&quot;cb7-1&quot;&gt;&lt;a href=&quot;#cb7-1&quot;&gt;&lt;/a&gt;$ &lt;span class=&quot;bu&quot;&gt;cd&lt;/span&gt; /src/MyApp&lt;/span&gt;
+&lt;span id=&quot;cb7-2&quot;&gt;&lt;a href=&quot;#cb7-2&quot;&gt;&lt;/a&gt;$ &lt;span class=&quot;ex&quot;&gt;./gradlew&lt;/span&gt; appthwackUpload&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/section&gt;
+&lt;section id=&quot;results&quot; class=&quot;level3&quot;&gt;
+&lt;h3&gt;Results&lt;/h3&gt;
+&lt;p&gt;On a successful run from Android Studio or Gradle, your output will look something like this.&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb8&quot;&gt;&lt;pre class=&quot;sourceCode bash&quot;&gt;&lt;code class=&quot;sourceCode bash&quot;&gt;&lt;span id=&quot;cb8-1&quot;&gt;&lt;a href=&quot;#cb8-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;...&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb8-2&quot;&gt;&lt;a href=&quot;#cb8-2&quot;&gt;&lt;/a&gt;:&lt;span class=&quot;ex&quot;&gt;GradleTestApp&lt;/span&gt;:appthwackUpload&lt;/span&gt;
+&lt;span id=&quot;cb8-3&quot;&gt;&lt;a href=&quot;#cb8-3&quot;&gt;&lt;/a&gt;[&lt;span class=&quot;ex&quot;&gt;AppThwack&lt;/span&gt;] Using Project &lt;span class=&quot;st&quot;&gt;&amp;#39;demoproject&amp;#39;&lt;/span&gt;.&lt;/span&gt;
+&lt;span id=&quot;cb8-4&quot;&gt;&lt;a href=&quot;#cb8-4&quot;&gt;&lt;/a&gt;[&lt;span class=&quot;ex&quot;&gt;AppThwack&lt;/span&gt;] Using DevicePool &lt;span class=&quot;st&quot;&gt;&amp;#39;Top 10 devices&amp;#39;&lt;/span&gt;.&lt;/span&gt;
+&lt;span id=&quot;cb8-5&quot;&gt;&lt;a href=&quot;#cb8-5&quot;&gt;&lt;/a&gt;[&lt;span class=&quot;ex&quot;&gt;AppThwack&lt;/span&gt;] Uploading apk &lt;span class=&quot;st&quot;&gt;&amp;#39;GradleTestApp-debug-unaligned.apk&amp;#39;&lt;/span&gt;.&lt;/span&gt;
+&lt;span id=&quot;cb8-6&quot;&gt;&lt;a href=&quot;#cb8-6&quot;&gt;&lt;/a&gt;[&lt;span class=&quot;ex&quot;&gt;AppThwack&lt;/span&gt;] Uploading test apk &lt;span class=&quot;st&quot;&gt;&amp;#39;GradleTestApp-test-unaligned.apk&amp;#39;&lt;/span&gt;.&lt;/span&gt;
+&lt;span id=&quot;cb8-7&quot;&gt;&lt;a href=&quot;#cb8-7&quot;&gt;&lt;/a&gt;[&lt;span class=&quot;ex&quot;&gt;AppThwack&lt;/span&gt;] Scheduling &lt;span class=&quot;st&quot;&gt;&amp;#39;junit&amp;#39;&lt;/span&gt; run &lt;span class=&quot;st&quot;&gt;&amp;#39;GradleTestApp-debug-unaligned.apk (Gradle)&amp;#39;&lt;/span&gt;.&lt;/span&gt;
+&lt;span id=&quot;cb8-8&quot;&gt;&lt;a href=&quot;#cb8-8&quot;&gt;&lt;/a&gt;[&lt;span class=&quot;ex&quot;&gt;AppThwack&lt;/span&gt;] Congrats! See your test results at https://appthwack.com/project/demoproject/run/24219.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now you can kick off AppThwack test runs from your shell or IDE. &lt;span&gt;&lt;label for=&quot;sn-13&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-13&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; This post was migrated from the &lt;a href=&quot;https://blog.appthwack.com&quot;&gt;AppThwack Blog&lt;/a&gt; which is no longer available. A copy of the original post can be viewed from &lt;a href=&quot;http://web.archive.org/web/20140717021901/http://blog.appthwack.com/android-app-testing-android-studio-gradle/&quot;&gt;archive.org&lt;/a&gt;.&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/section&gt;
+&lt;/section&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="writings" /><category term="appthwack" /><category term="gradle" /><category term="archive" /><category term="announcement" /><summary type="html">Heres a quick tutorial to get started with AppThwack, Android Studio and Gradle. Once you’re up and running you’ll be able to kick off tests on our device lab from the IDE or command line. You can run our built-in compatibility tests or run your own (JUnit/Robotium, Calabash, MonkeyTalk, etc), giving you full control over when, what, and where youre testing your app.</summary></entry></feed>
