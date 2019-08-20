@@ -9,3 +9,14 @@ Powered by:
 * [Jekyll](https://jekyllrb.com/)
 * [Tufte CSS](https://edwardtufte.github.io/tufte-css/)
 * [Tufte Pandoc Jekyll](https://github.com/jez/tufte-pandoc-jekyll)
+
+## Usage
+
+```bash
+⇒  make
+build                          Build site.
+clean                          Clean local compiled site.
+deploy                         Build and deploy site.
+serve                          Serve locally at http://localhost:4000.
+help                           Print Makefile usage.
+```
