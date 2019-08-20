@@ -18,11 +18,11 @@ clean:  ## Clean local compiled site.
 .PHONY: gh-pages
 deploy: clean  ## Build and deploy site.
 	@(git clone -b $(DEPLOY_BRANCH) $(DEPLOY_ORIGIN) $(DEPLOY_DIR) && \
-	bundle exec jekyll build && \
-	cd _site && \
-	git add -A && \
-	git commit -am "Deployed at $(TS)" && \
-	git push origin $(DEPLOY_BRANCH))
+		bundle exec jekyll build && \
+		cd _site && \
+		git add -A && \
+		git commit -am "Deployed at $(TS)" && \
+		git push origin $(DEPLOY_BRANCH))
 
 .PHONY: serve
 serve: ## Serve locally at http://localhost:4000.
