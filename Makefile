@@ -9,7 +9,7 @@ DEPLOY_DIR    := _site
 
 .PHONY: build
 build:  ## Build site.
-	@$(JEKYLL) build
+	@$(JEKYLL) build --drafts
 
 .PHONY: clean
 clean:  ## Clean local compiled site.
@@ -26,7 +26,7 @@ deploy: clean  ## Build and deploy site.
 
 .PHONY: serve
 serve: ## Serve locally at http://localhost:4000.
-	@$(JEKYLL) serve
+	@$(JEKYLL) serve --drafts
 
 .phony: help
 help: ## Print Makefile usage.
