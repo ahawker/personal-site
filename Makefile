@@ -18,7 +18,7 @@ clean:  ## Clean local compiled site.
 .PHONY: gh-pages
 deploy: clean  ## Build and deploy site.
 	@(git clone -b $(DEPLOY_BRANCH) $(DEPLOY_ORIGIN) $(DEPLOY_DIR) && \
-		bundle exec jekyll build && \
+		JEKYLL_ENV=production bundle exec jekyll build && \
 		cd _site && \
 		git add -A && \
 		git commit -am "Deployed at $(TS)" && \
