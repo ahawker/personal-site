@@ -9,7 +9,7 @@ DEPLOY_DIR    := _site
 
 .PHONY: build
 build:  ## Build site.
-	@$(JEKYLL) build
+	@$(JEKYLL) build --drafts
 
 .PHONY: clean
 clean:  ## Clean local compiled site.
@@ -18,15 +18,15 @@ clean:  ## Clean local compiled site.
 .PHONY: gh-pages
 deploy: clean  ## Build and deploy site.
 	@(git clone -b $(DEPLOY_BRANCH) $(DEPLOY_ORIGIN) $(DEPLOY_DIR) && \
-	bundle exec jekyll build && \
-	cd _site && \
-	git add -A && \
-	git commit -am "Deployed at $(TS)" && \
-	git push origin $(DEPLOY_BRANCH))
+		JEKYLL_ENV=production bundle exec jekyll build && \
+		cd _site && \
+		git add -A && \
+		git commit -am "Deployed at $(TS)" && \
+		git push origin $(DEPLOY_BRANCH))
 
 .PHONY: serve
 serve: ## Serve locally at http://localhost:4000.
-	@$(JEKYLL) serve
+	@$(JEKYLL) serve --drafts
 
 .phony: help
 help: ## Print Makefile usage.
