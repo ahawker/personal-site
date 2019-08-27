@@ -2,7 +2,7 @@ title: Andrew Hawker
 author: Andrew Hawker
 email: andrew.r.hawker@gmail.com
 description: Personal website of Andrew Hawker
-baseurl: '/'
+baseurl:
 permalink: /:categories/:year/:month/:day/:title/
 url: andrew.hawker.io
 twitter_username: rekwah
