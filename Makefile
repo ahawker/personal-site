@@ -1,6 +1,7 @@
 .DEFAULT_GOAL := help
 
-TS      := $(shell date -u)
+TS      ?= $(shell date -u)
+COMMIT  ?= $(shell git rev-parse --short HEAD)
 JEKYLL  := bundle exec jekyll
 
 DEPLOY_ORIGIN := $(shell git config remote.origin.url)
@@ -21,7 +22,7 @@ deploy: clean  ## Build and deploy site.
 		JEKYLL_ENV=production bundle exec jekyll build && \
 		cd _site && \
 		git add -A && \
-		git commit -am "Deployed at $(TS)" && \
+		git commit -am "Deployed $(COMMIT) at $(TS)" && \
 		git push origin $(DEPLOY_BRANCH))
 
 .PHONY: serve
