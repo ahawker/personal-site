@@ -27,6 +27,7 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - README.md
+  - Makefile
   - .git
   - .gitignore
 
