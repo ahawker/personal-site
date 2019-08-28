@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8" lang="en">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Andrew Hawker">
+  <meta name="generator" content="pandoc">
+  
+  <meta name="dcterms.date" content="2019-08-27 15:09:00 +0000">
+  
+  
+
+  <link rel="canonical" href="andrew.hawker.io/writings/2019/08/27/curl-exercises/" />
+
+  <title>Curl Exercises (Solutions) – Andrew Hawker</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
+  <link rel="stylesheet" href="/assets/styles/et-book.min.css">
+  <link rel="stylesheet" href="/assets/styles/site.css">
+  
+
+  <!--[if lt IE 9]>
+  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+
+  <!-- Icons -->
+  <link rel="shortcut icon" href="/assets/images/favicon.jpg"/>
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/images/apple-touch-icon-144-precomposed.png">
+
+  <!-- RSS -->
+  <link type="application/atom+xml" rel="alternate" href="andrew.hawker.io/feed.xml" title="Andrew Hawker" />
+
+  <!-- Google Analytics -->
+  
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36365256-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  
+
+  <!-- SEO -->
+  <!-- Begin Jekyll SEO tag v2.1.0 -->
+<title>Curl Exercises (Solutions) - Andrew Hawker</title>
+<meta property="og:title" content="Curl Exercises (Solutions)" />
+<meta name="description" content="Julia Evans has a new blog post up, Curl Exercises, which landed on the front page of Hacker News today. ⊕ In it, she brings up the idea of deliberate practice and outlines 21 exercises to better familiarize yourself with cURL." />
+<meta property="og:description" content="Julia Evans has a new blog post up, Curl Exercises, which landed on the front page of Hacker News today. ⊕ In it, she brings up the idea of deliberate practice and outlines 21 exercises to better familiarize yourself with cURL." />
+<link rel="canonical" href="andrew.hawker.io/writings/2019/08/27/curl-exercises/" />
+<meta property="og:url" content="andrew.hawker.io/writings/2019/08/27/curl-exercises/" />
+<meta property="og:site_name" content="Andrew Hawker" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-08-27T08:09:00-07:00" />
+<script type="application/ld+json">
+{"@context": "http://schema.org",
+"@type": "BlogPosting",
+"headline": "Curl Exercises (Solutions)",
+"datePublished": "2019-08-27T08:09:00-07:00",
+"description": "Julia Evans has a new blog post up, Curl Exercises, which landed on the front page of Hacker News today. ⊕ In it, she brings up the idea of deliberate practice and outlines 21 exercises to better familiarize yourself with cURL.",
+"url": "andrew.hawker.io/writings/2019/08/27/curl-exercises/"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+
+<body>
+
+
+
+
+<article>
+  
+<header>
+  <h1 class="title"><a name="Curl Exercises (Solutions)"></a>Curl Exercises (Solutions)</h1>
+  
+  
+  <p class="byline">August 27, 2019</p>
+  
+</header>
+
+
+  <p>Julia Evans has a new blog post up, <a href="https://jvns.ca/blog/2019/08/27/curl-exercises/">Curl Exercises</a>, which landed on the front page of <a href="https://news.ycombinator.com/item?id=20811829">Hacker News</a> today. <span><label for="sn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-1" class="margin-toggle"/><span class="marginnote"> Check out <a href="https://jvns.ca/">jvns.ca</a> for more of her content, I highly recommend it!<br />
+<br />
+</span></span> In it, she brings up the idea of <a href="https://jamesclear.com/deliberate-practice-theory">deliberate practice</a> and outlines 21 exercises to better familiarize yourself with <a href="https://curl.haxx.se/">cURL</a>.</p>
+<p>I’m looking for a distraction from my current work with <a href="https://www.terraform.io/">terraform</a>, so let’s shave this yak!</p>
+<section id="exercises" class="level2">
+<h2>Exercises</h2>
+<p>The following are my solutions for the 21 exercise questions. I’ll try and go simply from memory; making note when I need to reference the <a href="https://curl.haxx.se/docs/manpage.html">man page</a>.</p>
+<p>#1: Request <a href="https://httpbin.org">https://httpbin.org</a></p>
+<pre><code>⇒  curl https://httpbin.org
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+...
+...
+&lt;/html&gt;</code></pre>
+<p>#2: Request <a href="https://httpbin.org/anything">https://httpbin.org/anything</a>. httpbin.org/anything will look at the request you made, parse it, and echo back to you what you requested. curl’s default is to make a GET request.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1"></a><span class="er">⇒</span>  <span class="er">curl</span> <span class="er">https://httpbin.org/anything</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">{</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="dt">&quot;args&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="dt">&quot;files&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>  <span class="dt">&quot;form&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>  <span class="dt">&quot;headers&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>    <span class="dt">&quot;Accept&quot;</span><span class="fu">:</span> <span class="st">&quot;*/*&quot;</span><span class="fu">,</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>    <span class="dt">&quot;Host&quot;</span><span class="fu">:</span> <span class="st">&quot;httpbin.org&quot;</span><span class="fu">,</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>    <span class="dt">&quot;User-Agent&quot;</span><span class="fu">:</span> <span class="st">&quot;curl/7.54.0&quot;</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a>  <span class="fu">},</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>  <span class="dt">&quot;json&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a>  <span class="dt">&quot;method&quot;</span><span class="fu">:</span> <span class="st">&quot;GET&quot;</span><span class="fu">,</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a>  <span class="dt">&quot;origin&quot;</span><span class="fu">:</span> <span class="st">&quot;&lt;redacted&gt;&quot;</span><span class="fu">,</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a>  <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;https://httpbin.org/anything&quot;</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="fu">}</span></span></code></pre></div>
+<p>#3: Make a POST request to <a href="https://httpbin.org/anything">https://httpbin.org/anything</a></p>
+<p><span><label for="sn-2" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-2" class="margin-toggle"/><span class="marginnote"> Here we’re once again using the <a href="https://curl.haxx.se/docs/manpage.html#-X">-X</a> option for specifying a custom HTTP method.<br />
+<br />
+</span></span></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1"></a><span class="er">⇒</span>  <span class="er">curl</span> <span class="er">-X</span> <span class="er">POST</span> <span class="er">https://httpbin.org/anything</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">{</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="dt">&quot;args&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>  <span class="dt">&quot;files&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>  <span class="dt">&quot;form&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>  <span class="dt">&quot;headers&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>    <span class="dt">&quot;Accept&quot;</span><span class="fu">:</span> <span class="st">&quot;*/*&quot;</span><span class="fu">,</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>    <span class="dt">&quot;Content-Length&quot;</span><span class="fu">:</span> <span class="st">&quot;0&quot;</span><span class="fu">,</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>    <span class="dt">&quot;Host&quot;</span><span class="fu">:</span> <span class="st">&quot;httpbin.org&quot;</span><span class="fu">,</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>    <span class="dt">&quot;User-Agent&quot;</span><span class="fu">:</span> <span class="st">&quot;curl/7.54.0&quot;</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a>  <span class="fu">},</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>  <span class="dt">&quot;json&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>  <span class="dt">&quot;method&quot;</span><span class="fu">:</span> <span class="st">&quot;POST&quot;</span><span class="fu">,</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a>  <span class="dt">&quot;origin&quot;</span><span class="fu">:</span> <span class="st">&quot;&lt;redacted&gt;&quot;</span><span class="fu">,</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a>  <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;https://httpbin.org/anything&quot;</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="fu">}</span></span></code></pre></div>
+<p>#4: Make a GET request to <a href="https://httpbin.org/anything">https://httpbin.org/anything</a>, but this time add some query parameters (set value=panda).</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1"></a><span class="er">⇒</span>  <span class="er">curl</span> <span class="er">https://httpbin.org/anything\?value\=panda</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">{</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="dt">&quot;args&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>    <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="st">&quot;panda&quot;</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">},</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>  <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>  <span class="dt">&quot;files&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>  <span class="dt">&quot;form&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a>  <span class="dt">&quot;headers&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a>    <span class="dt">&quot;Accept&quot;</span><span class="fu">:</span> <span class="st">&quot;*/*&quot;</span><span class="fu">,</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a>    <span class="dt">&quot;Host&quot;</span><span class="fu">:</span> <span class="st">&quot;httpbin.org&quot;</span><span class="fu">,</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a>    <span class="dt">&quot;User-Agent&quot;</span><span class="fu">:</span> <span class="st">&quot;curl/7.54.0&quot;</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a>  <span class="fu">},</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a>  <span class="dt">&quot;json&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a>  <span class="dt">&quot;method&quot;</span><span class="fu">:</span> <span class="st">&quot;GET&quot;</span><span class="fu">,</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a>  <span class="dt">&quot;origin&quot;</span><span class="fu">:</span> <span class="st">&quot;&lt;redacted&gt;&quot;</span><span class="fu">,</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a>  <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;https://httpbin.org/anything?foo=bar&quot;</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="fu">}</span></span></code></pre></div>
+<p>#5: Request google’s robots.txt file (<a href="https://www.google.com/robots.txt">https://www.google.com/robots.txt</a>)</p>
+<pre><code>⇒  curl https://www.google.com/robots.txt
+
+User-agent: *
+Disallow: /search
+Allow: /search/about
+Allow: /search/static
+Allow: /search/howsearchworks
+Disallow: /sdch
+...
+...
+Sitemap: https://www.google.com/sitemap.xml</code></pre>
+<p>#6: Make a GET request to <a href="https://httpbin.org/anything">https://httpbin.org/anything</a> and set the header User-Agent: elephant.</p>
+<p><span><label for="sn-3" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-3" class="margin-toggle"/><span class="marginnote"> Here we’re using the <a href="https://curl.haxx.se/docs/manpage.html#-H">-H</a> option for specifying a custom HTTP header.<br />
+<br />
+</span></span></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb6-1"><a href="#cb6-1"></a><span class="er">⇒</span>  <span class="er">curl</span> <span class="er">-H</span> <span class="er">&#39;User-Agent:</span> <span class="er">elephant&#39;</span> <span class="er">https://httpbin.org/anything</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">{</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="dt">&quot;args&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="dt">&quot;files&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="dt">&quot;form&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>  <span class="dt">&quot;headers&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>    <span class="dt">&quot;Accept&quot;</span><span class="fu">:</span> <span class="st">&quot;*/*&quot;</span><span class="fu">,</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a>    <span class="dt">&quot;Host&quot;</span><span class="fu">:</span> <span class="st">&quot;httpbin.org&quot;</span><span class="fu">,</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a>    <span class="dt">&quot;User-Agent&quot;</span><span class="fu">:</span> <span class="st">&quot;elephant&quot;</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a>  <span class="fu">},</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a>  <span class="dt">&quot;json&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a>  <span class="dt">&quot;method&quot;</span><span class="fu">:</span> <span class="st">&quot;GET&quot;</span><span class="fu">,</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a>  <span class="dt">&quot;origin&quot;</span><span class="fu">:</span> <span class="st">&quot;&lt;redacted&gt;&quot;</span><span class="fu">,</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a>  <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;https://httpbin.org/anything&quot;</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a><span class="fu">}</span></span></code></pre></div>
+<p>#7: Make a DELETE request to <a href="https://httpbin.org/anything">https://httpbin.org/anything</a></p>
+<p><span><label for="sn-4" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-4" class="margin-toggle"/><span class="marginnote"> Here we’re once again using the <a href="https://curl.haxx.se/docs/manpage.html#-X">-X</a> option for specifying a custom HTTP method.<br />
+<br />
+</span></span></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb7-1"><a href="#cb7-1"></a><span class="er">⇒</span>  <span class="er">curl</span> <span class="er">-X</span> <span class="er">DELETE</span> <span class="er">https://httpbin.org/anything</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">{</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="dt">&quot;args&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>  <span class="dt">&quot;files&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>  <span class="dt">&quot;form&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>  <span class="dt">&quot;headers&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a>    <span class="dt">&quot;Accept&quot;</span><span class="fu">:</span> <span class="st">&quot;*/*&quot;</span><span class="fu">,</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a>    <span class="dt">&quot;Host&quot;</span><span class="fu">:</span> <span class="st">&quot;httpbin.org&quot;</span><span class="fu">,</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a>    <span class="dt">&quot;User-Agent&quot;</span><span class="fu">:</span> <span class="st">&quot;curl/7.54.0&quot;</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a>  <span class="fu">},</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a>  <span class="dt">&quot;json&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a>  <span class="dt">&quot;method&quot;</span><span class="fu">:</span> <span class="st">&quot;DELETE&quot;</span><span class="fu">,</span></span>
+<span id="cb7-14"><a href="#cb7-14"></a>  <span class="dt">&quot;origin&quot;</span><span class="fu">:</span> <span class="st">&quot;&lt;redacted&gt;&quot;</span><span class="fu">,</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a>  <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;https://httpbin.org/anything&quot;</span></span>
+<span id="cb7-16"><a href="#cb7-16"></a><span class="fu">}</span></span></code></pre></div>
+<p>#8: Make a POST request to <a href="https://httpbin.org/anything">https://httpbin.org/anything</a> with the JSON body {“value”: “panda”}</p>
+<p><span><label for="sn-5" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-5" class="margin-toggle"/><span class="marginnote"> Here we’re using the <a href="https://curl.haxx.se/docs/manpage.html#-d">-d</a> to send POST data to the server.<br />
+<br />
+</span></span></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb8-1"><a href="#cb8-1"></a><span class="er">⇒</span>  <span class="er">curl</span> <span class="er">-X</span> <span class="er">POST</span> <span class="er">https://httpbin.org/anything</span> <span class="er">-d</span> <span class="er">&#39;</span><span class="fu">{</span><span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="st">&quot;panda&quot;</span><span class="fu">}</span><span class="er">&#39;</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">{</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="dt">&quot;args&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>  <span class="dt">&quot;files&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>  <span class="dt">&quot;form&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>    <span class="dt">&quot;{</span><span class="ch">\&quot;</span><span class="dt">value</span><span class="ch">\&quot;</span><span class="dt">: </span><span class="ch">\&quot;</span><span class="dt">panda</span><span class="ch">\&quot;</span><span class="dt">}&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>  <span class="fu">},</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a>  <span class="dt">&quot;headers&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a>    <span class="dt">&quot;Accept&quot;</span><span class="fu">:</span> <span class="st">&quot;*/*&quot;</span><span class="fu">,</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a>    <span class="dt">&quot;Content-Length&quot;</span><span class="fu">:</span> <span class="st">&quot;18&quot;</span><span class="fu">,</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a>    <span class="dt">&quot;Content-Type&quot;</span><span class="fu">:</span> <span class="st">&quot;application/json&quot;</span><span class="fu">,</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a>    <span class="dt">&quot;Host&quot;</span><span class="fu">:</span> <span class="st">&quot;httpbin.org&quot;</span><span class="fu">,</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a>    <span class="dt">&quot;User-Agent&quot;</span><span class="fu">:</span> <span class="st">&quot;curl/7.54.0&quot;</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a>  <span class="fu">},</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a>  <span class="dt">&quot;json&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-17"><a href="#cb8-17"></a>    <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="st">&quot;panda&quot;</span></span>
+<span id="cb8-18"><a href="#cb8-18"></a>  <span class="fu">},</span></span>
+<span id="cb8-19"><a href="#cb8-19"></a>  <span class="dt">&quot;method&quot;</span><span class="fu">:</span> <span class="st">&quot;POST&quot;</span><span class="fu">,</span></span>
+<span id="cb8-20"><a href="#cb8-20"></a>  <span class="dt">&quot;origin&quot;</span><span class="fu">:</span> <span class="st">&quot;&lt;redacted&gt;&quot;</span><span class="fu">,</span></span>
+<span id="cb8-21"><a href="#cb8-21"></a>  <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;https://httpbin.org/anything&quot;</span></span>
+<span id="cb8-22"><a href="#cb8-22"></a><span class="fu">}</span></span></code></pre></div>
+<p>#9: Request <a href="https://httpbin.org/anything">https://httpbin.org/anything</a> and also get the response headers</p>
+<p><span><label for="sn-6" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-6" class="margin-toggle"/><span class="marginnote"> Here we’re using <a href="https://curl.haxx.se/docs/manpage.html#-i">-i</a> to print the response headers. I had to reference the man pages for this one as I normally just use <a href="https://curl.haxx.se/docs/manpage.html#-v">-v</a> whenever I’m debugging.<br />
+<br />
+</span></span></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb9-1"><a href="#cb9-1"></a><span class="er">⇒</span>  <span class="er">curl</span> <span class="er">-i</span> <span class="er">https://httpbin.org/anything</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="er">HTTP/1.1</span> <span class="er">200</span> <span class="er">OK</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="er">Access-Control-Allow-Credentials:</span> <span class="er">true</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="er">Access-Control-Allow-Origin:</span> <span class="er">*</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="er">Date:</span> <span class="er">Wed,</span> <span class="er">28</span> <span class="er">Aug</span> <span class="er">2019</span> <span class="er">00:46:22</span> <span class="er">GMT</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="er">Referrer-Policy:</span> <span class="er">no-referrer-when-downgrade</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="er">Server:</span> <span class="er">nginx</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a><span class="er">X-Content-Type-Options:</span> <span class="er">nosniff</span></span>
+<span id="cb9-11"><a href="#cb9-11"></a><span class="er">X-Frame-Options:</span> <span class="er">DENY</span></span>
+<span id="cb9-12"><a href="#cb9-12"></a><span class="er">X-XSS-Protection:</span> <span class="er">1;</span> <span class="er">mode=block</span></span>
+<span id="cb9-13"><a href="#cb9-13"></a><span class="er">Content-Length:</span> <span class="er">290</span></span>
+<span id="cb9-14"><a href="#cb9-14"></a><span class="er">Connection:</span> <span class="er">keep-alive</span></span>
+<span id="cb9-15"><a href="#cb9-15"></a></span>
+<span id="cb9-16"><a href="#cb9-16"></a><span class="fu">{</span></span>
+<span id="cb9-17"><a href="#cb9-17"></a>  <span class="dt">&quot;args&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb9-18"><a href="#cb9-18"></a>  <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
+<span id="cb9-19"><a href="#cb9-19"></a>  <span class="dt">&quot;files&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb9-20"><a href="#cb9-20"></a>  <span class="dt">&quot;form&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb9-21"><a href="#cb9-21"></a>  <span class="dt">&quot;headers&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb9-22"><a href="#cb9-22"></a>    <span class="dt">&quot;Accept&quot;</span><span class="fu">:</span> <span class="st">&quot;*/*&quot;</span><span class="fu">,</span></span>
+<span id="cb9-23"><a href="#cb9-23"></a>    <span class="dt">&quot;Host&quot;</span><span class="fu">:</span> <span class="st">&quot;httpbin.org&quot;</span><span class="fu">,</span></span>
+<span id="cb9-24"><a href="#cb9-24"></a>    <span class="dt">&quot;User-Agent&quot;</span><span class="fu">:</span> <span class="st">&quot;curl/7.54.0&quot;</span></span>
+<span id="cb9-25"><a href="#cb9-25"></a>  <span class="fu">},</span></span>
+<span id="cb9-26"><a href="#cb9-26"></a>  <span class="dt">&quot;json&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb9-27"><a href="#cb9-27"></a>  <span class="dt">&quot;method&quot;</span><span class="fu">:</span> <span class="st">&quot;GET&quot;</span><span class="fu">,</span></span>
+<span id="cb9-28"><a href="#cb9-28"></a>  <span class="dt">&quot;origin&quot;</span><span class="fu">:</span> <span class="st">&quot;&lt;redacted&gt;&quot;</span><span class="fu">,</span></span>
+<span id="cb9-29"><a href="#cb9-29"></a>  <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;https://httpbin.org/anything&quot;</span></span>
+<span id="cb9-30"><a href="#cb9-30"></a><span class="fu">}</span></span></code></pre></div>
+<p>#10: Make the same POST request as the previous exercise, but set the Content-Type header to application/json (because POST requests need to have a content type that matches their body). Look at the json field in the response to see the difference from the previous one.</p>
+<p><span><label for="sn-7" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-7" class="margin-toggle"/><span class="marginnote"> Here we’re using the <a href="https://curl.haxx.se/docs/manpage.html#-H">-H</a> option for specifying a custom HTTP header.<br />
+<br />
+</span></span></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb10-1"><a href="#cb10-1"></a><span class="er">⇒</span>  <span class="er">curl</span> <span class="er">-X</span> <span class="er">POST</span> <span class="er">-H</span> <span class="er">&#39;Content-Type:</span> <span class="er">application/json&#39;</span> <span class="er">https://httpbin.org/anything</span> <span class="er">-d</span> <span class="er">&#39;</span><span class="fu">{</span><span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="st">&quot;panda&quot;</span><span class="fu">}</span><span class="er">&#39;</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">{</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="dt">&quot;args&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>  <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="st">&quot;{</span><span class="ch">\&quot;</span><span class="st">value</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">panda</span><span class="ch">\&quot;</span><span class="st">}&quot;</span><span class="fu">,</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>  <span class="dt">&quot;files&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a>  <span class="dt">&quot;form&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a>  <span class="dt">&quot;headers&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a>    <span class="dt">&quot;Accept&quot;</span><span class="fu">:</span> <span class="st">&quot;*/*&quot;</span><span class="fu">,</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a>    <span class="dt">&quot;Content-Length&quot;</span><span class="fu">:</span> <span class="st">&quot;18&quot;</span><span class="fu">,</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a>    <span class="dt">&quot;Content-Type&quot;</span><span class="fu">:</span> <span class="st">&quot;application/json&quot;</span><span class="fu">,</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a>    <span class="dt">&quot;Host&quot;</span><span class="fu">:</span> <span class="st">&quot;httpbin.org&quot;</span><span class="fu">,</span></span>
+<span id="cb10-12"><a href="#cb10-12"></a>    <span class="dt">&quot;User-Agent&quot;</span><span class="fu">:</span> <span class="st">&quot;curl/7.54.0&quot;</span></span>
+<span id="cb10-13"><a href="#cb10-13"></a>  <span class="fu">},</span></span>
+<span id="cb10-14"><a href="#cb10-14"></a>  <span class="dt">&quot;json&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb10-15"><a href="#cb10-15"></a>    <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="st">&quot;panda&quot;</span></span>
+<span id="cb10-16"><a href="#cb10-16"></a>  <span class="fu">},</span></span>
+<span id="cb10-17"><a href="#cb10-17"></a>  <span class="dt">&quot;method&quot;</span><span class="fu">:</span> <span class="st">&quot;POST&quot;</span><span class="fu">,</span></span>
+<span id="cb10-18"><a href="#cb10-18"></a>  <span class="dt">&quot;origin&quot;</span><span class="fu">:</span> <span class="st">&quot;&lt;redacted&gt;&quot;</span><span class="fu">,</span></span>
+<span id="cb10-19"><a href="#cb10-19"></a>  <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;https://httpbin.org/anything&quot;</span></span>
+<span id="cb10-20"><a href="#cb10-20"></a><span class="fu">}</span></span></code></pre></div>
+<p>#11: Make a GET request to <a href="https://httpbin.org/anything">https://httpbin.org/anything</a> and set the header Accept-Encoding: gzip (what happens? why?)</p>
+<p><span><label for="sn-8" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-8" class="margin-toggle"/><span class="marginnote"> Here we’re using the <a href="https://curl.haxx.se/docs/manpage.html#-H">-H</a> option for specifying a custom HTTP header.<br />
+<br />
+</span></span></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb11-1"><a href="#cb11-1"></a><span class="er">⇒</span>  <span class="er">curl</span> <span class="er">-H</span> <span class="er">&#39;Accept-Encoding:</span> <span class="er">gzip&#39;</span> <span class="er">https://httpbin.org/anything</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="er">U�A�</span> <span class="er">E����4</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="er">��ݹ0��PE�Q0���x�Zc���?3&amp;H�0�&#39;kb�����=�F��</span> <span class="ot">[</span><span class="er">Jj�����(���-���ݰ���`�v~�z�i��\</span> <span class="er">������`T</span><span class="ot">,</span><span class="er">�jTN�%A&#39;h�V㥥�T�</span><span class="ot">]</span><span class="er">�=5������o�H�w1�1�b%g���</span><span class="ot">[</span><span class="er">؞��</span><span class="dv">9</span><span class="er">Ƈb���i���}��}uB%</span></span></code></pre></div>
+<p>#12: Put a bunch of a JSON in a file and then make a POST request to <a href="https://httpbin.org/anything">https://httpbin.org/anything</a> with the JSON in that file as the body</p>
+<p>First off, we need JSON. Let’s grab some commit history of the repository for the codebase that generates this site using the GitHub API.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1"></a>⇒  <span class="fu">wget</span> <span class="st">&#39;https://api.github.com/repos/ahawker/personal-site/commits?per_page=1&#39;</span> -O data.json</span></code></pre></div>
+<p><span><label for="sn-9" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-9" class="margin-toggle"/><span class="marginnote"> Here we’re once again using the <a href="https://curl.haxx.se/docs/manpage.html#-d">-d</a> option for sending data to the server. If the value given starts with <code>@</code>, it should be preceded by a filename. cURL will then use the content of the file for POST data.<br />
+<br />
+</span></span></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb13-1"><a href="#cb13-1"></a><span class="er">⇒</span>  <span class="er">curl</span> <span class="er">-X</span> <span class="er">POST</span> <span class="er">https://httpbin.org/anything</span> <span class="er">-d</span> <span class="er">@data.json</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">{</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a>  <span class="dt">&quot;args&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a>  <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a>  <span class="dt">&quot;files&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a>  <span class="dt">&quot;form&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a>    <span class="dt">&quot;[  {    </span><span class="ch">\&quot;</span><span class="dt">sha</span><span class="ch">\&quot;</span><span class="dt">: </span><span class="ch">\&quot;</span><span class="dt">b5f2e7d3d78d55b6046e554bf0329082d04e62ce</span><span class="ch">\&quot;</span><span class="dt">,    </span><span class="ch">\&quot;</span><span class="dt">node_id</span><span class="ch">\&quot;</span><span class="dt">: </span><span class="ch">\&quot;</span><span class="dt">MDY6Q29tbWl0MjI1MzY1NjA6YjVmMmU3ZDNkNzhkNTViNjA0NmU1NTRiZjAzMjkwODJkMDRlNjJjZQ&quot;</span><span class="fu">:</span> <span class="st">&quot;=</span><span class="ch">\&quot;</span><span class="st">,    </span><span class="ch">\&quot;</span><span class="st">commit</span><span class="ch">\&quot;</span><span class="st">: {      </span><span class="ch">\&quot;</span><span class="st">author</span><span class="ch">\&quot;</span><span class="st">: {        </span><span class="ch">\&quot;</span><span class="st">name</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">Andrew Hawker</span><span class="ch">\&quot;</span><span class="st">,        </span><span class="ch">\&quot;</span><span class="st">email</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">andrew.r.hawker@gmail.com</span><span class="ch">\&quot;</span><span class="st">,        </span><span class="ch">\&quot;</span><span class="st">date</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">2019-08-27T20:33:36Z</span><span class="ch">\&quot;</span><span class="st">      },      </span><span class="ch">\&quot;</span><span class="st">committer</span><span class="ch">\&quot;</span><span class="st">: {        </span><span class="ch">\&quot;</span><span class="st">name</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">Andrew Hawker</span><span class="ch">\&quot;</span><span class="st">,        </span><span class="ch">\&quot;</span><span class="st">email</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">andrew.r.hawker@gmail.com</span><span class="ch">\&quot;</span><span class="st">,        </span><span class="ch">\&quot;</span><span class="st">date</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">2019-08-27T20:33:46Z</span><span class="ch">\&quot;</span><span class="st">      },      </span><span class="ch">\&quot;</span><span class="st">message</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">Exclude Makefile from jekyll build output</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">tree</span><span class="ch">\&quot;</span><span class="st">: {        </span><span class="ch">\&quot;</span><span class="st">sha</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">33a45d9727c740a205f677d4e50039c1d5d729f4</span><span class="ch">\&quot;</span><span class="st">,        </span><span class="ch">\&quot;</span><span class="st">url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://api.github.com/repos/ahawker/personal-site/git/trees/33a45d9727c740a205f677d4e50039c1d5d729f4</span><span class="ch">\&quot;</span><span class="st">      },      </span><span class="ch">\&quot;</span><span class="st">url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://api.github.com/repos/ahawker/personal-site/git/commits/b5f2e7d3d78d55b6046e554bf0329082d04e62ce</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">comment_count</span><span class="ch">\&quot;</span><span class="st">: 0,      </span><span class="ch">\&quot;</span><span class="st">verification</span><span class="ch">\&quot;</span><span class="st">: {        </span><span class="ch">\&quot;</span><span class="st">verified</span><span class="ch">\&quot;</span><span class="st">: false,        </span><span class="ch">\&quot;</span><span class="st">reason</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">unsigned</span><span class="ch">\&quot;</span><span class="st">,        </span><span class="ch">\&quot;</span><span class="st">signature</span><span class="ch">\&quot;</span><span class="st">: null,        </span><span class="ch">\&quot;</span><span class="st">payload</span><span class="ch">\&quot;</span><span class="st">: null      }    },    </span><span class="ch">\&quot;</span><span class="st">url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://api.github.com/repos/ahawker/personal-site/commits/b5f2e7d3d78d55b6046e554bf0329082d04e62ce</span><span class="ch">\&quot;</span><span class="st">,    </span><span class="ch">\&quot;</span><span class="st">html_url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://github.com/ahawker/personal-site/commit/b5f2e7d3d78d55b6046e554bf0329082d04e62ce</span><span class="ch">\&quot;</span><span class="st">,    </span><span class="ch">\&quot;</span><span class="st">comments_url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://api.github.com/repos/ahawker/personal-site/commits/b5f2e7d3d78d55b6046e554bf0329082d04e62ce/comments</span><span class="ch">\&quot;</span><span class="st">,    </span><span class="ch">\&quot;</span><span class="st">author</span><span class="ch">\&quot;</span><span class="st">: {      </span><span class="ch">\&quot;</span><span class="st">login</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">ahawker</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">id</span><span class="ch">\&quot;</span><span class="st">: 178002,      </span><span class="ch">\&quot;</span><span class="st">node_id</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">MDQ6VXNlcjE3ODAwMg==</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">avatar_url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://avatars1.githubusercontent.com/u/178002?v=4</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">gravatar_id</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://api.github.com/users/ahawker</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">html_url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://github.com/ahawker</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">followers_url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://api.github.com/users/ahawker/followers</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">following_url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://api.github.com/users/ahawker/following{/other_user}</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">gists_url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://api.github.com/users/ahawker/gists{/gist_id}</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">starred_url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://api.github.com/users/ahawker/starred{/owner}{/repo}</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">subscriptions_url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://api.github.com/users/ahawker/subscriptions</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">organizations_url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://api.github.com/users/ahawker/orgs</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">repos_url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://api.github.com/users/ahawker/repos</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">events_url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://api.github.com/users/ahawker/events{/privacy}</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">received_events_url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://api.github.com/users/ahawker/received_events</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">type</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">User</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">site_admin</span><span class="ch">\&quot;</span><span class="st">: false    },    </span><span class="ch">\&quot;</span><span class="st">committer</span><span class="ch">\&quot;</span><span class="st">: {      </span><span class="ch">\&quot;</span><span class="st">login</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">ahawker</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">id</span><span class="ch">\&quot;</span><span class="st">: 178002,      </span><span class="ch">\&quot;</span><span class="st">node_id</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">MDQ6VXNlcjE3ODAwMg==</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">avatar_url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://avatars1.githubusercontent.com/u/178002?v=4</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">gravatar_id</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://api.github.com/users/ahawker</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">html_url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://github.com/ahawker</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">followers_url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://api.github.com/users/ahawker/followers</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">following_url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://api.github.com/users/ahawker/following{/other_user}</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">gists_url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://api.github.com/users/ahawker/gists{/gist_id}</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">starred_url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://api.github.com/users/ahawker/starred{/owner}{/repo}</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">subscriptions_url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://api.github.com/users/ahawker/subscriptions</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">organizations_url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://api.github.com/users/ahawker/orgs</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">repos_url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://api.github.com/users/ahawker/repos</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">events_url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://api.github.com/users/ahawker/events{/privacy}</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">received_events_url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://api.github.com/users/ahawker/received_events</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">type</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">User</span><span class="ch">\&quot;</span><span class="st">,      </span><span class="ch">\&quot;</span><span class="st">site_admin</span><span class="ch">\&quot;</span><span class="st">: false    },    </span><span class="ch">\&quot;</span><span class="st">parents</span><span class="ch">\&quot;</span><span class="st">: [      {        </span><span class="ch">\&quot;</span><span class="st">sha</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">87a8dbf738918ef206f263e409cdba2ea49d6a3d</span><span class="ch">\&quot;</span><span class="st">,        </span><span class="ch">\&quot;</span><span class="st">url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://api.github.com/repos/ahawker/personal-site/commits/87a8dbf738918ef206f263e409cdba2ea49d6a3d</span><span class="ch">\&quot;</span><span class="st">,        </span><span class="ch">\&quot;</span><span class="st">html_url</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">https://github.com/ahawker/personal-site/commit/87a8dbf738918ef206f263e409cdba2ea49d6a3d</span><span class="ch">\&quot;</span><span class="st">      }    ]  }]&quot;</span></span>
+<span id="cb13-8"><a href="#cb13-8"></a>  <span class="fu">},</span></span>
+<span id="cb13-9"><a href="#cb13-9"></a>  <span class="dt">&quot;headers&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb13-10"><a href="#cb13-10"></a>    <span class="dt">&quot;Accept&quot;</span><span class="fu">:</span> <span class="st">&quot;*/*&quot;</span><span class="fu">,</span></span>
+<span id="cb13-11"><a href="#cb13-11"></a>    <span class="dt">&quot;Content-Length&quot;</span><span class="fu">:</span> <span class="st">&quot;3750&quot;</span><span class="fu">,</span></span>
+<span id="cb13-12"><a href="#cb13-12"></a>    <span class="dt">&quot;Content-Type&quot;</span><span class="fu">:</span> <span class="st">&quot;application/x-www-form-urlencoded&quot;</span><span class="fu">,</span></span>
+<span id="cb13-13"><a href="#cb13-13"></a>    <span class="dt">&quot;Host&quot;</span><span class="fu">:</span> <span class="st">&quot;httpbin.org&quot;</span><span class="fu">,</span></span>
+<span id="cb13-14"><a href="#cb13-14"></a>    <span class="dt">&quot;User-Agent&quot;</span><span class="fu">:</span> <span class="st">&quot;curl/7.54.0&quot;</span></span>
+<span id="cb13-15"><a href="#cb13-15"></a>  <span class="fu">},</span></span>
+<span id="cb13-16"><a href="#cb13-16"></a>  <span class="dt">&quot;json&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb13-17"><a href="#cb13-17"></a>  <span class="dt">&quot;method&quot;</span><span class="fu">:</span> <span class="st">&quot;POST&quot;</span><span class="fu">,</span></span>
+<span id="cb13-18"><a href="#cb13-18"></a>  <span class="dt">&quot;origin&quot;</span><span class="fu">:</span> <span class="st">&quot;&lt;redacted&gt;&quot;</span><span class="fu">,</span></span>
+<span id="cb13-19"><a href="#cb13-19"></a>  <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;https://httpbin.org/anything&quot;</span></span>
+<span id="cb13-20"><a href="#cb13-20"></a><span class="fu">}</span></span></code></pre></div>
+<p>#13: Make a request to <a href="https://httpbin.org/image">https://httpbin.org/image</a> and set the header ‘Accept: images/png’. Save the output to a PNG file and open the file in an image viewer. Try the same thing with with different Accept: headers.</p>
+<p><span><label for="sn-10" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-10" class="margin-toggle"/><span class="marginnote"> Here we’re using the <a href="https://curl.haxx.se/docs/manpage.html#-o">-o</a> option to specify the output of the command instead of <code>stdout</code>.<br />
+<br />
+</span></span></p>
+<p><span><label for="sn-11" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-11" class="margin-toggle"/><span class="marginnote"> Run <code>open image.png</code> to view the content. <img src="/assets/images/posts/httpbin-image.png" alt="image.png" /><br />
+<br />
+</span></span></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1"></a>⇒  <span class="ex">curl</span> -H <span class="st">&#39;Accept: image/png&#39;</span> https://httpbin.org/image -o image.png</span>
+<span id="cb14-2"><a href="#cb14-2"></a>  <span class="ex">%</span> Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</span>
+<span id="cb14-3"><a href="#cb14-3"></a>                                 <span class="ex">Dload</span>  Upload   Total   Spent    Left  Speed</span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="ex">100</span>  8090  100  8090    0     0  21910      0 --:--:-- --:--:-- --:--:-- 21924</span></code></pre></div>
+<p>#14: Make a PUT request to <a href="https://httpbin.org/anything">https://httpbin.org/anything</a></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb15-1"><a href="#cb15-1"></a><span class="er">⇒</span>  <span class="er">curl</span> <span class="er">-X</span> <span class="er">PUT</span> <span class="er">https://httpbin.org/anything</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">{</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a>  <span class="dt">&quot;args&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a>  <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a>  <span class="dt">&quot;files&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a>  <span class="dt">&quot;form&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a>  <span class="dt">&quot;headers&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a>    <span class="dt">&quot;Accept&quot;</span><span class="fu">:</span> <span class="st">&quot;*/*&quot;</span><span class="fu">,</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a>    <span class="dt">&quot;Content-Length&quot;</span><span class="fu">:</span> <span class="st">&quot;0&quot;</span><span class="fu">,</span></span>
+<span id="cb15-10"><a href="#cb15-10"></a>    <span class="dt">&quot;Host&quot;</span><span class="fu">:</span> <span class="st">&quot;httpbin.org&quot;</span><span class="fu">,</span></span>
+<span id="cb15-11"><a href="#cb15-11"></a>    <span class="dt">&quot;User-Agent&quot;</span><span class="fu">:</span> <span class="st">&quot;curl/7.54.0&quot;</span></span>
+<span id="cb15-12"><a href="#cb15-12"></a>  <span class="fu">},</span></span>
+<span id="cb15-13"><a href="#cb15-13"></a>  <span class="dt">&quot;json&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb15-14"><a href="#cb15-14"></a>  <span class="dt">&quot;method&quot;</span><span class="fu">:</span> <span class="st">&quot;PUT&quot;</span><span class="fu">,</span></span>
+<span id="cb15-15"><a href="#cb15-15"></a>  <span class="dt">&quot;origin&quot;</span><span class="fu">:</span> <span class="st">&quot;&lt;redacted&gt;&quot;</span><span class="fu">,</span></span>
+<span id="cb15-16"><a href="#cb15-16"></a>  <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;https://httpbin.org/anything&quot;</span></span>
+<span id="cb15-17"><a href="#cb15-17"></a><span class="fu">}</span></span></code></pre></div>
+<p>#15: Request <a href="https://httpbin.org/image/jpeg">https://httpbin.org/image/jpeg</a>, save it to a file, and open that file in your image editor.</p>
+<p><span><label for="sn-12" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-12" class="margin-toggle"/><span class="marginnote"> Here we’re once again using the <a href="https://curl.haxx.se/docs/manpage.html#-o">-o</a> option to specify the output of the command instead of <code>stdout</code>.<br />
+<br />
+</span></span></p>
+<p><span><label for="sn-13" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-13" class="margin-toggle"/><span class="marginnote"> Run <code>open image.jpeg</code> to view the content. <img src="/assets/images/posts/httpbin-image.jpeg" alt="image.jpeg" /><br />
+<br />
+</span></span></p>
+<pre><code>⇒  curl  https://httpbin.org/image/jpeg -o image.jpeg
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 35588  100 35588    0     0  74331      0 --:--:-- --:--:-- --:--:-- 74451</code></pre>
+<p>#16: Request <a href="https://google.com">https://google.com</a>. You’ll get an empty response. Get curl to show you the response headers too, and try to figure out why the response was empty.</p>
+<p><span><label for="sn-14" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-14" class="margin-toggle"/><span class="marginnote"> You’ll need to use the <a href="https://curl.haxx.se/docs/manpage.html#-L">-L</a> option if you want cURL to automatically follow a redirect.<br />
+<br />
+</span></span></p>
+<pre><code>⇒  curl -i https://google.com
+HTTP/1.1 301 Moved Permanently
+Location: https://www.google.com/
+Content-Type: text/html; charset=UTF-8
+Date: Wed, 28 Aug 2019 17:17:53 GMT
+Expires: Fri, 27 Sep 2019 17:17:53 GMT
+Cache-Control: public, max-age=2592000
+Server: gws
+Content-Length: 220
+X-XSS-Protection: 0
+X-Frame-Options: SAMEORIGIN
+Alt-Svc: quic=&quot;:443&quot;; ma=2592000; v=&quot;46,43,39&quot;
+
+&lt;HTML&gt;&lt;HEAD&gt;&lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html;charset=utf-8&quot;&gt;
+&lt;TITLE&gt;301 Moved&lt;/TITLE&gt;&lt;/HEAD&gt;&lt;BODY&gt;
+&lt;H1&gt;301 Moved&lt;/H1&gt;
+The document has moved
+&lt;A HREF=&quot;https://www.google.com/&quot;&gt;here&lt;/A&gt;.
+&lt;/BODY&gt;&lt;/HTML&gt;</code></pre>
+<p>#17: Make any request to <a href="https://httpbin.org/anything">https://httpbin.org/anything</a> and just set some nonsense headers (like panda: elephant)</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb18-1"><a href="#cb18-1"></a><span class="er">⇒</span>  <span class="er">curl</span> <span class="er">-H</span> <span class="er">&#39;Panda:</span> <span class="er">Elephant&#39;</span> <span class="er">https://httpbin.org/anything</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="fu">{</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a>  <span class="dt">&quot;args&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb18-4"><a href="#cb18-4"></a>  <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
+<span id="cb18-5"><a href="#cb18-5"></a>  <span class="dt">&quot;files&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb18-6"><a href="#cb18-6"></a>  <span class="dt">&quot;form&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb18-7"><a href="#cb18-7"></a>  <span class="dt">&quot;headers&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb18-8"><a href="#cb18-8"></a>    <span class="dt">&quot;Accept&quot;</span><span class="fu">:</span> <span class="st">&quot;*/*&quot;</span><span class="fu">,</span></span>
+<span id="cb18-9"><a href="#cb18-9"></a>    <span class="dt">&quot;Host&quot;</span><span class="fu">:</span> <span class="st">&quot;httpbin.org&quot;</span><span class="fu">,</span></span>
+<span id="cb18-10"><a href="#cb18-10"></a>    <span class="dt">&quot;Panda&quot;</span><span class="fu">:</span> <span class="st">&quot;Elephant&quot;</span><span class="fu">,</span></span>
+<span id="cb18-11"><a href="#cb18-11"></a>    <span class="dt">&quot;User-Agent&quot;</span><span class="fu">:</span> <span class="st">&quot;curl/7.54.0&quot;</span></span>
+<span id="cb18-12"><a href="#cb18-12"></a>  <span class="fu">},</span></span>
+<span id="cb18-13"><a href="#cb18-13"></a>  <span class="dt">&quot;json&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb18-14"><a href="#cb18-14"></a>  <span class="dt">&quot;method&quot;</span><span class="fu">:</span> <span class="st">&quot;GET&quot;</span><span class="fu">,</span></span>
+<span id="cb18-15"><a href="#cb18-15"></a>  <span class="dt">&quot;origin&quot;</span><span class="fu">:</span> <span class="st">&quot;&lt;redacted&gt;&quot;</span><span class="fu">,</span></span>
+<span id="cb18-16"><a href="#cb18-16"></a>  <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;https://httpbin.org/anything&quot;</span></span>
+<span id="cb18-17"><a href="#cb18-17"></a><span class="fu">}</span></span></code></pre></div>
+<p>#18: Request <a href="https://httpbin.org/status/404">https://httpbin.org/status/404</a> and <a href="https://httpbin.org/status/200">https://httpbin.org/status/200</a>. Request them again and get curl to show the response headers.</p>
+<pre><code>⇒  curl https://httpbin.org/status/404
+⇒  curl -i https://httpbin.org/status/404
+HTTP/1.1 404 NOT FOUND
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Origin: *
+Content-Type: text/html; charset=utf-8
+Date: Wed, 28 Aug 2019 17:21:25 GMT
+Referrer-Policy: no-referrer-when-downgrade
+Server: nginx
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+Content-Length: 0
+Connection: keep-alive</code></pre>
+<p><span><label for="sn-15" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-15" class="margin-toggle"/><span class="marginnote"> Here we’re once again using the <a href="https://curl.haxx.se/docs/manpage.html#-i">-i</a> option to output the response headers.<br />
+<br />
+</span></span></p>
+<pre><code>⇒  curl https://httpbin.org/status/200
+⇒  curl -i https://httpbin.org/status/200
+HTTP/1.1 200 OK
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Origin: *
+Content-Type: text/html; charset=utf-8
+Date: Wed, 28 Aug 2019 17:22:12 GMT
+Referrer-Policy: no-referrer-when-downgrade
+Server: nginx
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+Content-Length: 0
+Connection: keep-alive</code></pre>
+<p>#19: Request <a href="https://httpbin.org/anything">https://httpbin.org/anything</a> and set a username and password (with -u username:password)</p>
+<p><span><label for="sn-16" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-16" class="margin-toggle"/><span class="marginnote"> You’ll need to use the <a href="https://curl.haxx.se/docs/manpage.html#-u">-u</a> option to send a username/password for HTTP Basic Authentication.<br />
+<br />
+</span></span></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb21-1"><a href="#cb21-1"></a><span class="er">⇒</span>  <span class="er">curl</span> <span class="er">-u</span> <span class="er">foo:bar</span> <span class="er">https://httpbin.org/anything</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="fu">{</span></span>
+<span id="cb21-3"><a href="#cb21-3"></a>  <span class="dt">&quot;args&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a>  <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a>  <span class="dt">&quot;files&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb21-6"><a href="#cb21-6"></a>  <span class="dt">&quot;form&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb21-7"><a href="#cb21-7"></a>  <span class="dt">&quot;headers&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb21-8"><a href="#cb21-8"></a>    <span class="dt">&quot;Accept&quot;</span><span class="fu">:</span> <span class="st">&quot;*/*&quot;</span><span class="fu">,</span></span>
+<span id="cb21-9"><a href="#cb21-9"></a>    <span class="dt">&quot;Authorization&quot;</span><span class="fu">:</span> <span class="st">&quot;Basic Zm9vOmJhcg==&quot;</span><span class="fu">,</span></span>
+<span id="cb21-10"><a href="#cb21-10"></a>    <span class="dt">&quot;Host&quot;</span><span class="fu">:</span> <span class="st">&quot;httpbin.org&quot;</span><span class="fu">,</span></span>
+<span id="cb21-11"><a href="#cb21-11"></a>    <span class="dt">&quot;User-Agent&quot;</span><span class="fu">:</span> <span class="st">&quot;curl/7.54.0&quot;</span></span>
+<span id="cb21-12"><a href="#cb21-12"></a>  <span class="fu">},</span></span>
+<span id="cb21-13"><a href="#cb21-13"></a>  <span class="dt">&quot;json&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb21-14"><a href="#cb21-14"></a>  <span class="dt">&quot;method&quot;</span><span class="fu">:</span> <span class="st">&quot;GET&quot;</span><span class="fu">,</span></span>
+<span id="cb21-15"><a href="#cb21-15"></a>  <span class="dt">&quot;origin&quot;</span><span class="fu">:</span> <span class="st">&quot;&lt;redacted&gt;&quot;</span><span class="fu">,</span></span>
+<span id="cb21-16"><a href="#cb21-16"></a>  <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;https://httpbin.org/anything&quot;</span></span>
+<span id="cb21-17"><a href="#cb21-17"></a><span class="fu">}</span></span></code></pre></div>
+<p>#20: Download the Twitter homepage (<a href="https://twitter.com">https://twitter.com</a>) in Spanish by setting the Accept-Language: es-ES header.</p>
+<pre><code>⇒  curl -H &#39;Accept-Language: es-ES&#39; https://twitter.com
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot; data-scribe-reduced-action-queue=&quot;true&quot;&gt;
+  &lt;head&gt;
+...
+...
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>#21: Make a request to the Stripe API with curl. (see <a href="https://stripe.com/docs/development">https://stripe.com/docs/development</a> for how, they give you a test API key). Try making exactly the same request to <a href="https://httpbin.org/anything">https://httpbin.org/anything</a>.</p>
+<p><span><label for="sn-17" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-17" class="margin-toggle"/><span class="marginnote"> The API Key used below is the fake one from the <a href="https://stripe.com/docs/development">Stripe Documentation</a> page. Create a Stripe account and login to get your actual Test API Keys.<br />
+<br />
+</span></span></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb23-1"><a href="#cb23-1"></a><span class="er">⇒</span>  <span class="er">curl</span> <span class="er">https://httpbin.org/anything</span> <span class="er">\</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a>  <span class="er">-u</span> <span class="er">sk_test_4eC39HqLyjWDarjtT1zdp7dc:</span> <span class="er">\</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a>  <span class="er">-d</span> <span class="er">amount=999</span> <span class="er">\</span></span>
+<span id="cb23-4"><a href="#cb23-4"></a>  <span class="er">-d</span> <span class="er">currency=usd</span> <span class="er">\</span></span>
+<span id="cb23-5"><a href="#cb23-5"></a>  <span class="er">-d</span> <span class="er">source=tok_visa</span> <span class="er">\</span></span>
+<span id="cb23-6"><a href="#cb23-6"></a>  <span class="er">-d</span> <span class="er">receipt_email=&quot;jenny.rosen@example.com&quot;</span></span>
+<span id="cb23-7"><a href="#cb23-7"></a><span class="fu">{</span></span>
+<span id="cb23-8"><a href="#cb23-8"></a>  <span class="dt">&quot;args&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb23-9"><a href="#cb23-9"></a>  <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
+<span id="cb23-10"><a href="#cb23-10"></a>  <span class="dt">&quot;files&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb23-11"><a href="#cb23-11"></a>  <span class="dt">&quot;form&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb23-12"><a href="#cb23-12"></a>    <span class="dt">&quot;amount&quot;</span><span class="fu">:</span> <span class="st">&quot;999&quot;</span><span class="fu">,</span></span>
+<span id="cb23-13"><a href="#cb23-13"></a>    <span class="dt">&quot;currency&quot;</span><span class="fu">:</span> <span class="st">&quot;usd&quot;</span><span class="fu">,</span></span>
+<span id="cb23-14"><a href="#cb23-14"></a>    <span class="dt">&quot;receipt_email&quot;</span><span class="fu">:</span> <span class="st">&quot;jenny.rosen@example.com&quot;</span><span class="fu">,</span></span>
+<span id="cb23-15"><a href="#cb23-15"></a>    <span class="dt">&quot;source&quot;</span><span class="fu">:</span> <span class="st">&quot;tok_visa&quot;</span></span>
+<span id="cb23-16"><a href="#cb23-16"></a>  <span class="fu">},</span></span>
+<span id="cb23-17"><a href="#cb23-17"></a>  <span class="dt">&quot;headers&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb23-18"><a href="#cb23-18"></a>    <span class="dt">&quot;Accept&quot;</span><span class="fu">:</span> <span class="st">&quot;*/*&quot;</span><span class="fu">,</span></span>
+<span id="cb23-19"><a href="#cb23-19"></a>    <span class="dt">&quot;Authorization&quot;</span><span class="fu">:</span> <span class="st">&quot;Basic c2tfdGVzdF80ZUMzOUhxTHlqV0Rhcmp0VDF6ZHA3ZGM6&quot;</span><span class="fu">,</span></span>
+<span id="cb23-20"><a href="#cb23-20"></a>    <span class="dt">&quot;Content-Length&quot;</span><span class="fu">:</span> <span class="st">&quot;77&quot;</span><span class="fu">,</span></span>
+<span id="cb23-21"><a href="#cb23-21"></a>    <span class="dt">&quot;Content-Type&quot;</span><span class="fu">:</span> <span class="st">&quot;application/x-www-form-urlencoded&quot;</span><span class="fu">,</span></span>
+<span id="cb23-22"><a href="#cb23-22"></a>    <span class="dt">&quot;Host&quot;</span><span class="fu">:</span> <span class="st">&quot;httpbin.org&quot;</span><span class="fu">,</span></span>
+<span id="cb23-23"><a href="#cb23-23"></a>    <span class="dt">&quot;User-Agent&quot;</span><span class="fu">:</span> <span class="st">&quot;curl/7.54.0&quot;</span></span>
+<span id="cb23-24"><a href="#cb23-24"></a>  <span class="fu">},</span></span>
+<span id="cb23-25"><a href="#cb23-25"></a>  <span class="dt">&quot;json&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb23-26"><a href="#cb23-26"></a>  <span class="dt">&quot;method&quot;</span><span class="fu">:</span> <span class="st">&quot;POST&quot;</span><span class="fu">,</span></span>
+<span id="cb23-27"><a href="#cb23-27"></a>  <span class="dt">&quot;origin&quot;</span><span class="fu">:</span> <span class="st">&quot;174.127.143.202, 174.127.143.202&quot;</span><span class="fu">,</span></span>
+<span id="cb23-28"><a href="#cb23-28"></a>  <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;https://httpbin.org/anything&quot;</span></span>
+<span id="cb23-29"><a href="#cb23-29"></a><span class="fu">}</span></span></code></pre></div>
+</section>
+<section id="summary" class="level2">
+<h2>Summary</h2>
+<p>It was nice to learn about the <a href="https://curl.haxx.se/docs/manpage.html#-i">-i</a> option, even though I do have quite a bit of experience with cURL. I normally just use <a href="https://curl.haxx.se/docs/manpage.html#-v">-v</a> which spits out quite a bit more debug output.</p>
+<p>I’d be interested to know of tools/products that provide a set of <a href="https://en.wikipedia.org/wiki/K%C5%8Dan">Kōan</a> style exercises instead of the traditional <em>First Start</em> tutorial and <em>Feature</em> pages/notices.</p>
+</section>
+
+
+
+<section>
+  <p class="return-home"><em><a href="">Return home</a></em></p>
+</section>
+
+
+</article>
+
+
+
+
+
+
+<footer>
+    <hr class="footer-hr">
+    <ul class="social-links">
+      
+        <li><a href="https://www.apptentive.com" target="_blank" title="Employer"><span class="fa fa-2x fa-building social-icon"></span></a></li>
+      
+        <li><a href="https://goo.gl/maps/kUBP3GgPGiG2" target="_blank" title="Location"><span class="fa fa-2x fa-map-marker social-icon"></span></a></li>
+      
+        <li><a href="https://stackoverflow.com/users/84942/ahawker" target="_blank" title="Stack Overflow"><span class="fa fa-2x fa-stack-overflow social-icon"></span></a></li>
+      
+        <li><a href="https://github.com/ahawker" target="_blank" title="GitHub"><span class="fa fa-2x fa-github-alt social-icon"></span></a></li>
+      
+        <li><a href="https://linkedin.com/in/ahawker" target="_blank" title="LinkedIn"><span class="fa fa-2x fa-linkedin-square social-icon"></span></a></li>
+      
+        <li><a href="https://twitter.com/rekwah" target="_blank" title="Twitter"><span class="fa fa-2x fa-twitter social-icon"></span></a></li>
+      
+        <li><a href="mailto:andrew.r.hawker@gmail.com" target="_blank" title="Email"><span class="fa fa-2x fa-envelope social-icon"></span></a></li>
+      
+        <li><a href="feed.xml" target="_blank" title="RSS"><span class="fa fa-2x fa-rss social-icon"></span></a></li>
+        
+    </ul>
+  <div class="credits">
+    <span>&copy; 2019 &nbsp;&nbsp;ANDREW HAWKER</span></br> <br>
+    <span>Code for this website can be found <a href="https://github.com/ahawker/personal-site">here</a>.</span>
+  </div>  
+</footer>
+
+</body>
+</html>
+
