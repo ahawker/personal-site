@@ -20,5 +20,5 @@
   link: mailto:andrew.r.hawker@gmail.com
   class: fa fa-2x fa-envelope social-icon
 - title: RSS
-  link: feed.xml
+  link: /feed.xml
   class: fa fa-2x fa-rss social-icon
