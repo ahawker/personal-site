@@ -12,6 +12,7 @@ $social-github-color: #151013 !default;
 $social-twitter-color: #00aced !default;
 $social-linkedin-color: #0073a4 !default;
 $social-email-color: #808080 !default;
+$social-rss-color: #EE802F !default;
 $social-employer-color: #E51F39 !default;
 $social-location-color: #3cba54 !default;
 
@@ -21,6 +22,7 @@ $social-colors: (
   twitter: $social-twitter-color,
   linkedin: $social-linkedin-color,
   email: $social-email-color,
+  rss: $social-rss-color,
   employer: $social-employer-color,
   location: $social-location-color
 );
