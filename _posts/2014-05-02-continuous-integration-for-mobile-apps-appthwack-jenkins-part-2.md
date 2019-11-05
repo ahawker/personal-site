@@ -4,7 +4,7 @@ title: Continuous Integration for Mobile Apps with AppThwack and Jenkins (Part 2
 date: 2014-05-02 10:43:00-8000
 author: me
 category: writings
-tags: appthwack jenkins archive announcement
+tags: [appthwack, jenkins, archive, announcement]
 ---
 ![](/assets/images/posts/jenkins-appthwack-header.png)
 
