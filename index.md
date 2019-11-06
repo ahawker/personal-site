@@ -1,6 +1,6 @@
 ---
 layout: home
-title: Andrew Hawker
+title: Home
 ---
 
 I write here occasionally.
