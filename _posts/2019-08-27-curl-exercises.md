@@ -5,6 +5,7 @@ date: 2019-08-27 15:09:00-8000
 author: me
 category: writings
 tags: [curl, julia evans, exercise]
+keywords: [curl, julia evans]
 ---
 
 Julia Evans has a new blog post up, [Curl Exercises](https://jvns.ca/blog/2019/08/27/curl-exercises/),  which landed on the front page of [Hacker News](https://news.ycombinator.com/item?id=20811829) today. [^1] In it, she brings up the idea of [deliberate practice](https://jamesclear.com/deliberate-practice-theory) and outlines 21 exercises to better familiarize yourself with [cURL](https://curl.haxx.se/).

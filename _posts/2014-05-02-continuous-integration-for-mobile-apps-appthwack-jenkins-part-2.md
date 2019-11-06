@@ -5,6 +5,7 @@ date: 2014-05-02 10:43:00-8000
 author: me
 category: writings
 tags: [appthwack, jenkins, archive, announcement]
+keywords: [appthwack, jenkins]
 ---
 ![](/assets/images/posts/jenkins-appthwack-header.png)
 

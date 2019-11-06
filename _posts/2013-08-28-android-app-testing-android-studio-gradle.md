@@ -5,6 +5,7 @@ date: 2013-08-28 11:43:00-8000
 author: me
 category: writings
 tags: [appthwack, gradle, archive, announcement]
+keywords: [appthwack, gradle]
 ---
 
 Heres a quick tutorial to get started with [AppThwack](http://web.archive.org/web/20140717021901/https://appthwack.com),

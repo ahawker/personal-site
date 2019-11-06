@@ -5,6 +5,7 @@ date: 2019-08-22 2:55:00-8000
 author: me
 category: writings
 tags: [aws, route53, dns, terraform, tutorial]
+keywords: [aws, route53, dns, terraform]
 ---
 
 ## Scenario
