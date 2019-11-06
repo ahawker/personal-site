@@ -8,6 +8,19 @@ url: andrew.hawker.io
 twitter_username: rekwah
 github_username:  ahawker
 
+# Jekyll SEO
+# https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
+twitter:
+  username: rekwah
+logo: /assets/images/android-chrome-512x512.png
+social:
+  name: Andrew Hawker
+  links:
+  - https://stackoverflow.com/users/84942/ahawker
+  - https://github.com/ahawker
+  - https://linkedin.com/in/ahawker
+  - https://twitter.com/rekwah
+
 sass:
   style: compressed
 
