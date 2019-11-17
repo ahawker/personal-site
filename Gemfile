@@ -7,3 +7,5 @@ group :jekyll_plugins do
    gem "jekyll-seo-tag"
    gem "jekyll-pandoc"
 end
+
+gem "jekyll-sitemap", "~> 1.3"

@@ -4,7 +4,7 @@ email: andrew.r.hawker@gmail.com
 description: Personal website of Andrew Hawker
 baseurl:
 permalink: /:categories/:year/:month/:day/:title/
-url: andrew.hawker.io
+url: https://andrew.hawker.io
 twitter_username: rekwah
 github_username:  ahawker
 
@@ -32,10 +32,11 @@ pandoc:
     - from: 'markdown+tex_math_single_backslash'
     - filter: 'pandoc-sidenote'
 
-gems:
+plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-pandoc
+  - jekyll-sitemap
 exclude:
   - Gemfile
   - Gemfile.lock
