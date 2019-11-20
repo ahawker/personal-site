@@ -5,7 +5,7 @@ title: Andrew Hawker
 
 I write here occasionally.
 
-Learn more [about me](about) or connect with me on social media.
+Read some, learn more [about me](about), or connect with me on social media.
 
 {% for post in site.posts %}
 {% assign currentyear = post.date | date: "%Y" %}
