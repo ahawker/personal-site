@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8" lang="en">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Andrew Hawker">
+  <meta name="generator" content="jekyll">
+  
+  <meta name="dcterms.date" content="2019-11-07 09:27:00 -0800">
+  
+  
+  <meta name="keywords" content="django ulid ulid-py">
+  
+
+  <link rel="canonical" href="https://andrew.hawker.io/writings/2019/11/07/ulid-in-django/" />
+
+  <title>ULID's in Django – Andrew Hawker</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
+  <link rel="stylesheet" href="/assets/styles/et-book.min.css">
+  <link rel="stylesheet" href="/assets/styles/site.css">
+  
+
+  <!--[if lt IE 9]>
+  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+
+  <link rel="manifest" href="/assets/site.webmanifest">
+
+  <meta name="msapplication-TileColor" content="#2d89ef">
+  <meta name="msapplication-config" content="/assets/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- RSS -->
+  <link type="application/atom+xml" rel="alternate" href="https://andrew.hawker.io/feed.xml" title="Andrew Hawker" />
+
+  <!-- Google Analytics -->
+  
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36365256-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  
+
+  <!-- SEO -->
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>ULID’s in Django | Andrew Hawker</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="ULID’s in Django" />
+<meta name="author" content="Andrew Hawker" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="⊕" />
+<meta property="og:description" content="⊕" />
+<link rel="canonical" href="https://andrew.hawker.io/writings/2019/11/07/ulid-in-django/" />
+<meta property="og:url" content="https://andrew.hawker.io/writings/2019/11/07/ulid-in-django/" />
+<meta property="og:site_name" content="Andrew Hawker" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-11-07T09:27:00-08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="ULID’s in Django" />
+<meta name="twitter:site" content="@rekwah" />
+<meta name="twitter:creator" content="@rekwah" />
+<script type="application/ld+json">
+{"headline":"ULID’s in Django","dateModified":"2019-11-07T09:27:00-08:00","datePublished":"2019-11-07T09:27:00-08:00","url":"https://andrew.hawker.io/writings/2019/11/07/ulid-in-django/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2019/11/07/ulid-in-django/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"⊕","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+
+<body>
+
+
+
+
+<article>
+  
+<header>
+  <h1 class="title"><a name="ULID's in Django"></a>ULID's in Django</h1>
+  
+  
+  <p class="byline">November 7, 2019</p>
+  
+</header>
+
+
+  <p><span><label for="sn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-1" class="margin-toggle"/><span class="marginnote"> This is part two of the ULID’s in Python series. Be sure to check out <a href="/writings/2019/11/05/ulid-in-python/">Part 1</a> for getting started with ULID’s in Python using <a href="https://github.com/ahawker/ulid">ulid-py</a>.<br />
+<br />
+</span></span></p>
+<p>This post is a deeper dive into ULID’s to examine their anatomy using python and the <a href="https://github.com/ahawker/ulid">ulid-py</a> package.</p>
+<section id="scenario" class="level2">
+<h2>Scenario</h2>
+<p>Imagine we’re building a public API in Django that exposes information about people within the system. We could imagine a simple RESTful endpoint such as:</p>
+<section id="autofield" class="level3">
+<h3>AutoField</h3>
+</section>
+<section id="uuidfield" class="level3">
+<h3>UUIDField</h3>
+<pre><code>$ curl https://api.example.com/users/&lt;id&gt;</code></pre>
+</section>
+</section>
+<section id="problem-statement" class="level2">
+<h2>Problem Statement</h2>
+<p>I want to obfuscate my primary key value</p>
+<p>If you’re using Django, I can imagine the primary keys of your models being generally setup in two ways: <a href="https://docs.djangoproject.com/en/2.2/topics/db/models/#automatic-primary-key-fields">automatic</a> or <a href="">uuid</a>.</p>
+<p><span><label for="sn-2" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-2" class="margin-toggle"/><span class="marginnote"> Check out the full <a href="https://github.com/ulid/spec">specification</a> for more technical details.<br />
+<br />
+</span></span></p>
+<p>ULID stands for Universally Unique Lexicographically Sortable Identifier.</p>
+<p>In short, their goal is to provide an alternative to <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">UUID</a> values where sortability is required while still maintaining similar uniqueness guarantees. This is achieved by storing the creation time of the identifier, at millisecond precision, within the value itself at the cost of reduced entropy.</p>
+<p><span><label for="sn-3" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-3" class="margin-toggle"/><span class="marginnote"> See the <a href="https://github.com/ahawker/ulid">ulid-py</a> repository for more examples.<br />
+<br />
+</span></span></p>
+<p>This post is a deeper dive into ULID’s to examine their anatomy using python and the <a href="https://github.com/ahawker/ulid">ulid-py</a> package.</p>
+<section id="getting-started" class="level3">
+<h3>Getting started</h3>
+<p><span><label for="sn-4" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-4" class="margin-toggle"/><span class="marginnote"> Reference documentation for the <a href="https://github.com/ahawker/ulid">ulid-py</a> source code can be found <a href="https://ulid.readthedocs.io/en/latest/">here</a>; graciously hosted by <a href="https://readthedocs.org">Read the Docs</a>.<br />
+<br />
+</span></span></p>
+<p>Install the <a href="https://github.com/ahawker/ulid">ulid-py</a> package from <a href="https://pypi.org/project/ulid-py/">pypi</a> using <a href="https://pypi.org/project/pip/">pip</a>.</p>
+<pre><code>$ pip install ulid-py
+$ python
+&gt;&gt;&gt; import ulid</code></pre>
+</section>
+<section id="structure" class="level3">
+<h3>Structure</h3>
+<p><span><label for="sn-5" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-5" class="margin-toggle"/><span class="marginnote"> This is known as big endian or network byte order. Read more about endianness <a href="https://en.wikipedia.org/wiki/Endianness">here</a>.<br />
+<br />
+</span></span></p>
+<p>A ULID is a 128 bit/16 byte/26 character value with the <a href="https://en.wikipedia.org/wiki/Bit_numbering#Most_significant_bit">most significant bit</a> first. The <a href="https://ulid.readthedocs.io/en/latest/ulid.html#ulid.ulid.ULID">ULID</a> type supports a number of different representations.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="op">&gt;&gt;&gt;</span> value <span class="op">=</span> ulid.new()</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="op">&gt;&gt;&gt;</span> value</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="op">&lt;</span>ULID(<span class="st">&#39;01DSEY8C4PD630AZR8T2V2DPZ9&#39;</span>)<span class="op">&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">str</span>(value)</span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">&#39;01DSEY8C4PD630AZR8T2V2DPZ9&#39;</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="op">&gt;&gt;&gt;</span> value.<span class="bu">str</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">&#39;01DSEY8C4PD630AZR8T2V2DPZ9&#39;</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="op">&gt;&gt;&gt;</span> value.<span class="bu">int</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="dv">1902284993375057434767769928441715689</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="op">&gt;&gt;&gt;</span> value.<span class="bu">bytes</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>b<span class="st">&#39;</span><span class="ch">\x01</span><span class="st">n]</span><span class="ch">\xe4</span><span class="st">0</span><span class="ch">\x96</span><span class="st">i</span><span class="ch">\x86\x05\x7f\x08\xd0\xb6</span><span class="st">&amp;</span><span class="ch">\xdb\xe9</span><span class="st">&#39;</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="op">&gt;&gt;&gt;</span> value.uuid</span>
+<span id="cb3-13"><a href="#cb3-13"></a>UUID(<span class="st">&#39;016e5de4-3096-6986-057f-08d0b626dbe9&#39;</span>)</span></code></pre></div>
+<p>A ULID value is composed of two parts: <a href="./#timestamp">timestamp</a> and <a href="./#randomness">randomness</a>.</p>
+<pre><code> 01DSEY8C4P    D630AZR8T2V2DPZ9
+|----------|  |----------------|
+ Timestamp        Randomness</code></pre>
+</section>
+<section id="timestamp" class="level3">
+<h3>Timestamp</h3>
+<p><span><label for="sn-6" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-6" class="margin-toggle"/><span class="marginnote"> Read more about unix time <a href="https://en.wikipedia.org/wiki/Unix_time">here</a>.<br />
+<br />
+</span></span></p>
+<p>The timestamp value is stored in the first 48 bits/6 bytes/10 characters. It is a Unix timestamp in milliseconds. The <a href="https://ulid.readthedocs.io/en/latest/ulid.html#ulid.ulid.Timestamp">Timestamp</a> type supports a number of different representations.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="op">&gt;&gt;&gt;</span> ts <span class="op">=</span> value.timestamp()</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="op">&gt;&gt;&gt;</span> ts</span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="op">&lt;</span>Timestamp(<span class="st">&#39;01DSEY8C4P&#39;</span>)<span class="op">&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">str</span>(ts)</span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co">&#39;01DSEY8C4P&#39;</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="op">&gt;&gt;&gt;</span> ts.<span class="bu">str</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co">&#39;01DSEY8C4P&#39;</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="op">&gt;&gt;&gt;</span> ts.<span class="bu">int</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="dv">1573533266070</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="op">&gt;&gt;&gt;</span> ts.<span class="bu">bytes</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a>b<span class="st">&#39;</span><span class="ch">\x01</span><span class="st">n]</span><span class="ch">\xe4</span><span class="st">0</span><span class="ch">\x96</span><span class="st">&#39;</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="op">&gt;&gt;&gt;</span> ts.datetime</span>
+<span id="cb5-13"><a href="#cb5-13"></a>datetime.datetime(<span class="dv">2019</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">4</span>, <span class="dv">34</span>, <span class="dv">26</span>, <span class="dv">70000</span>)</span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="op">&gt;&gt;&gt;</span> ts.timestamp</span>
+<span id="cb5-15"><a href="#cb5-15"></a><span class="fl">1573533266.07</span></span></code></pre></div>
+</section>
+<section id="randomness" class="level3">
+<h3>Randomness</h3>
+<p><span><label for="sn-7" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-7" class="margin-toggle"/><span class="marginnote"> Read more about PRNG’s <a href="https://en.wikipedia.org/wiki/Pseudorandom_number_generator">here</a>.<br />
+<br />
+</span></span></p>
+<p>The randomness value is stored in the remaining 80 bits/8 bytes/16 characters. It is a cryptographically secure random value. The <a href="https://ulid.readthedocs.io/en/latest/ulid.html#ulid.ulid.Randomness">Randomess</a> type supports a number of different representations.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="op">&gt;&gt;&gt;</span> rnd <span class="op">=</span> value.randomness()</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="op">&gt;&gt;&gt;</span> rnd</span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="op">&lt;</span>Randomness(<span class="st">&#39;D630AZR8T2V2DPZ9&#39;</span>)<span class="op">&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">str</span>(rnd)</span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="co">&#39;D630AZR8T2V2DPZ9&#39;</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="op">&gt;&gt;&gt;</span> rnd.<span class="bu">str</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="co">&#39;D630AZR8T2V2DPZ9&#39;</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="op">&gt;&gt;&gt;</span> rnd.<span class="bu">int</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="dv">498320740452174561467369</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="op">&gt;&gt;&gt;</span> rnd.<span class="bu">bytes</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a>b<span class="st">&#39;i</span><span class="ch">\x86\x05\x7f\x08\xd0\xb6</span><span class="st">&amp;</span><span class="ch">\xdb\xe9</span><span class="st">&#39;</span></span></code></pre></div>
+</section>
+<section id="crockfords-base32" class="level3">
+<h3>Crockford’s Base32</h3>
+<p><span><label for="sn-8" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-8" class="margin-toggle"/><span class="marginnote"> Read more about Crockford’s Base32 <a href="https://en.wikipedia.org/wiki/Base32#Crockford&#39;s_Base32">here</a>.<br />
+<br />
+</span></span></p>
+<p>When represented as a string, ULID’s use Crockford’s Base32 encoding. This encoding uses 5 bits per character, gaining an extra bit per character over hexadecimal (Base16). Crockford’s implementation excludes the letters “I”, “L”, and “O” to avoid visual confusion with digits “0” and “1”. It also excludes the letter “U” to reduce likelyhood of obsenities.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="op">&gt;&gt;&gt;</span> ulid.base32.ENCODING</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="co">&#39;0123456789ABCDEFGHJKMNPQRSTVWXYZ&#39;</span></span></code></pre></div>
+<p>Crockford’s Base32 is case insensitive and only encodes uppercase characters, e.g. “a” and “A” both encode to the letter “A”. Upper and lowercase letters decode to the same value, e.g. “a” and “A” both to the numeric value of 10.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="op">&gt;&gt;&gt;</span> ulid.base32.DECODING[<span class="bu">ord</span>(<span class="st">&#39;a&#39;</span>)]</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="dv">10</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="op">&gt;&gt;&gt;</span> ulid.base32.DECODING[<span class="bu">ord</span>(<span class="st">&#39;A&#39;</span>)]</span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="dv">10</span></span></code></pre></div>
+<p>The <a href="https://ulid.readthedocs.io/en/latest/base32.html">base32</a> module supports a number of encoding/decoding functions. When the exact part of data you’re dealing with is known, use the <code>encode_{part}</code> or <code>decode_{part}</code> functions for optimal performance. If unsure, use the <code>encode</code> and <code>decode</code> functions as they will try and determine it. Choosing between these is just a minor performance optimization.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="op">&gt;&gt;&gt;</span> value.<span class="bu">bytes</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>b<span class="st">&#39;</span><span class="ch">\x01</span><span class="st">n]</span><span class="ch">\xe4</span><span class="st">0</span><span class="ch">\x96</span><span class="st">i</span><span class="ch">\x86\x05\x7f\x08\xd0\xb6</span><span class="st">&amp;</span><span class="ch">\xdb\xe9</span><span class="st">&#39;</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="op">&gt;&gt;&gt;</span> value.timestamp().<span class="bu">bytes</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>b<span class="st">&#39;</span><span class="ch">\x01</span><span class="st">n]</span><span class="ch">\xe4</span><span class="st">0</span><span class="ch">\x96</span><span class="st">&#39;</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="op">&gt;&gt;&gt;</span> value.randomness().<span class="bu">bytes</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a>b<span class="st">&#39;i</span><span class="ch">\x86\x05\x7f\x08\xd0\xb6</span><span class="st">&amp;</span><span class="ch">\xdb\xe9</span><span class="st">&#39;</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="op">&gt;&gt;&gt;</span> ulid.base32.encode_ulid(value.<span class="bu">bytes</span>)</span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="co">&#39;01DSEY8C4PD630AZR8T2V2DPZ9&#39;</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a><span class="op">&gt;&gt;&gt;</span> ulid.base32.encode_timestamp(value.timestamp().<span class="bu">bytes</span>)</span>
+<span id="cb9-11"><a href="#cb9-11"></a><span class="co">&#39;01DSEY8C4P&#39;</span></span>
+<span id="cb9-12"><a href="#cb9-12"></a><span class="op">&gt;&gt;&gt;</span> ulid.base32.encode_randomness(value.randomness().<span class="bu">bytes</span>)</span>
+<span id="cb9-13"><a href="#cb9-13"></a><span class="co">&#39;D630AZR8T2V2DPZ9&#39;</span></span>
+<span id="cb9-14"><a href="#cb9-14"></a></span>
+<span id="cb9-15"><a href="#cb9-15"></a><span class="op">&gt;&gt;&gt;</span> ulid.base32.encode(value.<span class="bu">bytes</span>)</span>
+<span id="cb9-16"><a href="#cb9-16"></a><span class="co">&#39;01DSEY8C4PD630AZR8T2V2DPZ9&#39;</span></span>
+<span id="cb9-17"><a href="#cb9-17"></a><span class="op">&gt;&gt;&gt;</span> ulid.base32.encode(value.timestamp().<span class="bu">bytes</span>)</span>
+<span id="cb9-18"><a href="#cb9-18"></a><span class="co">&#39;01DSEY8C4P&#39;</span></span>
+<span id="cb9-19"><a href="#cb9-19"></a><span class="op">&gt;&gt;&gt;</span> ulid.base32.encode(value.randomness().<span class="bu">bytes</span>)</span>
+<span id="cb9-20"><a href="#cb9-20"></a><span class="co">&#39;D630AZR8T2V2DPZ9&#39;</span></span></code></pre></div>
+</section>
+<section id="sorting" class="level3">
+<h3>Sorting</h3>
+<p><span><label for="sn-9" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-9" class="margin-toggle"/><span class="marginnote"> Follow issue <a href="https://github.com/ulid/spec/issues/11">#11</a> on the ULID spec repository for more information about problems with supporting sub-millisecond sorting.<br />
+<br />
+</span></span> <span><label for="sn-10" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-10" class="margin-toggle"/><span class="marginnote"> Follow issue <a href="https://github.com/ulid/spec/issues/11">#306</a> on the <code>ulid-py</code> repository for more information.<br />
+<br />
+</span></span></p>
+<p>Since the <a href="./#timestamp">timestamp</a> value is the first 48 bits/6 bytes/10 characters of a ULID value, they can be lexicographically sorted with millisecond precision. The ulid spec also defines support for monotonically increasing randomness values to maintain sort order within the same millisecond. However, due to some questions/concerns/discussion around the implementation, it is not <em>yet</em> supported by the <code>ulid-py</code> package.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="op">&gt;&gt;&gt;</span> u1 <span class="op">=</span> ulid.new()</span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="op">&gt;&gt;&gt;</span> u1</span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="op">&lt;</span>ULID(<span class="st">&#39;01DSM8753B0P968WJPXRS90SWW&#39;</span>)<span class="op">&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="op">&gt;&gt;&gt;</span> u2 <span class="op">=</span> ulid.new()</span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="op">&gt;&gt;&gt;</span> u2</span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="op">&lt;</span>ULID(<span class="st">&#39;01DSM87EBMQXB12TA1VK4APBD9&#39;</span>)<span class="op">&gt;</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="op">&gt;&gt;&gt;</span> u3 <span class="op">=</span> ulid.from_timestamp(<span class="dv">2678249158</span>)</span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="op">&gt;&gt;&gt;</span> u3</span>
+<span id="cb10-9"><a href="#cb10-9"></a><span class="op">&lt;</span>ULID(<span class="st">&#39;02DYA1DXBGE7BT0XGJ64G7KWFA&#39;</span>)<span class="op">&gt;</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a><span class="op">&gt;&gt;&gt;</span> u3.timestamp().datetime</span>
+<span id="cb10-11"><a href="#cb10-11"></a>datetime.datetime(<span class="dv">2054</span>, <span class="dv">11</span>, <span class="dv">14</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">58</span>)</span>
+<span id="cb10-12"><a href="#cb10-12"></a><span class="op">&gt;&gt;&gt;</span> u1 <span class="op">&lt;</span> u2 <span class="op">&lt;</span> u3</span>
+<span id="cb10-13"><a href="#cb10-13"></a><span class="va">True</span></span></code></pre></div>
+</section>
+</section>
+<section id="proscons" class="level2">
+<h2>Pros/Cons</h2>
+<p>ULID’s aren’t the panacea of identifiers but definitely have their place.</p>
+<p>Consider them when:</p>
+<ul>
+<li>Sortability is necessary</li>
+<li>Identifier length is important</li>
+<li>No means for additional metadata retrieval such as creation time</li>
+</ul>
+<p>Avoid them when:</p>
+<ul>
+<li>Sortability must be sub-millisecond (at least until issues resolved)</li>
+<li>Exposing the creation time in the identifier is considered information leakage</li>
+<li>Compatibility with many languages/platforms/architectures is required</li>
+</ul>
+<p>In general, ULID’s provide a nice alternative to <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">UUID’s</a> in cases where sortability and visual appeal of the identifier takes priority over the loss of entropy and universal language/platform support.</p>
+</section>
+<section id="to-be-continued" class="level2">
+<h2>To be continued…</h2>
+<p><span><label for="sn-11" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-11" class="margin-toggle"/><span class="marginnote"> Jump to Part 2 - <a href="/writings/2019/11/07/ulid-in-django/">ULID’s in Django</a>.<br />
+<br />
+</span></span></p>
+<p>The next blog post in this series will discuss using ULID’s with the Django web framework. Stay tuned!</p>
+</section>
+
+
+
+<section>
+  <p class="return-home"><em><a href="/">Return home</a></em></p>
+</section>
+
+
+</article>
+
+
+
+
+
+
+<footer>
+    <hr class="footer-hr">
+    <ul class="social-links">
+      
+        <li><a href="https://www.routegy.com" target="_blank" title="Employer"><span class="fa fa-2x fa-building social-icon"></span></a></li>
+      
+        <li><a href="https://goo.gl/maps/kUBP3GgPGiG2" target="_blank" title="Location"><span class="fa fa-2x fa-map-marker social-icon"></span></a></li>
+      
+        <li><a href="https://stackoverflow.com/users/84942/ahawker" target="_blank" title="Stack Overflow"><span class="fa fa-2x fa-stack-overflow social-icon"></span></a></li>
+      
+        <li><a href="https://github.com/ahawker" target="_blank" title="GitHub"><span class="fa fa-2x fa-github-alt social-icon"></span></a></li>
+      
+        <li><a href="https://linkedin.com/in/ahawker" target="_blank" title="LinkedIn"><span class="fa fa-2x fa-linkedin-square social-icon"></span></a></li>
+      
+        <li><a href="https://twitter.com/rekwah" target="_blank" title="Twitter"><span class="fa fa-2x fa-twitter social-icon"></span></a></li>
+      
+        <li><a href="mailto:andrew.r.hawker@gmail.com" target="_blank" title="Email"><span class="fa fa-2x fa-envelope social-icon"></span></a></li>
+      
+        <li><a href="/feed.xml" target="_blank" title="RSS"><span class="fa fa-2x fa-rss social-icon"></span></a></li>
+        
+    </ul>
+  <div class="credits">
+    <span>&copy; 2019 &nbsp;&nbsp;ANDREW HAWKER</span></br> <br>
+    <span>Code for this website can be found <a href="https://github.com/ahawker/personal-site">here</a>.</span>
+  </div>  
+</footer>
+
+</body>
+</html>
+
