@@ -16,7 +16,7 @@ build:  ## Build site.
 clean:  ## Clean local compiled site.
 	@$(JEKYLL) clean
 
-.PHONY: gh-pages
+.PHONY: deploy
 deploy: clean  ## Build and deploy site.
 	@(git clone -b $(DEPLOY_BRANCH) $(DEPLOY_ORIGIN) $(DEPLOY_DIR) && \
 		JEKYLL_ENV=production $(JEKYLL) build && \
