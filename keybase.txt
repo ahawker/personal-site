@@ -1,0 +1,54 @@
+https://keybase.io/hawker
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://andrew.hawker.io
+  * I am hawker (https://keybase.io/hawker) on keybase.
+  * I have a public key ASD6wGH9jznfLABTvGu3WN9nfmKR6PwDFLe54ahD7HkDqwo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120fac061fd8f39df2c0053bc6bb758df677e6291e8fc0314b7b9e1a843ec7903ab0a",
+      "host": "keybase.io",
+      "kid": "0120fac061fd8f39df2c0053bc6bb758df677e6291e8fc0314b7b9e1a843ec7903ab0a",
+      "uid": "347e8786d911bc84432e3f7278f34a19",
+      "username": "hawker"
+    },
+    "merkle_root": {
+      "ctime": 1575398515,
+      "hash": "b1f5984b0f9275e979312d0cdac106853a10e1bb877aec3b84ea5c0a8d7c2ae0ae317d17e5cc709047b80c7f7b3224bdf48e1c559d8304e5563e9b9cfa45028c",
+      "hash_meta": "e819239391baf51f70fe8e3389de13e674f030c3a783674085e398e3e63a74e8",
+      "seqno": 12012251
+    },
+    "service": {
+      "entropy": "rEhHvEwkSuUFfzQ2DPLkKiiu",
+      "hostname": "andrew.hawker.io",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "5.0.0"
+  },
+  "ctime": 1575398527,
+  "expire_in": 504576000,
+  "prev": "ea57357b65294153a3be5daaeb740f5fdf31f0f8d6adecc20a54e1b880e3b2b9",
+  "seqno": 8,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEg+sBh/Y853ywAU7xrt1jfZ35ikej8AxS3ueGoQ+x5A6sKp3BheWxvYWTESpcCCMQg6lc1e2UpQVOjvl2q63QPX98x8PjWrezCClThuIDjsrnEIHLygkza5oACCVt55/xCSPg/vlGcgr5haSS7GjfV1HP1AgHCo3NpZ8RAkfoH6VUSVn5twqEStTT3RWuneXsS1hw7PtRsipVwPoTeH+P774S5cFxRgVVkH5EXl8V8HkZI/9ZoNjpQg2dOD6hzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEINZEhirv8V3feD6IX3K7OBAXixRIJyy8S2uuaBYecuURo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/hawker
+
