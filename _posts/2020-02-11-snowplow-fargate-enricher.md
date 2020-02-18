@@ -1,20 +1,28 @@
 ---
 layout: post
-title: Snowplow Stream Enricher on AWS Fargate
+title: Snowplow on AWS Fargate - Stream Enrich
 date: 2020-02-11 21:32:00-8000
 author: me
 category: writings
-tags: [snowplow, aws, ecs, fargate]
-keywords: [snowplow, aws, ecs, fargate]
+tags: [snowplow, aws, ecs, fargate, stream, enrich]
+keywords: [snowplow, aws, ecs, fargate, stream, enrich]
 ---
 
-Over the past few days, I've been working on deploying [Snowplow](https://github.com/snowplow/snowplow) on [AWS Fargate](https://aws.amazon.com/fargate/) for my company [Routegy](https://routegy.com).
+---
 
-I'm deploying the _streaming_ version of Snowplow, using the [Scala Stream Collector](https://github.com/ snowplow/snowplow/wiki/Setting-up-the-Scala-Stream-Collector) and [Stream Enricher](https://github.com/ snowplow/snowplow/wiki/setting-up-stream-enrich) using slightly modified versions of the official [dockerfiles](https://github.com/snowplow/snowplow-docker).
+This is part **three** of a blog post series about **Snowplow on AWS Fargate**.
 
-However, AWS ECS/Fargate is an undocumented platform on the [Snowplow Wiki](https://github.com/snowplow/snowplow) so there have been some growing pains. This post outlines the ones encountered with the Stream Enricher.
+* [Part 1: Snowplow on AWS Fargate]({% post_url /2020-02-09-snowplow-fargate %})
+* [Part 2: Snowplow on AWS Fargate - Task Role]({% post_url /2020-02-10-snowplow-fargate-task-role %})
+* [Part 4: Snowplow on AWS Fargate - IAM Permissions]({% post_url /2020-02-12-snowplow-fargate-permissions %})
 
-### Name does not resolve
+---
+
+### Goal
+
+This post will outline common problems (and their solutions) encountered when running the [Snowplow Stream Enrich](https://github.com/snowplow/snowplow/wiki/Run-Stream-Enrich) container on AWS Fargate.
+
+## Name does not resolve
 
 The is a common problem with ECS agent not properly setting up the `/etc/hosts` file and appears as well on AWS Fargate.
 
@@ -35,7 +43,7 @@ Example stack trace:
 
 After some investigation, [this](https://stackoverflow.com/questions/49592709/aws-fargate-hostname-not-doable) Stack Overflow post got me going in the correct direction with some slight modifications required.
 
-First, the ethernet interface in AWS Fargate is going to be `eth0`.
+First, the ethernet interface in AWS Fargate is going to be **`eth0`**.
 Second, if you're using the official snowplow docker images, they already define an `ENTRYPOINT` instruction, so you'll need to override this. Write your own and call the original.
 
 ```bash
@@ -48,7 +56,7 @@ echo "$(ip a | grep -A2 eth0 | grep inet | awk '{print $2}' | sed 's#/.*##g' ) $
 exec docker-entrypoint.sh $*
 ```
 
-### Bucket not found
+## Bucket not found
 
 This is a problem related to the "enrichment" configuration files and the defaults defined [here](https://github.com/snowplow/snowplow/tree/master/3-enrich/config/enrichments/).
 
@@ -81,6 +89,6 @@ I switched both of mine to `http://` URI schemes to work around the problem, e.g
 [^self-hosted]: {-}
     Snowplow will eventually stop self hosting the Geolite databases so you will need to host them yourself. See the original [deprecation notice](https://discourse.snowplowanalytics.com/t/deprecation-notice-snowplow-will-stop-hosting-the-maxmind-geolite2-database-on-behalf-of-users/3468) for more details.
 
-## To be continued...
+### Next
 
-The next blog post in this series will discuss IAM permissions required for all of the Snowplow containers. Stay tuned!
+Check out the next post in this series, [Snowplow on AWS Fargate - IAM Permissions]({% post_url /2020-02-12-snowplow-fargate-permissions %}), which covers IAM permissions required to run all Snowplow processes on AWS Fargate.
