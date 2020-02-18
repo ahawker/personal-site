@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8" lang="en">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Andrew Hawker">
+  <meta name="generator" content="jekyll">
+  
+  <meta name="dcterms.date" content="2020-02-09 10:33:00 -0800">
+  
+  
+  <meta name="keywords" content="snowplow aws ecs fargate">
+  
+
+  <link rel="canonical" href="https://andrew.hawker.io/writings/2020/02/09/snowplow-fargate/" />
+
+  <title>Snowplow on AWS Fargate – Andrew Hawker</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
+  <link rel="stylesheet" href="/assets/styles/et-book.min.css">
+  <link rel="stylesheet" href="/assets/styles/site.css">
+  
+
+  <!--[if lt IE 9]>
+  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+
+  <link rel="manifest" href="/assets/site.webmanifest">
+
+  <meta name="msapplication-TileColor" content="#2d89ef">
+  <meta name="msapplication-config" content="/assets/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- RSS -->
+  <link type="application/atom+xml" rel="alternate" href="https://andrew.hawker.io/feed.xml" title="Andrew Hawker" />
+
+  <!-- Google Analytics -->
+  
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36365256-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  
+
+  <!-- SEO -->
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Snowplow on AWS Fargate | Andrew Hawker</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Snowplow on AWS Fargate" />
+<meta name="author" content="Andrew Hawker" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Over the past few days, I’ve been working on deploying Snowplow on AWS Fargate for my company Routegy." />
+<meta property="og:description" content="Over the past few days, I’ve been working on deploying Snowplow on AWS Fargate for my company Routegy." />
+<link rel="canonical" href="https://andrew.hawker.io/writings/2020/02/09/snowplow-fargate/" />
+<meta property="og:url" content="https://andrew.hawker.io/writings/2020/02/09/snowplow-fargate/" />
+<meta property="og:site_name" content="Andrew Hawker" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-02-09T10:33:00-08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Snowplow on AWS Fargate" />
+<meta name="twitter:site" content="@rekwah" />
+<meta name="twitter:creator" content="@rekwah" />
+<script type="application/ld+json">
+{"headline":"Snowplow on AWS Fargate","dateModified":"2020-02-09T10:33:00-08:00","datePublished":"2020-02-09T10:33:00-08:00","url":"https://andrew.hawker.io/writings/2020/02/09/snowplow-fargate/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2020/02/09/snowplow-fargate/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"Over the past few days, I’ve been working on deploying Snowplow on AWS Fargate for my company Routegy.","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+
+<body>
+
+
+
+
+<article>
+  
+<header>
+  <h1 class="title"><a name="Snowplow on AWS Fargate"></a>Snowplow on AWS Fargate</h1>
+  
+  
+  <p class="byline">February 9, 2020</p>
+  
+</header>
+
+
+  <p>Over the past few days, I’ve been working on deploying <a href="https://github.com/snowplow/snowplow">Snowplow</a> on <a href="https://aws.amazon.com/fargate/">AWS Fargate</a> for my company <a href="https://routegy.com">Routegy</a>.</p>
+<p>I’m deploying the <em>streaming</em> version of Snowplow, using the <a href="https://github.com/%20snowplow/snowplow/wiki/Setting-up-the-Scala-Stream-Collector">Scala Stream Collector</a> and <a href="https://github.com/%20snowplow/snowplow/wiki/setting-up-stream-enrich">Stream Enricher</a> using slightly modified versions of the official <a href="https://github.com/snowplow/snowplow-docker">dockerfiles</a>.</p>
+<p>However, AWS ECS/Fargate is an undocumented platform on the <a href="https://github.com/snowplow/snowplow">Snowplow Wiki</a> so there have been some growing pains. This blog series will cover some of the gotchas, problems, and solutions I found along the way.</p>
+<section id="part-1-using-ecs-task-role-permissions" class="level2">
+<h2>Part 1: Using ECS Task Role Permissions</h2>
+<p><strong><a href="/writings/2020/02/10/snowplow-fargate-task-role/">Snowplow on AWS Fargate - Task Role</a></strong> outlines how to configure your Snowplow components properly to give them access to the ECS task role.</p>
+</section>
+<section id="part-2-stream-enricher-gotchas" class="level2">
+<h2>Part 2: Stream Enricher Gotchas</h2>
+<p><strong><a href="/writings/2020/02/11/snowplow-fargate-enricher/">Snowplow on AWS Fargate - Stream Enricher</a></strong> contains more information for running the <a href="https://github.com/snowplow/snowplow/wiki/setting-up-stream-enrich">Snowplow Stream Enrich</a> component.</p>
+</section>
+<section id="part-3-iam-permissions" class="level2">
+<h2>Part 3: IAM Permissions</h2>
+<p><strong><a href="/writings/2020/02/12/snowplow-fargate-permissions/">Snowplow on AWS Fargate - IAM Permissions</a></strong> contains IAM policy document examples for each Snowplow component to give it the minimum required security access.</p>
+</section>
+
+
+
+<section>
+  <p class="return-home"><em><a href="/">Return home</a></em></p>
+</section>
+
+
+</article>
+
+
+
+
+
+
+<footer>
+    <hr class="footer-hr">
+    <ul class="social-links">
+      
+        <li><a href="https://www.routegy.com" target="_blank" title="Employer"><span class="fa fa-2x fa-building social-icon"></span></a></li>
+      
+        <li><a href="https://goo.gl/maps/kUBP3GgPGiG2" target="_blank" title="Location"><span class="fa fa-2x fa-map-marker social-icon"></span></a></li>
+      
+        <li><a href="https://stackoverflow.com/users/84942/ahawker" target="_blank" title="Stack Overflow"><span class="fa fa-2x fa-stack-overflow social-icon"></span></a></li>
+      
+        <li><a href="https://github.com/ahawker" target="_blank" title="GitHub"><span class="fa fa-2x fa-github-alt social-icon"></span></a></li>
+      
+        <li><a href="https://linkedin.com/in/ahawker" target="_blank" title="LinkedIn"><span class="fa fa-2x fa-linkedin-square social-icon"></span></a></li>
+      
+        <li><a href="https://twitter.com/rekwah" target="_blank" title="Twitter"><span class="fa fa-2x fa-twitter social-icon"></span></a></li>
+      
+        <li><a href="mailto:andrew.r.hawker@gmail.com" target="_blank" title="Email"><span class="fa fa-2x fa-envelope social-icon"></span></a></li>
+      
+        <li><a href="/feed.xml" target="_blank" title="RSS"><span class="fa fa-2x fa-rss social-icon"></span></a></li>
+        
+    </ul>
+  <div class="credits">
+    <span>&copy; 2020 &nbsp;&nbsp;ANDREW HAWKER</span></br> <br>
+    <span>Code for this website can be found <a href="https://github.com/ahawker/personal-site">here</a>.</span>
+  </div>  
+</footer>
+
+</body>
+</html>
+
