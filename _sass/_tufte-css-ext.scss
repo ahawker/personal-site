@@ -30,3 +30,6 @@ article {
 .marginnote {
   hyphens: none;
 }
+
+/* Bump width on lists so page titles not hyphenated. */
+section > ul { width: 85%; }
