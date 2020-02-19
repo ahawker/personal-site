@@ -2,3 +2,4 @@ User-agent: *
 Disallow: /ghost/
 Disallow: /bin/
 Disallow: /.git/
+Sitemap: https://andrew.hawker.io/sitemap.xml

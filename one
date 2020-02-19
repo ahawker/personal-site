@@ -1,6 +1,0 @@
-aws {
-    accessKey = iam
-    accessKey = ${?COLLECTOR_STREAMS_SINK_AWS_ACCESS_KEY}
-    secretKey = iam
-    secretKey = ${?COLLECTOR_STREAMS_SINK_AWS_SECRET_KEY}
-}
