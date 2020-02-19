@@ -1,4 +1,5 @@
 {% if page.title %}
+{% unless page.path contains "archives" %}
 <header>
   <h1 class="title"><a name="{{ page.title }}"></a>{{ page.title }}</h1>
   {% if page.subtitle %}
@@ -8,4 +9,5 @@
   <p class="byline">{{ page.date | date: "%B %-d, %Y"}}</p>
   {% endif %}
 </header>
+{% endunless %}
 {% endif %}

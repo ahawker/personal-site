@@ -14,7 +14,13 @@
 
   <link rel="canonical" href="{{ page.url | absolute_url }}" />
 
+  {% if page.title %}
   <title>{{ page.title }} – {{ site.title }}</title>
+  {% elsif page.date %}
+  <title>{{ page.date }} – {{ site.title }}</title>
+  {% else %}
+  <title>{{ site.title }}</title>
+  {% endif %}
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>

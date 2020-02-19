@@ -1,0 +1,39 @@
+
+{% if page.type == "tag" %}
+<h1>Archive: {{ page.type | capitalize }} is {{ page.title }}</h1>
+{% else %}
+<h1>Archive: {{ page.type | capitalize }} is {{ page.date | date: "%Y" }}</h1>
+{% endif %}
+
+{% for post in page.posts %}
+
+  {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
+  {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %}
+
+  {% if forloop.first %}
+  <section id="section-{{ forloop.index }}">
+    <h3>{{ this_year }}</h3>
+    <ul>
+  {% endif %}
+
+  <li><p><a href="{{ post.url }}">{{ post.title }}</a> - {{ post.date | date: '%B %-d' }}</p></li>
+
+  {% if forloop.last %}
+      </ul>
+    </section>
+  {% else %}
+    {% if this_year != next_year %}
+      </ul>
+    </section>
+    <section id="section-{{ forloop.index }}">
+      <h3>{{ next_year }}</h3>
+      <ul>
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% if page.layout != 'home' %}
+<section>
+  <p class="return-home"><em><a href="{{ site.baseurl }}/">Return home</a></em></p>
+</section>
+{% endif %}
