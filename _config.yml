@@ -21,6 +21,17 @@ social:
   - https://linkedin.com/in/ahawker
   - https://twitter.com/rekwah
 
+# Jekyll Archives
+# https://github.com/jekyll/jekyll-archives/blob/master/docs/configuration.md
+jekyll-archives:
+  enabled:
+    - year
+    - tags
+  permalinks:
+    year: '/archives/year/:year/'
+    tag: '/archives/tag/:name/'
+  layout: archive
+
 sass:
   style: compressed
 
@@ -33,6 +44,7 @@ pandoc:
     - filter: 'pandoc-sidenote'
 
 plugins:
+  - jekyll-archives
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-pandoc
