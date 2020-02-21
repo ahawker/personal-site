@@ -8,6 +8,13 @@
   {% if page.date %}
   <p class="byline">{{ page.date | date: "%B %-d, %Y"}}</p>
   {% endif %}
+  {% if page.tags %}
+  <ul class="tags">
+  {% for tag in page.tags %}
+    <li class="tag"><a href="/archives/tag/{{ tag }}">{{ tag | upcase }} ({{ site.tags[tag] | size }})</a></li>
+  {% endfor %}
+  {% endif %}
+  </ul>
 </header>
 {% endunless %}
 {% endif %}
