@@ -15,4 +15,4 @@ In my free time, I enjoy outdoor backpacking, running, pub trivia, improv comedy
 If asked to describe me, others would likely mention my attention to detail, quick wit, use of puns, and innate ability to recall obscure movie and TV show quotes.
 
 [^photo]: {-}
-  ![Me](/assets/images/pages/resume-me.jpg)
+  ![Me](/assets/images/pages/resume-me.jpg){ .about-img }
