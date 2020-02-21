@@ -13,6 +13,6 @@ Read some, learn more [about me](about), or connect with me on social media.
 {% for post in site.posts %}
 {% assign curr_year = post.date | date: "%Y" %}
 {% if curr_year != prev_year %}
-### {{ curr_year }}
+### [{{ curr_year }}]({{ site.baseurl }}/archives/year/{{ curr_year }})
 {% assign prev_year = curr_year %}{% endif %} * [{{ post.title }}]({{ post.url }}) - {{ post.date | date: '%B %-d' }}
 {% endfor %}
