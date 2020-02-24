@@ -1,8 +1,9 @@
-
 {% if page.type == "tag" %}
-<h1>Archive: {{ page.type | capitalize }} is {{ page.title | upcase }}</h1>
+<h1>Archives: {{ page.type | capitalize }} is {{ page.title | upcase }}</h1>
+{% elsif page.type == "category" %}
+<h1>Archives: {{ page.type | capitalize }} is {{ page.title | capitalize }}</h1>
 {% else %}
-<h1>Archive: {{ page.type | capitalize }} is {{ page.date | date: "%Y" }}</h1>
+<h1>Archives: {{ page.type | capitalize }} is {{ page.date | date: "%Y" }}</h1>
 {% endif %}
 
 {% for post in page.posts %}

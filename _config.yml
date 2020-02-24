@@ -27,9 +27,11 @@ jekyll-archives:
   enabled:
     - year
     - tags
+    - categories
   permalinks:
     year: '/archives/year/:year/'
     tag: '/archives/tag/:name/'
+    category: '/archives/category/:name/'
   layout: archive
 
 sass:
