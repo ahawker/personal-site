@@ -6,10 +6,13 @@
   <p class="subtitle">{{ page.subtitle }}</p>
   {% endif %}
   {% if page.date %}
-  <p class="byline">{{ page.date | date: "%B %-d, %Y"}}</p>
+  <p class="byline">{{ page.date | date: "%B %-d, %Y" }}</p>
   {% endif %}
-  {% if page.tags %}
+  {% if page.categories %}
   <ul class="tags">
+  {% for category in page.categories %}
+    <li class="category"><a href="/archives/category/{{ category }}">{{ category | upcase }}</a></li>
+  {% endfor %}
   {% for tag in page.tags %}
     <li class="tag"><a href="/archives/tag/{{ tag }}">{{ tag | upcase }} ({{ site.tags[tag] | size }})</a></li>
   {% endfor %}
