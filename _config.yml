@@ -11,6 +11,7 @@ github_username:  ahawker
 # Jekyll SEO
 # https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 twitter:
+  card: summary
   username: rekwah
 logo: /assets/images/android-chrome-512x512.png
 social:
@@ -60,3 +61,10 @@ exclude:
   - .gitignore
 
 ga_tracking_id: UA-36365256-1
+
+defaults:
+  - scope:
+      path: ''
+      type: posts
+    values:
+      image: /assets/images/android-chrome-512x512.png
