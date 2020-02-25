@@ -13,6 +13,8 @@
   {% for category in page.categories %}
     <li class="category"><a href="/archives/category/{{ category }}">{{ category | upcase }}</a></li>
   {% endfor %}
+  {% endif %}
+  {% if page.tags %}
   {% for tag in page.tags %}
     <li class="tag"><a href="/archives/tag/{{ tag }}">{{ tag | upcase }} ({{ site.tags[tag] | size }})</a></li>
   {% endfor %}
