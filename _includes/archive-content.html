@@ -13,7 +13,7 @@
 
   {% if forloop.first %}
   <section id="section-{{ forloop.index }}">
-    <h3>{{ this_year }}</h3>
+    <h3><a href="{{ site.baseurl }}/archives/year/{{ this_year }}">{{ this_year }}</a></h3>
     <ul>
   {% endif %}
 
@@ -27,7 +27,7 @@
       </ul>
     </section>
     <section id="section-{{ forloop.index }}">
-      <h3>{{ next_year }}</h3>
+      <h3><a href="{{ site.baseurl }}/archives/year/{{ next_year }}">{{ next_year }}</a></h3>
       <ul>
     {% endif %}
   {% endif %}
