@@ -1,4 +1,27 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://andrew.hawker.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://andrew.hawker.io/" rel="alternate" type="text/html" /><updated>2020-02-24T11:22:52-08:00</updated><id>https://andrew.hawker.io/feed.xml</id><title type="html">Andrew Hawker</title><subtitle>Personal website of Andrew Hawker</subtitle><author><name>Andrew Hawker</name></author><entry><title type="html">Edit git commit message during interactive rebase</title><link href="https://andrew.hawker.io/dailies/2020/02/24/git-interactive-rebase-commit-message/" rel="alternate" type="text/html" title="Edit git commit message during interactive rebase" /><published>2020-02-24T03:12:00-08:00</published><updated>2020-02-24T03:12:00-08:00</updated><id>https://andrew.hawker.io/dailies/2020/02/24/git-interactive-rebase-commit-message</id><content type="html" xml:base="https://andrew.hawker.io/dailies/2020/02/24/git-interactive-rebase-commit-message/">&lt;p&gt;Previously, this is how I would edit &lt;code&gt;git&lt;/code&gt; commit messages beyond &lt;code&gt;HEAD&lt;/code&gt; within the history.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://andrew.hawker.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://andrew.hawker.io/" rel="alternate" type="text/html" /><updated>2020-02-24T21:58:36-08:00</updated><id>https://andrew.hawker.io/feed.xml</id><title type="html">Andrew Hawker</title><subtitle>Personal website of Andrew Hawker</subtitle><author><name>Andrew Hawker</name></author><entry><title type="html">AWS CodePipeline DOWNLOAD_SOURCE Access Denied</title><link href="https://andrew.hawker.io/dailies/2020/02/24/aws-codepipelines-source-access-denied/" rel="alternate" type="text/html" title="AWS CodePipeline DOWNLOAD_SOURCE Access Denied" /><published>2020-02-24T03:12:00-08:00</published><updated>2020-02-24T03:12:00-08:00</updated><id>https://andrew.hawker.io/dailies/2020/02/24/aws-codepipelines-source-access-denied</id><content type="html" xml:base="https://andrew.hawker.io/dailies/2020/02/24/aws-codepipelines-source-access-denied/">&lt;p&gt;Creating a fresh AWS CodePipeline through the wizard can result in immediate errors.&lt;/p&gt;
+&lt;p&gt;In your CodeBuild build logs, you’ll see:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/codebuild-waiting-download-source-error.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;In your CodeBuild phase details, you’ll see:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;CLIENT_ERROR: AccessDenied: Access Denied status code: 403,
+request id: XXX, host id: XXX/XXX= for primary source and
+source version arn:aws:s3:::${BUCKET}/${PREFIX}/${ARTIFACT_ID}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This happens when you select a non-default S3 bucket location for the Artifact store. In this case, the role/policies automatically created by AWS are not granted access to the Custom S3 bucket location.&lt;/p&gt;
+&lt;p&gt;In the UI, you’ll see:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/codebuild-custom-location-s3.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;To fix this, add the following permissions to the CodeBuild policy:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{
+    &amp;quot;Effect&amp;quot;: &amp;quot;Allow&amp;quot;,
+    &amp;quot;Action&amp;quot;: [
+        &amp;quot;s3:PutObject&amp;quot;,
+        &amp;quot;s3:GetObject&amp;quot;,
+        &amp;quot;s3:GetObjectVersion&amp;quot;,
+        &amp;quot;s3:GetBucketAcl&amp;quot;,
+        &amp;quot;s3:GetBucketLocation&amp;quot;
+    ],
+    &amp;quot;Resource&amp;quot;: [
+        &amp;quot;arn:aws:s3:::${BUCKET_NAME}*&amp;quot;
+    ]
+},&lt;/code&gt;&lt;/pre&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="dailies" /><category term="aws" /><category term="codepipeline" /><category term="codebuild" /><summary type="html">Creating a fresh AWS CodePipeline through the wizard can result in immediate errors.</summary></entry><entry><title type="html">Edit git commit message during interactive rebase</title><link href="https://andrew.hawker.io/dailies/2020/02/24/git-interactive-rebase-commit-message/" rel="alternate" type="text/html" title="Edit git commit message during interactive rebase" /><published>2020-02-24T03:12:00-08:00</published><updated>2020-02-24T03:12:00-08:00</updated><id>https://andrew.hawker.io/dailies/2020/02/24/git-interactive-rebase-commit-message</id><content type="html" xml:base="https://andrew.hawker.io/dailies/2020/02/24/git-interactive-rebase-commit-message/">&lt;p&gt;Previously, this is how I would edit &lt;code&gt;git&lt;/code&gt; commit messages beyond &lt;code&gt;HEAD&lt;/code&gt; within the history.&lt;/p&gt;
 &lt;div class=&quot;sourceCode&quot; id=&quot;cb1&quot;&gt;&lt;pre class=&quot;sourceCode bash&quot;&gt;&lt;code class=&quot;sourceCode bash&quot;&gt;&lt;span id=&quot;cb1-1&quot;&gt;&lt;a href=&quot;#cb1-1&quot;&gt;&lt;/a&gt;$ &lt;span class=&quot;fu&quot;&gt;git&lt;/span&gt; rebase -i &lt;span class=&quot;va&quot;&gt;${HASH}&lt;/span&gt;^1&lt;/span&gt;
 &lt;span id=&quot;cb1-2&quot;&gt;&lt;a href=&quot;#cb1-2&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;...Mark&lt;/span&gt; commits with &lt;span class=&quot;kw&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;ex&quot;&gt;edit&lt;/span&gt;&lt;span class=&quot;kw&quot;&gt;`&lt;/span&gt; command&lt;/span&gt;
 &lt;span id=&quot;cb1-3&quot;&gt;&lt;a href=&quot;#cb1-3&quot;&gt;&lt;/a&gt;$ &lt;span class=&quot;fu&quot;&gt;git&lt;/span&gt; commit --amend&lt;/span&gt;
@@ -1179,52 +1202,4 @@ resource &amp;quot;aws_route53_record&amp;quot; &amp;quot;record_staging_web&amp
 &lt;p&gt;In order to route traffic to n-tier levels of subdomains in Route53, you must create a new hosted zone for each subdomain that contains records and must add an &lt;code&gt;NS&lt;/code&gt; record for that subdomain in the hosted zone of its parent. &lt;span&gt;&lt;label for=&quot;sn-5&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-5&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; Check out the official AWS documentation &lt;a href=&quot;https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-routing-traffic-for-subdomains.html&quot;&gt;here&lt;/a&gt; for more information about this strategy.&lt;br /&gt;
 &lt;br /&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/section&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="writings" /><category term="aws" /><category term="route53" /><category term="dns" /><category term="terraform" /><category term="tutorial" /><summary type="html">Scenario</summary></entry><entry><title type="html">Continuous Integration for Mobile Apps with AppThwack and Jenkins (Part 2)</title><link href="https://andrew.hawker.io/writings/2014/05/02/continuous-integration-for-mobile-apps-appthwack-jenkins-part-2/" rel="alternate" type="text/html" title="Continuous Integration for Mobile Apps with AppThwack and Jenkins (Part 2)" /><published>2014-05-02T03:43:00-07:00</published><updated>2014-05-02T03:43:00-07:00</updated><id>https://andrew.hawker.io/writings/2014/05/02/continuous-integration-for-mobile-apps-appthwack-jenkins-part-2</id><content type="html" xml:base="https://andrew.hawker.io/writings/2014/05/02/continuous-integration-for-mobile-apps-appthwack-jenkins-part-2/">&lt;p&gt;&lt;img src=&quot;/assets/images/posts/jenkins-appthwack-header.png&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;Back in September, we announced the initial release of the official AppThwack Jenkins plugin.&lt;span&gt;&lt;label for=&quot;sn-1&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-1&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; This is part two of the continuous integration for mobile apps series. Be sure to check out &lt;a href=&quot;/writings/2013/09/03/continuous-integration-for-mobile-apps-appthwack-jenkins/&quot;&gt;Part 1&lt;/a&gt; for getting started with AppThwack and Jenkins.&lt;br /&gt;
-&lt;br /&gt;
-&lt;/span&gt;&lt;/span&gt; Since its inception, we’re pleased to see many developers seamlessly integrate AppThwack and testing on real mobile devices into their development workflow; testing on a per-commit and nightly-build basis.&lt;/p&gt;
-&lt;p&gt;While the plugin was perfect for capturing build artifacts and kicking off automated tests, it lacked Jenkins UI integration for displaying results. Customer feedback showed that this is an extremely important feature and we couldn’t agree more. The benefits of continuous testing are diminished if developers cannot quickly view results and historical trends. This is essential data for promptly diagnosing problems which facilitates a quick development process.&lt;/p&gt;
-&lt;p&gt;We’ve been adding features over the past few months and as of today (v1.8) of our plugin, we now have &lt;strong&gt;real-time&lt;/strong&gt; AppThwack results right in your Jenkins UI. We have plenty more cool Jenkins features up our sleeves, but we’re happy with the initial release and hope you are too! Let’s jump right in and check it out!&lt;/p&gt;
-&lt;section id=&quot;instant-feedback&quot; class=&quot;level2&quot;&gt;
-&lt;h2&gt;Instant Feedback&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/jenkins-appthwack-build-status.png&quot; alt=&quot;Build Status&quot; /&gt; It’s important to see the status of your builds as quickly as possible. The AppThwack plugin now attaches to your project view on the Jenkins homepage to display the status of the latest build.&lt;/p&gt;
-&lt;/section&gt;
-&lt;section id=&quot;choose-your-own-adventure&quot; class=&quot;level2&quot;&gt;
-&lt;h2&gt;Choose your own Adventure&lt;/h2&gt;
-&lt;p&gt;Previously, users were required to enter the names of the project and device pool they wanted to use. This wasn’t very user friendly and was prone to typos. Enough of that foolishness! The project and device pool entry fields are now drop-down selections populated automatically for you.&lt;span&gt;&lt;label for=&quot;sn-2&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-2&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; Interested in testing on real devices for free? Check out our Intel sponsored devices.&lt;br /&gt;
-&lt;br /&gt;
-&lt;/span&gt;&lt;/span&gt; &lt;span&gt;&lt;label for=&quot;sn-3&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-3&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;img src=&quot;/assets/images/posts/jenkins-appthwack-settings.png&quot; alt=&quot;Project Settings&quot; /&gt;&lt;br /&gt;
-&lt;br /&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/section&gt;
-&lt;section id=&quot;gotta-catch-em-all&quot; class=&quot;level2&quot;&gt;
-&lt;h2&gt;Gotta catch ’em all&lt;/h2&gt;
-&lt;p&gt;It’s your data, use it when you need it. Continuous testing generates tons of logs, screenshots and important device specific data imperative for debugging.&lt;span&gt;&lt;label for=&quot;sn-4&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-4&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;img src=&quot;/assets/images/posts/jenkins-appthwack-artifacts.png&quot; alt=&quot;Artifacts list&quot; /&gt;&lt;br /&gt;
-&lt;br /&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;All of these test artifacts are now automatically downloaded and stored as part of every Jenkins build, available for deeper analysis whenever you need it.&lt;/p&gt;
-&lt;/section&gt;
-&lt;section id=&quot;bell-bottoms-jnco-jeans-macarena&quot; class=&quot;level2&quot;&gt;
-&lt;h2&gt;Bell-bottoms? JNCO jeans? Macarena?&lt;/h2&gt;
-&lt;p&gt;Stay hip with the latest trends of your build results. &lt;span&gt;&lt;label for=&quot;sn-5&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-5&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;img src=&quot;/assets/images/posts/jenkins-appthwack-result-graph.png&quot; alt=&quot;Project Result Trends&quot; /&gt;&lt;br /&gt;
-&lt;br /&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;Easily view and identify trends in test passes, failures and warnings for every build and see high level results for your most recent AppThwack runs, right on your Jenkins project homepage.&lt;/p&gt;
-&lt;/section&gt;
-&lt;section id=&quot;individual-results&quot; class=&quot;level2&quot;&gt;
-&lt;h2&gt;Individual Results&lt;/h2&gt;
-&lt;p&gt;You can also drill down and view the highlights of a single AppThwack run.&lt;span&gt;&lt;label for=&quot;sn-6&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-6&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;img src=&quot;/assets/images/posts/jenkins-appthwack-results-table.png&quot; alt=&quot;Recent Results&quot; /&gt;&lt;br /&gt;
-&lt;br /&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;This will display all the high level result data you’ve come to expect, including latest trends in performance data (CPU, Memory, Threads, Network Traffic, FPS, etc).&lt;/p&gt;
-&lt;p&gt;Individual tests are grouped by result (pass/fail/warn) and then by each device, enabling you to quickly identify which test and/or device(s) are encountering errors. &lt;span&gt;&lt;label for=&quot;sn-7&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-7&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;img src=&quot;/assets/images/posts/jenkins-appthwack-report-graphs.png&quot; alt=&quot;Report Graphs&quot; /&gt;&lt;br /&gt;
-&lt;br /&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;Additionally, each test links back to its own report on AppThwack, allowing for even deeper analysis.&lt;/p&gt;
-&lt;/section&gt;
-&lt;section id=&quot;getting-started&quot; class=&quot;level2&quot;&gt;
-&lt;h2&gt;Getting Started&lt;/h2&gt;
-&lt;p&gt;Interested in mobile Continuous Integration using real devices but not sure where to start? Check out our partner &lt;a href=&quot;https://www.cloudbees.com/&quot;&gt;CloudBees&lt;/a&gt; who specializes in cloud based CI. &lt;span&gt;&lt;label for=&quot;sn-8&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-8&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; This post was migrated from the &lt;a href=&quot;https://blog.appthwack.com&quot;&gt;AppThwack Blog&lt;/a&gt; which is no longer available. A copy of the original post can be viewed from &lt;a href=&quot;https://web.archive.org/web/20140718005710/http://blog.appthwack.com/continuous-integration-for-mobile-apps-appthwack-jenkins-part-2/&quot;&gt;archive.org&lt;/a&gt;.&lt;br /&gt;
-&lt;br /&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/section&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="writings" /><category term="appthwack" /><category term="jenkins" /><category term="archive" /><category term="announcement" /><summary type="html"></summary></entry></feed>
+&lt;/section&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="writings" /><category term="aws" /><category term="route53" /><category term="dns" /><category term="terraform" /><category term="tutorial" /><summary type="html">Scenario</summary></entry></feed>

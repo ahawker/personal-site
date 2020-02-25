@@ -8,12 +8,16 @@
   <meta name="author" content="Andrew Hawker">
   <meta name="generator" content="jekyll">
   
+  <meta name="dcterms.date" content="2020-02-24 03:12:00 -0800">
+  
+  
+  <meta name="keywords" content="aws codepipeline codebuild">
   
 
-  <link rel="canonical" href="https://andrew.hawker.io/archives/tag/git/" />
+  <link rel="canonical" href="https://andrew.hawker.io/dailies/2020/02/24/aws-codepipelines-source-access-denied/" />
 
   
-  <title>git – Andrew Hawker</title>
+  <title>AWS CodePipeline DOWNLOAD_SOURCE Access Denied – Andrew Hawker</title>
   
 
   <!-- CSS -->
@@ -58,22 +62,24 @@
 
   <!-- SEO -->
   <!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>git | Andrew Hawker</title>
+<title>AWS CodePipeline DOWNLOAD_SOURCE Access Denied | Andrew Hawker</title>
 <meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="git" />
+<meta property="og:title" content="AWS CodePipeline DOWNLOAD_SOURCE Access Denied" />
 <meta name="author" content="Andrew Hawker" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Personal website of Andrew Hawker" />
-<meta property="og:description" content="Personal website of Andrew Hawker" />
-<link rel="canonical" href="https://andrew.hawker.io/archives/tag/git/" />
-<meta property="og:url" content="https://andrew.hawker.io/archives/tag/git/" />
+<meta name="description" content="Creating a fresh AWS CodePipeline through the wizard can result in immediate errors." />
+<meta property="og:description" content="Creating a fresh AWS CodePipeline through the wizard can result in immediate errors." />
+<link rel="canonical" href="https://andrew.hawker.io/dailies/2020/02/24/aws-codepipelines-source-access-denied/" />
+<meta property="og:url" content="https://andrew.hawker.io/dailies/2020/02/24/aws-codepipelines-source-access-denied/" />
 <meta property="og:site_name" content="Andrew Hawker" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-02-24T03:12:00-08:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="git" />
+<meta property="twitter:title" content="AWS CodePipeline DOWNLOAD_SOURCE Access Denied" />
 <meta name="twitter:site" content="@rekwah" />
-<meta name="twitter:creator" content="@Andrew Hawker" />
+<meta name="twitter:creator" content="@rekwah" />
 <script type="application/ld+json">
-{"url":"https://andrew.hawker.io/archives/tag/git/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"git","author":{"@type":"Person","name":"Andrew Hawker"},"description":"Personal website of Andrew Hawker","@type":"WebPage","@context":"https://schema.org"}</script>
+{"url":"https://andrew.hawker.io/dailies/2020/02/24/aws-codepipelines-source-access-denied/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"AWS CodePipeline DOWNLOAD_SOURCE Access Denied","dateModified":"2020-02-24T03:12:00-08:00","datePublished":"2020-02-24T03:12:00-08:00","author":{"@type":"Person","name":"Andrew Hawker"},"description":"Creating a fresh AWS CodePipeline through the wizard can result in immediate errors.","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/dailies/2020/02/24/aws-codepipelines-source-access-denied/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
@@ -86,29 +92,56 @@
 <article>
   
 
-
-
-  
-<h1>Archives: Tag is GIT</h1>
-
-
-
-
+<header>
+  <h1 class="title"><a name="AWS CodePipeline DOWNLOAD_SOURCE Access Denied"></a>AWS CodePipeline DOWNLOAD_SOURCE Access Denied</h1>
   
   
+  <p class="byline">February 24, 2020</p>
+  
+  
+  <ul class="tags">
+  
+    <li class="category"><a href="/archives/category/dailies">DAILIES</a></li>
+  
+  
+  
+  
+    <li class="tag"><a href="/archives/tag/aws">AWS (6)</a></li>
+  
+    <li class="tag"><a href="/archives/tag/codepipeline">CODEPIPELINE (1)</a></li>
+  
+    <li class="tag"><a href="/archives/tag/codebuild">CODEBUILD (1)</a></li>
+  
+  
+  </ul>
+</header>
 
-  
-  <section id="section-1">
-    <h3><a href="/archives/year/2020">2020</a></h3>
-    <ul>
-  
 
-  <li><p><a href="/dailies/2020/02/24/git-interactive-rebase-commit-message/">Edit git commit message during interactive rebase</a> - February 24</p></li>
 
-  
-      </ul>
-    </section>
-  
+  <p>Creating a fresh AWS CodePipeline through the wizard can result in immediate errors.</p>
+<p>In your CodeBuild build logs, you’ll see:</p>
+<p><img src="/assets/images/posts/codebuild-waiting-download-source-error.png" /></p>
+<p>In your CodeBuild phase details, you’ll see:</p>
+<pre><code>CLIENT_ERROR: AccessDenied: Access Denied status code: 403,
+request id: XXX, host id: XXX/XXX= for primary source and
+source version arn:aws:s3:::${BUCKET}/${PREFIX}/${ARTIFACT_ID}</code></pre>
+<p>This happens when you select a non-default S3 bucket location for the Artifact store. In this case, the role/policies automatically created by AWS are not granted access to the Custom S3 bucket location.</p>
+<p>In the UI, you’ll see:</p>
+<p><img src="/assets/images/posts/codebuild-custom-location-s3.png" /></p>
+<p>To fix this, add the following permissions to the CodeBuild policy:</p>
+<pre><code>{
+    &quot;Effect&quot;: &quot;Allow&quot;,
+    &quot;Action&quot;: [
+        &quot;s3:PutObject&quot;,
+        &quot;s3:GetObject&quot;,
+        &quot;s3:GetObjectVersion&quot;,
+        &quot;s3:GetBucketAcl&quot;,
+        &quot;s3:GetBucketLocation&quot;
+    ],
+    &quot;Resource&quot;: [
+        &quot;arn:aws:s3:::${BUCKET_NAME}*&quot;
+    ]
+},</code></pre>
 
 
 
@@ -153,3 +186,4 @@
 
 </body>
 </html>
+
