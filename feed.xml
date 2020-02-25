@@ -1,4 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://andrew.hawker.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://andrew.hawker.io/" rel="alternate" type="text/html" /><updated>2020-02-24T21:58:36-08:00</updated><id>https://andrew.hawker.io/feed.xml</id><title type="html">Andrew Hawker</title><subtitle>Personal website of Andrew Hawker</subtitle><author><name>Andrew Hawker</name></author><entry><title type="html">AWS CodePipeline DOWNLOAD_SOURCE Access Denied</title><link href="https://andrew.hawker.io/dailies/2020/02/24/aws-codepipelines-source-access-denied/" rel="alternate" type="text/html" title="AWS CodePipeline DOWNLOAD_SOURCE Access Denied" /><published>2020-02-24T03:12:00-08:00</published><updated>2020-02-24T03:12:00-08:00</updated><id>https://andrew.hawker.io/dailies/2020/02/24/aws-codepipelines-source-access-denied</id><content type="html" xml:base="https://andrew.hawker.io/dailies/2020/02/24/aws-codepipelines-source-access-denied/">&lt;p&gt;Creating a fresh AWS CodePipeline through the wizard can result in immediate errors.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://andrew.hawker.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://andrew.hawker.io/" rel="alternate" type="text/html" /><updated>2020-02-25T09:05:59-08:00</updated><id>https://andrew.hawker.io/feed.xml</id><title type="html">Andrew Hawker</title><subtitle>Personal website of Andrew Hawker</subtitle><author><name>Andrew Hawker</name></author><entry><title type="html">Database is uninitialized and superuser password is not specified</title><link href="https://andrew.hawker.io/dailies/2020/02/25/postgres-uninitialized-error/" rel="alternate" type="text/html" title="Database is uninitialized and superuser password is not specified" /><published>2020-02-25T00:55:00-08:00</published><updated>2020-02-25T00:55:00-08:00</updated><id>https://andrew.hawker.io/dailies/2020/02/25/postgres-uninitialized-error</id><content type="html" xml:base="https://andrew.hawker.io/dailies/2020/02/25/postgres-uninitialized-error/">&lt;p&gt;Pulling down and running the latest Postgres images from Docker Hub now results in errors.&lt;/p&gt;
+&lt;figure class=&quot;fullwidth&quot;&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb1&quot;&gt;&lt;pre class=&quot;sourceCode bash&quot;&gt;&lt;code class=&quot;sourceCode bash&quot;&gt;&lt;span id=&quot;cb1-1&quot;&gt;&lt;a href=&quot;#cb1-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;postgres_1_33777e03d7d8&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;ex&quot;&gt;Error&lt;/span&gt;: Database is uninitialized and superuser password is not specified.&lt;/span&gt;
+&lt;span id=&quot;cb1-2&quot;&gt;&lt;a href=&quot;#cb1-2&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;postgres_1_33777e03d7d8&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;|&lt;/span&gt;        &lt;span class=&quot;ex&quot;&gt;You&lt;/span&gt; must specify POSTGRES_PASSWORD for the superuser. Use&lt;/span&gt;
+&lt;span id=&quot;cb1-3&quot;&gt;&lt;a href=&quot;#cb1-3&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;postgres_1_33777e03d7d8&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;|&lt;/span&gt;        &lt;span class=&quot;st&quot;&gt;&amp;quot;-e POSTGRES_PASSWORD=password&amp;quot;&lt;/span&gt; &lt;span class=&quot;ex&quot;&gt;to&lt;/span&gt; set it in &lt;span class=&quot;st&quot;&gt;&amp;quot;docker run&amp;quot;&lt;/span&gt;.&lt;/span&gt;
+&lt;span id=&quot;cb1-4&quot;&gt;&lt;a href=&quot;#cb1-4&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;postgres_1_33777e03d7d8&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;|&lt;/span&gt; &lt;/span&gt;
+&lt;span id=&quot;cb1-5&quot;&gt;&lt;a href=&quot;#cb1-5&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;postgres_1_33777e03d7d8&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;|&lt;/span&gt;        &lt;span class=&quot;ex&quot;&gt;You&lt;/span&gt; may also use POSTGRES_HOST_AUTH_METHOD=trust to allow all connections&lt;/span&gt;
+&lt;span id=&quot;cb1-6&quot;&gt;&lt;a href=&quot;#cb1-6&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;postgres_1_33777e03d7d8&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;|&lt;/span&gt;        &lt;span class=&quot;ex&quot;&gt;without&lt;/span&gt; a password. This is *not* recommended. See PostgreSQL&lt;/span&gt;
+&lt;span id=&quot;cb1-7&quot;&gt;&lt;a href=&quot;#cb1-7&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;postgres_1_33777e03d7d8&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;|&lt;/span&gt;        &lt;span class=&quot;ex&quot;&gt;documentation&lt;/span&gt; about &lt;span class=&quot;st&quot;&gt;&amp;quot;trust&amp;quot;&lt;/span&gt;:&lt;/span&gt;
+&lt;span id=&quot;cb1-8&quot;&gt;&lt;a href=&quot;#cb1-8&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;postgres_1_33777e03d7d8&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;|&lt;/span&gt;        &lt;span class=&quot;ex&quot;&gt;https&lt;/span&gt;://www.postgresql.org/docs/current/auth-trust.html&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/figure&gt;
+&lt;p&gt;Turns out there was a backwards compatibility breaking change added &lt;a href=&quot;https://github.com/docker-library/postgres/pull/658&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Update your &lt;code&gt;docker-compose.yml&lt;/code&gt; or corresponding configuration with the &lt;strong&gt;&lt;code&gt;POSTGRES_HOST_AUTH_METHOD&lt;/code&gt;&lt;/strong&gt; environment variable to revert back to previous behavior or implement a proper password.&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb2&quot;&gt;&lt;pre class=&quot;sourceCode yaml&quot;&gt;&lt;code class=&quot;sourceCode yaml&quot;&gt;&lt;span id=&quot;cb2-1&quot;&gt;&lt;a href=&quot;#cb2-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;at&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;fu&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;kw&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;at&quot;&gt; library/postgres:11-alpine&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-2&quot;&gt;&lt;a href=&quot;#cb2-2&quot;&gt;&lt;/a&gt;&lt;span class=&quot;at&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;fu&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;kw&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-3&quot;&gt;&lt;a href=&quot;#cb2-3&quot;&gt;&lt;/a&gt;&lt;span class=&quot;at&quot;&gt;      &lt;/span&gt;&lt;span class=&quot;fu&quot;&gt;POSTGRES_HOST_AUTH_METHOD&lt;/span&gt;&lt;span class=&quot;kw&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;at&quot;&gt; trust&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="dailies" /><category term="postgres" /><category term="docker" /><summary type="html">Pulling down and running the latest Postgres images from Docker Hub now results in errors.</summary></entry><entry><title type="html">Edit git commit message during interactive rebase</title><link href="https://andrew.hawker.io/dailies/2020/02/24/git-interactive-rebase-commit-message/" rel="alternate" type="text/html" title="Edit git commit message during interactive rebase" /><published>2020-02-24T03:12:00-08:00</published><updated>2020-02-24T03:12:00-08:00</updated><id>https://andrew.hawker.io/dailies/2020/02/24/git-interactive-rebase-commit-message</id><content type="html" xml:base="https://andrew.hawker.io/dailies/2020/02/24/git-interactive-rebase-commit-message/">&lt;p&gt;Previously, this is how I would edit &lt;code&gt;git&lt;/code&gt; commit messages beyond &lt;code&gt;HEAD&lt;/code&gt; within the history.&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb1&quot;&gt;&lt;pre class=&quot;sourceCode bash&quot;&gt;&lt;code class=&quot;sourceCode bash&quot;&gt;&lt;span id=&quot;cb1-1&quot;&gt;&lt;a href=&quot;#cb1-1&quot;&gt;&lt;/a&gt;$ &lt;span class=&quot;fu&quot;&gt;git&lt;/span&gt; rebase -i &lt;span class=&quot;va&quot;&gt;${HASH}&lt;/span&gt;^1&lt;/span&gt;
+&lt;span id=&quot;cb1-2&quot;&gt;&lt;a href=&quot;#cb1-2&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;...Mark&lt;/span&gt; commits with &lt;span class=&quot;kw&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;ex&quot;&gt;edit&lt;/span&gt;&lt;span class=&quot;kw&quot;&gt;`&lt;/span&gt; command&lt;/span&gt;
+&lt;span id=&quot;cb1-3&quot;&gt;&lt;a href=&quot;#cb1-3&quot;&gt;&lt;/a&gt;$ &lt;span class=&quot;fu&quot;&gt;git&lt;/span&gt; commit --amend&lt;/span&gt;
+&lt;span id=&quot;cb1-4&quot;&gt;&lt;a href=&quot;#cb1-4&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;...Update&lt;/span&gt; message&lt;/span&gt;
+&lt;span id=&quot;cb1-5&quot;&gt;&lt;a href=&quot;#cb1-5&quot;&gt;&lt;/a&gt;$ &lt;span class=&quot;fu&quot;&gt;git&lt;/span&gt; rebase --continue&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Thankfully there is a shortcut for this flow as it’s a bit cumbersome.&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb2&quot;&gt;&lt;pre class=&quot;sourceCode bash&quot;&gt;&lt;code class=&quot;sourceCode bash&quot;&gt;&lt;span id=&quot;cb2-1&quot;&gt;&lt;a href=&quot;#cb2-1&quot;&gt;&lt;/a&gt;$ &lt;span class=&quot;fu&quot;&gt;git&lt;/span&gt; rebase -i &lt;span class=&quot;va&quot;&gt;${HASH}&lt;/span&gt;^1&lt;/span&gt;
+&lt;span id=&quot;cb2-2&quot;&gt;&lt;a href=&quot;#cb2-2&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;...Mark&lt;/span&gt; commits with &lt;span class=&quot;kw&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;ex&quot;&gt;reword&lt;/span&gt;&lt;span class=&quot;kw&quot;&gt;`&lt;/span&gt; command&lt;/span&gt;
+&lt;span id=&quot;cb2-3&quot;&gt;&lt;a href=&quot;#cb2-3&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;...Update&lt;/span&gt; message&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;More info in the git docs &lt;a href=&quot;https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="dailies" /><category term="git" /><category term="rebase" /><category term="commit" /><summary type="html">Previously, this is how I would edit git commit messages beyond HEAD within the history.</summary></entry><entry><title type="html">AWS CodePipeline DOWNLOAD_SOURCE Access Denied</title><link href="https://andrew.hawker.io/dailies/2020/02/24/aws-codepipelines-source-access-denied/" rel="alternate" type="text/html" title="AWS CodePipeline DOWNLOAD_SOURCE Access Denied" /><published>2020-02-24T03:12:00-08:00</published><updated>2020-02-24T03:12:00-08:00</updated><id>https://andrew.hawker.io/dailies/2020/02/24/aws-codepipelines-source-access-denied</id><content type="html" xml:base="https://andrew.hawker.io/dailies/2020/02/24/aws-codepipelines-source-access-denied/">&lt;p&gt;Creating a fresh AWS CodePipeline through the wizard can result in immediate errors.&lt;/p&gt;
 &lt;p&gt;In your CodeBuild build logs, you’ll see:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/assets/images/posts/codebuild-waiting-download-source-error.png&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;In your CodeBuild phase details, you’ll see:&lt;/p&gt;
@@ -21,17 +46,7 @@ source version arn:aws:s3:::${BUCKET}/${PREFIX}/${ARTIFACT_ID}&lt;/code&gt;&lt;/
     &amp;quot;Resource&amp;quot;: [
         &amp;quot;arn:aws:s3:::${BUCKET_NAME}*&amp;quot;
     ]
-},&lt;/code&gt;&lt;/pre&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="dailies" /><category term="aws" /><category term="codepipeline" /><category term="codebuild" /><summary type="html">Creating a fresh AWS CodePipeline through the wizard can result in immediate errors.</summary></entry><entry><title type="html">Edit git commit message during interactive rebase</title><link href="https://andrew.hawker.io/dailies/2020/02/24/git-interactive-rebase-commit-message/" rel="alternate" type="text/html" title="Edit git commit message during interactive rebase" /><published>2020-02-24T03:12:00-08:00</published><updated>2020-02-24T03:12:00-08:00</updated><id>https://andrew.hawker.io/dailies/2020/02/24/git-interactive-rebase-commit-message</id><content type="html" xml:base="https://andrew.hawker.io/dailies/2020/02/24/git-interactive-rebase-commit-message/">&lt;p&gt;Previously, this is how I would edit &lt;code&gt;git&lt;/code&gt; commit messages beyond &lt;code&gt;HEAD&lt;/code&gt; within the history.&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot; id=&quot;cb1&quot;&gt;&lt;pre class=&quot;sourceCode bash&quot;&gt;&lt;code class=&quot;sourceCode bash&quot;&gt;&lt;span id=&quot;cb1-1&quot;&gt;&lt;a href=&quot;#cb1-1&quot;&gt;&lt;/a&gt;$ &lt;span class=&quot;fu&quot;&gt;git&lt;/span&gt; rebase -i &lt;span class=&quot;va&quot;&gt;${HASH}&lt;/span&gt;^1&lt;/span&gt;
-&lt;span id=&quot;cb1-2&quot;&gt;&lt;a href=&quot;#cb1-2&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;...Mark&lt;/span&gt; commits with &lt;span class=&quot;kw&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;ex&quot;&gt;edit&lt;/span&gt;&lt;span class=&quot;kw&quot;&gt;`&lt;/span&gt; command&lt;/span&gt;
-&lt;span id=&quot;cb1-3&quot;&gt;&lt;a href=&quot;#cb1-3&quot;&gt;&lt;/a&gt;$ &lt;span class=&quot;fu&quot;&gt;git&lt;/span&gt; commit --amend&lt;/span&gt;
-&lt;span id=&quot;cb1-4&quot;&gt;&lt;a href=&quot;#cb1-4&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;...Update&lt;/span&gt; message&lt;/span&gt;
-&lt;span id=&quot;cb1-5&quot;&gt;&lt;a href=&quot;#cb1-5&quot;&gt;&lt;/a&gt;$ &lt;span class=&quot;fu&quot;&gt;git&lt;/span&gt; rebase --continue&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Thankfully there is a shortcut for this flow as it’s a bit cumbersome.&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot; id=&quot;cb2&quot;&gt;&lt;pre class=&quot;sourceCode bash&quot;&gt;&lt;code class=&quot;sourceCode bash&quot;&gt;&lt;span id=&quot;cb2-1&quot;&gt;&lt;a href=&quot;#cb2-1&quot;&gt;&lt;/a&gt;$ &lt;span class=&quot;fu&quot;&gt;git&lt;/span&gt; rebase -i &lt;span class=&quot;va&quot;&gt;${HASH}&lt;/span&gt;^1&lt;/span&gt;
-&lt;span id=&quot;cb2-2&quot;&gt;&lt;a href=&quot;#cb2-2&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;...Mark&lt;/span&gt; commits with &lt;span class=&quot;kw&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;ex&quot;&gt;reword&lt;/span&gt;&lt;span class=&quot;kw&quot;&gt;`&lt;/span&gt; command&lt;/span&gt;
-&lt;span id=&quot;cb2-3&quot;&gt;&lt;a href=&quot;#cb2-3&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;...Update&lt;/span&gt; message&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;More info in the git docs &lt;a href=&quot;https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="dailies" /><category term="git" /><category term="rebase" /><category term="commit" /><summary type="html">Previously, this is how I would edit git commit messages beyond HEAD within the history.</summary></entry><entry><title type="html">What are Dailies?</title><link href="https://andrew.hawker.io/dailies/2020/02/23/what-are-dailies/" rel="alternate" type="text/html" title="What are Dailies?" /><published>2020-02-23T10:04:00-08:00</published><updated>2020-02-23T10:04:00-08:00</updated><id>https://andrew.hawker.io/dailies/2020/02/23/what-are-dailies</id><content type="html" xml:base="https://andrew.hawker.io/dailies/2020/02/23/what-are-dailies/">&lt;p&gt;“Dailies” are short, concise posts that capture a single thought, idea, problem, or solution from that day. The goal is a cross between a personal knowledge base, technical journal, and “Today I Learned” blog.&lt;/p&gt;
+},&lt;/code&gt;&lt;/pre&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="dailies" /><category term="aws" /><category term="codepipeline" /><category term="codebuild" /><summary type="html">Creating a fresh AWS CodePipeline through the wizard can result in immediate errors.</summary></entry><entry><title type="html">What are Dailies?</title><link href="https://andrew.hawker.io/dailies/2020/02/23/what-are-dailies/" rel="alternate" type="text/html" title="What are Dailies?" /><published>2020-02-23T10:04:00-08:00</published><updated>2020-02-23T10:04:00-08:00</updated><id>https://andrew.hawker.io/dailies/2020/02/23/what-are-dailies</id><content type="html" xml:base="https://andrew.hawker.io/dailies/2020/02/23/what-are-dailies/">&lt;p&gt;“Dailies” are short, concise posts that capture a single thought, idea, problem, or solution from that day. The goal is a cross between a personal knowledge base, technical journal, and “Today I Learned” blog.&lt;/p&gt;
 &lt;p&gt;Prior art:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://news.ycombinator.com/item?id=11068902&quot;&gt;Show HN: I’ve been writing daily TILs for a year&lt;/a&gt;&lt;/li&gt;
@@ -1034,172 +1049,4 @@ Connection: keep-alive&lt;/code&gt;&lt;/pre&gt;
 &lt;h2&gt;Summary&lt;/h2&gt;
 &lt;p&gt;It was nice to learn about the &lt;a href=&quot;https://curl.haxx.se/docs/manpage.html#-i&quot;&gt;-i&lt;/a&gt; option, even though I do have quite a bit of experience with cURL. I normally just use &lt;a href=&quot;https://curl.haxx.se/docs/manpage.html#-v&quot;&gt;-v&lt;/a&gt; which spits out quite a bit more debug output.&lt;/p&gt;
 &lt;p&gt;I’d be interested to know of tools/products that provide a set of &lt;a href=&quot;https://en.wikipedia.org/wiki/K%C5%8Dan&quot;&gt;Kōan&lt;/a&gt; style exercises instead of the traditional &lt;em&gt;First Start&lt;/em&gt; tutorial and &lt;em&gt;Feature&lt;/em&gt; pages/notices.&lt;/p&gt;
-&lt;/section&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="writings" /><category term="curl" /><category term="julia evans" /><category term="exercise" /><summary type="html">Julia Evans has a new blog post up, Curl Exercises, which landed on the front page of Hacker News today. &amp;#8853; In it, she brings up the idea of deliberate practice and outlines 21 exercises to better familiarize yourself with cURL.</summary></entry><entry><title type="html">Routing Traffic for Subdomains with Route53 &amp;amp; Terraform</title><link href="https://andrew.hawker.io/writings/2019/08/21/route-traffic-subdomains-route-53-terraform/" rel="alternate" type="text/html" title="Routing Traffic for Subdomains with Route53 &amp; Terraform" /><published>2019-08-21T19:55:00-07:00</published><updated>2019-08-21T19:55:00-07:00</updated><id>https://andrew.hawker.io/writings/2019/08/21/route-traffic-subdomains-route-53-terraform</id><content type="html" xml:base="https://andrew.hawker.io/writings/2019/08/21/route-traffic-subdomains-route-53-terraform/">&lt;section id=&quot;scenario&quot; class=&quot;level2&quot;&gt;
-&lt;h2&gt;Scenario&lt;/h2&gt;
-&lt;p&gt;Let’s imagine you own &lt;code&gt;example.com&lt;/code&gt; and you’re looking to setup subdomains to separate your environments, e.g. &lt;code&gt;dev.example.com&lt;/code&gt; and &lt;code&gt;staging.example.com&lt;/code&gt;. On our top level domain, we have already created subdomains for certain services, e.g. &lt;code&gt;api.example.com&lt;/code&gt; and &lt;code&gt;web.example.com&lt;/code&gt;. This leads us to wanting to create subdomains such as &lt;code&gt;api.dev.example.com&lt;/code&gt; and &lt;code&gt;api.staging.example.com&lt;/code&gt; to access these services running within a specific environment.&lt;/p&gt;
-&lt;p&gt;When creating single depth subdomains, e.g. &lt;code&gt;api.example.com&lt;/code&gt;, you simply create the DNS record within the &lt;code&gt;example.com&lt;/code&gt; Route 53 hosted zone and move on your way. However, if we’re looking to create multiple depth subdomains, e.g. &lt;code&gt;api.staging.example.com&lt;/code&gt; or &lt;code&gt;shopping.api.staging.example.com&lt;/code&gt;, how do we setup our Route 53 hosted zone to support this n-tier domain layout?&lt;/p&gt;
-&lt;/section&gt;
-&lt;section id=&quot;problem-statement&quot; class=&quot;level2&quot;&gt;
-&lt;h2&gt;Problem Statement&lt;/h2&gt;
-&lt;p&gt;Given I own &lt;code&gt;example.com&lt;/code&gt;, I want to run my service subdomains &lt;code&gt;api.example.com&lt;/code&gt; and &lt;code&gt;web.example.com&lt;/code&gt; under additional, environment-specific subdomains, &lt;code&gt;dev.example.com&lt;/code&gt; and &lt;code&gt;staging.example.com&lt;/code&gt;.&lt;/p&gt;
-&lt;/section&gt;
-&lt;section id=&quot;solution&quot; class=&quot;level2&quot;&gt;
-&lt;h2&gt;Solution&lt;/h2&gt;
-&lt;p&gt;Let’s break the solution down into a few separate parts and examine them individually.&lt;/p&gt;
-&lt;section id=&quot;hosted-zones&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Hosted Zones&lt;/h3&gt;
-&lt;p&gt;We need to create a Hosted Zone for each domain (or subdomain) that needs to route traffic. In this case, that would be &lt;code&gt;example.com&lt;/code&gt;, &lt;code&gt;dev.example.com&lt;/code&gt;, and &lt;code&gt;staging.example.com&lt;/code&gt;. &lt;span&gt;&lt;label for=&quot;sn-1&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-1&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; Using private hosted zones instead? Check out the official Terraform documentation for the &lt;a href=&quot;https://www.terraform.io/docs/providers/aws/r/route53_zone.html&quot;&gt;aws_route53_zone&lt;/a&gt; for more details.&lt;br /&gt;
-&lt;br /&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# Hosted Zone for example.com
-resource &amp;quot;aws_route53_zone&amp;quot; &amp;quot;zone_apex&amp;quot; {
-  name          = &amp;quot;example.com&amp;quot;
-  comment       = &amp;quot;Hosted Zone for example.com&amp;quot;
-
-  tags {
-    Name      = &amp;quot;example.com&amp;quot;
-    Origin    = &amp;quot;terraform&amp;quot;
-    Workspace = &amp;quot;${terraform.workspace}&amp;quot;
-  }
-}
-
-# Hosted Zone for dev.example.com
-resource &amp;quot;aws_route53_zone&amp;quot; &amp;quot;zone_dev&amp;quot; {
-  name          = &amp;quot;dev.example.com&amp;quot;
-  comment       = &amp;quot;Hosted Zone for dev.example.com&amp;quot;
-
-  tags {
-    Name      = &amp;quot;dev.example.com&amp;quot;
-    Origin    = &amp;quot;terraform&amp;quot;
-    Workspace = &amp;quot;${terraform.workspace}&amp;quot;
-  }
-}
-
-# Hosted Zone for staging.example.com
-resource &amp;quot;aws_route53_zone&amp;quot; &amp;quot;zone_staging&amp;quot; {
-  name          = &amp;quot;staging.example.com&amp;quot;
-  comment       = &amp;quot;Hosted Zone for staging.example.com&amp;quot;
-
-  tags {
-    Name      = &amp;quot;staging.example.com&amp;quot;
-    Origin    = &amp;quot;terraform&amp;quot;
-    Workspace = &amp;quot;${terraform.workspace}&amp;quot;
-  }
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;/section&gt;
-&lt;section id=&quot;hosted-zone-ns-records&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Hosted Zone NS Records&lt;/h3&gt;
-&lt;p&gt;Each hosted zone created with automatically be assigned a set of &lt;code&gt;NS&lt;/code&gt; records automatically. &lt;span&gt;&lt;label for=&quot;sn-2&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-2&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; Each hosted zone will have four unique &lt;code&gt;NS&lt;/code&gt; records, known as a &lt;a href=&quot;https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/route-53-concepts.html#route-53-concepts-reusable-delegation-set&quot;&gt;delegation set&lt;/a&gt;. If you have many domains or need to white label your name servers, you can look into creating your own reusable delegation set with the &lt;a href=&quot;https://www.terraform.io/docs/providers/aws/r/route53_delegation_set.html&quot;&gt;route53_delegation_set&lt;/a&gt; resource.&lt;br /&gt;
-&lt;br /&gt;
-&lt;/span&gt;&lt;/span&gt; These are exported as the &lt;a href=&quot;https://www.terraform.io/docs/providers/aws/r/route53_zone.html#name_servers&quot;&gt;name_servers&lt;/a&gt; attribute on the &lt;a href=&quot;https://www.terraform.io/docs/providers/aws/r/route53_zone.html&quot;&gt;aws_route53_zone&lt;/a&gt; resource.&lt;/p&gt;
-&lt;p&gt;Each &lt;em&gt;parent&lt;/em&gt; hosted zone will need to add a &lt;code&gt;NS&lt;/code&gt; record for each &lt;em&gt;child&lt;/em&gt; hosted zone. In this case, &lt;code&gt;example.com&lt;/code&gt; would need to have an &lt;code&gt;NS&lt;/code&gt; record for &lt;code&gt;dev.example.com&lt;/code&gt; that contains the automatically assigned name servers for the &lt;code&gt;dev.example.com&lt;/code&gt; hosted zone.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# Record in the example.com hosted zone that contains the name servers of the dev.example.com hosted zone.
-resource &amp;quot;aws_route53_record&amp;quot; &amp;quot;ns_record_dev&amp;quot; {
-  type    = &amp;quot;NS&amp;quot;
-  zone_id = &amp;quot;${aws_route53_zone.zone_apex.id}&amp;quot;
-  name    = &amp;quot;dev&amp;quot;
-  ttl     = &amp;quot;86400&amp;quot;
-  records = [&amp;quot;${aws_route53_zone.zone_dev.name_servers}&amp;quot;]
-}
-
-# Record in the example.com hosted zone that contains the name servers of the staging.example.com hosted zone.
-resource &amp;quot;aws_route53_record&amp;quot; &amp;quot;ns_record_staging&amp;quot; {
-  type    = &amp;quot;NS&amp;quot;
-  zone_id = &amp;quot;${aws_route53_zone.zone_apex.id}&amp;quot;
-  name    = &amp;quot;staging&amp;quot;
-  ttl     = &amp;quot;86400&amp;quot;
-  records = [&amp;quot;${aws_route53_zone.zone_staging.name_servers}&amp;quot;]
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;/section&gt;
-&lt;section id=&quot;hosted-zone-service-records&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Hosted Zone Service Records&lt;/h3&gt;
-&lt;p&gt;Each Hosted Zone will need to add records to route the &lt;code&gt;api&lt;/code&gt; and &lt;code&gt;web&lt;/code&gt; services to their correct locations. For this example, let’s just assume they’re &lt;code&gt;CNAME&lt;/code&gt; records to another domain and these are parametrized using Terraform variables. &lt;span&gt;&lt;label for=&quot;sn-3&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-3&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; Check out the official Terraform docs to find out more about &lt;a href=&quot;https://www.terraform.io/docs/configuration/variables.html&quot;&gt;input variables&lt;/a&gt;.&lt;br /&gt;
-&lt;br /&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;variable &amp;quot;api_cname_record&amp;quot; {
-    description = &amp;quot;Value of CNAME record for api.example.com&amp;quot;
-}
-
-variable &amp;quot;web_cname_record&amp;quot; {
-    description = &amp;quot;Value of CNAME record for web.example.com&amp;quot;
-}
-
-variable &amp;quot;api_dev_cname_record&amp;quot; {
-    description = &amp;quot;Value of CNAME record for api.dev.example.com&amp;quot;
-}
-
-variable &amp;quot;web_dev_cname_record&amp;quot; {
-    description = &amp;quot;Value of CNAME record for web.dev.example.com&amp;quot;
-}
-
-variable &amp;quot;api_staging_cname_record&amp;quot; {
-    description = &amp;quot;Value of CNAME record for api.staging.example.com&amp;quot;
-}
-
-variable &amp;quot;web_staging_cname_record&amp;quot; {
-    description = &amp;quot;Value of CNAME record for web.staging.example.com&amp;quot;
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Using the variable definitons from above, we can parametrize our &lt;code&gt;CNAME&lt;/code&gt; record creation for our service subdomains. &lt;span&gt;&lt;label for=&quot;sn-4&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-4&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; Not using &lt;code&gt;CNAME&lt;/code&gt; records? Check out the official Terraform docs to find out more about the &lt;a href=&quot;https://www.terraform.io/docs/providers/aws/r/route53_record.html&quot;&gt;route53_record&lt;/a&gt; resource and its supported types.&lt;br /&gt;
-&lt;br /&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# CNAME record in the example.com hosted zone that points to &amp;#39;api&amp;#39; service.
-resource &amp;quot;aws_route53_record&amp;quot; &amp;quot;record_apex_api&amp;quot; {
-  type    = &amp;quot;CNAME&amp;quot;
-  name    = &amp;quot;api&amp;quot;
-  ttl     = &amp;quot;86400&amp;quot;
-  zone_id = &amp;quot;${aws_route53_zone.zone_apex.id}&amp;quot;
-  records = [&amp;quot;${var.api_cname_record}&amp;quot;]
-}
-
-# CNAME record in the example.com hosted zone that points to &amp;#39;web&amp;#39; service.
-resource &amp;quot;aws_route53_record&amp;quot; &amp;quot;record_apex_web&amp;quot; {
-  type    = &amp;quot;CNAME&amp;quot;
-  name    = &amp;quot;web&amp;quot;
-  ttl     = &amp;quot;86400&amp;quot;
-  zone_id = &amp;quot;${aws_route53_zone.zone_apex.id}&amp;quot;
-  records = [&amp;quot;${var.web_cname_record}&amp;quot;]
-}
-
-# CNAME record in the dev.example.com hosted zone that points to &amp;#39;api&amp;#39; service.
-resource &amp;quot;aws_route53_record&amp;quot; &amp;quot;record_dev_api&amp;quot; {
-  type    = &amp;quot;CNAME&amp;quot;
-  name    = &amp;quot;api&amp;quot;
-  ttl     = &amp;quot;86400&amp;quot;
-  zone_id = &amp;quot;${aws_route53_zone.zone_dev.id}&amp;quot;
-  records = [&amp;quot;${var.api_dev_cname_record}&amp;quot;]
-}
-
-# CNAME record in the dev.example.com hosted zone that points to &amp;#39;web&amp;#39; service.
-resource &amp;quot;aws_route53_record&amp;quot; &amp;quot;record_dev_web&amp;quot; {
-  type    = &amp;quot;CNAME&amp;quot;
-  name    = &amp;quot;web&amp;quot;
-  ttl     = &amp;quot;86400&amp;quot;
-  zone_id = &amp;quot;${aws_route53_zone.zone_dev.id}&amp;quot;
-  records = [&amp;quot;${var.web_dev_cname_record}&amp;quot;]
-}
-
-# CNAME record in the staging.example.com hosted zone that points to &amp;#39;api&amp;#39; service.
-resource &amp;quot;aws_route53_record&amp;quot; &amp;quot;record_staging_api&amp;quot; {
-  type    = &amp;quot;CNAME&amp;quot;
-  name    = &amp;quot;api&amp;quot;
-  ttl     = &amp;quot;86400&amp;quot;
-  zone_id = &amp;quot;${aws_route53_zone.zone_staging.id}&amp;quot;
-  records = [&amp;quot;${var.api_staging_cname_record}&amp;quot;]
-}
-
-# CNAME record in the staging.example.com hosted zone that points to &amp;#39;web&amp;#39; service.
-resource &amp;quot;aws_route53_record&amp;quot; &amp;quot;record_staging_web&amp;quot; {
-  type    = &amp;quot;CNAME&amp;quot;
-  name    = &amp;quot;web&amp;quot;
-  ttl     = &amp;quot;86400&amp;quot;
-  zone_id = &amp;quot;${aws_route53_zone.zone_staging.id}&amp;quot;
-  records = [&amp;quot;${var.web_staging_cname_record}&amp;quot;]
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;/section&gt;
-&lt;/section&gt;
-&lt;section id=&quot;summary&quot; class=&quot;level2&quot;&gt;
-&lt;h2&gt;Summary&lt;/h2&gt;
-&lt;p&gt;In order to route traffic to n-tier levels of subdomains in Route53, you must create a new hosted zone for each subdomain that contains records and must add an &lt;code&gt;NS&lt;/code&gt; record for that subdomain in the hosted zone of its parent. &lt;span&gt;&lt;label for=&quot;sn-5&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-5&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; Check out the official AWS documentation &lt;a href=&quot;https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-routing-traffic-for-subdomains.html&quot;&gt;here&lt;/a&gt; for more information about this strategy.&lt;br /&gt;
-&lt;br /&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/section&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="writings" /><category term="aws" /><category term="route53" /><category term="dns" /><category term="terraform" /><category term="tutorial" /><summary type="html">Scenario</summary></entry></feed>
+&lt;/section&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="writings" /><category term="curl" /><category term="julia evans" /><category term="exercise" /><summary type="html">Julia Evans has a new blog post up, Curl Exercises, which landed on the front page of Hacker News today. &amp;#8853; In it, she brings up the idea of deliberate practice and outlines 21 exercises to better familiarize yourself with cURL.</summary></entry></feed>

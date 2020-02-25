@@ -53,6 +53,10 @@
 <lastmod>2020-02-24T03:12:00-08:00</lastmod>
 </url>
 <url>
+<loc>https://andrew.hawker.io/dailies/2020/02/25/postgres-uninitialized-error/</loc>
+<lastmod>2020-02-25T00:55:00-08:00</lastmod>
+</url>
+<url>
 <loc>https://andrew.hawker.io/about/</loc>
 </url>
 <url>
@@ -144,6 +148,12 @@
 </url>
 <url>
 <loc>https://andrew.hawker.io/archives/tag/commit/</loc>
+</url>
+<url>
+<loc>https://andrew.hawker.io/archives/tag/postgres/</loc>
+</url>
+<url>
+<loc>https://andrew.hawker.io/archives/tag/docker/</loc>
 </url>
 <url>
 <loc>https://andrew.hawker.io/archives/category/writings/</loc>
