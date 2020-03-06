@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8" lang="en">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Andrew Hawker">
+  <meta name="generator" content="jekyll">
+  
+  <meta name="dcterms.date" content="2020-03-05 10:51:00 -0800">
+  
+  
+  <meta name="keywords" content="jekyll github make">
+  
+
+  <link rel="canonical" href="https://andrew.hawker.io/dailies/2020/03/05/jekyll-deploy-gh-pages-branch/" />
+
+  
+  <title>Deploy Jekyll site to GitHub Pages branch – Andrew Hawker</title>
+  
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
+  <link rel="stylesheet" href="/assets/styles/et-book.min.css">
+  <link rel="stylesheet" href="/assets/styles/site.css">
+  
+
+  <!--[if lt IE 9]>
+  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+
+  <link rel="manifest" href="/assets/site.webmanifest">
+
+  <meta name="msapplication-TileColor" content="#2d89ef">
+  <meta name="msapplication-config" content="/assets/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- RSS -->
+  <link type="application/atom+xml" rel="alternate" href="https://andrew.hawker.io/feed.xml" title="Andrew Hawker" />
+
+  <!-- Google Analytics -->
+  
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36365256-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  
+
+  <!-- SEO -->
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Deploy Jekyll site to GitHub Pages branch | Andrew Hawker</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Deploy Jekyll site to GitHub Pages branch" />
+<meta name="author" content="Andrew Hawker" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Pushing code and letting GitHub build your Jekyll website is nice and simple. However, you’re limited to subset of plugins supported by GitHub, found here." />
+<meta property="og:description" content="Pushing code and letting GitHub build your Jekyll website is nice and simple. However, you’re limited to subset of plugins supported by GitHub, found here." />
+<link rel="canonical" href="https://andrew.hawker.io/dailies/2020/03/05/jekyll-deploy-gh-pages-branch/" />
+<meta property="og:url" content="https://andrew.hawker.io/dailies/2020/03/05/jekyll-deploy-gh-pages-branch/" />
+<meta property="og:site_name" content="Andrew Hawker" />
+<meta property="og:image" content="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-05T10:51:00-08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:image" content="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" />
+<meta property="twitter:title" content="Deploy Jekyll site to GitHub Pages branch" />
+<meta name="twitter:site" content="@rekwah" />
+<meta name="twitter:creator" content="@rekwah" />
+<script type="application/ld+json">
+{"url":"https://andrew.hawker.io/dailies/2020/03/05/jekyll-deploy-gh-pages-branch/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"Deploy Jekyll site to GitHub Pages branch","dateModified":"2020-03-05T10:51:00-08:00","datePublished":"2020-03-05T10:51:00-08:00","author":{"@type":"Person","name":"Andrew Hawker"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","description":"Pushing code and letting GitHub build your Jekyll website is nice and simple. However, you’re limited to subset of plugins supported by GitHub, found here.","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/dailies/2020/03/05/jekyll-deploy-gh-pages-branch/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+
+<body>
+
+
+
+
+<article>
+  
+
+<header>
+  <h1 class="title"><a name="Deploy Jekyll site to GitHub Pages branch"></a>Deploy Jekyll site to GitHub Pages branch</h1>
+  
+  
+  <p class="byline">March 5, 2020</p>
+  
+  
+  <ul class="tags">
+  
+    <li class="category"><a href="/archives/category/dailies">DAILIES</a></li>
+  
+  
+  
+  
+    <li class="tag"><a href="/archives/tag/jekyll">JEKYLL (1)</a></li>
+  
+    <li class="tag"><a href="/archives/tag/github">GITHUB (1)</a></li>
+  
+    <li class="tag"><a href="/archives/tag/make">MAKE (1)</a></li>
+  
+  
+  </ul>
+</header>
+
+
+
+  <p>Pushing code and letting GitHub build your Jekyll website is nice and simple. However, you’re limited to subset of plugins supported by GitHub, found <a href="https://help.github.com/en/github/working-with-github-pages/about-github-pages-and-jekyll#plugins">here</a>.</p>
+<p>It’s easy enough to build your website locally or through a CI/CD pipeline. Here is a dead simple example using <a href="https://en.wikipedia.org/wiki/Make_(software)">make</a>.</p>
+<figure class="fullwidth">
+<pre><code>TS      ?= $(shell date -u)
+COMMIT  ?= $(shell git rev-parse --short HEAD)
+JEKYLL  := bundle exec jekyll
+
+DEPLOY_ORIGIN := $(shell git config remote.origin.url)
+DEPLOY_BRANCH := gh-pages
+DEPLOY_DIR    := _site
+
+.PHONY: clean
+clean:  ## Clean local compiled site.
+    @$(JEKYLL) clean
+
+.PHONY: deploy
+deploy: clean  ## Build and deploy site.
+    @(git clone -b $(DEPLOY_BRANCH) $(DEPLOY_ORIGIN) $(DEPLOY_DIR) &amp;&amp; \
+        JEKYLL_ENV=production $(JEKYLL) build &amp;&amp; \
+        cd $(DEPLOY_DIR) &amp;&amp; \
+        git add -A &amp;&amp; \
+        git commit -am &quot;Deployed $(COMMIT) at $(TS)&quot; &amp;&amp; \
+        git push origin $(DEPLOY_BRANCH))</code></pre>
+</figure>
+<p>Usage: <strong><code>$ make deploy</code></strong>.</p>
+<p>Take a look at the <a href="https://github.com/ahawker/personal-site/tree/gh-pages">gh-pages</a> branch or the <a href="https://github.com/ahawker/personal-site/blob/master/Makefile">Makefile</a> for this website as examples.</p>
+
+
+
+<section>
+  <p class="return-home"><em><a href="/">Return home</a></em></p>
+</section>
+
+
+</article>
+
+
+
+
+
+
+<footer>
+    <hr class="footer-hr">
+    <ul class="social-links">
+      
+        <li><a href="https://www.routegy.com" target="_blank" title="Employer"><span class="fa fa-2x fa-building social-icon"></span></a></li>
+      
+        <li><a href="https://goo.gl/maps/kUBP3GgPGiG2" target="_blank" title="Location"><span class="fa fa-2x fa-map-marker social-icon"></span></a></li>
+      
+        <li><a href="https://stackoverflow.com/users/84942/ahawker" target="_blank" title="Stack Overflow"><span class="fa fa-2x fa-stack-overflow social-icon"></span></a></li>
+      
+        <li><a href="https://github.com/ahawker" target="_blank" title="GitHub"><span class="fa fa-2x fa-github-alt social-icon"></span></a></li>
+      
+        <li><a href="https://linkedin.com/in/ahawker" target="_blank" title="LinkedIn"><span class="fa fa-2x fa-linkedin-square social-icon"></span></a></li>
+      
+        <li><a href="https://twitter.com/rekwah" target="_blank" title="Twitter"><span class="fa fa-2x fa-twitter social-icon"></span></a></li>
+      
+        <li><a href="mailto:andrew.r.hawker@gmail.com" target="_blank" title="Email"><span class="fa fa-2x fa-envelope social-icon"></span></a></li>
+      
+        <li><a href="/feed.xml" target="_blank" title="RSS"><span class="fa fa-2x fa-rss social-icon"></span></a></li>
+        
+    </ul>
+  <div class="credits">
+    <span>&copy; 2013 - 2020 &nbsp;&nbsp;ANDREW HAWKER</span></br> <br>
+    <span>Code for this website can be found <a href="https://github.com/ahawker/personal-site">here</a>.</span>
+  </div>  
+</footer>
+
+</body>
+</html>
+
