@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8" lang="en">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Andrew Hawker">
+  <meta name="generator" content="jekyll">
+  
+  <meta name="dcterms.date" content="2020-03-10 05:17:00 -0700">
+  
+  
+  <meta name="keywords" content="nuxt">
+  
+
+  <link rel="canonical" href="https://andrew.hawker.io/dailies/2020/03/10/nuxt-server-side-logging/" />
+
+  
+  <title>Server side request logging with nuxt.js – Andrew Hawker</title>
+  
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
+  <link rel="stylesheet" href="/assets/styles/et-book.min.css">
+  <link rel="stylesheet" href="/assets/styles/site.css">
+  
+
+  <!--[if lt IE 9]>
+  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+
+  <link rel="manifest" href="/assets/site.webmanifest">
+
+  <meta name="msapplication-TileColor" content="#2d89ef">
+  <meta name="msapplication-config" content="/assets/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- RSS -->
+  <link type="application/atom+xml" rel="alternate" href="https://andrew.hawker.io/feed.xml" title="Andrew Hawker" />
+
+  <!-- Google Analytics -->
+  
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36365256-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  
+
+  <!-- SEO -->
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Server side request logging with nuxt.js | Andrew Hawker</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Server side request logging with nuxt.js" />
+<meta name="author" content="Andrew Hawker" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="By default, nuxt.js does not have server-side request logging out of the box. Thankfully, we can quickly add it using the connect-logger with the following additions." />
+<meta property="og:description" content="By default, nuxt.js does not have server-side request logging out of the box. Thankfully, we can quickly add it using the connect-logger with the following additions." />
+<link rel="canonical" href="https://andrew.hawker.io/dailies/2020/03/10/nuxt-server-side-logging/" />
+<meta property="og:url" content="https://andrew.hawker.io/dailies/2020/03/10/nuxt-server-side-logging/" />
+<meta property="og:site_name" content="Andrew Hawker" />
+<meta property="og:image" content="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-10T05:17:00-07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:image" content="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" />
+<meta property="twitter:title" content="Server side request logging with nuxt.js" />
+<meta name="twitter:site" content="@rekwah" />
+<meta name="twitter:creator" content="@rekwah" />
+<script type="application/ld+json">
+{"url":"https://andrew.hawker.io/dailies/2020/03/10/nuxt-server-side-logging/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"Server side request logging with nuxt.js","dateModified":"2020-03-10T05:17:00-07:00","datePublished":"2020-03-10T05:17:00-07:00","author":{"@type":"Person","name":"Andrew Hawker"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","description":"By default, nuxt.js does not have server-side request logging out of the box. Thankfully, we can quickly add it using the connect-logger with the following additions.","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/dailies/2020/03/10/nuxt-server-side-logging/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+
+<body>
+
+
+
+
+<article>
+  
+
+<header>
+  <h1 class="title"><a name="Server side request logging with nuxt.js"></a>Server side request logging with nuxt.js</h1>
+  
+  
+  <p class="byline">March 10, 2020</p>
+  
+  
+  <ul class="tags">
+  
+    <li class="category"><a href="/archives/category/dailies">DAILIES</a></li>
+  
+  
+  
+  
+    <li class="tag"><a href="/archives/tag/nuxt">NUXT (1)</a></li>
+  
+  
+  </ul>
+</header>
+
+
+
+  <p>By default, <a href="https://nuxtjs.org/">nuxt.js</a> does not have server-side request logging out of the box. Thankfully, we can quickly add it using the <a href="https://github.com/geta6/connect-logger">connect-logger</a> with the following additions.</p>
+<p><strong>Install the connect-logger package</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a>$ <span class="ex">yarn</span> add connect-logger</span></code></pre></div>
+<p><strong>Update ‘serverMiddleware’ in your nuxt.config.js</strong></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> logger <span class="im">from</span> <span class="st">&quot;connect-logger&quot;</span><span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a>  serverMiddleware<span class="op">:</span> [</span>
+<span id="cb2-4"><a href="#cb2-4"></a>    <span class="at">logger</span>(<span class="op">{</span> <span class="dt">format</span><span class="op">:</span> <span class="st">&quot;%date %status %method %url (%time)&quot;</span> <span class="op">}</span>)</span>
+<span id="cb2-5"><a href="#cb2-5"></a>  ]<span class="op">,</span></span></code></pre></div>
+<p><strong>View the requests in stdout</strong></p>
+<pre><code>app_1  | 20.03.17 18:26:56 302 GET /healthy (513ms)
+app_1  | 20.03.17 18:27:04 302 GET / (114ms)
+app_1  | 20.03.17 18:27:05 302 GET / (38ms)
+app_1  | 20.03.17 18:27:16 302 GET /workspaces/1234 (42ms)</code></pre>
+
+
+
+<section>
+  <p class="return-home"><em><a href="/">Return home</a></em></p>
+</section>
+
+
+</article>
+
+
+
+
+
+
+<footer>
+    <hr class="footer-hr">
+    <ul class="social-links">
+      
+        <li><a href="https://www.routegy.com" target="_blank" title="Employer"><span class="fa fa-2x fa-building social-icon"></span></a></li>
+      
+        <li><a href="https://goo.gl/maps/kUBP3GgPGiG2" target="_blank" title="Location"><span class="fa fa-2x fa-map-marker social-icon"></span></a></li>
+      
+        <li><a href="https://stackoverflow.com/users/84942/ahawker" target="_blank" title="Stack Overflow"><span class="fa fa-2x fa-stack-overflow social-icon"></span></a></li>
+      
+        <li><a href="https://github.com/ahawker" target="_blank" title="GitHub"><span class="fa fa-2x fa-github-alt social-icon"></span></a></li>
+      
+        <li><a href="https://linkedin.com/in/ahawker" target="_blank" title="LinkedIn"><span class="fa fa-2x fa-linkedin-square social-icon"></span></a></li>
+      
+        <li><a href="https://twitter.com/rekwah" target="_blank" title="Twitter"><span class="fa fa-2x fa-twitter social-icon"></span></a></li>
+      
+        <li><a href="mailto:andrew.r.hawker@gmail.com" target="_blank" title="Email"><span class="fa fa-2x fa-envelope social-icon"></span></a></li>
+      
+        <li><a href="/feed.xml" target="_blank" title="RSS"><span class="fa fa-2x fa-rss social-icon"></span></a></li>
+        
+    </ul>
+  <div class="credits">
+    <span>&copy; 2013 - 2020 &nbsp;&nbsp;ANDREW HAWKER</span></br> <br>
+    <span>Code for this website can be found <a href="https://github.com/ahawker/personal-site">here</a>.</span>
+  </div>  
+</footer>
+
+</body>
+</html>
+
