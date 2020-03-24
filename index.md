@@ -42,3 +42,17 @@ _These are short-form/bite-sized/TIL style posts that are concise and to the poi
 ### [{{ dailies_curr_year }}]({{ site.baseurl }}/archives/year/{{ dailies_curr_year }})
 {% assign dailies_prev_year = dailies_curr_year %}{% endif %} * [{{ post.title }}]({{ post.url }}) - {{ post.date | date: '%B %-d' }}
 {% endfor %}
+
+## [Leetcode]({{ site.baseurl }}/archives/category/leetcode)
+
+_These are quick walk-throughs and solutions to Leetcode problems._
+
+{% assign leetcode_prev_year = nil %}
+{% assign leetcode_curr_year = nil %}
+
+{% for post in site.categories.leetcode %}
+{% assign leetcode_curr_year = post.date | date: "%Y" %}
+{% if leetcode_curr_year != leetcode_prev_year %}
+### [{{ leetcode_curr_year }}]({{ site.baseurl }}/archives/year/{{ leetcode_curr_year }})
+{% assign leetcode_prev_year = leetcode_curr_year %}{% endif %} * [{{ post.title }}]({{ post.url }}) - {{ post.date | date: '%B %-d' }}
+{% endfor %}
