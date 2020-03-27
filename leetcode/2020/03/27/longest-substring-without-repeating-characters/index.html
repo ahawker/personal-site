@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8" lang="en">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Andrew Hawker">
+  <meta name="generator" content="jekyll">
+  
+  <meta name="dcterms.date" content="2020-03-27 00:11:00 -0700">
+  
+  
+  <meta name="keywords" content="leetcode medium python">
+  
+
+  <link rel="canonical" href="https://andrew.hawker.io/leetcode/2020/03/27/longest-substring-without-repeating-characters/" />
+
+  
+  <title>Longest Substring Without Repeating Characters – Andrew Hawker</title>
+  
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
+  <link rel="stylesheet" href="/assets/styles/et-book.min.css">
+  <link rel="stylesheet" href="/assets/styles/site.css">
+  
+
+  <!--[if lt IE 9]>
+  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+
+  <link rel="manifest" href="/assets/site.webmanifest">
+
+  <meta name="msapplication-TileColor" content="#2d89ef">
+  <meta name="msapplication-config" content="/assets/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- RSS -->
+  <link type="application/atom+xml" rel="alternate" href="https://andrew.hawker.io/feed.xml" title="Andrew Hawker" />
+
+  <!-- Google Analytics -->
+  
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36365256-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  
+
+  <!-- SEO -->
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Longest Substring Without Repeating Characters | Andrew Hawker</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Longest Substring Without Repeating Characters" />
+<meta name="author" content="Andrew Hawker" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I’m trying to get in a habit of starting my mornings off with coffee and a Leetcode problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!" />
+<meta property="og:description" content="I’m trying to get in a habit of starting my mornings off with coffee and a Leetcode problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!" />
+<link rel="canonical" href="https://andrew.hawker.io/leetcode/2020/03/27/longest-substring-without-repeating-characters/" />
+<meta property="og:url" content="https://andrew.hawker.io/leetcode/2020/03/27/longest-substring-without-repeating-characters/" />
+<meta property="og:site_name" content="Andrew Hawker" />
+<meta property="og:image" content="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-27T00:11:00-07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:image" content="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" />
+<meta property="twitter:title" content="Longest Substring Without Repeating Characters" />
+<meta name="twitter:site" content="@rekwah" />
+<meta name="twitter:creator" content="@rekwah" />
+<script type="application/ld+json">
+{"url":"https://andrew.hawker.io/leetcode/2020/03/27/longest-substring-without-repeating-characters/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"Longest Substring Without Repeating Characters","dateModified":"2020-03-27T00:11:00-07:00","datePublished":"2020-03-27T00:11:00-07:00","author":{"@type":"Person","name":"Andrew Hawker"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","description":"I’m trying to get in a habit of starting my mornings off with coffee and a Leetcode problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/leetcode/2020/03/27/longest-substring-without-repeating-characters/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+
+<body>
+
+
+
+
+<article>
+  
+
+<header>
+  <h1 class="title"><a name="Longest Substring Without Repeating Characters"></a>Longest Substring Without Repeating Characters</h1>
+  
+  
+  <p class="byline">March 27, 2020</p>
+  
+  
+  <ul class="tags">
+  
+    <li class="category"><a href="/archives/category/leetcode">LEETCODE</a></li>
+  
+  
+  
+  
+    <li class="tag"><a href="/archives/tag/leetcode medium">LEETCODE MEDIUM (1)</a></li>
+  
+    <li class="tag"><a href="/archives/tag/python">PYTHON (4)</a></li>
+  
+  
+  </ul>
+</header>
+
+
+
+  <p>I’m trying to get in a habit of starting my mornings off with coffee and a <a href="https://leetcode.com/">Leetcode</a> problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!</p>
+<section id="longest-substring-without-repeating-characters" class="level2">
+<h2><a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/">Longest Substring Without Repeating Characters</a></h2>
+<section id="problem" class="level3">
+<h3>Problem</h3>
+<p>Given a string, find the length of the longest substring without repeating characters.</p>
+<p>Example inputs:</p>
+<pre><code>Input: &quot;abcabcbb&quot;
+Output: 3
+Explanation: The answer is &quot;abc&quot;, with the length of 3.
+
+Input: &quot;bbbbb&quot;
+Output: 1
+Explanation: The answer is &quot;b&quot;, with the length of 1.
+
+Input: &quot;pwwkew&quot;
+Output: 3
+Explanation: The answer is &quot;wke&quot;, with the length of 3.
+             Note that the answer must be a substring, &quot;pwke&quot; is a subsequence and not a substring.</code></pre>
+</section>
+<section id="thinking" class="level3">
+<h3>Thinking</h3>
+<p>I spent some time thinking about this but couldn’t come up with anything faster than <code>O(N^2)</code> although I can almost guarantee there is a way.</p>
+<p>In any case, the thought is iterate through the permutations and use a set to track the characters seen. When we run into a character we’ve seen, capture the length (if the max), and reset on next initial character.</p>
+</section>
+<section id="corner-cases" class="level3">
+<h3>Corner Cases</h3>
+<p>The following corner cases are what I missed in my initial solution:</p>
+<ul>
+<li>If iteration completes w/o running into a character it hasn’t seen.</li>
+</ul>
+</section>
+<section id="improvements" class="level3">
+<h3>Improvements</h3>
+<p>There is probably a way to cleanup the logic so the seen &amp; fallthrough code can be merged instead of copied.</p>
+<p>There is probably a faster solution than <code>O(N^2)</code>.</p>
+</section>
+<section id="solution" class="level3">
+<h3>Solution</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">class</span> Solution:</span>
+<span id="cb2-2"><a href="#cb2-2"></a>    <span class="kw">def</span> lengthOfLongestSubstring(<span class="va">self</span>, s: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb2-3"><a href="#cb2-3"></a>        <span class="cf">if</span> <span class="kw">not</span> s:</span>
+<span id="cb2-4"><a href="#cb2-4"></a>            <span class="cf">return</span> <span class="dv">0</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6"></a>        seen <span class="op">=</span> <span class="bu">set</span>()</span>
+<span id="cb2-7"><a href="#cb2-7"></a>        max_len <span class="op">=</span> <span class="dv">-1</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a></span>
+<span id="cb2-9"><a href="#cb2-9"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(s)):</span>
+<span id="cb2-10"><a href="#cb2-10"></a>            seen.add(s[i])</span>
+<span id="cb2-11"><a href="#cb2-11"></a></span>
+<span id="cb2-12"><a href="#cb2-12"></a>            <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(i<span class="op">+</span><span class="dv">1</span> , <span class="bu">len</span>(s)):</span>
+<span id="cb2-13"><a href="#cb2-13"></a>                <span class="cf">if</span> s[j] <span class="kw">in</span> seen:</span>
+<span id="cb2-14"><a href="#cb2-14"></a>                    max_len <span class="op">=</span> <span class="bu">max</span>(max_len, <span class="bu">len</span>(seen))</span>
+<span id="cb2-15"><a href="#cb2-15"></a>                    seen.clear()</span>
+<span id="cb2-16"><a href="#cb2-16"></a>                    <span class="cf">break</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a>                <span class="cf">else</span>:</span>
+<span id="cb2-18"><a href="#cb2-18"></a>                    seen.add(s[j])</span>
+<span id="cb2-19"><a href="#cb2-19"></a>            <span class="cf">else</span>:</span>
+<span id="cb2-20"><a href="#cb2-20"></a>                max_len <span class="op">=</span> <span class="bu">max</span>(max_len, <span class="bu">len</span>(seen))</span>
+<span id="cb2-21"><a href="#cb2-21"></a>                seen.clear()</span>
+<span id="cb2-22"><a href="#cb2-22"></a></span>
+<span id="cb2-23"><a href="#cb2-23"></a>        <span class="cf">return</span> max_len</span></code></pre></div>
+</section>
+<section id="score" class="level3">
+<h3>Score</h3>
+<pre><code>Runtime: 508 ms, faster than 15.12% of Python3 online submissions for Longest Substring Without Repeating Characters.
+Memory Usage: 13.9 MB, less than 5.10% of Python3 online submissions for Longest Substring Without Repeating Characters.</code></pre>
+</section>
+</section>
+
+
+
+<section>
+  <p class="return-home"><em><a href="/">Return home</a></em></p>
+</section>
+
+
+</article>
+
+
+
+
+
+
+<footer>
+    <hr class="footer-hr">
+    <ul class="social-links">
+      
+        <li><a href="https://www.routegy.com" target="_blank" title="Employer"><span class="fa fa-2x fa-building social-icon"></span></a></li>
+      
+        <li><a href="https://goo.gl/maps/kUBP3GgPGiG2" target="_blank" title="Location"><span class="fa fa-2x fa-map-marker social-icon"></span></a></li>
+      
+        <li><a href="https://stackoverflow.com/users/84942/ahawker" target="_blank" title="Stack Overflow"><span class="fa fa-2x fa-stack-overflow social-icon"></span></a></li>
+      
+        <li><a href="https://github.com/ahawker" target="_blank" title="GitHub"><span class="fa fa-2x fa-github-alt social-icon"></span></a></li>
+      
+        <li><a href="https://linkedin.com/in/ahawker" target="_blank" title="LinkedIn"><span class="fa fa-2x fa-linkedin-square social-icon"></span></a></li>
+      
+        <li><a href="https://twitter.com/rekwah" target="_blank" title="Twitter"><span class="fa fa-2x fa-twitter social-icon"></span></a></li>
+      
+        <li><a href="mailto:andrew.r.hawker@gmail.com" target="_blank" title="Email"><span class="fa fa-2x fa-envelope social-icon"></span></a></li>
+      
+        <li><a href="/feed.xml" target="_blank" title="RSS"><span class="fa fa-2x fa-rss social-icon"></span></a></li>
+        
+    </ul>
+  <div class="credits">
+    <span>&copy; 2013 - 2020 &nbsp;&nbsp;ANDREW HAWKER</span></br> <br>
+    <span>Code for this website can be found <a href="https://github.com/ahawker/personal-site">here</a>.</span>
+  </div>  
+</footer>
+
+</body>
+</html>
+
