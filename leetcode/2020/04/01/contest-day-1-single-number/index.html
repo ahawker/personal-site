@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8" lang="en">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Andrew Hawker">
+  <meta name="generator" content="jekyll">
+  
+  <meta name="dcterms.date" content="2020-04-01 01:37:00 -0700">
+  
+  
+  <meta name="keywords" content="leetcode easy leetcode covid contest python">
+  
+
+  <link rel="canonical" href="https://andrew.hawker.io/leetcode/2020/04/01/contest-day-1-single-number/" />
+
+  
+  <title>Contest - Day 1 - Single Number – Andrew Hawker</title>
+  
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
+  <link rel="stylesheet" href="/assets/styles/et-book.min.css">
+  <link rel="stylesheet" href="/assets/styles/site.css">
+  
+
+  <!--[if lt IE 9]>
+  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+
+  <link rel="manifest" href="/assets/site.webmanifest">
+
+  <meta name="msapplication-TileColor" content="#2d89ef">
+  <meta name="msapplication-config" content="/assets/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- RSS -->
+  <link type="application/atom+xml" rel="alternate" href="https://andrew.hawker.io/feed.xml" title="Andrew Hawker" />
+
+  <!-- Google Analytics -->
+  
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36365256-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  
+
+  <!-- SEO -->
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Contest - Day 1 - Single Number | Andrew Hawker</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Contest - Day 1 - Single Number" />
+<meta name="author" content="Andrew Hawker" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Leetcode is running a 30 day “Covid 19” style contest for everyone on self quarantine and social distancing. Let’s jump in!" />
+<meta property="og:description" content="Leetcode is running a 30 day “Covid 19” style contest for everyone on self quarantine and social distancing. Let’s jump in!" />
+<link rel="canonical" href="https://andrew.hawker.io/leetcode/2020/04/01/contest-day-1-single-number/" />
+<meta property="og:url" content="https://andrew.hawker.io/leetcode/2020/04/01/contest-day-1-single-number/" />
+<meta property="og:site_name" content="Andrew Hawker" />
+<meta property="og:image" content="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-04-01T01:37:00-07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:image" content="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" />
+<meta property="twitter:title" content="Contest - Day 1 - Single Number" />
+<meta name="twitter:site" content="@rekwah" />
+<meta name="twitter:creator" content="@rekwah" />
+<script type="application/ld+json">
+{"url":"https://andrew.hawker.io/leetcode/2020/04/01/contest-day-1-single-number/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"Contest - Day 1 - Single Number","dateModified":"2020-04-01T01:37:00-07:00","datePublished":"2020-04-01T01:37:00-07:00","author":{"@type":"Person","name":"Andrew Hawker"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","description":"Leetcode is running a 30 day “Covid 19” style contest for everyone on self quarantine and social distancing. Let’s jump in!","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/leetcode/2020/04/01/contest-day-1-single-number/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+
+<body>
+
+
+
+
+<article>
+  
+
+<header>
+  <h1 class="title"><a name="Contest - Day 1 - Single Number"></a>Contest - Day 1 - Single Number</h1>
+  
+  
+  <p class="byline">April 1, 2020</p>
+  
+  
+  <ul class="tags">
+  
+    <li class="category"><a href="/archives/category/leetcode">LEETCODE</a></li>
+  
+  
+  
+  
+    <li class="tag"><a href="/archives/tag/leetcode-easy">LEETCODE EASY (5)</a></li>
+  
+    <li class="tag"><a href="/archives/tag/leetcode-covid-contest">LEETCODE COVID CONTEST (1)</a></li>
+  
+    <li class="tag"><a href="/archives/tag/python">PYTHON (7)</a></li>
+  
+  
+  </ul>
+</header>
+
+
+
+  <p><a href="https://leetcode.com/">Leetcode</a> is running a 30 day “Covid 19” style contest for everyone on self quarantine and social distancing. Let’s jump in!</p>
+<section id="single-number" class="level2">
+<h2><a href="https://leetcode.com/problems/single-number/">Single Number</a></h2>
+<section id="problem" class="level3">
+<h3>Problem</h3>
+<p>Given a non-empty array of integers, every element appears twice except for one. Find that single one.</p>
+<p>Note:</p>
+<p>Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?</p>
+<p>Examples:</p>
+<pre><code>Input: [2,2,1]
+Output: 1
+
+Input: [4,1,2,1,2]
+Output: 4</code></pre>
+</section>
+<section id="thinking" class="level3">
+<h3>Thinking</h3>
+<p>This is very easy using the <code>collections.Counter</code> in python stlib. That might be <em>cheating</em> but I’m going to allow it. Stand on the shoulders of well tested (code) giants, I say.</p>
+<p>However, the question posits there is a way to do it without using <em>extra</em> memory. So, storing counters is likely not the optimal solution.</p>
+<p>This led me to thinking about truth tables. What boolean operation will indicate <em>once</em> but not <em>twice</em>? <strong>XOR</strong>. For example:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="dv">0</span> <span class="op">^</span> <span class="dv">1</span> <span class="op">=&gt;</span> <span class="dv">1</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="dv">0</span> <span class="op">^</span> <span class="dv">1</span> <span class="op">^</span> <span class="dv">1</span> <span class="op">=&gt;</span> <span class="fl">0.</span></span></code></pre></div>
+<p>If the result of our <strong>XOR</strong> logic is the input value, there is only one occurrence of it. If it’s zero, then there was either none, or more than 1 of them.</p>
+</section>
+<section id="corner-cases" class="level3">
+<h3>Corner Cases</h3>
+<p>I don’t think I missed any this time.</p>
+</section>
+<section id="improvements" class="level3">
+<h3>Improvements</h3>
+<p>I don’t think I missed any this time.</p>
+</section>
+<section id="solution" class="level3">
+<h3>Solution</h3>
+<p><strong>Counting</strong></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> collections</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="kw">class</span> Solution:</span>
+<span id="cb3-4"><a href="#cb3-4"></a>    <span class="kw">def</span> singleNumber(<span class="va">self</span>, nums: List[<span class="bu">int</span>]) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb3-5"><a href="#cb3-5"></a>        counts <span class="op">=</span> collections.Counter(nums)</span>
+<span id="cb3-6"><a href="#cb3-6"></a>        <span class="cf">return</span> counts.most_common()[<span class="op">-</span><span class="dv">1</span>][<span class="dv">0</span>]</span></code></pre></div>
+<p><strong>XOR</strong></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">class</span> Solution:</span>
+<span id="cb4-2"><a href="#cb4-2"></a>    <span class="kw">def</span> singleNumber(<span class="va">self</span>, nums: List[<span class="bu">int</span>]) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb4-3"><a href="#cb4-3"></a>        r <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>        <span class="cf">for</span> n <span class="kw">in</span> nums:</span>
+<span id="cb4-5"><a href="#cb4-5"></a>            r <span class="op">^=</span> n</span>
+<span id="cb4-6"><a href="#cb4-6"></a>        <span class="cf">return</span> r</span></code></pre></div>
+</section>
+<section id="score" class="level3">
+<h3>Score</h3>
+<p><strong>Counting</strong></p>
+<pre><code>Runtime: 84 ms, faster than 85.38% of Python3 online submissions for Single Number.
+Memory Usage: 16.3 MB, less than 6.56% of Python3 online submissions for Single Number.</code></pre>
+<p><strong>XOR</strong></p>
+<pre><code>Runtime: 88 ms, faster than 65.17% of Python3 online submissions for Single Number.
+Memory Usage: 15.6 MB, less than 6.56% of Python3 online submissions for Single Number.</code></pre>
+</section>
+</section>
+
+
+
+<section>
+  <p class="return-home"><em><a href="/">Return home</a></em></p>
+</section>
+
+
+</article>
+
+
+
+
+
+
+<footer>
+    <hr class="footer-hr">
+    <ul class="social-links">
+      
+        <li><a href="https://www.routegy.com" target="_blank" title="Employer"><span class="fa fa-2x fa-building social-icon"></span></a></li>
+      
+        <li><a href="https://goo.gl/maps/kUBP3GgPGiG2" target="_blank" title="Location"><span class="fa fa-2x fa-map-marker social-icon"></span></a></li>
+      
+        <li><a href="https://stackoverflow.com/users/84942/ahawker" target="_blank" title="Stack Overflow"><span class="fa fa-2x fa-stack-overflow social-icon"></span></a></li>
+      
+        <li><a href="https://github.com/ahawker" target="_blank" title="GitHub"><span class="fa fa-2x fa-github-alt social-icon"></span></a></li>
+      
+        <li><a href="https://linkedin.com/in/ahawker" target="_blank" title="LinkedIn"><span class="fa fa-2x fa-linkedin-square social-icon"></span></a></li>
+      
+        <li><a href="https://twitter.com/rekwah" target="_blank" title="Twitter"><span class="fa fa-2x fa-twitter social-icon"></span></a></li>
+      
+        <li><a href="mailto:andrew.r.hawker@gmail.com" target="_blank" title="Email"><span class="fa fa-2x fa-envelope social-icon"></span></a></li>
+      
+        <li><a href="/feed.xml" target="_blank" title="RSS"><span class="fa fa-2x fa-rss social-icon"></span></a></li>
+        
+    </ul>
+  <div class="credits">
+    <span>&copy; 2013 - 2020 &nbsp;&nbsp;ANDREW HAWKER</span></br> <br>
+    <span>Code for this website can be found <a href="https://github.com/ahawker/personal-site">here</a>.</span>
+  </div>  
+</footer>
+
+</body>
+</html>
+
