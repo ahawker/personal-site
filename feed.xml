@@ -1,4 +1,66 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://andrew.hawker.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://andrew.hawker.io/" rel="alternate" type="text/html" /><updated>2020-04-01T09:05:43-07:00</updated><id>https://andrew.hawker.io/feed.xml</id><title type="html">Andrew Hawker</title><subtitle>Personal website of Andrew Hawker</subtitle><author><name>Andrew Hawker</name></author><entry><title type="html">Contest - Day 1 - Single Number</title><link href="https://andrew.hawker.io/leetcode/2020/04/01/contest-day-1-single-number/" rel="alternate" type="text/html" title="Contest - Day 1 - Single Number" /><published>2020-04-01T01:37:00-07:00</published><updated>2020-04-01T01:37:00-07:00</updated><id>https://andrew.hawker.io/leetcode/2020/04/01/contest-day-1-single-number</id><content type="html" xml:base="https://andrew.hawker.io/leetcode/2020/04/01/contest-day-1-single-number/">&lt;p&gt;&lt;a href=&quot;https://leetcode.com/&quot;&gt;Leetcode&lt;/a&gt; is running a 30 day “Covid 19” style contest for everyone on self quarantine and social distancing. Let’s jump in!&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://andrew.hawker.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://andrew.hawker.io/" rel="alternate" type="text/html" /><updated>2020-04-02T08:49:57-07:00</updated><id>https://andrew.hawker.io/feed.xml</id><title type="html">Andrew Hawker</title><subtitle>Personal website of Andrew Hawker</subtitle><author><name>Andrew Hawker</name></author><entry><title type="html">Contest - Day 2 - Happy Number</title><link href="https://andrew.hawker.io/leetcode/2020/04/02/contest-day-2-happy-number/" rel="alternate" type="text/html" title="Contest - Day 2 - Happy Number" /><published>2020-04-02T01:21:00-07:00</published><updated>2020-04-02T01:21:00-07:00</updated><id>https://andrew.hawker.io/leetcode/2020/04/02/contest-day-2-happy-number</id><content type="html" xml:base="https://andrew.hawker.io/leetcode/2020/04/02/contest-day-2-happy-number/">&lt;p&gt;&lt;a href=&quot;https://leetcode.com/&quot;&gt;Leetcode&lt;/a&gt; is running a 30 day “Covid 19” style contest for everyone on self quarantine and social distancing. Let’s jump in!&lt;/p&gt;
+&lt;section id=&quot;happy-number&quot; class=&quot;level2&quot;&gt;
+&lt;h2&gt;&lt;a href=&quot;https://leetcode.com/problems/happy-number/&quot;&gt;Happy Number&lt;/a&gt;&lt;/h2&gt;
+&lt;section id=&quot;problem&quot; class=&quot;level3&quot;&gt;
+&lt;h3&gt;Problem&lt;/h3&gt;
+&lt;p&gt;Write an algorithm to determine if a number is “happy”.&lt;/p&gt;
+&lt;p&gt;A happy number is a number defined by the following process: Starting with any positive integer, replace the number by the sum of the squares of its digits, and repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1. Those numbers for which this process ends in 1 are happy numbers.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Input: 19
+Output: true
+Explanation: 
+12 + 92 = 82
+82 + 22 = 68
+62 + 82 = 100
+12 + 02 + 02 = 1&lt;/code&gt;&lt;/pre&gt;
+&lt;/section&gt;
+&lt;section id=&quot;thinking&quot; class=&quot;level3&quot;&gt;
+&lt;h3&gt;Thinking&lt;/h3&gt;
+&lt;p&gt;Once you know how to pull individual digits out of a number, these are &lt;em&gt;relatively&lt;/em&gt; straight forward. You just need to keep track of your in-progress sums vs. total sums and the total sums you’ve previously seen for loop detection.&lt;/p&gt;
+&lt;p&gt;To get a digit, you just mod the number by its base (&lt;code&gt;10&lt;/code&gt;, assuming its &lt;code&gt;base 10&lt;/code&gt;). Then you divide the original number by its base and continue. An unrolled look for the number &lt;code&gt;19&lt;/code&gt; would look like:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb2&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span id=&quot;cb2-1&quot;&gt;&lt;a href=&quot;#cb2-1&quot;&gt;&lt;/a&gt;x &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;19&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-2&quot;&gt;&lt;a href=&quot;#cb2-2&quot;&gt;&lt;/a&gt;x &lt;span class=&quot;op&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;  &lt;span class=&quot;co&quot;&gt;# =&amp;gt; 9&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-3&quot;&gt;&lt;a href=&quot;#cb2-3&quot;&gt;&lt;/a&gt;x &lt;span class=&quot;op&quot;&gt;//=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;  &lt;span class=&quot;co&quot;&gt;# (x =&amp;gt; 1)&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-4&quot;&gt;&lt;a href=&quot;#cb2-4&quot;&gt;&lt;/a&gt;x &lt;span class=&quot;op&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;  &lt;span class=&quot;co&quot;&gt;# =&amp;gt; 1&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-5&quot;&gt;&lt;a href=&quot;#cb2-5&quot;&gt;&lt;/a&gt;x &lt;span class=&quot;op&quot;&gt;//=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;  &lt;span class=&quot;co&quot;&gt;# (x =&amp;gt; 0)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/section&gt;
+&lt;section id=&quot;corner-cases&quot; class=&quot;level3&quot;&gt;
+&lt;h3&gt;Corner Cases&lt;/h3&gt;
+&lt;p&gt;I don’t think I missed any this time.&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id=&quot;improvements&quot; class=&quot;level3&quot;&gt;
+&lt;h3&gt;Improvements&lt;/h3&gt;
+&lt;p&gt;There’s possibly a way to detect loops without using a set (mathematical) to decrease memory usage but I don’t know of it.&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id=&quot;solution&quot; class=&quot;level3&quot;&gt;
+&lt;h3&gt;Solution&lt;/h3&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb3&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span id=&quot;cb3-1&quot;&gt;&lt;a href=&quot;#cb3-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;class&lt;/span&gt; Solution:&lt;/span&gt;
+&lt;span id=&quot;cb3-2&quot;&gt;&lt;a href=&quot;#cb3-2&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; isHappy(&lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;, n: &lt;span class=&quot;bu&quot;&gt;int&lt;/span&gt;) &lt;span class=&quot;op&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bu&quot;&gt;bool&lt;/span&gt;:&lt;/span&gt;
+&lt;span id=&quot;cb3-3&quot;&gt;&lt;a href=&quot;#cb3-3&quot;&gt;&lt;/a&gt;        seen &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bu&quot;&gt;set&lt;/span&gt;()&lt;/span&gt;
+&lt;span id=&quot;cb3-4&quot;&gt;&lt;a href=&quot;#cb3-4&quot;&gt;&lt;/a&gt;        curr &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; n&lt;/span&gt;
+&lt;span id=&quot;cb3-5&quot;&gt;&lt;a href=&quot;#cb3-5&quot;&gt;&lt;/a&gt;        prev &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; n&lt;/span&gt;
+&lt;span id=&quot;cb3-6&quot;&gt;&lt;a href=&quot;#cb3-6&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id=&quot;cb3-7&quot;&gt;&lt;a href=&quot;#cb3-7&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;cf&quot;&gt;while&lt;/span&gt; prev &lt;span class=&quot;op&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;:&lt;/span&gt;
+&lt;span id=&quot;cb3-8&quot;&gt;&lt;a href=&quot;#cb3-8&quot;&gt;&lt;/a&gt;            &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; prev &lt;span class=&quot;kw&quot;&gt;in&lt;/span&gt; seen:&lt;/span&gt;
+&lt;span id=&quot;cb3-9&quot;&gt;&lt;a href=&quot;#cb3-9&quot;&gt;&lt;/a&gt;                &lt;span class=&quot;cf&quot;&gt;break&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb3-10&quot;&gt;&lt;a href=&quot;#cb3-10&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id=&quot;cb3-11&quot;&gt;&lt;a href=&quot;#cb3-11&quot;&gt;&lt;/a&gt;            seen.add(prev)&lt;/span&gt;
+&lt;span id=&quot;cb3-12&quot;&gt;&lt;a href=&quot;#cb3-12&quot;&gt;&lt;/a&gt;            curr &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; prev&lt;/span&gt;
+&lt;span id=&quot;cb3-13&quot;&gt;&lt;a href=&quot;#cb3-13&quot;&gt;&lt;/a&gt;            prev &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;   &lt;/span&gt;
+&lt;span id=&quot;cb3-14&quot;&gt;&lt;a href=&quot;#cb3-14&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id=&quot;cb3-15&quot;&gt;&lt;a href=&quot;#cb3-15&quot;&gt;&lt;/a&gt;            &lt;span class=&quot;cf&quot;&gt;while&lt;/span&gt; curr:&lt;/span&gt;
+&lt;span id=&quot;cb3-16&quot;&gt;&lt;a href=&quot;#cb3-16&quot;&gt;&lt;/a&gt;                digit &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; curr &lt;span class=&quot;op&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb3-17&quot;&gt;&lt;a href=&quot;#cb3-17&quot;&gt;&lt;/a&gt;                curr &lt;span class=&quot;op&quot;&gt;//=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb3-18&quot;&gt;&lt;a href=&quot;#cb3-18&quot;&gt;&lt;/a&gt;                prev &lt;span class=&quot;op&quot;&gt;+=&lt;/span&gt; digit &lt;span class=&quot;op&quot;&gt;**&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb3-19&quot;&gt;&lt;a href=&quot;#cb3-19&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id=&quot;cb3-20&quot;&gt;&lt;a href=&quot;#cb3-20&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; prev &lt;span class=&quot;op&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/section&gt;
+&lt;section id=&quot;score&quot; class=&quot;level3&quot;&gt;
+&lt;h3&gt;Score&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;Runtime: 36 ms, faster than 30.40% of Python3 online submissions for Happy Number.
+Memory Usage: 13.9 MB, less than 5.26% of Python3 online submissions for Happy Number.&lt;/code&gt;&lt;/pre&gt;
+&lt;/section&gt;
+&lt;/section&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="leetcode" /><category term="leetcode easy" /><category term="leetcode covid contest" /><category term="python" /><summary type="html">Leetcode is running a 30 day “Covid 19” style contest for everyone on self quarantine and social distancing. Let’s jump in!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Contest - Day 1 - Single Number</title><link href="https://andrew.hawker.io/leetcode/2020/04/01/contest-day-1-single-number/" rel="alternate" type="text/html" title="Contest - Day 1 - Single Number" /><published>2020-04-01T01:37:00-07:00</published><updated>2020-04-01T01:37:00-07:00</updated><id>https://andrew.hawker.io/leetcode/2020/04/01/contest-day-1-single-number</id><content type="html" xml:base="https://andrew.hawker.io/leetcode/2020/04/01/contest-day-1-single-number/">&lt;p&gt;&lt;a href=&quot;https://leetcode.com/&quot;&gt;Leetcode&lt;/a&gt; is running a 30 day “Covid 19” style contest for everyone on self quarantine and social distancing. Let’s jump in!&lt;/p&gt;
 &lt;section id=&quot;single-number&quot; class=&quot;level2&quot;&gt;
 &lt;h2&gt;&lt;a href=&quot;https://leetcode.com/problems/single-number/&quot;&gt;Single Number&lt;/a&gt;&lt;/h2&gt;
 &lt;section id=&quot;problem&quot; class=&quot;level3&quot;&gt;
@@ -559,29 +621,4 @@ app_1  | 20.03.17 18:27:16 302 GET /workspaces/1234 (42ms)&lt;/code&gt;&lt;/pre&
 &lt;p&gt;&lt;img src=&quot;/assets/images/posts/container-does-not-exist.png&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;What the heck?&lt;/p&gt;
 &lt;p&gt;The ECS service being updated with a new task definition from CodePipeline &lt;strong&gt;MUST&lt;/strong&gt; have the container defined in it. This means that you must add the container definition, create a new task revision, &lt;strong&gt;AND&lt;/strong&gt; force a new service deployment &lt;em&gt;prior&lt;/em&gt; to doing an ECS deployment via CodePipeline.&lt;/p&gt;
-&lt;/section&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="dailies" /><category term="aws" /><category term="codepipeline" /><category term="ecs" /><category term="fargate" /><summary type="html">Problem</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Deploy Jekyll site to GitHub Pages branch</title><link href="https://andrew.hawker.io/dailies/2020/03/05/jekyll-deploy-gh-pages-branch/" rel="alternate" type="text/html" title="Deploy Jekyll site to GitHub Pages branch" /><published>2020-03-05T10:51:00-08:00</published><updated>2020-03-05T10:51:00-08:00</updated><id>https://andrew.hawker.io/dailies/2020/03/05/jekyll-deploy-gh-pages-branch</id><content type="html" xml:base="https://andrew.hawker.io/dailies/2020/03/05/jekyll-deploy-gh-pages-branch/">&lt;p&gt;Pushing code and letting GitHub build your Jekyll website is nice and simple. However, you’re limited to subset of plugins supported by GitHub, found &lt;a href=&quot;https://help.github.com/en/github/working-with-github-pages/about-github-pages-and-jekyll#plugins&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;It’s easy enough to build your website locally or through a CI/CD pipeline. Here is a dead simple example using &lt;a href=&quot;https://en.wikipedia.org/wiki/Make_(software)&quot;&gt;make&lt;/a&gt;.&lt;/p&gt;
-&lt;figure class=&quot;fullwidth&quot;&gt;
-&lt;pre&gt;&lt;code&gt;TS      ?= $(shell date -u)
-COMMIT  ?= $(shell git rev-parse --short HEAD)
-JEKYLL  := bundle exec jekyll
-
-DEPLOY_ORIGIN := $(shell git config remote.origin.url)
-DEPLOY_BRANCH := gh-pages
-DEPLOY_DIR    := _site
-
-.PHONY: clean
-clean:  ## Clean local compiled site.
-    @$(JEKYLL) clean
-
-.PHONY: deploy
-deploy: clean  ## Build and deploy site.
-    @(git clone -b $(DEPLOY_BRANCH) $(DEPLOY_ORIGIN) $(DEPLOY_DIR) &amp;amp;&amp;amp; \
-        JEKYLL_ENV=production $(JEKYLL) build &amp;amp;&amp;amp; \
-        cd $(DEPLOY_DIR) &amp;amp;&amp;amp; \
-        git add -A &amp;amp;&amp;amp; \
-        git commit -am &amp;quot;Deployed $(COMMIT) at $(TS)&amp;quot; &amp;amp;&amp;amp; \
-        git push origin $(DEPLOY_BRANCH))&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-&lt;p&gt;Usage: &lt;strong&gt;&lt;code&gt;$ make deploy&lt;/code&gt;&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;Take a look at the &lt;a href=&quot;https://github.com/ahawker/personal-site/tree/gh-pages&quot;&gt;gh-pages&lt;/a&gt; branch or the &lt;a href=&quot;https://github.com/ahawker/personal-site/blob/master/Makefile&quot;&gt;Makefile&lt;/a&gt; for this website as examples.&lt;/p&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="dailies" /><category term="jekyll" /><category term="github" /><category term="make" /><summary type="html">Pushing code and letting GitHub build your Jekyll website is nice and simple. However, you’re limited to subset of plugins supported by GitHub, found here.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+&lt;/section&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="dailies" /><category term="aws" /><category term="codepipeline" /><category term="ecs" /><category term="fargate" /><summary type="html">Problem</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
