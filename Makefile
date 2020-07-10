@@ -25,8 +25,12 @@ deploy: clean  ## Build and deploy site.
 		git commit -am "Deployed $(COMMIT) at $(TS)" && \
 		git push origin $(DEPLOY_BRANCH))
 
+.PHONY: install
+install: ## Install dependencies necessary to run site.
+	@bundle install
+
 .PHONY: serve
-serve: ## Serve locally at http://localhost:4000.
+serve:  ## Serve locally at http://localhost:4000.
 	@$(JEKYLL) serve --drafts
 
 .phony: help
