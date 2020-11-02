@@ -7,7 +7,7 @@ title: Andrew Hawker
 
 My small corner of the internet where I write occasionally.
 
-Read [long-form](#writings) or [short-form](#dailies), learn more [about](about) me, or connect with me on social media.
+Read [long-form](#writings) or [short-form](#dailies), learn more [about](about) me, view my [resume](assets/resume.pdf) or connect with me on social media.
 
 [^photo]: {-}
   ![Me](/assets/images/pages/resume-me.jpg){ .about-img }

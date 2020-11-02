@@ -1,8 +1,3 @@
-/* Append ' (PDF)' to links to slides */
-a[href$=".pdf"]::after {
-    content: ' (PDF)';
-  }
-
 /* Style the blockquotes with a fancy quote character */
 blockquote p:first-child {
   position: relative;

@@ -6,7 +6,8 @@ $social-icon-names: (
   fa-envelope,
   fa-rss,
   fa-building,
-  fa-map-marker
+  fa-map-marker,
+  fa-file
 );
 
 $social-icon-name-to-color-name: (
@@ -17,17 +18,20 @@ $social-icon-name-to-color-name: (
   fa-envelope: email,
   fa-rss: rss,
   fa-building: employer,
-  fa-map-marker: location
+  fa-map-marker: location,
+  fa-file: resume
 );
 
 $social-icon-containers: (
   employer,
-  location
+  location,
+  resume
 );
 
 $social-icon-container-name-to-color-name: (
   employer: employer,
-  location: location
+  location: location,
+  resume: resume
 );
 
 .social-icon {

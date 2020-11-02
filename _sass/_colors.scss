@@ -15,6 +15,7 @@ $social-email-color: #808080 !default;
 $social-rss-color: #EE802F !default;
 $social-employer-color: #2E1046 !default;
 $social-location-color: #3cba54 !default;
+$social-resume-color: #FFFFFF;
 
 $social-colors: (
   stack-overflow: $social-stack-overflow-color,
@@ -24,5 +25,6 @@ $social-colors: (
   email: $social-email-color,
   rss: $social-rss-color,
   employer: $social-employer-color,
-  location: $social-location-color
+  location: $social-location-color,
+  resume: $social-resume-color
 );
