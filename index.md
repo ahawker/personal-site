@@ -43,9 +43,9 @@ _These are short-form/bite-sized/TIL style posts that are concise and to the poi
 {% assign dailies_prev_year = dailies_curr_year %}{% endif %} * [{{ post.title }}]({{ post.url }}) - {{ post.date | date: '%B %-d' }}
 {% endfor %}
 
-## [Leetcode]({{ site.baseurl }}/archives/category/leetcode)
+## [Morning Coffee & Code]({{ site.baseurl }}/archives/category/leetcode)
 
-_These are quick walk-throughs and solutions to Leetcode problems._
+_Solving simple leetcode problems with my morning coffee._
 
 {% assign leetcode_prev_year = nil %}
 {% assign leetcode_curr_year = nil %}
