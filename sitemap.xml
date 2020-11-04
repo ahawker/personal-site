@@ -113,6 +113,10 @@
 <lastmod>2020-07-23T04:07:00-07:00</lastmod>
 </url>
 <url>
+<loc>https://andrew.hawker.io/dailies/2020/11/03/drf-hostname-versioning/</loc>
+<lastmod>2020-11-03T07:51:00-08:00</lastmod>
+</url>
+<url>
 <loc>https://andrew.hawker.io/about/</loc>
 </url>
 <url>
@@ -252,6 +256,15 @@
 </url>
 <url>
 <loc>https://andrew.hawker.io/archives/tag/trello/</loc>
+</url>
+<url>
+<loc>https://andrew.hawker.io/archives/tag/django/</loc>
+</url>
+<url>
+<loc>https://andrew.hawker.io/archives/tag/django-rest-framework/</loc>
+</url>
+<url>
+<loc>https://andrew.hawker.io/archives/tag/ngrok/</loc>
 </url>
 <url>
 <loc>https://andrew.hawker.io/archives/category/writings/</loc>
