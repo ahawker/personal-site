@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8" lang="en">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Andrew Hawker">
+  <meta name="generator" content="jekyll">
+  
+  <meta name="dcterms.date" content="2020-11-10 01:04:00 -0800">
+  
+  
+  <meta name="keywords" content="django django-rest-framework hashid">
+  
+
+  <link rel="canonical" href="https://andrew.hawker.io/dailies/2020/11/10/django-hashid-url-converter/" />
+
+  
+  <title>Django HashID URL Converter – Andrew Hawker</title>
+  
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
+  <link rel="stylesheet" href="/assets/styles/et-book.min.css">
+  <link rel="stylesheet" href="/assets/styles/site.css">
+  
+
+  <!--[if lt IE 9]>
+  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+
+  <link rel="manifest" href="/assets/site.webmanifest">
+
+  <meta name="msapplication-TileColor" content="#2d89ef">
+  <meta name="msapplication-config" content="/assets/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- RSS -->
+  <link type="application/atom+xml" rel="alternate" href="https://andrew.hawker.io/feed.xml" title="Andrew Hawker" />
+
+  <!-- Google Analytics -->
+  
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36365256-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  
+
+  <!-- SEO -->
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Django HashID URL Converter | Andrew Hawker</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Django HashID URL Converter" />
+<meta name="author" content="Andrew Hawker" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="HashID’s allow you to convert an integer into a “unique” short string." />
+<meta property="og:description" content="HashID’s allow you to convert an integer into a “unique” short string." />
+<link rel="canonical" href="https://andrew.hawker.io/dailies/2020/11/10/django-hashid-url-converter/" />
+<meta property="og:url" content="https://andrew.hawker.io/dailies/2020/11/10/django-hashid-url-converter/" />
+<meta property="og:site_name" content="Andrew Hawker" />
+<meta property="og:image" content="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-11-10T01:04:00-08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:image" content="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" />
+<meta property="twitter:title" content="Django HashID URL Converter" />
+<meta name="twitter:site" content="@rekwah" />
+<meta name="twitter:creator" content="@rekwah" />
+<script type="application/ld+json">
+{"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","url":"https://andrew.hawker.io/dailies/2020/11/10/django-hashid-url-converter/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"Django HashID URL Converter","dateModified":"2020-11-10T01:04:00-08:00","datePublished":"2020-11-10T01:04:00-08:00","author":{"@type":"Person","name":"Andrew Hawker"},"description":"HashID’s allow you to convert an integer into a “unique” short string.","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/dailies/2020/11/10/django-hashid-url-converter/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+
+<body>
+
+
+
+
+<article>
+  
+
+<header>
+  <h1 class="title"><a name="Django HashID URL Converter"></a>Django HashID URL Converter</h1>
+  
+  
+  <p class="byline">November 10, 2020</p>
+  
+  
+  <ul class="tags">
+  
+    <li class="category"><a href="/archives/category/dailies">DAILIES</a></li>
+  
+  
+  
+  
+    <li class="tag"><a href="/archives/tag/django">DJANGO (2)</a></li>
+  
+    <li class="tag"><a href="/archives/tag/django-rest-framework">DJANGO-REST-FRAMEWORK (2)</a></li>
+  
+    <li class="tag"><a href="/archives/tag/hashid">HASHID (1)</a></li>
+  
+  
+  </ul>
+</header>
+
+
+
+  <p>HashID’s allow you to convert an integer into a “<a href="https://carnage.github.io/2015/08/cryptanalysis-of-hashids">unique</a>” short string.</p>
+<p>If you <a href="https://github.com/nshafer/django-hashid-field">Django HashID Field</a>, you’ll want to create a custom path converter so you can accept them in URL’s.</p>
+<p><span><label for="sn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-1" class="margin-toggle"/><span class="marginnote"> You can skip the factory function and just define a normal class with your own <code>min_length/alphabet</code> values for simplicity.<br />
+<br />
+</span></span></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">from</span> hashids <span class="im">import</span> Hashids</span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">def</span> hashid_converter_factory(min_length<span class="op">=</span><span class="dv">0</span>, alphabet<span class="op">=</span>Hashids.ALPHABET)</span>
+<span id="cb1-4"><a href="#cb1-4"></a>    <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co">    Factory function to create a Django URL path converter for HashID&#39;s using a</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co">    specific min_length and alphabet.</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co">    &quot;&quot;&quot;</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>    <span class="kw">class</span> HashIdConverter:</span>
+<span id="cb1-9"><a href="#cb1-9"></a>        regex <span class="op">=</span> <span class="vs">r&#39;[</span><span class="sc">{}</span><span class="vs">]</span><span class="sc">{{}}</span><span class="vs">&#39;</span>.<span class="bu">format</span>(min_length, alphabet)</span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a>        <span class="kw">def</span> to_python(<span class="va">self</span>, value):</span>
+<span id="cb1-12"><a href="#cb1-12"></a>            <span class="cf">return</span> value</span>
+<span id="cb1-13"><a href="#cb1-13"></a></span>
+<span id="cb1-14"><a href="#cb1-14"></a>        <span class="kw">def</span> to_url(<span class="va">self</span>, value):</span>
+<span id="cb1-15"><a href="#cb1-15"></a>            <span class="cf">return</span> value.hashid</span>
+<span id="cb1-16"><a href="#cb1-16"></a></span>
+<span id="cb1-17"><a href="#cb1-17"></a>    <span class="cf">return</span> HashIdConverter</span></code></pre></div>
+<p>With that defined, you can simply register the converter and use it in your urlpatterns.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">from</span> django.urls <span class="im">import</span> include, path, register_converter</span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a>register_converter(hashid_converter_factory(min_length<span class="op">=</span><span class="dv">7</span>), <span class="st">&#39;hashid&#39;</span>)</span>
+<span id="cb2-4"><a href="#cb2-4"></a></span>
+<span id="cb2-5"><a href="#cb2-5"></a>urlpatterns <span class="op">=</span> [</span>
+<span id="cb2-6"><a href="#cb2-6"></a>    path(<span class="st">&#39;codes/&lt;hashid:pk&gt;/&#39;</span>, ...)</span>
+<span id="cb2-7"><a href="#cb2-7"></a>]</span></code></pre></div>
+
+
+
+<section>
+  <p class="return-home"><em><a href="/">Return home</a></em></p>
+</section>
+
+
+</article>
+
+
+
+
+
+
+<footer>
+    <hr class="footer-hr">
+    <ul class="social-links">
+      
+        <li><a href="https://www.routegy.com" target="_blank" title="Employer"><span class="fa fa-2x fa-building social-icon"></span></a></li>
+      
+        <li><a href="https://goo.gl/maps/kUBP3GgPGiG2" target="_blank" title="Location"><span class="fa fa-2x fa-map-marker social-icon"></span></a></li>
+      
+        <li><a href="https://stackoverflow.com/users/84942/ahawker" target="_blank" title="Stack Overflow"><span class="fa fa-2x fa-stack-overflow social-icon"></span></a></li>
+      
+        <li><a href="https://github.com/ahawker" target="_blank" title="GitHub"><span class="fa fa-2x fa-github-alt social-icon"></span></a></li>
+      
+        <li><a href="https://linkedin.com/in/ahawker" target="_blank" title="LinkedIn"><span class="fa fa-2x fa-linkedin-square social-icon"></span></a></li>
+      
+        <li><a href="https://twitter.com/rekwah" target="_blank" title="Twitter"><span class="fa fa-2x fa-twitter social-icon"></span></a></li>
+      
+        <li><a href="mailto:andrew.r.hawker@gmail.com" target="_blank" title="Email"><span class="fa fa-2x fa-envelope social-icon"></span></a></li>
+      
+        <li><a href="/feed.xml" target="_blank" title="RSS"><span class="fa fa-2x fa-rss social-icon"></span></a></li>
+      
+        <li><a href="assets/resume.pdf" target="_blank" title="Resume"><span class="fa fa-2x fa-file social-icon"></span></a></li>
+        
+    </ul>
+  <div class="credits">
+    <span>&copy; 2013 - 2020 &nbsp;&nbsp;ANDREW HAWKER</span></br> <br>
+    <span>Code for this website can be found <a href="https://github.com/ahawker/personal-site">here</a>.</span>
+  </div>  
+</footer>
+
+</body>
+</html>
+

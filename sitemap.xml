@@ -117,6 +117,10 @@
 <lastmod>2020-11-03T07:51:00-08:00</lastmod>
 </url>
 <url>
+<loc>https://andrew.hawker.io/dailies/2020/11/10/django-hashid-url-converter/</loc>
+<lastmod>2020-11-10T01:04:00-08:00</lastmod>
+</url>
+<url>
 <loc>https://andrew.hawker.io/about/</loc>
 </url>
 <url>
@@ -265,6 +269,9 @@
 </url>
 <url>
 <loc>https://andrew.hawker.io/archives/tag/ngrok/</loc>
+</url>
+<url>
+<loc>https://andrew.hawker.io/archives/tag/hashid/</loc>
 </url>
 <url>
 <loc>https://andrew.hawker.io/archives/category/writings/</loc>
