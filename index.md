@@ -1,21 +1,23 @@
 ---
 layout: home
 title: Andrew Hawker
+author: me
 ---
+{% assign author = site.data.authors[page.author] %}
+<div class="col-6 float-right">
+  <div class="p-2 mr-2">
+    <img class="avatar circle" src="{{ author.picture }}">
+  </div>
+</div>
 
-[^photo]
+Welcome to my small corner of the internet where I occasionally write things.
 
-My small corner of the internet where I write occasionally.
-
-Read [long-form](#writings) or [short-form](#dailies), learn more [about](about) me, view my [resume](assets/resume.pdf) or connect with me on social media.
-
-[^photo]: {-}
-  ![Me](/assets/images/pages/resume-me.jpg){ .about-img }
+Read [long-form]({{ site.baseurl }}/archives/category/writings) or [short-form]({{ site.baseurl }}/archives/category/dailies), learn more [about](about) me, view my [resume](assets/resume.pdf) or connect with me on social media.
 
 {% assign writings_prev_year = nil %}
 {% assign writings_curr_year = nil %}
 
-## [Writings]({{ site.baseurl }}/archives/category/writings)
+<span class="h2">[Writings]({{ site.baseurl }}/archives/category/writings)</span>
 
 _These are long-form style posts that dive deeper._
 
@@ -29,7 +31,7 @@ _These are long-form style posts that dive deeper._
 {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
 {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
 
-## [Dailies]({{ site.baseurl }}/archives/category/dailies)
+<span class="h2">[Dailies]({{ site.baseurl }}/archives/category/dailies)</span>
 
 _These are short-form/bite-sized/TIL style posts that are concise and to the point._
 
@@ -43,7 +45,7 @@ _These are short-form/bite-sized/TIL style posts that are concise and to the poi
 {% assign dailies_prev_year = dailies_curr_year %}{% endif %} * [{{ post.title }}]({{ post.url }}) - {{ post.date | date: '%B %-d' }}
 {% endfor %}
 
-## [Morning Coffee & Code]({{ site.baseurl }}/archives/category/leetcode)
+<span class="h2">[Morning Coffee & Code]({{ site.baseurl }}/archives/category/leetcode)</span>
 
 _Solving simple leetcode problems with my morning coffee._
 
