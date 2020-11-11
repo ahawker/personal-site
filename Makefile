@@ -27,7 +27,7 @@ deploy: clean  ## Build and deploy site.
 
 .PHONY: install
 install: ## Install dependencies necessary to run site.
-	@bundle install
+	@bundle install && yarn install && yarn run primer-sync
 
 .PHONY: serve
 serve:  ## Serve locally at http://localhost:4000.
