@@ -38,27 +38,24 @@ jekyll-archives:
 sass:
   style: compressed
 
-markdown: Pandoc
-
-pandoc:
-  extensions:
-    - section-divs
-    - from: 'markdown+tex_math_single_backslash'
-    - filter: 'pandoc-sidenote'
+markdown: kramdown
 
 plugins:
   - jekyll-archives
   - jekyll-feed
   - jekyll-seo-tag
-  - jekyll-pandoc
   - jekyll-sitemap
 exclude:
   - Gemfile
   - Gemfile.lock
+  - package-lock.json
   - README.md
   - Makefile
   - .git
   - .gitignore
+  - yarn.lock
+  - yarn-error.log
+  - node_modules
 
 ga_tracking_id: UA-36365256-1
 
