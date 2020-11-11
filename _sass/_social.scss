@@ -49,3 +49,21 @@ $social-icon-container-name-to-color-name: (
     @include social_color($social-icon-container-name-to-color-name, $name);
   }
 }
+
+/* Social links in footer */
+ul.social-links, .credits{ 
+  list-style: none;
+  text-align: center;
+  margin: 0 auto;
+}
+ul.social-links li {
+  display: inline;
+  padding: 0.5rem 0.25rem;
+  margin-bottom: 0.5rem;
+}
+ul.social-links a {
+  color: $social-color;
+  text-decoration: none;
+  font-size: $h4-size;
+  background-repeat: repeat;
+}

@@ -1,0 +1,13 @@
+// Extend/modify primer css after its loaded.
+.header ul,
+.header ol {
+  padding-left: 0;
+}
+
+.header li+li {
+  margin-top: 0;
+}
+
+.header h1 {
+  border-bottom: none;
+}
