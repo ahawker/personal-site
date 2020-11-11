@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@primer/css": "15.2.0"
+  },
+  "devDependencies": {
+    "@primer/sync": "2.0.0"
+  }
+}
