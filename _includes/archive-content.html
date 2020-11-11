@@ -1,10 +1,15 @@
 {% if page.type == "tag" %}
-<h1>Archives: {{ page.type | capitalize }} is {{ page.title | upcase }}</h1>
+{% capture title %} {{ page.type | capitalize }} is {{ page.title | upcase }} {% endcapture %}
 {% elsif page.type == "category" %}
-<h1>Archives: {{ page.type | capitalize }} is {{ page.title | capitalize }}</h1>
+{% capture title %} {{ page.type | capitalize }} is {{ page.title | capitalize }} {% endcapture %}
 {% else %}
-<h1>Archives: {{ page.type | capitalize }} is {{ page.date | date: "%Y" }}</h1>
+{% capture title %} {{ page.type | capitalize }} is {{ page.date | date: "%Y" }} {% endcapture %}
 {% endif %}
+
+<h1>
+  <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+  Archives: {{ title }}
+</h1>
 
 {% for post in page.posts %}
 

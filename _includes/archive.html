@@ -2,13 +2,16 @@
 <html lang="en-us">
 {% include head.html %}
 <body>
-{% include before.html %}
-<article>
+<div class="header container-xl px-5 my-5 markdown-body">
+  {% include before.html %}
   {% include header.html %}
+</div>
+<div class="content container-xl px-5 my-5 markdown-body">
   {% include archive-content.html key=include.key value=include.value %}
-</article>
-{% include after.html %}
-{% include math.html %}
-{% include footer.html %}
+</div>
+<div class="footer container-xl px-5 my-5">
+  {% include after.html %}
+  {% include footer.html %}
+</div>
 </body>
 </html>

@@ -1,25 +1,29 @@
-{% if page.title %}
 {% unless page.path contains "archives" %}
 <header>
-  <h1 class="title"><a name="{{ page.title }}"></a>{{ page.title }}</h1>
-  {% if page.subtitle %}
-  <p class="subtitle">{{ page.subtitle }}</p>
+  {% if page.title %}
+  <h1>
+    <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+    {{ page.title }}
+  </h1>
   {% endif %}
-  {% if page.date %}
-  <p class="byline">{{ page.date | date: "%B %-d, %Y" }}</p>
-  {% endif %}
-  {% if page.categories %}
-  <ul class="tags">
-  {% for category in page.categories %}
-    <li class="category"><a href="/archives/category/{{ category }}">{{ category | upcase }}</a></li>
-  {% endfor %}
-  {% endif %}
-  {% if page.tags %}
-  {% for tag in page.tags %}
-    <li class="tag"><a href="/archives/tag/{{ tag | slugify }}">{{ tag | upcase }} ({{ site.tags[tag] | size }})</a></li>
-  {% endfor %}
-  {% endif %}
-  </ul>
+  <div class="col-12">
+    {% if page.date %}
+    <p class="h4 color-grey">{{ page.date | date: "%B %-d, %Y" }}</p>
+    {% endif %}
+  </div>
+  <div class="col-12">
+    {% if page.categories %}
+    <ul class="tags">
+    {% for category in page.categories %}
+      <li class="category"><a href="/archives/category/{{ category }}">{{ category | upcase }}</a></li>
+    {% endfor %}
+    {% endif %}
+    {% if page.tags %}
+    {% for tag in page.tags %}
+      <li class="tag"><a href="/archives/tag/{{ tag | slugify }}">{{ tag | upcase }} ({{ site.tags[tag] | size }})</a></li>
+    {% endfor %}
+    {% endif %}
+    </ul>
+  </div>
 </header>
 {% endunless %}
-{% endif %}
