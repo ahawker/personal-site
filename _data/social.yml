@@ -23,5 +23,5 @@
   link: /feed.xml
   class: fa fa-2x fa-rss social-icon
 - title: Resume
-  link: assets/resume.pdf
+  link: /assets/resume.pdf
   class: fa fa-2x fa-file social-icon
