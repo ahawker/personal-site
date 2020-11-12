@@ -12,7 +12,7 @@ By default, [nuxt.js](https://nuxtjs.org/) does not have server-side request log
 
 **Install the connect-logger package**
 
-```sh
+```bash
 $ yarn add connect-logger
 ```
 
@@ -28,7 +28,7 @@ import logger from "connect-logger";
 
 **View the requests in stdout**
 
-```
+```bash
 app_1  | 20.03.17 18:26:56 302 GET /healthy (513ms)
 app_1  | 20.03.17 18:27:04 302 GET / (114ms)
 app_1  | 20.03.17 18:27:05 302 GET / (38ms)

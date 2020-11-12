@@ -7,13 +7,9 @@ category: writings
 tags: [appthwack, jenkins, archive, announcement]
 keywords: [appthwack, jenkins]
 ---
-![](/assets/images/posts/jenkins-appthwack-header.png)
+![AppThwack Jenkins Header](/assets/images/posts/jenkins-appthwack-header.png)
 
-Today, were happy to announce the initial release of our [Jenkins](https://jenkins.io/) plugin, which introduces AppThwack into your [Continuous Integration](https://en.wikipedia.org/wiki/Continuous_integration) cycle.[^part-2]
-
-[^part-2]: {-}
-   This is part one of a blog post series about continuous integration for mobile apps.
-   Be sure to check out [Part 2]({% post_url /2014-05-02-continuous-integration-for-mobile-apps-appthwack-jenkins-part-2 %}) for more advanced plugin features such as results integration and performance graphs.
+Today, were happy to announce the initial release of our [Jenkins](https://jenkins.io/) plugin, which introduces AppThwack into your [Continuous Integration](https://en.wikipedia.org/wiki/Continuous_integration) cycle.
 
 As developers ourselves, we understand the importance of seamless tool integrations within the development workflow.
 Last week we announced the release of our [Android Studio/Gradle]({% post_url /2013-08-28-android-app-testing-android-studio-gradle %}) plugin,
@@ -29,10 +25,9 @@ The AppThwack plugin lives in the official Jenkins-CI maven repository. That mea
 
 Starting at the Jenkins homepage, navigate to the **Manage Jenkins > Manage Plugins** page.
 
-[^plugin-select] From the plugin view, click the **Available** tab and scroll to find the AppThwack plugin.
+From the plugin view, click the **Available** tab and scroll to find the AppThwack plugin.
 
-[^plugin-select]: {-}
-   ![Plugin Select](/assets/images/posts/jenkins-appthwack-plugin-select.png)
+![Plugin Select](/assets/images/posts/jenkins-appthwack-plugin-select.png)
 
 Finally, scroll to the bottom and click **Install**.
 
@@ -40,10 +35,9 @@ Finally, scroll to the bottom and click **Install**.
 
 Navigate to **Manage Jenkins > Configure System**.
 
-Scroll down to the *AppThwack* settings section to add your [API Key](https://web-beta.archive.org/web/20150303112303/https://appthwack.com/user/profile).[^api-key] This key is used to authenticate your Jenkins server with AppThwack and is used across all of your Jenkins projects.
+Scroll down to the *AppThwack* settings section to add your [API Key](https://web-beta.archive.org/web/20150303112303/https://appthwack.com/user/profile). This key is used to authenticate your Jenkins server with AppThwack and is used across all of your Jenkins projects.
 
-[^api-key]: {-}
-   ![API Key](/assets/images/posts/jenkins-appthwack-api-key.png)
+![API Key](/assets/images/posts/jenkins-appthwack-api-key.png)
 
 Now that your API key added, its time to navigate to a Jenkins project and configure the post-build action.
 
@@ -53,18 +47,16 @@ Navigate to a project of your choice and click **Configure** button from the lef
 
 ### Add Post-build action
 
- [^post-build-action] Click the *Add post-build action* button, select **Run Tests on AppThwack** and you'll notice a new,
+ Click the *Add post-build action* button, select **Run Tests on AppThwack** and you'll notice a new,
 AppThwack specific settings section appear. All remaining configuration will happen here.
 
-[^post-build-action]: {-}
-   ![Post Build Action](/assets/images/posts/jenkins-appthwack-action.png)
+![Post Build Action](/assets/images/posts/jenkins-appthwack-action.png)
 
 ### Choose your Project and Device Pool
 
-[^settings] First up is selecting your AppThwack project and selecting which devices to test on.
+First up is selecting your AppThwack project and selecting which devices to test on.
 
-[^settings]: {-}
-   ![Settings](/assets/images/posts/jenkins-appthwack-settings-fields.png)
+![Settings](/assets/images/posts/jenkins-appthwack-settings-fields.png)
 
 ### Find your Application
 
@@ -82,41 +74,36 @@ Lets walk-through configuring some tests for both Android and iOS.
 
 ### Built-in Test Suites
 
-[^built-in-android] AppThwack provides a built-in compatibility test suite for both Android and iOS.
+AppThwack provides a built-in compatibility test suite for both Android and iOS.
 
  The built-in Android test suite supports additional options for configuring our AppExplorer. These are *optional* and should configured on a case-by-case basis.
 
-[^built-in-android]: {-}
-   ![Built-in Android](/assets/images/posts/jenkins-appthwack-builtin-android.png)
+![Built-in Android](/assets/images/posts/jenkins-appthwack-builtin-android.png)
 
 ### Calabash
 
-[^calabash] You can run your custom [Calabash](http://calaba.sh/) scripts for both Android and iOS.
+You can run your custom [Calabash](http://calaba.sh/) scripts for both Android and iOS.
 Please note that the features field supports the same pattern matching and environment variables as the application one above.
 
-[^calabash]: {-}
-   ![Calabash](/assets/images/posts/jenkins-appthwack-calabash.png)
+![Calabash](/assets/images/posts/jenkins-appthwack-calabash.png)
 
 ### JUnit/Robotium
 
-[^junit] Have a JUnit/Robotium project building with your app? Same pattern matching rules apply.
+Have a JUnit/Robotium project building with your app? Same pattern matching rules apply.
 
-[^junit]: {-}
-   ![JUnit](/assets/images/posts/jenkins-appthwack-junit.png)
+![JUnit](/assets/images/posts/jenkins-appthwack-junit.png)
 
 ### KIF
 
-[^kif] Functional tests on iOS with KIF are supported too; no configuration required
+Functional tests on iOS with KIF are supported too; no configuration required
 
-[^kif]: {-}
-   ![KIF](/assets/images/posts/jenkins-appthwack-kif.png)
+![KIF](/assets/images/posts/jenkins-appthwack-kif.png)
 
 ### UIA
 
-[^uia] Last, but certainly not least, iOS UI Automation. Same pattern rules apply for finding your Javascript tests.
+Last, but certainly not least, iOS UI Automation. Same pattern rules apply for finding your Javascript tests.
 
-[^uia]: {-}
-   ![UIA](/assets/images/posts/jenkins-appthwack-uia.png)
+![UIA](/assets/images/posts/jenkins-appthwack-uia.png)
 
 Click *Save* as the configuration is complete!
 
@@ -126,7 +113,6 @@ To manually kick off a build from a Jenkins project, click the **Build Now** but
 
 Once your app builds successfully, an examination of the Console Output will yield the following:
 
-<figure class="fullwidth">
 ```bash
 ...
 [AppThwack] Using Project 'demoproject-ios'
@@ -139,14 +125,11 @@ Once your app builds successfully, an examination of the Console Output will yie
 [AppThwack] Congrats! See your test run at https://appthwack.com/project/demoproject-ios/run/24549
 Finished: SUCCESS
 ```
-</figure>
 
 You're done! You can now schedule tests on AppThwack from your own Jenkins Continuous Integration server!
 
 Using the AppThwack Jenkins plugin (or any of our tools) in your development process? Let us know! Wed love to hear success stories and feedback about how we can improve our integration into your workflow.
 
-Having a problem or want to contribute? The plugin is open source! Check out the Github page for more details! [^archived]
+---
 
-[^archived]: {-}
-  This post was migrated from the [AppThwack Blog](https://blog.appthwack.com) which is no longer available.
-  A copy of the original post can be viewed from [archive.org](https://web-beta.archive.org/web/20150303112303/http://blog.appthwack.com:80/continuous-integration-for-mobile-apps/).
+_This post was migrated from the [AppThwack Blog](https://blog.appthwack.com) which is no longer available. A copy of the original post can be viewed from [archive.org](https://web-beta.archive.org/web/20150303112303/http://blog.appthwack.com:80/continuous-integration-for-mobile-apps/)._

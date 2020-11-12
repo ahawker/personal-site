@@ -7,13 +7,10 @@ category: writings
 tags: [appthwack, jenkins, archive, announcement]
 keywords: [appthwack, jenkins]
 ---
-![](/assets/images/posts/jenkins-appthwack-header.png)
 
-Back in September, we announced the initial release of the official AppThwack Jenkins plugin.[^part-1] Since its inception, we’re pleased to see many developers seamlessly integrate AppThwack and testing on real mobile devices into their development workflow; testing on a per-commit and nightly-build basis.
+![AppThwack Jenkins Header](/assets/images/posts/jenkins-appthwack-header.png)
 
-[^part-1]: {-}
-  This is part two of the continuous integration for mobile apps series.
-  Be sure to check out [Part 1]({% post_url /2013-09-03-continuous-integration-for-mobile-apps-appthwack-jenkins %}) for getting started with AppThwack and Jenkins.
+Back in September, we announced the initial release of the official AppThwack Jenkins plugin. Since its inception, we’re pleased to see many developers seamlessly integrate AppThwack and testing on real mobile devices into their development workflow; testing on a per-commit and nightly-build basis.
 
 While the plugin was perfect for capturing build artifacts and kicking off automated tests, it lacked Jenkins UI integration for displaying results. Customer feedback showed that this is an extremely important feature and we couldn’t agree more. The benefits of continuous testing are diminished if developers cannot quickly view results and historical trends. This is essential data for promptly diagnosing problems which facilitates a quick development process.
 
@@ -22,56 +19,49 @@ We’ve been adding features over the past few months and as of today (v1.8) of 
 ## Instant Feedback
 
 ![Build Status](/assets/images/posts/jenkins-appthwack-build-status.png)
+
 It’s important to see the status of your builds as quickly as possible. The AppThwack plugin now attaches to your project view on the Jenkins homepage to display the status of the latest build.
 
 ## Choose your own Adventure
 
-Previously, users were required to enter the names of the project and device pool they wanted to use. This wasn’t very user friendly and was prone to typos. Enough of that foolishness! The project and device pool entry fields are now drop-down selections populated automatically for you.[^intel] [^project-settings]
+Previously, users were required to enter the names of the project and device pool they wanted to use. This wasn’t very user friendly and was prone to typos. Enough of that foolishness! The project and device pool entry fields are now drop-down selections populated automatically for you.
 
-[^project-settings]: {-}
-   ![Project Settings](/assets/images/posts/jenkins-appthwack-settings.png)
-[^intel]: {-}
-   Interested in testing on real devices for free? Check out our Intel sponsored devices.
+![Project Settings](/assets/images/posts/jenkins-appthwack-settings.png)
 
 ## Gotta catch 'em all
 
-It’s your data, use it when you need it. Continuous testing generates tons of logs, screenshots and important device specific data imperative for debugging.[^artifacts-list]
+It’s your data, use it when you need it. Continuous testing generates tons of logs, screenshots and important device specific data imperative for debugging.
 
-[^artifacts-list]: {-}
-   ![Artifacts list](/assets/images/posts/jenkins-appthwack-artifacts.png)
+![Artifacts list](/assets/images/posts/jenkins-appthwack-artifacts.png)
 
 All of these test artifacts are now automatically downloaded and stored as part of every Jenkins build, available for deeper analysis whenever you need it.
 
 ## Bell-bottoms? JNCO jeans? Macarena?
 
-Stay hip with the latest trends of your build results. [^project-results]
+Stay hip with the latest trends of your build results.
 
-[^project-results]: {-}
-   ![Project Result Trends](/assets/images/posts/jenkins-appthwack-result-graph.png)
+![Project Result Trends](/assets/images/posts/jenkins-appthwack-result-graph.png)
 
 Easily view and identify trends in test passes, failures and warnings for every build and see high level results for your most recent AppThwack runs, right on your Jenkins project homepage.
 
 ## Individual Results
 
-You can also drill down and view the highlights of a single AppThwack run.[^recent-results]
+You can also drill down and view the highlights of a single AppThwack run.
 
 This will display all the high level result data you’ve come to expect, including latest trends in performance data (CPU, Memory, Threads, Network Traffic, FPS, etc).
 
-[^recent-results]: {-}
-   ![Recent Results](/assets/images/posts/jenkins-appthwack-results-table.png)
+![Recent Results](/assets/images/posts/jenkins-appthwack-results-table.png)
 
-Individual tests are grouped by result (pass/fail/warn) and then by each device, enabling you to quickly identify which test and/or device(s) are encountering errors. [^report-graphs]
+Individual tests are grouped by result (pass/fail/warn) and then by each device, enabling you to quickly identify which test and/or device(s) are encountering errors.
 
 Additionally, each test links back to its own report on AppThwack, allowing for even deeper analysis.
 
-[^report-graphs]: {-}
-   ![Report Graphs](/assets/images/posts/jenkins-appthwack-report-graphs.png)
+![Report Graphs](/assets/images/posts/jenkins-appthwack-report-graphs.png)
 
 ## Getting Started
 
-Interested in mobile Continuous Integration using real devices but not sure where to start? Check out our partner [CloudBees](https://www.cloudbees.com/) who specializes in cloud based CI. [^archived]
+Interested in mobile Continuous Integration using real devices but not sure where to start? Check out our partner [CloudBees](https://www.cloudbees.com/) who specializes in cloud based CI.
 
-[^archived]: {-}
-  This post was migrated from the [AppThwack Blog](https://blog.appthwack.com) which is no longer available.
-  A copy of the original post can be viewed from [archive.org](https://web.archive.org/web/20140718005710/http://blog.appthwack.com/continuous-integration-for-mobile-apps-appthwack-jenkins-part-2/
-).
+---
+
+_This post was migrated from the [AppThwack Blog](https://blog.appthwack.com) which is no longer available. A copy of the original post can be viewed from [archive.org](https://web.archive.org/web/20140718005710/http://blog.appthwack.com/continuous-integration-for-mobile-apps-appthwack-jenkins-part-2/)._

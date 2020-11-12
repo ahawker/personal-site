@@ -28,12 +28,7 @@ The **`client_secret`** value will be found by clicking the **`Token`** URL foun
 
 ### Creating a Trello connection
 
-[^management-api-key]
-
-[^management-api-key]: {-}
-  Read the official documentation [here](https://auth0.com/docs/api/management/v2/tokens) for getting your Auth0 Management API token.
-
-To create an arbitrary OAuth 1.1 connection in Auth0, we need to use the Auth0 Management API as there is no support for it in the management dashboard. This can be done with a simple `curl` command such as:
+To create an arbitrary OAuth 1.1 connection in Auth0, we need to use the Auth0 Management API as there is no support for it in the management dashboard. If you don't already have one, check out the [official documentation](https://auth0.com/docs/api/management/v2/tokens) for more details on creating your Management API access token. Once created, this can be done with a simple `curl` command such as:
 
 ```bash
 curl -X POST
@@ -43,11 +38,6 @@ curl -X POST
 ```
 
 This creates an Auth0 connection using the JSON data stored in our local **`trello.json`** file. The contents of this file will change based on specifics to your account but will look something like:
-
-[^authorize-docs]
-
-[^authorize-docs]: {-}
-  Read the official documentation [here](https://developer.atlassian.com/cloud/trello/guides/rest-api/authorization/) for more information on Trello application name, scope, and expiration.
 
 ```json
 {
@@ -79,6 +69,8 @@ This file has a number of variables in it. Let's go through them one by one:
 * **`${EXPIRATION}`** - The lifetime of the token/secret Trello sends to Auth0, e.g. `never`.
 * **`${SCRIPT}`** - The javascript function run to convert Trello information into an Auth0 profile. **See below**.
 * **`${AUTH0_CLIENT_XYZ}`** - The ID's of all Auth0 Clients that should allow Trello login.
+
+The Trello [official documentation](https://developer.atlassian.com/cloud/trello/guides/rest-api/authorization/) contains more information on the specific values provided like application name, scope, and expiration.
 
 The javascript code for fetch user profile **`${SCRIPT}`** is:
 

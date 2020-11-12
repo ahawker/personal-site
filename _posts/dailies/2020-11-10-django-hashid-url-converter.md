@@ -12,11 +12,6 @@ HashID's allow you to convert an integer into a "[unique](https://carnage.github
 
 If you [Django HashID Field](https://github.com/nshafer/django-hashid-field), you'll want to create a custom path converter so you can accept them in URL's.
 
-[^factory]
-
-[^factory]: {-}
-  You can skip the factory function and just define a normal class with your own `min_length/alphabet` values for simplicity.
-
 ```python
 from hashids import Hashids
 
@@ -36,6 +31,8 @@ def hashid_converter_factory(min_length=0, alphabet=Hashids.ALPHABET)
 
     return HashIdConverter
 ```
+
+**Note:** You can skip the factory function and just define a normal class with your own `min_length/alphabet` values for simplicity.
 
 With that defined, you can simply register the converter and use it in your urlpatterns.
 

@@ -12,7 +12,7 @@ Creating a fresh AWS CodePipeline through the wizard can result in immediate err
 
 In your CodeBuild build logs, you'll see:
 
-![](/assets/images/posts/codebuild-waiting-download-source-error.png)
+![Download Source Error](/assets/images/posts/codebuild-waiting-download-source-error.png)
 
 In your CodeBuild phase details, you'll see:
 
@@ -26,11 +26,11 @@ This happens when you select a non-default S3 bucket location for the Artifact s
 
 In the UI, you'll see:
 
-![](/assets/images/posts/codebuild-custom-location-s3.png)
+![S3 Bucket Custom Location](/assets/images/posts/codebuild-custom-location-s3.png)
 
 To fix this, add the following permissions to the CodeBuild policy:
 
-```
+```json
 {
     "Effect": "Allow",
     "Action": [

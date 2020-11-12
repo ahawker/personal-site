@@ -78,16 +78,13 @@ The [UA Parser](https://github.com/snowplow/snowplow/wiki/ua-parser-enrichment) 
 
 I switched both of mine to `http://` URI schemes to work around the problem, e.g.
 
-[^self-hosted]
-
 ```
 "uri": "http://snowplow-hosted-assets.s3.amazonaws.com/third-party/maxmind"
 
 "uri": "http://snowplow-hosted-assets.s3.amazonaws.com/third-party/ua-parser"
 ```
 
-[^self-hosted]: {-}
-    Snowplow will eventually stop self hosting the Geolite databases so you will need to host them yourself. See the original [deprecation notice](https://discourse.snowplowanalytics.com/t/deprecation-notice-snowplow-will-stop-hosting-the-maxmind-geolite2-database-on-behalf-of-users/3468) for more details.
+**Note:** Per their forums, Snowplow will eventually stop self hosting the Geolite databases so you will need to host them yourself. See the original [deprecation notice](https://discourse.snowplowanalytics.com/t/deprecation-notice-snowplow-will-stop-hosting-the-maxmind-geolite2-database-on-behalf-of-users/3468) for more details.
 
 ### Next
 

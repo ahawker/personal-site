@@ -8,32 +8,21 @@ tags: [ulid, ulid-py, tutorial]
 keywords: [ulid, ulid-py]
 ---
 
-[^ulid-spec]
-
 ULID stands for Universally Unique Lexicographically Sortable Identifier.
 
 In short, their goal is to provide an alternative to [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier) values where sortability is required while still maintaining similar uniqueness guarantees. This is achieved by storing the creation time of the identifier, at millisecond precision, within the value itself at the cost of reduced entropy.
 
-[^ulid-spec]: {-}
-  Check out the full [specification](https://github.com/ulid/spec) for more technical details.
+Check out the full [specification](https://github.com/ulid/spec) for more technical details.
 
-[^ulid-py]
+### Goal
 
-This post is a deeper dive into ULID's to examine their anatomy using python and the [ulid-py](https://github.com/ahawker/ulid) package.
-
-[^ulid-py]: {-}
-  See the [ulid-py](https://github.com/ahawker/ulid) repository for more examples.
+This post is a deeper dive into ULID's to examine their anatomy using python and the [ulid-py](https://github.com/ahawker/ulid) package. For additional examples, check out the [official docs](https://ulid.readthedocs.io/en/latest/?badge=latest) or [ulid-py](https://github.com/ahawker/ulid) repository on GitHub.
 
 ### Getting started
 
-[^ulid-py-docs]
-
 Install the [ulid-py](https://github.com/ahawker/ulid) package from [pypi](https://pypi.org/project/ulid-py/) using [pip](https://pypi.org/project/pip/).
 
-[^ulid-py-docs]: {-}
-  Reference documentation for the [ulid-py](https://github.com/ahawker/ulid) source code can be found [here](https://ulid.readthedocs.io/en/latest/); graciously hosted by [Read the Docs](https://readthedocs.org).
-
-```
+```bash
 $ pip install ulid-py
 $ python
 >>> import ulid
@@ -41,12 +30,11 @@ $ python
 
 ### Structure
 
-[^endianness]
+A ULID is a 128 bit/16 byte/26 character value with the [most significant bit](https://en.wikipedia.org/wiki/Bit_numbering#Most_significant_bit) first. [^1]
 
-A ULID is a 128 bit/16 byte/26 character value with the [most significant bit](https://en.wikipedia.org/wiki/Bit_numbering#Most_significant_bit) first. The [ULID](https://ulid.readthedocs.io/en/latest/ulid.html#ulid.ulid.ULID) type supports a number of different representations.
+[^1]: Big endian/network byte order <https://en.wikipedia.org/wiki/Endianness>
 
-[^endianness]: {-}
-  This is known as big endian or network byte order. Read more about endianness [here](https://en.wikipedia.org/wiki/Endianness).
+The [ULID](https://ulid.readthedocs.io/en/latest/ulid.html#ulid.ulid.ULID) type supports a number of different representations.
 
 ```python
 >>> value = ulid.new()
@@ -74,9 +62,11 @@ A ULID value is composed of two parts: [timestamp](./#timestamp) and [randomness
 
 ### Timestamp
 
-[^epoch]
+The timestamp value is stored in the first 48 bits/6 bytes/10 characters. It is a Unix timestamp in milliseconds. [^2]
 
-The timestamp value is stored in the first 48 bits/6 bytes/10 characters. It is a Unix timestamp in milliseconds. The [Timestamp](https://ulid.readthedocs.io/en/latest/ulid.html#ulid.ulid.Timestamp) type supports a number of different representations.
+[^2]: Unix time <https://en.wikipedia.org/wiki/Unix_time>
+
+The [Timestamp](https://ulid.readthedocs.io/en/latest/ulid.html#ulid.ulid.Timestamp) type supports a number of different representations.
 
 ```python
 >>> ts = value.timestamp()
@@ -96,14 +86,13 @@ datetime.datetime(2019, 11, 12, 4, 34, 26, 70000)
 1573533266.07
 ```
 
-[^epoch]: {-}
-  Read more about unix time [here](https://en.wikipedia.org/wiki/Unix_time).
-
 ### Randomness
 
-[^prng]
+The randomness value is stored in the remaining 80 bits/8 bytes/16 characters. It is a cryptographically secure random value. [^3]
 
-The randomness value is stored in the remaining 80 bits/8 bytes/16 characters. It is a cryptographically secure random value. The [Randomess](https://ulid.readthedocs.io/en/latest/ulid.html#ulid.ulid.Randomness) type supports a number of different representations.
+[^3]: Pseudorandom number generators (PRNG) <https://en.wikipedia.org/wiki/Pseudorandom_number_generator>
+
+The [Randomess](https://ulid.readthedocs.io/en/latest/ulid.html#ulid.ulid.Randomness) type supports a number of different representations.
 
 ```python
 >>> rnd = value.randomness()
@@ -119,14 +108,13 @@ The randomness value is stored in the remaining 80 bits/8 bytes/16 characters. I
 b'i\x86\x05\x7f\x08\xd0\xb6&\xdb\xe9'
 ```
 
-[^prng]: {-}
-  Read more about PRNG's [here](https://en.wikipedia.org/wiki/Pseudorandom_number_generator).
+
 
 ### Crockford's Base32
 
-[^base32]
+When represented as a string, ULID's use Crockford's Base32 encoding. This encoding uses 5 bits per character, gaining an extra bit per character over hexadecimal (Base16). Crockford's implementation excludes the letters "I", "L", and "O" to avoid visual confusion with digits "0" and "1". It also excludes the letter "U" to reduce likelyhood of obsenities.[^4]
 
-When represented as a string, ULID's use Crockford's Base32 encoding. This encoding uses 5 bits per character, gaining an extra bit per character over hexadecimal (Base16). Crockford's implementation excludes the letters "I", "L", and "O" to avoid visual confusion with digits "0" and "1". It also excludes the letter "U" to reduce likelyhood of obsenities.
+[^4]: Crockford's Base32 <https://en.wikipedia.org/wiki/Base32#Crockford's_Base32>
 
 ```python
 >>> ulid.base32.ENCODING
@@ -167,15 +155,14 @@ b'i\x86\x05\x7f\x08\xd0\xb6&\xdb\xe9'
 'D630AZR8T2V2DPZ9'
 ```
 
-[^base32]: {-}
-  Read more about Crockford's Base32 [here](https://en.wikipedia.org/wiki/Base32#Crockford's_Base32).
-
 ### Sorting
 
-[^monotonic-issue-ulid]
-[^monotonic-issue-ulid-py]
+Since the [timestamp](./#timestamp) value is the first 48 bits/6 bytes/10 characters of a ULID value, they can be lexicographically sorted with millisecond precision. The ulid spec also defines support for monotonically[^5] increasing randomness values to maintain sort order within the same millisecond. However, due to some questions/concerns/discussion[^6] around the implementation, it is not _yet_ supported by the `ulid-py` package.
 
-Since the [timestamp](./#timestamp) value is the first 48 bits/6 bytes/10 characters of a ULID value, they can be lexicographically sorted with millisecond precision. The ulid spec also defines support for monotonically increasing randomness values to maintain sort order within the same millisecond. However, due to some questions/concerns/discussion around the implementation, it is not _yet_ supported by the `ulid-py` package.
+**Update (11/10/2020):** As of Sept. 2020, in the `1.1.0` release, the `ulid-py` package has monotonic support. It has implementations using a lock protected counter or using microsecond precision clocks.
+
+[^5]: Follow issue [#11](https://github.com/ulid/spec/issues/11) on the ULID spec repository for more information about problems with supporting sub-millisecond sorting.
+[^6]: Follow issue [#306](https://github.com/ulid/spec/issues/11) on the `ulid-py` repository for more information.
 
 ```python
 >>> u1 = ulid.new()
@@ -192,12 +179,6 @@ datetime.datetime(2054, 11, 14, 6, 5, 58)
 >>> u1 < u2 < u3
 True
 ```
-
-[^monotonic-issue-ulid]: {-}
- Follow issue [#11](https://github.com/ulid/spec/issues/11) on the ULID spec repository for more information about problems with supporting sub-millisecond sorting.
-
-[^monotonic-issue-ulid-py]: {-}
- Follow issue [#306](https://github.com/ulid/spec/issues/11) on the `ulid-py` repository for more information.
 
 ## Pros/Cons
 
@@ -220,3 +201,5 @@ In general, ULID's provide a nice alternative to [UUID's](https://en.wikipedia.o
 ## To be continued...
 
 The next blog post in this series will discuss using ULID's with the Django web framework. Stay tuned!
+
+---

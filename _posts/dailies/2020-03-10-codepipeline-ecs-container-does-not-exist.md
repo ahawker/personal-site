@@ -14,12 +14,9 @@ Your CodePipeline ECS deployment is failing with a **`The AWS ECS container ${co
 
 ## Scenario
 
-[^container-definitions]
+This problem can occur in a number of situations but let's just imagine we have a task definition contains a single entry in its `container definitions`.[^1] Now we want to add another container to the task, say a sidecar container like the [datadog agent](https://docs.datadoghq.com/integrations/ecs_fargate/).
 
-This problem can occur in a number of situations but let's just imagine we have a task definition contains a single entry in its `container definitions`. Now we want to add another container to the task, say a sidecar container like the [datadog agent](https://docs.datadoghq.com/integrations/ecs_fargate/).
-
-[^container-definitions]: {-}
-  Check out the official AWS documentation for the [container definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html#container_definitions) for more details
+[^1]: <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html#container_definitions>
 
 First, you add it to your ECS task definition and push a new revision.
 
@@ -66,8 +63,10 @@ Second, you add it to your `imagedefinitions.json` generated in your CodePipelin
 
 After that, you run a new CodePipeline and run into the following error: **`The AWS ECS container datadog-agent does not exist`**.
 
-![](/assets/images/posts/container-does-not-exist.png)
+![Container Does Not Exist](/assets/images/posts/container-does-not-exist.png)
 
 What the heck?
 
 The ECS service being updated with a new task definition from CodePipeline **MUST** have the container defined in it. This means that you must add the container definition, create a new task revision, **AND** force a new service deployment _prior_ to doing an ECS deployment via CodePipeline.
+
+---

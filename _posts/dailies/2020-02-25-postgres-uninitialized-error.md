@@ -10,7 +10,6 @@ keywords: [postgres, docker]
 
 Pulling down and running the latest Postgres images from Docker Hub now results in errors.
 
-<figure class="fullwidth">
 ```bash
 postgres_1_33777e03d7d8 | Error: Database is uninitialized and superuser password is not specified.
 postgres_1_33777e03d7d8 |        You must specify POSTGRES_PASSWORD for the superuser. Use
@@ -21,7 +20,6 @@ postgres_1_33777e03d7d8 |        without a password. This is *not* recommended. 
 postgres_1_33777e03d7d8 |        documentation about "trust":
 postgres_1_33777e03d7d8 |        https://www.postgresql.org/docs/current/auth-trust.html
 ```
-</figure>
 
 Turns out there was a backwards compatibility breaking change added [here](https://github.com/docker-library/postgres/pull/658).
 

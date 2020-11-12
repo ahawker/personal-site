@@ -12,8 +12,7 @@ Pushing code and letting GitHub build your Jekyll website is nice and simple. Ho
 
 It's easy enough to build your website locally or through a CI/CD pipeline. Here is a dead simple example using [make](https://en.wikipedia.org/wiki/Make_(software)).
 
-<figure class="fullwidth">
-```
+```make
 TS      ?= $(shell date -u)
 COMMIT  ?= $(shell git rev-parse --short HEAD)
 JEKYLL  := bundle exec jekyll
@@ -35,7 +34,6 @@ deploy: clean  ## Build and deploy site.
 		git commit -am "Deployed $(COMMIT) at $(TS)" && \
 		git push origin $(DEPLOY_BRANCH))
 ```
-</figure>
 
 Usage: **`$ make deploy`**.
 

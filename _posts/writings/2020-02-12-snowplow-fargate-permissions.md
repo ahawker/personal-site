@@ -37,18 +37,15 @@ The following are related topics/questions I found along the way:
 The following are error messages you are likely to see when encountering permission issues:
 
 * `Caught exception while sync'ing Kinesis shards and leases`
-* `Could not publish `n` datums to CloudWatch`
+* `Could not publish X datums to CloudWatch`
 
 The best information I could find previous was "You need to give it create, read write permissions to Dynamo" and "I just gave it full access". Hopefully this post can do a more thorough job!
 
 ### Scala Stream Collector
 
-[^collector-docs]
+Collectors in Snowplow are the top of the data funnel. Raw data from the trackers is received over HTTPS and, in the case of streaming deployments, is then written in Thrift to AWS Kinesis data streams. Valid data is written to a "good" stream and invalid data is written to a "bad" stream. I highly recommend checking out the official [technical docs](https://github.com/snowplow/snowplow/wiki/Scala-stream-collector) for more details.
 
-Collectors in Snowplow are the top of the data funnel. Raw data from the trackers is received over HTTPS and, in the case of streaming deployments, is then written in Thrift to AWS Kinesis data streams. Valid data is written to a "good" stream and invalid data is written to a "bad" stream. In terms of AWS IAM permissions, this one is relatively straight forward.
-
-[^collector-docs]: {-}
-  Check out the official [technical docs](https://github.com/snowplow/snowplow/wiki/Scala-stream-collector) for more details about the scala stream collector.
+In terms of AWS IAM permissions, this one is relatively straight forward.
 
 ```json
 {
@@ -71,26 +68,13 @@ Collectors in Snowplow are the top of the data funnel. Raw data from the tracker
 
 ### Scala Stream Enricher
 
-[^enricher-docs]
+Enrichers in Snowplow are second in the data funnel and similar to collectors. Raw data is consumed from AWS Kinesis data streams, modified by all configured "enrichers" and then written back out to a AWS Kinesis data stream.  Valid data is written to a "good" stream and invalid data is written to a "bad" stream. I highly recommend checking out the official [technical docs](https://github.com/snowplow/snowplow/wiki/stream-enrich) for more details about the scala stream enricher.
 
-Enrichers in Snowplow are second in the data funnel and similar to collectors. Raw data is consumed from AWS Kinesis data streams, modified by all configured "enrichers" and then written back out to a AWS Kinesis data stream.  Valid data is written to a "good" stream and invalid data is written to a "bad" stream. However, since it uses the AWS Kinesis Client library (KCL), there is more nuance to the IAM permissions required.
+However, since it uses the AWS Kinesis Client library (KCL), there is more nuance to the IAM permissions required.
 
-[^enricher-docs]: {-}
-  Check out the official [technical docs](https://github.com/snowplow/snowplow/wiki/stream-enrich) for more details about the scala stream enricher.
-
-[^state-table-docs]
-
-KCL uses an AWS DynamoDB table to manage state of the consumer (leases, checkpoints, etc). This means that our Snowplow enricher also requires all permissions necessary to manage this state table.
-
-[^state-table-docs]: {-}
-  Check out the official [docs](https://docs.aws.amazon.com/streams/latest/dev/kinesis-record-processor-ddb.html) for more details on the DynamoDB state table.
+Per the AWS [docs](https://docs.aws.amazon.com/streams/latest/dev/kinesis-record-processor-ddb.html), KCL uses an AWS DynamoDB table to manage state of the consumer (leases, checkpoints, etc). This means that our Snowplow enricher also requires all permissions necessary to manage this state table.
 
 KCL also emits metrics to Cloudwatch, so we'll need permissions for that as well.
-
-[^pii-stream]
-
-[^pii-stream]: {-}
-  Please note that this example is **not** include a stream for PII data. If you want that, you'll need to include it in the 3rd statement where write permissions to Kinesis data streams are defined.
 
 ```json
 {
@@ -153,18 +137,13 @@ KCL also emits metrics to Cloudwatch, so we'll need permissions for that as well
 }
 ```
 
+**Note:**  This example does **not** include a stream for PII data. If you want that, you'll need to include it in the 3rd statement where write permissions to Kinesis data streams are defined.
+
 ### S3 Loader
 
-[^s3-loader-docs]
+Loaders in Snowplow are third in the data funnel and similar to enrichers. Raw data is consumed from AWS Kinesis data streams and written to a valid data sink, in this case, S3. If records can not be written to the sink, they're written to a "bad" stream. I highly recommend checking out the official [technical docs](https://github.com/snowplow/snowplow/wiki/snowplow-s3-loader-setup) for more details.
 
-Loaders in Snowplow are third in the data funnel and similar to enrichers. Raw data is consumed from AWS Kinesis data streams and written to a valid data sink, in this case, S3. If records can not be written to the sink, they're written to a "bad" stream. Similar to the enricher, AWS Kinesis Client library (KCL), is also used.
-
-[^s3-loader-docs]: {-}
-  Check out the official [technical docs](https://github.com/snowplow/snowplow/wiki/snowplow-s3-loader-setup) for more details about the s3 loader.
-
-[^state-table-docs]
-
-KCL uses an AWS DynamoDB table to manage state of the consumer (leases, checkpoints, etc). This means that our Snowplow loader also requires all permissions necessary to manage this state table.
+Similar to the enricher, the AWS Kinesis Client library (KCL) is also used, so we will need to include permissions for the DynamoDB state table and Cloudwatch permissions as well.
 
 ```json
 {
@@ -249,16 +228,9 @@ KCL uses an AWS DynamoDB table to manage state of the consumer (leases, checkpoi
 
 ### Elasticsearch Loader
 
-[^es-loader-docs]
+The ES loader and S3 loaders are nearly identical, expect we trade an S3 bucket sink for an Elasticsearch cluster. I highly recommend checking out the official [technical docs](https://github.com/snowplow/snowplow/wiki/elasticsearch-loader-setup) for more details about the es loader.
 
-The ES loader and S3 loaders are nearly identical, expect we trade an S3 bucket sink for an Elasticsearch cluster.
-
-[^es-loader-docs]: {-}
-  Check out the official [technical docs](https://github.com/snowplow/snowplow/wiki/elasticsearch-loader-setup) for more details about the es loader.
-
-[^state-table-docs]
-
-KCL uses an AWS DynamoDB table to manage state of the consumer (leases, checkpoints, etc). This means that our Snowplow loader also requires all permissions necessary to manage this state table.
+Similar to the enricher and S3 loader, the AWS Kinesis Client library (KCL) is also used, so we will need to include permissions for the DynamoDB state table and Cloudwatch permissions as well.
 
 
 ```json
@@ -323,12 +295,7 @@ KCL uses an AWS DynamoDB table to manage state of the consumer (leases, checkpoi
 }
 ```
 
-[^aes-access-policies]
-
-If [Amazon Elasticsearch Service (AES)](https://aws.amazon.com/elasticsearch-service/) is being used and you're running it inside a VPC, you'll need to make sure the access policies on the domain are also configured. The **`role`** here should have a policy attached that grants it all of the permissions that are defined above.
-
-[^aes-access-policies]: {-}
-  Check out the official [technical docs](https://aws.amazon.com/blogs/security/how-to-control-access-to-your-amazon-elasticsearch-service-domain/) for more details about AES access policies.
+If [Amazon Elasticsearch Service (AES)](https://aws.amazon.com/elasticsearch-service/) is being used and you're running it inside a VPC, you'll need to make sure the access policies on the domain are also configured. The **`role`** here should have a policy attached that grants it all of the permissions that are defined above. Check out the official [technical docs](https://aws.amazon.com/blogs/security/how-to-control-access-to-your-amazon-elasticsearch-service-domain/) for more details about AES access policies.
 
 ```json
 {
