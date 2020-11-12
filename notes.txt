@@ -25,3 +25,22 @@ notes.txt
         </div>
       </div>
     </div> -->
+
+
+
+
+
+Kind words from my direct manager/CTO about me:
+
+> Over the past year+ Andrew has been consistently sought out by members of our engineering team for his perspective, expertise, and experience building robust solutions. He's tackled some of our largest engineering challenges and has shipped solutions that have been well architected, carefully documented, and "just work".
+
+
+
+What my peers have written about me:
+
+* "Andrew has a strong balance between technical knowledge and an ability to understand customer's needs, which translates into consistently building the right solution for the customer."
+* "Andrew, without any direction from management, added a far more robust automatic screen capture feature to the Android Fuzz test. His assumptions were correct as customers expressed their content via feedback and requested for the feature to be extended to iOS as well."
+* "One example of Andrew insisting on the highest standards is his implementation of ${INTERNAL_PACKAGE_NAME}. This package is a masterpiece of design patterns, python standards, and unit tests. It is setup in a way that code re-use is maximized."
+
+
+Successfully built internal products, learned a plethora of new technologies and became "go-to" person organization wide for Bluetooth stacks, .NET P/Invoke and mobile operating systems.
