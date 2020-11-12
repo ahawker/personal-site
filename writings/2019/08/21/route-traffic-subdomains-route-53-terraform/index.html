@@ -24,11 +24,6 @@
   <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
   <link rel="stylesheet" href="/assets/styles/et-book.min.css">
   <link rel="stylesheet" href="/assets/styles/site.css">
-  
-
-  <!--[if lt IE 9]>
-  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
@@ -81,218 +76,245 @@
 <meta name="twitter:site" content="@rekwah" />
 <meta name="twitter:creator" content="@rekwah" />
 <script type="application/ld+json">
-{"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","url":"https://andrew.hawker.io/writings/2019/08/21/route-traffic-subdomains-route-53-terraform/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"Routing Traffic for Subdomains with Route53 &amp; Terraform","dateModified":"2019-08-21T19:55:00-07:00","datePublished":"2019-08-21T19:55:00-07:00","author":{"@type":"Person","name":"Andrew Hawker"},"description":"Scenario","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2019/08/21/route-traffic-subdomains-route-53-terraform/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"headline":"Routing Traffic for Subdomains with Route53 &amp; Terraform","dateModified":"2019-08-21T19:55:00-07:00","datePublished":"2019-08-21T19:55:00-07:00","url":"https://andrew.hawker.io/writings/2019/08/21/route-traffic-subdomains-route-53-terraform/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2019/08/21/route-traffic-subdomains-route-53-terraform/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"Scenario","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
 
 <body>
-
-
-
-
-<article>
+<div class="header container-xl px-5 my-5 markdown-body">
   
 
+
+
+  
 <header>
-  <h1 class="title"><a name="Routing Traffic for Subdomains with Route53 & Terraform"></a>Routing Traffic for Subdomains with Route53 & Terraform</h1>
   
+  <h1>
+    <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+    Routing Traffic for Subdomains with Route53 & Terraform
+  </h1>
   
-  <p class="byline">August 21, 2019</p>
-  
-  
-  <ul class="tags">
-  
-    <li class="category"><a href="/archives/category/writings">WRITINGS</a></li>
-  
-  
-  
-  
-    <li class="tag"><a href="/archives/tag/aws">AWS (7)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/route53">ROUTE53 (1)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/dns">DNS (1)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/terraform">TERRAFORM (1)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/tutorial">TUTORIAL (2)</a></li>
-  
-  
-  </ul>
+  <div class="col-12">
+    
+    <p class="h4 color-grey">August 21, 2019</p>
+    
+  </div>
+  <div class="col-12">
+    
+    <ul class="tags">
+    
+      <li class="category"><a href="/archives/category/writings">WRITINGS</a></li>
+    
+    
+    
+    
+      <li class="tag"><a href="/archives/tag/aws">AWS (7)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/route53">ROUTE53 (1)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/dns">DNS (1)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/terraform">TERRAFORM (1)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/tutorial">TUTORIAL (2)</a></li>
+    
+    
+    </ul>
+  </div>
 </header>
 
 
+</div>
+<div class="content container-xl px-5 my-5 markdown-body">
+  <h2 id="scenario">Scenario</h2>
 
-  <section id="scenario" class="level2">
-<h2>Scenario</h2>
-<p>Let’s imagine you own <code>example.com</code> and you’re looking to setup subdomains to separate your environments, e.g. <code>dev.example.com</code> and <code>staging.example.com</code>. On our top level domain, we have already created subdomains for certain services, e.g. <code>api.example.com</code> and <code>web.example.com</code>. This leads us to wanting to create subdomains such as <code>api.dev.example.com</code> and <code>api.staging.example.com</code> to access these services running within a specific environment.</p>
-<p>When creating single depth subdomains, e.g. <code>api.example.com</code>, you simply create the DNS record within the <code>example.com</code> Route 53 hosted zone and move on your way. However, if we’re looking to create multiple depth subdomains, e.g. <code>api.staging.example.com</code> or <code>shopping.api.staging.example.com</code>, how do we setup our Route 53 hosted zone to support this n-tier domain layout?</p>
-</section>
-<section id="problem-statement" class="level2">
-<h2>Problem Statement</h2>
-<p>Given I own <code>example.com</code>, I want to run my service subdomains <code>api.example.com</code> and <code>web.example.com</code> under additional, environment-specific subdomains, <code>dev.example.com</code> and <code>staging.example.com</code>.</p>
-</section>
-<section id="solution" class="level2">
-<h2>Solution</h2>
+<p>Let’s imagine you own <code class="highlighter-rouge">example.com</code> and you’re looking to setup subdomains to separate your environments, e.g. <code class="highlighter-rouge">dev.example.com</code> and <code class="highlighter-rouge">staging.example.com</code>. On our top level domain, we have already created subdomains for certain services, e.g. <code class="highlighter-rouge">api.example.com</code> and <code class="highlighter-rouge">web.example.com</code>. This leads us to wanting to create subdomains such as <code class="highlighter-rouge">api.dev.example.com</code> and <code class="highlighter-rouge">api.staging.example.com</code> to access these services running within a specific environment.</p>
+
+<p>When creating single depth subdomains, e.g. <code class="highlighter-rouge">api.example.com</code>, you simply create the DNS record within the <code class="highlighter-rouge">example.com</code> Route 53 hosted zone and move on your way. However, if we’re looking to create multiple depth subdomains, e.g. <code class="highlighter-rouge">api.staging.example.com</code> or <code class="highlighter-rouge">shopping.api.staging.example.com</code>, how do we setup our Route 53 hosted zone to support this n-tier domain layout?</p>
+
+<h2 id="problem-statement">Problem Statement</h2>
+
+<p>Given I own <code class="highlighter-rouge">example.com</code>, I want to run my service subdomains <code class="highlighter-rouge">api.example.com</code> and <code class="highlighter-rouge">web.example.com</code> under additional, environment-specific subdomains, <code class="highlighter-rouge">dev.example.com</code> and <code class="highlighter-rouge">staging.example.com</code>.</p>
+
+<h2 id="solution">Solution</h2>
+
 <p>Let’s break the solution down into a few separate parts and examine them individually.</p>
-<section id="hosted-zones" class="level3">
-<h3>Hosted Zones</h3>
-<p>We need to create a Hosted Zone for each domain (or subdomain) that needs to route traffic. In this case, that would be <code>example.com</code>, <code>dev.example.com</code>, and <code>staging.example.com</code>. <span><label for="sn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-1" class="margin-toggle"/><span class="marginnote"> Using private hosted zones instead? Check out the official Terraform documentation for the <a href="https://www.terraform.io/docs/providers/aws/r/route53_zone.html">aws_route53_zone</a> for more details.<br />
-<br />
-</span></span></p>
-<pre><code># Hosted Zone for example.com
-resource &quot;aws_route53_zone&quot; &quot;zone_apex&quot; {
-  name          = &quot;example.com&quot;
-  comment       = &quot;Hosted Zone for example.com&quot;
 
-  tags {
-    Name      = &quot;example.com&quot;
-    Origin    = &quot;terraform&quot;
-    Workspace = &quot;${terraform.workspace}&quot;
-  }
-}
+<h3 id="hosted-zones">Hosted Zones</h3>
 
-# Hosted Zone for dev.example.com
-resource &quot;aws_route53_zone&quot; &quot;zone_dev&quot; {
-  name          = &quot;dev.example.com&quot;
-  comment       = &quot;Hosted Zone for dev.example.com&quot;
+<p>We need to create a Hosted Zone for each domain (or subdomain) that needs to route traffic. In this case, that would be <code class="highlighter-rouge">example.com</code>, <code class="highlighter-rouge">dev.example.com</code>, and <code class="highlighter-rouge">staging.example.com</code>.</p>
 
-  tags {
-    Name      = &quot;dev.example.com&quot;
-    Origin    = &quot;terraform&quot;
-    Workspace = &quot;${terraform.workspace}&quot;
-  }
-}
+<p>Using private hosted zones instead? Check out the official Terraform documentation for the <a href="https://www.terraform.io/docs/providers/aws/r/route53_zone.html">aws_route53_zone</a> for more details.</p>
 
-# Hosted Zone for staging.example.com
-resource &quot;aws_route53_zone&quot; &quot;zone_staging&quot; {
-  name          = &quot;staging.example.com&quot;
-  comment       = &quot;Hosted Zone for staging.example.com&quot;
+<div class="language-tf highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Hosted Zone for example.com</span>
+<span class="k">resource</span> <span class="s2">"aws_route53_zone"</span> <span class="s2">"zone_apex"</span> <span class="p">{</span>
+  <span class="nx">name</span>          <span class="p">=</span> <span class="s2">"example.com"</span>
+  <span class="nx">comment</span>       <span class="p">=</span> <span class="s2">"Hosted Zone for example.com"</span>
 
-  tags {
-    Name      = &quot;staging.example.com&quot;
-    Origin    = &quot;terraform&quot;
-    Workspace = &quot;${terraform.workspace}&quot;
-  }
-}</code></pre>
-</section>
-<section id="hosted-zone-ns-records" class="level3">
-<h3>Hosted Zone NS Records</h3>
-<p>Each hosted zone created with automatically be assigned a set of <code>NS</code> records automatically. <span><label for="sn-2" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-2" class="margin-toggle"/><span class="marginnote"> Each hosted zone will have four unique <code>NS</code> records, known as a <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/route-53-concepts.html#route-53-concepts-reusable-delegation-set">delegation set</a>. If you have many domains or need to white label your name servers, you can look into creating your own reusable delegation set with the <a href="https://www.terraform.io/docs/providers/aws/r/route53_delegation_set.html">route53_delegation_set</a> resource.<br />
-<br />
-</span></span> These are exported as the <a href="https://www.terraform.io/docs/providers/aws/r/route53_zone.html#name_servers">name_servers</a> attribute on the <a href="https://www.terraform.io/docs/providers/aws/r/route53_zone.html">aws_route53_zone</a> resource.</p>
-<p>Each <em>parent</em> hosted zone will need to add a <code>NS</code> record for each <em>child</em> hosted zone. In this case, <code>example.com</code> would need to have an <code>NS</code> record for <code>dev.example.com</code> that contains the automatically assigned name servers for the <code>dev.example.com</code> hosted zone.</p>
-<pre><code># Record in the example.com hosted zone that contains the name servers of the dev.example.com hosted zone.
-resource &quot;aws_route53_record&quot; &quot;ns_record_dev&quot; {
-  type    = &quot;NS&quot;
-  zone_id = &quot;${aws_route53_zone.zone_apex.id}&quot;
-  name    = &quot;dev&quot;
-  ttl     = &quot;86400&quot;
-  records = [&quot;${aws_route53_zone.zone_dev.name_servers}&quot;]
-}
+  <span class="nx">tags</span> <span class="p">{</span>
+    <span class="nx">Name</span>      <span class="p">=</span> <span class="s2">"example.com"</span>
+    <span class="nx">Origin</span>    <span class="p">=</span> <span class="s2">"terraform"</span>
+    <span class="nx">Workspace</span> <span class="p">=</span> <span class="s2">"</span><span class="k">${terraform</span><span class="p">.</span><span class="nx">workspace</span><span class="k">}</span><span class="s2">"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-# Record in the example.com hosted zone that contains the name servers of the staging.example.com hosted zone.
-resource &quot;aws_route53_record&quot; &quot;ns_record_staging&quot; {
-  type    = &quot;NS&quot;
-  zone_id = &quot;${aws_route53_zone.zone_apex.id}&quot;
-  name    = &quot;staging&quot;
-  ttl     = &quot;86400&quot;
-  records = [&quot;${aws_route53_zone.zone_staging.name_servers}&quot;]
-}</code></pre>
-</section>
-<section id="hosted-zone-service-records" class="level3">
-<h3>Hosted Zone Service Records</h3>
-<p>Each Hosted Zone will need to add records to route the <code>api</code> and <code>web</code> services to their correct locations. For this example, let’s just assume they’re <code>CNAME</code> records to another domain and these are parametrized using Terraform variables. <span><label for="sn-3" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-3" class="margin-toggle"/><span class="marginnote"> Check out the official Terraform docs to find out more about <a href="https://www.terraform.io/docs/configuration/variables.html">input variables</a>.<br />
-<br />
-</span></span></p>
-<pre><code>variable &quot;api_cname_record&quot; {
-    description = &quot;Value of CNAME record for api.example.com&quot;
-}
+<span class="c1"># Hosted Zone for dev.example.com</span>
+<span class="k">resource</span> <span class="s2">"aws_route53_zone"</span> <span class="s2">"zone_dev"</span> <span class="p">{</span>
+  <span class="nx">name</span>          <span class="p">=</span> <span class="s2">"dev.example.com"</span>
+  <span class="nx">comment</span>       <span class="p">=</span> <span class="s2">"Hosted Zone for dev.example.com"</span>
 
-variable &quot;web_cname_record&quot; {
-    description = &quot;Value of CNAME record for web.example.com&quot;
-}
+  <span class="nx">tags</span> <span class="p">{</span>
+    <span class="nx">Name</span>      <span class="p">=</span> <span class="s2">"dev.example.com"</span>
+    <span class="nx">Origin</span>    <span class="p">=</span> <span class="s2">"terraform"</span>
+    <span class="nx">Workspace</span> <span class="p">=</span> <span class="s2">"</span><span class="k">${terraform</span><span class="p">.</span><span class="nx">workspace</span><span class="k">}</span><span class="s2">"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-variable &quot;api_dev_cname_record&quot; {
-    description = &quot;Value of CNAME record for api.dev.example.com&quot;
-}
+<span class="c1"># Hosted Zone for staging.example.com</span>
+<span class="k">resource</span> <span class="s2">"aws_route53_zone"</span> <span class="s2">"zone_staging"</span> <span class="p">{</span>
+  <span class="nx">name</span>          <span class="p">=</span> <span class="s2">"staging.example.com"</span>
+  <span class="nx">comment</span>       <span class="p">=</span> <span class="s2">"Hosted Zone for staging.example.com"</span>
 
-variable &quot;web_dev_cname_record&quot; {
-    description = &quot;Value of CNAME record for web.dev.example.com&quot;
-}
+  <span class="nx">tags</span> <span class="p">{</span>
+    <span class="nx">Name</span>      <span class="p">=</span> <span class="s2">"staging.example.com"</span>
+    <span class="nx">Origin</span>    <span class="p">=</span> <span class="s2">"terraform"</span>
+    <span class="nx">Workspace</span> <span class="p">=</span> <span class="s2">"</span><span class="k">${terraform</span><span class="p">.</span><span class="nx">workspace</span><span class="k">}</span><span class="s2">"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
-variable &quot;api_staging_cname_record&quot; {
-    description = &quot;Value of CNAME record for api.staging.example.com&quot;
-}
+<h3 id="hosted-zone-ns-records">Hosted Zone NS Records</h3>
 
-variable &quot;web_staging_cname_record&quot; {
-    description = &quot;Value of CNAME record for web.staging.example.com&quot;
-}</code></pre>
-<p>Using the variable definitons from above, we can parametrize our <code>CNAME</code> record creation for our service subdomains. <span><label for="sn-4" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-4" class="margin-toggle"/><span class="marginnote"> Not using <code>CNAME</code> records? Check out the official Terraform docs to find out more about the <a href="https://www.terraform.io/docs/providers/aws/r/route53_record.html">route53_record</a> resource and its supported types.<br />
-<br />
-</span></span></p>
-<pre><code># CNAME record in the example.com hosted zone that points to &#39;api&#39; service.
-resource &quot;aws_route53_record&quot; &quot;record_apex_api&quot; {
-  type    = &quot;CNAME&quot;
-  name    = &quot;api&quot;
-  ttl     = &quot;86400&quot;
-  zone_id = &quot;${aws_route53_zone.zone_apex.id}&quot;
-  records = [&quot;${var.api_cname_record}&quot;]
-}
+<p>Each hosted zone created with automatically be assigned a set of <code class="highlighter-rouge">NS</code> records automatically. These are exported as the <a href="https://www.terraform.io/docs/providers/aws/r/route53_zone.html#name_servers">name_servers</a> attribute on the <a href="https://www.terraform.io/docs/providers/aws/r/route53_zone.html">aws_route53_zone</a> resource.</p>
 
-# CNAME record in the example.com hosted zone that points to &#39;web&#39; service.
-resource &quot;aws_route53_record&quot; &quot;record_apex_web&quot; {
-  type    = &quot;CNAME&quot;
-  name    = &quot;web&quot;
-  ttl     = &quot;86400&quot;
-  zone_id = &quot;${aws_route53_zone.zone_apex.id}&quot;
-  records = [&quot;${var.web_cname_record}&quot;]
-}
+<p>Each hosted zone will have four unique <code class="highlighter-rouge">NS</code> records, known as a <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/route-53-concepts.html#route-53-concepts-reusable-delegation-set">delegation set</a>. If you have many domains or need to white label your name servers, you can look into creating your own reusable delegation set with the <a href="https://www.terraform.io/docs/providers/aws/r/route53_delegation_set.html">route53_delegation_set</a> resource.</p>
 
-# CNAME record in the dev.example.com hosted zone that points to &#39;api&#39; service.
-resource &quot;aws_route53_record&quot; &quot;record_dev_api&quot; {
-  type    = &quot;CNAME&quot;
-  name    = &quot;api&quot;
-  ttl     = &quot;86400&quot;
-  zone_id = &quot;${aws_route53_zone.zone_dev.id}&quot;
-  records = [&quot;${var.api_dev_cname_record}&quot;]
-}
+<p>Each <em>parent</em> hosted zone will need to add a <code class="highlighter-rouge">NS</code> record for each <em>child</em> hosted zone. In this case, <code class="highlighter-rouge">example.com</code> would need to have an <code class="highlighter-rouge">NS</code> record for <code class="highlighter-rouge">dev.example.com</code> that contains the automatically assigned name servers for the <code class="highlighter-rouge">dev.example.com</code> hosted zone.</p>
 
-# CNAME record in the dev.example.com hosted zone that points to &#39;web&#39; service.
-resource &quot;aws_route53_record&quot; &quot;record_dev_web&quot; {
-  type    = &quot;CNAME&quot;
-  name    = &quot;web&quot;
-  ttl     = &quot;86400&quot;
-  zone_id = &quot;${aws_route53_zone.zone_dev.id}&quot;
-  records = [&quot;${var.web_dev_cname_record}&quot;]
-}
+<div class="language-tf highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Record in the example.com hosted zone that contains the name servers of the dev.example.com hosted zone.</span>
+<span class="k">resource</span> <span class="s2">"aws_route53_record"</span> <span class="s2">"ns_record_dev"</span> <span class="p">{</span>
+  <span class="nx">type</span>    <span class="p">=</span> <span class="s2">"NS"</span>
+  <span class="nx">zone_id</span> <span class="p">=</span> <span class="s2">"</span><span class="k">${</span><span class="nx">aws_route53_zone</span><span class="p">.</span><span class="nx">zone_apex</span><span class="p">.</span><span class="nx">id</span><span class="k">}</span><span class="s2">"</span>
+  <span class="nx">name</span>    <span class="p">=</span> <span class="s2">"dev"</span>
+  <span class="nx">ttl</span>     <span class="p">=</span> <span class="s2">"86400"</span>
+  <span class="nx">records</span> <span class="p">=</span> <span class="p">[</span><span class="s2">"</span><span class="k">${</span><span class="nx">aws_route53_zone</span><span class="p">.</span><span class="nx">zone_dev</span><span class="p">.</span><span class="nx">name_servers</span><span class="k">}</span><span class="s2">"</span><span class="p">]</span>
+<span class="p">}</span>
 
-# CNAME record in the staging.example.com hosted zone that points to &#39;api&#39; service.
-resource &quot;aws_route53_record&quot; &quot;record_staging_api&quot; {
-  type    = &quot;CNAME&quot;
-  name    = &quot;api&quot;
-  ttl     = &quot;86400&quot;
-  zone_id = &quot;${aws_route53_zone.zone_staging.id}&quot;
-  records = [&quot;${var.api_staging_cname_record}&quot;]
-}
+<span class="c1"># Record in the example.com hosted zone that contains the name servers of the staging.example.com hosted zone.</span>
+<span class="k">resource</span> <span class="s2">"aws_route53_record"</span> <span class="s2">"ns_record_staging"</span> <span class="p">{</span>
+  <span class="nx">type</span>    <span class="p">=</span> <span class="s2">"NS"</span>
+  <span class="nx">zone_id</span> <span class="p">=</span> <span class="s2">"</span><span class="k">${</span><span class="nx">aws_route53_zone</span><span class="p">.</span><span class="nx">zone_apex</span><span class="p">.</span><span class="nx">id</span><span class="k">}</span><span class="s2">"</span>
+  <span class="nx">name</span>    <span class="p">=</span> <span class="s2">"staging"</span>
+  <span class="nx">ttl</span>     <span class="p">=</span> <span class="s2">"86400"</span>
+  <span class="nx">records</span> <span class="p">=</span> <span class="p">[</span><span class="s2">"</span><span class="k">${</span><span class="nx">aws_route53_zone</span><span class="p">.</span><span class="nx">zone_staging</span><span class="p">.</span><span class="nx">name_servers</span><span class="k">}</span><span class="s2">"</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
-# CNAME record in the staging.example.com hosted zone that points to &#39;web&#39; service.
-resource &quot;aws_route53_record&quot; &quot;record_staging_web&quot; {
-  type    = &quot;CNAME&quot;
-  name    = &quot;web&quot;
-  ttl     = &quot;86400&quot;
-  zone_id = &quot;${aws_route53_zone.zone_staging.id}&quot;
-  records = [&quot;${var.web_staging_cname_record}&quot;]
-}</code></pre>
-</section>
-</section>
-<section id="summary" class="level2">
-<h2>Summary</h2>
-<p>In order to route traffic to n-tier levels of subdomains in Route53, you must create a new hosted zone for each subdomain that contains records and must add an <code>NS</code> record for that subdomain in the hosted zone of its parent. <span><label for="sn-5" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-5" class="margin-toggle"/><span class="marginnote"> Check out the official AWS documentation <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-routing-traffic-for-subdomains.html">here</a> for more information about this strategy.<br />
-<br />
-</span></span></p>
-</section>
+<h3 id="hosted-zone-service-records">Hosted Zone Service Records</h3>
+
+<p>Each Hosted Zone will need to add records to route the <code class="highlighter-rouge">api</code> and <code class="highlighter-rouge">web</code> services to their correct locations. For this example, let’s just assume they’re <code class="highlighter-rouge">CNAME</code> records to another domain and these are parametrized using Terraform variables. <sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote">1</a></sup></p>
+
+<div class="language-tf highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">variable</span> <span class="s2">"api_cname_record"</span> <span class="p">{</span>
+    <span class="nx">description</span> <span class="p">=</span> <span class="s2">"Value of CNAME record for api.example.com"</span>
+<span class="p">}</span>
+
+<span class="k">variable</span> <span class="s2">"web_cname_record"</span> <span class="p">{</span>
+    <span class="nx">description</span> <span class="p">=</span> <span class="s2">"Value of CNAME record for web.example.com"</span>
+<span class="p">}</span>
+
+<span class="k">variable</span> <span class="s2">"api_dev_cname_record"</span> <span class="p">{</span>
+    <span class="nx">description</span> <span class="p">=</span> <span class="s2">"Value of CNAME record for api.dev.example.com"</span>
+<span class="p">}</span>
+
+<span class="k">variable</span> <span class="s2">"web_dev_cname_record"</span> <span class="p">{</span>
+    <span class="nx">description</span> <span class="p">=</span> <span class="s2">"Value of CNAME record for web.dev.example.com"</span>
+<span class="p">}</span>
+
+<span class="k">variable</span> <span class="s2">"api_staging_cname_record"</span> <span class="p">{</span>
+    <span class="nx">description</span> <span class="p">=</span> <span class="s2">"Value of CNAME record for api.staging.example.com"</span>
+<span class="p">}</span>
+
+<span class="k">variable</span> <span class="s2">"web_staging_cname_record"</span> <span class="p">{</span>
+    <span class="nx">description</span> <span class="p">=</span> <span class="s2">"Value of CNAME record for web.staging.example.com"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Using the variable definitons from above, we can parametrize our <code class="highlighter-rouge">CNAME</code> record creation for our service subdomains. <sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote">2</a></sup></p>
+
+<div class="language-tf highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># CNAME record in the example.com hosted zone that points to 'api' service.</span>
+<span class="k">resource</span> <span class="s2">"aws_route53_record"</span> <span class="s2">"record_apex_api"</span> <span class="p">{</span>
+  <span class="nx">type</span>    <span class="p">=</span> <span class="s2">"CNAME"</span>
+  <span class="nx">name</span>    <span class="p">=</span> <span class="s2">"api"</span>
+  <span class="nx">ttl</span>     <span class="p">=</span> <span class="s2">"86400"</span>
+  <span class="nx">zone_id</span> <span class="p">=</span> <span class="s2">"</span><span class="k">${</span><span class="nx">aws_route53_zone</span><span class="p">.</span><span class="nx">zone_apex</span><span class="p">.</span><span class="nx">id</span><span class="k">}</span><span class="s2">"</span>
+  <span class="nx">records</span> <span class="p">=</span> <span class="p">[</span><span class="s2">"</span><span class="k">${</span><span class="kd">var</span><span class="p">.</span><span class="nx">api_cname_record</span><span class="k">}</span><span class="s2">"</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># CNAME record in the example.com hosted zone that points to 'web' service.</span>
+<span class="k">resource</span> <span class="s2">"aws_route53_record"</span> <span class="s2">"record_apex_web"</span> <span class="p">{</span>
+  <span class="nx">type</span>    <span class="p">=</span> <span class="s2">"CNAME"</span>
+  <span class="nx">name</span>    <span class="p">=</span> <span class="s2">"web"</span>
+  <span class="nx">ttl</span>     <span class="p">=</span> <span class="s2">"86400"</span>
+  <span class="nx">zone_id</span> <span class="p">=</span> <span class="s2">"</span><span class="k">${</span><span class="nx">aws_route53_zone</span><span class="p">.</span><span class="nx">zone_apex</span><span class="p">.</span><span class="nx">id</span><span class="k">}</span><span class="s2">"</span>
+  <span class="nx">records</span> <span class="p">=</span> <span class="p">[</span><span class="s2">"</span><span class="k">${</span><span class="kd">var</span><span class="p">.</span><span class="nx">web_cname_record</span><span class="k">}</span><span class="s2">"</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># CNAME record in the dev.example.com hosted zone that points to 'api' service.</span>
+<span class="k">resource</span> <span class="s2">"aws_route53_record"</span> <span class="s2">"record_dev_api"</span> <span class="p">{</span>
+  <span class="nx">type</span>    <span class="p">=</span> <span class="s2">"CNAME"</span>
+  <span class="nx">name</span>    <span class="p">=</span> <span class="s2">"api"</span>
+  <span class="nx">ttl</span>     <span class="p">=</span> <span class="s2">"86400"</span>
+  <span class="nx">zone_id</span> <span class="p">=</span> <span class="s2">"</span><span class="k">${</span><span class="nx">aws_route53_zone</span><span class="p">.</span><span class="nx">zone_dev</span><span class="p">.</span><span class="nx">id</span><span class="k">}</span><span class="s2">"</span>
+  <span class="nx">records</span> <span class="p">=</span> <span class="p">[</span><span class="s2">"</span><span class="k">${</span><span class="kd">var</span><span class="p">.</span><span class="nx">api_dev_cname_record</span><span class="k">}</span><span class="s2">"</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># CNAME record in the dev.example.com hosted zone that points to 'web' service.</span>
+<span class="k">resource</span> <span class="s2">"aws_route53_record"</span> <span class="s2">"record_dev_web"</span> <span class="p">{</span>
+  <span class="nx">type</span>    <span class="p">=</span> <span class="s2">"CNAME"</span>
+  <span class="nx">name</span>    <span class="p">=</span> <span class="s2">"web"</span>
+  <span class="nx">ttl</span>     <span class="p">=</span> <span class="s2">"86400"</span>
+  <span class="nx">zone_id</span> <span class="p">=</span> <span class="s2">"</span><span class="k">${</span><span class="nx">aws_route53_zone</span><span class="p">.</span><span class="nx">zone_dev</span><span class="p">.</span><span class="nx">id</span><span class="k">}</span><span class="s2">"</span>
+  <span class="nx">records</span> <span class="p">=</span> <span class="p">[</span><span class="s2">"</span><span class="k">${</span><span class="kd">var</span><span class="p">.</span><span class="nx">web_dev_cname_record</span><span class="k">}</span><span class="s2">"</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># CNAME record in the staging.example.com hosted zone that points to 'api' service.</span>
+<span class="k">resource</span> <span class="s2">"aws_route53_record"</span> <span class="s2">"record_staging_api"</span> <span class="p">{</span>
+  <span class="nx">type</span>    <span class="p">=</span> <span class="s2">"CNAME"</span>
+  <span class="nx">name</span>    <span class="p">=</span> <span class="s2">"api"</span>
+  <span class="nx">ttl</span>     <span class="p">=</span> <span class="s2">"86400"</span>
+  <span class="nx">zone_id</span> <span class="p">=</span> <span class="s2">"</span><span class="k">${</span><span class="nx">aws_route53_zone</span><span class="p">.</span><span class="nx">zone_staging</span><span class="p">.</span><span class="nx">id</span><span class="k">}</span><span class="s2">"</span>
+  <span class="nx">records</span> <span class="p">=</span> <span class="p">[</span><span class="s2">"</span><span class="k">${</span><span class="kd">var</span><span class="p">.</span><span class="nx">api_staging_cname_record</span><span class="k">}</span><span class="s2">"</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># CNAME record in the staging.example.com hosted zone that points to 'web' service.</span>
+<span class="k">resource</span> <span class="s2">"aws_route53_record"</span> <span class="s2">"record_staging_web"</span> <span class="p">{</span>
+  <span class="nx">type</span>    <span class="p">=</span> <span class="s2">"CNAME"</span>
+  <span class="nx">name</span>    <span class="p">=</span> <span class="s2">"web"</span>
+  <span class="nx">ttl</span>     <span class="p">=</span> <span class="s2">"86400"</span>
+  <span class="nx">zone_id</span> <span class="p">=</span> <span class="s2">"</span><span class="k">${</span><span class="nx">aws_route53_zone</span><span class="p">.</span><span class="nx">zone_staging</span><span class="p">.</span><span class="nx">id</span><span class="k">}</span><span class="s2">"</span>
+  <span class="nx">records</span> <span class="p">=</span> <span class="p">[</span><span class="s2">"</span><span class="k">${</span><span class="kd">var</span><span class="p">.</span><span class="nx">web_staging_cname_record</span><span class="k">}</span><span class="s2">"</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="summary">Summary</h2>
+
+<p>In order to route traffic to n-tier levels of subdomains in Route53, you must create a new hosted zone for each subdomain that contains records and must add an <code class="highlighter-rouge">NS</code> record for that subdomain in the hosted zone of its parent.<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote">3</a></sup></p>
+
+<hr />
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p><a href="https://www.terraform.io/docs/configuration/variables.html">https://www.terraform.io/docs/configuration/variables.html</a> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p><a href="https://www.terraform.io/docs/providers/aws/r/route53_record.html">https://www.terraform.io/docs/providers/aws/r/route53_record.html</a> <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p><a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-routing-traffic-for-subdomains.html">https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-routing-traffic-for-subdomains.html</a> <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
 
 
 
@@ -301,14 +323,13 @@ resource &quot;aws_route53_record&quot; &quot;record_staging_web&quot; {
 </section>
 
 
-</article>
+</div>
+<div class="footer container-xl px-5 my-5">
+  
 
 
 
-
-
-
-<footer>
+  <footer>
     <hr class="footer-hr">
     <ul class="social-links">
       
@@ -337,6 +358,7 @@ resource &quot;aws_route53_record&quot; &quot;record_staging_web&quot; {
   </div>  
 </footer>
 
+</div>
 </body>
 </html>
 

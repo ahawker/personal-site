@@ -24,11 +24,6 @@
   <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
   <link rel="stylesheet" href="/assets/styles/et-book.min.css">
   <link rel="stylesheet" href="/assets/styles/site.css">
-  
-
-  <!--[if lt IE 9]>
-  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
@@ -81,104 +76,131 @@
 <meta name="twitter:site" content="@rekwah" />
 <meta name="twitter:creator" content="@rekwah" />
 <script type="application/ld+json">
-{"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","url":"https://andrew.hawker.io/leetcode/2020/04/01/contest-day-1-single-number/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"Contest - Day 1 - Single Number","dateModified":"2020-04-01T01:37:00-07:00","datePublished":"2020-04-01T01:37:00-07:00","author":{"@type":"Person","name":"Andrew Hawker"},"description":"Leetcode is running a 30 day “Covid 19” style contest for everyone on self quarantine and social distancing. Let’s jump in!","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/leetcode/2020/04/01/contest-day-1-single-number/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"headline":"Contest - Day 1 - Single Number","dateModified":"2020-04-01T01:37:00-07:00","datePublished":"2020-04-01T01:37:00-07:00","url":"https://andrew.hawker.io/leetcode/2020/04/01/contest-day-1-single-number/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/leetcode/2020/04/01/contest-day-1-single-number/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"Leetcode is running a 30 day “Covid 19” style contest for everyone on self quarantine and social distancing. Let’s jump in!","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
 
 <body>
-
-
-
-
-<article>
+<div class="header container-xl px-5 my-5 markdown-body">
   
 
+
+
+  
 <header>
-  <h1 class="title"><a name="Contest - Day 1 - Single Number"></a>Contest - Day 1 - Single Number</h1>
   
+  <h1>
+    <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+    Contest - Day 1 - Single Number
+  </h1>
   
-  <p class="byline">April 1, 2020</p>
-  
-  
-  <ul class="tags">
-  
-    <li class="category"><a href="/archives/category/leetcode">LEETCODE</a></li>
-  
-  
-  
-  
-    <li class="tag"><a href="/archives/tag/leetcode-easy">LEETCODE EASY (6)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/leetcode-covid-contest">LEETCODE COVID CONTEST (2)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/python">PYTHON (8)</a></li>
-  
-  
-  </ul>
+  <div class="col-12">
+    
+    <p class="h4 color-grey">April 1, 2020</p>
+    
+  </div>
+  <div class="col-12">
+    
+    <ul class="tags">
+    
+      <li class="category"><a href="/archives/category/leetcode">LEETCODE</a></li>
+    
+    
+    
+    
+      <li class="tag"><a href="/archives/tag/leetcode-easy">LEETCODE EASY (6)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/leetcode-covid-contest">LEETCODE COVID CONTEST (2)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/python">PYTHON (8)</a></li>
+    
+    
+    </ul>
+  </div>
 </header>
 
 
-
+</div>
+<div class="content container-xl px-5 my-5 markdown-body">
   <p><a href="https://leetcode.com/">Leetcode</a> is running a 30 day “Covid 19” style contest for everyone on self quarantine and social distancing. Let’s jump in!</p>
-<section id="single-number" class="level2">
-<h2><a href="https://leetcode.com/problems/single-number/">Single Number</a></h2>
-<section id="problem" class="level3">
-<h3>Problem</h3>
+
+<h2 id="single-number"><a href="https://leetcode.com/problems/single-number/">Single Number</a></h2>
+
+<h3 id="problem">Problem</h3>
+
 <p>Given a non-empty array of integers, every element appears twice except for one. Find that single one.</p>
+
 <p>Note:</p>
+
 <p>Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?</p>
+
 <p>Examples:</p>
-<pre><code>Input: [2,2,1]
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Input: [2,2,1]
 Output: 1
 
 Input: [4,1,2,1,2]
-Output: 4</code></pre>
-</section>
-<section id="thinking" class="level3">
-<h3>Thinking</h3>
-<p>This is very easy using the <code>collections.Counter</code> in python stlib. That might be <em>cheating</em> but I’m going to allow it. Stand on the shoulders of well tested (code) giants, I say.</p>
+Output: 4
+</code></pre></div></div>
+
+<h3 id="thinking">Thinking</h3>
+
+<p>This is very easy using the <code class="highlighter-rouge">collections.Counter</code> in python stlib. That might be <em>cheating</em> but I’m going to allow it. Stand on the shoulders of well tested (code) giants, I say.</p>
+
 <p>However, the question posits there is a way to do it without using <em>extra</em> memory. So, storing counters is likely not the optimal solution.</p>
+
 <p>This led me to thinking about truth tables. What boolean operation will indicate <em>once</em> but not <em>twice</em>? <strong>XOR</strong>. For example:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="dv">0</span> <span class="op">^</span> <span class="dv">1</span> <span class="op">=&gt;</span> <span class="dv">1</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="dv">0</span> <span class="op">^</span> <span class="dv">1</span> <span class="op">^</span> <span class="dv">1</span> <span class="op">=&gt;</span> <span class="fl">0.</span></span></code></pre></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">0</span> <span class="o">^</span> <span class="mi">1</span> <span class="o">=&gt;</span> <span class="mi">1</span>
+<span class="mi">0</span> <span class="o">^</span> <span class="mi">1</span> <span class="o">^</span> <span class="mi">1</span> <span class="o">=&gt;</span> <span class="mf">0.</span>
+</code></pre></div></div>
+
 <p>If the result of our <strong>XOR</strong> logic is the input value, there is only one occurrence of it. If it’s zero, then there was either none, or more than 1 of them.</p>
-</section>
-<section id="corner-cases" class="level3">
-<h3>Corner Cases</h3>
+
+<h3 id="corner-cases">Corner Cases</h3>
+
 <p>I don’t think I missed any this time.</p>
-</section>
-<section id="improvements" class="level3">
-<h3>Improvements</h3>
+
+<h3 id="improvements">Improvements</h3>
+
 <p>I don’t think I missed any this time.</p>
-</section>
-<section id="solution" class="level3">
-<h3>Solution</h3>
+
+<h3 id="solution">Solution</h3>
+
 <p><strong>Counting</strong></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> collections</span>
-<span id="cb3-2"><a href="#cb3-2"></a></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="kw">class</span> Solution:</span>
-<span id="cb3-4"><a href="#cb3-4"></a>    <span class="kw">def</span> singleNumber(<span class="va">self</span>, nums: List[<span class="bu">int</span>]) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
-<span id="cb3-5"><a href="#cb3-5"></a>        counts <span class="op">=</span> collections.Counter(nums)</span>
-<span id="cb3-6"><a href="#cb3-6"></a>        <span class="cf">return</span> counts.most_common()[<span class="op">-</span><span class="dv">1</span>][<span class="dv">0</span>]</span></code></pre></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">collections</span>
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">singleNumber</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">counts</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">counts</span><span class="o">.</span><span class="n">most_common</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div></div>
+
 <p><strong>XOR</strong></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">class</span> Solution:</span>
-<span id="cb4-2"><a href="#cb4-2"></a>    <span class="kw">def</span> singleNumber(<span class="va">self</span>, nums: List[<span class="bu">int</span>]) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
-<span id="cb4-3"><a href="#cb4-3"></a>        r <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a>        <span class="cf">for</span> n <span class="kw">in</span> nums:</span>
-<span id="cb4-5"><a href="#cb4-5"></a>            r <span class="op">^=</span> n</span>
-<span id="cb4-6"><a href="#cb4-6"></a>        <span class="cf">return</span> r</span></code></pre></div>
-</section>
-<section id="score" class="level3">
-<h3>Score</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">singleNumber</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nums</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">^=</span> <span class="n">n</span>
+        <span class="k">return</span> <span class="n">r</span>
+</code></pre></div></div>
+
+<h3 id="score">Score</h3>
+
 <p><strong>Counting</strong></p>
-<pre><code>Runtime: 84 ms, faster than 85.38% of Python3 online submissions for Single Number.
-Memory Usage: 16.3 MB, less than 6.56% of Python3 online submissions for Single Number.</code></pre>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Runtime: 84 ms, faster than 85.38% of Python3 online submissions for Single Number.
+Memory Usage: 16.3 MB, less than 6.56% of Python3 online submissions for Single Number.
+</code></pre></div></div>
+
 <p><strong>XOR</strong></p>
-<pre><code>Runtime: 88 ms, faster than 65.17% of Python3 online submissions for Single Number.
-Memory Usage: 15.6 MB, less than 6.56% of Python3 online submissions for Single Number.</code></pre>
-</section>
-</section>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Runtime: 88 ms, faster than 65.17% of Python3 online submissions for Single Number.
+Memory Usage: 15.6 MB, less than 6.56% of Python3 online submissions for Single Number.
+</code></pre></div></div>
 
 
 
@@ -187,14 +209,13 @@ Memory Usage: 15.6 MB, less than 6.56% of Python3 online submissions for Single 
 </section>
 
 
-</article>
+</div>
+<div class="footer container-xl px-5 my-5">
+  
 
 
 
-
-
-
-<footer>
+  <footer>
     <hr class="footer-hr">
     <ul class="social-links">
       
@@ -223,6 +244,7 @@ Memory Usage: 15.6 MB, less than 6.56% of Python3 online submissions for Single 
   </div>  
 </footer>
 
+</div>
 </body>
 </html>
 

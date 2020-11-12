@@ -24,11 +24,6 @@
   <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
   <link rel="stylesheet" href="/assets/styles/et-book.min.css">
   <link rel="stylesheet" href="/assets/styles/site.css">
-  
-
-  <!--[if lt IE 9]>
-  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
@@ -81,112 +76,127 @@
 <meta name="twitter:site" content="@rekwah" />
 <meta name="twitter:creator" content="@rekwah" />
 <script type="application/ld+json">
-{"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","url":"https://andrew.hawker.io/leetcode/2020/03/27/longest-substring-without-repeating-characters/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"Longest Substring Without Repeating Characters","dateModified":"2020-03-27T00:11:00-07:00","datePublished":"2020-03-27T00:11:00-07:00","author":{"@type":"Person","name":"Andrew Hawker"},"description":"I’m trying to get in a habit of starting my mornings off with coffee and a Leetcode problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/leetcode/2020/03/27/longest-substring-without-repeating-characters/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"headline":"Longest Substring Without Repeating Characters","dateModified":"2020-03-27T00:11:00-07:00","datePublished":"2020-03-27T00:11:00-07:00","url":"https://andrew.hawker.io/leetcode/2020/03/27/longest-substring-without-repeating-characters/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/leetcode/2020/03/27/longest-substring-without-repeating-characters/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"I’m trying to get in a habit of starting my mornings off with coffee and a Leetcode problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
 
 <body>
-
-
-
-
-<article>
+<div class="header container-xl px-5 my-5 markdown-body">
   
 
+
+
+  
 <header>
-  <h1 class="title"><a name="Longest Substring Without Repeating Characters"></a>Longest Substring Without Repeating Characters</h1>
   
+  <h1>
+    <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+    Longest Substring Without Repeating Characters
+  </h1>
   
-  <p class="byline">March 27, 2020</p>
-  
-  
-  <ul class="tags">
-  
-    <li class="category"><a href="/archives/category/leetcode">LEETCODE</a></li>
-  
-  
-  
-  
-    <li class="tag"><a href="/archives/tag/leetcode-medium">LEETCODE MEDIUM (2)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/python">PYTHON (8)</a></li>
-  
-  
-  </ul>
+  <div class="col-12">
+    
+    <p class="h4 color-grey">March 27, 2020</p>
+    
+  </div>
+  <div class="col-12">
+    
+    <ul class="tags">
+    
+      <li class="category"><a href="/archives/category/leetcode">LEETCODE</a></li>
+    
+    
+    
+    
+      <li class="tag"><a href="/archives/tag/leetcode-medium">LEETCODE MEDIUM (2)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/python">PYTHON (8)</a></li>
+    
+    
+    </ul>
+  </div>
 </header>
 
 
-
+</div>
+<div class="content container-xl px-5 my-5 markdown-body">
   <p>I’m trying to get in a habit of starting my mornings off with coffee and a <a href="https://leetcode.com/">Leetcode</a> problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!</p>
-<section id="longest-substring-without-repeating-characters" class="level2">
-<h2><a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/">Longest Substring Without Repeating Characters</a></h2>
-<section id="problem" class="level3">
-<h3>Problem</h3>
+
+<h2 id="longest-substring-without-repeating-characters"><a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/">Longest Substring Without Repeating Characters</a></h2>
+
+<h3 id="problem">Problem</h3>
+
 <p>Given a string, find the length of the longest substring without repeating characters.</p>
+
 <p>Example inputs:</p>
-<pre><code>Input: &quot;abcabcbb&quot;
-Output: 3
-Explanation: The answer is &quot;abc&quot;, with the length of 3.
 
-Input: &quot;bbbbb&quot;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Input: "abcabcbb"
+Output: 3
+Explanation: The answer is "abc", with the length of 3.
+
+Input: "bbbbb"
 Output: 1
-Explanation: The answer is &quot;b&quot;, with the length of 1.
+Explanation: The answer is "b", with the length of 1.
 
-Input: &quot;pwwkew&quot;
+Input: "pwwkew"
 Output: 3
-Explanation: The answer is &quot;wke&quot;, with the length of 3.
-             Note that the answer must be a substring, &quot;pwke&quot; is a subsequence and not a substring.</code></pre>
-</section>
-<section id="thinking" class="level3">
-<h3>Thinking</h3>
-<p>I spent some time thinking about this but couldn’t come up with anything faster than <code>O(N^2)</code> although I can almost guarantee there is a way.</p>
+Explanation: The answer is "wke", with the length of 3.
+             Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
+</code></pre></div></div>
+
+<h3 id="thinking">Thinking</h3>
+
+<p>I spent some time thinking about this but couldn’t come up with anything faster than <code class="highlighter-rouge">O(N^2)</code> although I can almost guarantee there is a way.</p>
+
 <p>In any case, the thought is iterate through the permutations and use a set to track the characters seen. When we run into a character we’ve seen, capture the length (if the max), and reset on next initial character.</p>
-</section>
-<section id="corner-cases" class="level3">
-<h3>Corner Cases</h3>
+
+<h3 id="corner-cases">Corner Cases</h3>
+
 <p>The following corner cases are what I missed in my initial solution:</p>
+
 <ul>
-<li>If iteration completes w/o running into a character it hasn’t seen.</li>
+  <li>If iteration completes w/o running into a character it hasn’t seen.</li>
 </ul>
-</section>
-<section id="improvements" class="level3">
-<h3>Improvements</h3>
+
+<h3 id="improvements">Improvements</h3>
+
 <p>There is probably a way to cleanup the logic so the seen &amp; fallthrough code can be merged instead of copied.</p>
-<p>There is probably a faster solution than <code>O(N^2)</code>.</p>
-</section>
-<section id="solution" class="level3">
-<h3>Solution</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">class</span> Solution:</span>
-<span id="cb2-2"><a href="#cb2-2"></a>    <span class="kw">def</span> lengthOfLongestSubstring(<span class="va">self</span>, s: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
-<span id="cb2-3"><a href="#cb2-3"></a>        <span class="cf">if</span> <span class="kw">not</span> s:</span>
-<span id="cb2-4"><a href="#cb2-4"></a>            <span class="cf">return</span> <span class="dv">0</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a></span>
-<span id="cb2-6"><a href="#cb2-6"></a>        seen <span class="op">=</span> <span class="bu">set</span>()</span>
-<span id="cb2-7"><a href="#cb2-7"></a>        max_len <span class="op">=</span> <span class="dv">-1</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a></span>
-<span id="cb2-9"><a href="#cb2-9"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(s)):</span>
-<span id="cb2-10"><a href="#cb2-10"></a>            seen.add(s[i])</span>
-<span id="cb2-11"><a href="#cb2-11"></a></span>
-<span id="cb2-12"><a href="#cb2-12"></a>            <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(i<span class="op">+</span><span class="dv">1</span> , <span class="bu">len</span>(s)):</span>
-<span id="cb2-13"><a href="#cb2-13"></a>                <span class="cf">if</span> s[j] <span class="kw">in</span> seen:</span>
-<span id="cb2-14"><a href="#cb2-14"></a>                    max_len <span class="op">=</span> <span class="bu">max</span>(max_len, <span class="bu">len</span>(seen))</span>
-<span id="cb2-15"><a href="#cb2-15"></a>                    seen.clear()</span>
-<span id="cb2-16"><a href="#cb2-16"></a>                    <span class="cf">break</span></span>
-<span id="cb2-17"><a href="#cb2-17"></a>                <span class="cf">else</span>:</span>
-<span id="cb2-18"><a href="#cb2-18"></a>                    seen.add(s[j])</span>
-<span id="cb2-19"><a href="#cb2-19"></a>            <span class="cf">else</span>:</span>
-<span id="cb2-20"><a href="#cb2-20"></a>                max_len <span class="op">=</span> <span class="bu">max</span>(max_len, <span class="bu">len</span>(seen))</span>
-<span id="cb2-21"><a href="#cb2-21"></a>                seen.clear()</span>
-<span id="cb2-22"><a href="#cb2-22"></a></span>
-<span id="cb2-23"><a href="#cb2-23"></a>        <span class="cf">return</span> max_len</span></code></pre></div>
-</section>
-<section id="score" class="level3">
-<h3>Score</h3>
-<pre><code>Runtime: 508 ms, faster than 15.12% of Python3 online submissions for Longest Substring Without Repeating Characters.
-Memory Usage: 13.9 MB, less than 5.10% of Python3 online submissions for Longest Substring Without Repeating Characters.</code></pre>
-</section>
-</section>
+
+<p>There is probably a faster solution than <code class="highlighter-rouge">O(N^2)</code>.</p>
+
+<h3 id="solution">Solution</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">lengthOfLongestSubstring</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">s</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="n">seen</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">max_len</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)):</span>
+            <span class="n">seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="ow">in</span> <span class="n">seen</span><span class="p">:</span>
+                    <span class="n">max_len</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_len</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">seen</span><span class="p">))</span>
+                    <span class="n">seen</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                    <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">max_len</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_len</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">seen</span><span class="p">))</span>
+                <span class="n">seen</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">max_len</span>
+</code></pre></div></div>
+
+<h3 id="score">Score</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Runtime: 508 ms, faster than 15.12% of Python3 online submissions for Longest Substring Without Repeating Characters.
+Memory Usage: 13.9 MB, less than 5.10% of Python3 online submissions for Longest Substring Without Repeating Characters.
+</code></pre></div></div>
 
 
 
@@ -195,14 +205,13 @@ Memory Usage: 13.9 MB, less than 5.10% of Python3 online submissions for Longest
 </section>
 
 
-</article>
+</div>
+<div class="footer container-xl px-5 my-5">
+  
 
 
 
-
-
-
-<footer>
+  <footer>
     <hr class="footer-hr">
     <ul class="social-links">
       
@@ -231,6 +240,7 @@ Memory Usage: 13.9 MB, less than 5.10% of Python3 online submissions for Longest
   </div>  
 </footer>
 
+</div>
 </body>
 </html>
 

@@ -24,11 +24,6 @@
   <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
   <link rel="stylesheet" href="/assets/styles/et-book.min.css">
   <link rel="stylesheet" href="/assets/styles/site.css">
-  
-
-  <!--[if lt IE 9]>
-  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
@@ -81,124 +76,143 @@
 <meta name="twitter:site" content="@rekwah" />
 <meta name="twitter:creator" content="@rekwah" />
 <script type="application/ld+json">
-{"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","url":"https://andrew.hawker.io/leetcode/2020/03/26/isomorphic-strings/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"Isomorphic Strings","dateModified":"2020-03-26T02:24:00-07:00","datePublished":"2020-03-26T02:24:00-07:00","author":{"@type":"Person","name":"Andrew Hawker"},"description":"I’m trying to get in a habit of starting my mornings off with coffee and a Leetcode problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/leetcode/2020/03/26/isomorphic-strings/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"headline":"Isomorphic Strings","dateModified":"2020-03-26T02:24:00-07:00","datePublished":"2020-03-26T02:24:00-07:00","url":"https://andrew.hawker.io/leetcode/2020/03/26/isomorphic-strings/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/leetcode/2020/03/26/isomorphic-strings/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"I’m trying to get in a habit of starting my mornings off with coffee and a Leetcode problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
 
 <body>
-
-
-
-
-<article>
+<div class="header container-xl px-5 my-5 markdown-body">
   
 
+
+
+  
 <header>
-  <h1 class="title"><a name="Isomorphic Strings"></a>Isomorphic Strings</h1>
   
+  <h1>
+    <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+    Isomorphic Strings
+  </h1>
   
-  <p class="byline">March 26, 2020</p>
-  
-  
-  <ul class="tags">
-  
-    <li class="category"><a href="/archives/category/leetcode">LEETCODE</a></li>
-  
-  
-  
-  
-    <li class="tag"><a href="/archives/tag/leetcode-easy">LEETCODE EASY (6)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/python">PYTHON (8)</a></li>
-  
-  
-  </ul>
+  <div class="col-12">
+    
+    <p class="h4 color-grey">March 26, 2020</p>
+    
+  </div>
+  <div class="col-12">
+    
+    <ul class="tags">
+    
+      <li class="category"><a href="/archives/category/leetcode">LEETCODE</a></li>
+    
+    
+    
+    
+      <li class="tag"><a href="/archives/tag/leetcode-easy">LEETCODE EASY (6)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/python">PYTHON (8)</a></li>
+    
+    
+    </ul>
+  </div>
 </header>
 
 
-
+</div>
+<div class="content container-xl px-5 my-5 markdown-body">
   <p>I’m trying to get in a habit of starting my mornings off with coffee and a <a href="https://leetcode.com/">Leetcode</a> problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!</p>
-<section id="isomorphic-strings" class="level2">
-<h2><a href="https://leetcode.com/problems/isomorphic-strings/">Isomorphic Strings</a></h2>
-<section id="problem" class="level3">
-<h3>Problem</h3>
-<p>Given two strings <code>s</code> and <code>t</code>, determine if they are isomorphic.</p>
-<p>Two strings are isomorphic if the characters in <code>s</code> can be replaced to get <code>t</code>.</p>
+
+<h2 id="isomorphic-strings"><a href="https://leetcode.com/problems/isomorphic-strings/">Isomorphic Strings</a></h2>
+
+<h3 id="problem">Problem</h3>
+
+<p>Given two strings <code class="highlighter-rouge">s</code> and <code class="highlighter-rouge">t</code>, determine if they are isomorphic.</p>
+
+<p>Two strings are isomorphic if the characters in <code class="highlighter-rouge">s</code> can be replaced to get <code class="highlighter-rouge">t</code>.</p>
+
 <p>All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character but a character may map to itself.</p>
-<p>You may assume both <code>s</code> and <code>t</code> have the same length.</p>
+
+<p>You may assume both <code class="highlighter-rouge">s</code> and <code class="highlighter-rouge">t</code> have the same length.</p>
+
 <p>Example inputs:</p>
-<pre><code>Input: s = &quot;egg&quot;, t = &quot;add&quot;
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Input: s = "egg", t = "add"
 Output: true
 
-Input: s = &quot;foo&quot;, t = &quot;bar&quot;
+Input: s = "foo", t = "bar"
 Output: false
 
-Input: s = &quot;paper&quot;, t = &quot;title&quot;
-Output: true</code></pre>
-</section>
-<section id="thinking" class="level3">
-<h3>Thinking</h3>
+Input: s = "paper", t = "title"
+Output: true
+</code></pre></div></div>
+
+<h3 id="thinking">Thinking</h3>
+
 <p>This one took me longer than it should have. It was a case of me not reading the problem statement correctly and just hammering my head on it before going back, reading carefully, and continuing forward. A mistake I make often, unfortunately.</p>
+
 <p>Initial thought was to just to group by and count characters for each string. If they were different, the input strings were of a different “pattern”, thus false. This works for <em>most</em> test cases but eventually you run into the cases where they try and remap the input character multiple times and it breaks. Luckly, there isn’t much to change to support that.</p>
+
 <p>In short, my solution does this:</p>
+
 <ul>
-<li>Loop through all chars in the strings</li>
-<li>Store mapping of char at index <code>i</code> in string <code>s</code> to char at index <code>i</code> in string <code>t</code></li>
-<li>If this was already mapped and they don’t match, it’s not isomorphic</li>
-<li>Bump counts for the characters in string <code>s</code> and string <code>t</code></li>
-<li>If the counts aren’t equal, we have inconsistent “patterns” between the strings, so not isomorphic</li>
+  <li>Loop through all chars in the strings</li>
+  <li>Store mapping of char at index <code class="highlighter-rouge">i</code> in string <code class="highlighter-rouge">s</code> to char at index <code class="highlighter-rouge">i</code> in string <code class="highlighter-rouge">t</code></li>
+  <li>If this was already mapped and they don’t match, it’s not isomorphic</li>
+  <li>Bump counts for the characters in string <code class="highlighter-rouge">s</code> and string <code class="highlighter-rouge">t</code></li>
+  <li>If the counts aren’t equal, we have inconsistent “patterns” between the strings, so not isomorphic</li>
 </ul>
-</section>
-<section id="corner-cases" class="level3">
-<h3>Corner Cases</h3>
+
+<h3 id="corner-cases">Corner Cases</h3>
+
 <p>The following corner cases are what I missed in my initial solution:</p>
+
 <ul>
-<li>Empty input strings. Originally considered them false, although two empty strings <em>are</em> identical.</li>
-<li>Completely messed the character re-mapping rules in the problem statement. <strong>READ SLOWLY</strong></li>
+  <li>Empty input strings. Originally considered them false, although two empty strings <em>are</em> identical.</li>
+  <li>Completely messed the character re-mapping rules in the problem statement. <strong>READ SLOWLY</strong></li>
 </ul>
-</section>
-<section id="improvements" class="level3">
-<h3>Improvements</h3>
+
+<h3 id="improvements">Improvements</h3>
+
 <p>You can do this without using counters by doing a current/previous iteration and doing a few comparisons but this code feels a bit more idiomatic. My intuition says that it’ll be slightly slower in runtime but use less memory.</p>
-</section>
-<section id="solution" class="level3">
-<h3>Solution</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> collections</span>
-<span id="cb2-2"><a href="#cb2-2"></a></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">class</span> Solution:</span>
-<span id="cb2-4"><a href="#cb2-4"></a>    <span class="kw">def</span> isIsomorphic(<span class="va">self</span>, s: <span class="bu">str</span>, t: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">bool</span>:</span>
-<span id="cb2-5"><a href="#cb2-5"></a>        <span class="cf">if</span> <span class="kw">not</span> s <span class="kw">and</span> <span class="kw">not</span> t:</span>
-<span id="cb2-6"><a href="#cb2-6"></a>            <span class="cf">return</span> <span class="va">True</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a>        <span class="cf">if</span> <span class="bu">len</span>(s) <span class="op">!=</span> <span class="bu">len</span>(t):</span>
-<span id="cb2-8"><a href="#cb2-8"></a>            <span class="cf">return</span> <span class="va">False</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a>        </span>
-<span id="cb2-10"><a href="#cb2-10"></a>        s_counts <span class="op">=</span> collections.Counter()</span>
-<span id="cb2-11"><a href="#cb2-11"></a>        t_counts <span class="op">=</span> collections.Counter()</span>
-<span id="cb2-12"><a href="#cb2-12"></a>        charmap <span class="op">=</span> {}</span>
-<span id="cb2-13"><a href="#cb2-13"></a></span>
-<span id="cb2-14"><a href="#cb2-14"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(s)):</span>
-<span id="cb2-15"><a href="#cb2-15"></a>            s_char <span class="op">=</span> s[i]</span>
-<span id="cb2-16"><a href="#cb2-16"></a>            t_char <span class="op">=</span> t[i]</span>
-<span id="cb2-17"><a href="#cb2-17"></a>            </span>
-<span id="cb2-18"><a href="#cb2-18"></a>            r_char <span class="op">=</span> charmap.setdefault(s_char, t_char)</span>
-<span id="cb2-19"><a href="#cb2-19"></a>            <span class="cf">if</span> r_char <span class="op">!=</span> t_char:</span>
-<span id="cb2-20"><a href="#cb2-20"></a>                <span class="cf">return</span> <span class="va">False</span></span>
-<span id="cb2-21"><a href="#cb2-21"></a></span>
-<span id="cb2-22"><a href="#cb2-22"></a>            s_counts[s_char] <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb2-23"><a href="#cb2-23"></a>            t_counts[t_char] <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb2-24"><a href="#cb2-24"></a></span>
-<span id="cb2-25"><a href="#cb2-25"></a>            <span class="cf">if</span> s_counts[s_char] <span class="op">!=</span> t_counts[t_char]:</span>
-<span id="cb2-26"><a href="#cb2-26"></a>                <span class="cf">return</span> <span class="va">False</span></span>
-<span id="cb2-27"><a href="#cb2-27"></a></span>
-<span id="cb2-28"><a href="#cb2-28"></a>        <span class="cf">return</span> <span class="va">True</span></span></code></pre></div>
-</section>
-<section id="score" class="level3">
-<h3>Score</h3>
-<pre><code>Runtime: 64 ms, faster than 11.29% of Python3 online submissions for Isomorphic Strings.
-Memory Usage: 13 MB, less than 100.00% of Python3 online submissions for Isomorphic Strings.</code></pre>
-</section>
-</section>
+
+<h3 id="solution">Solution</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">collections</span>
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">isIsomorphic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">s</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">t</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        
+        <span class="n">s_counts</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">()</span>
+        <span class="n">t_counts</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">()</span>
+        <span class="n">charmap</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)):</span>
+            <span class="n">s_char</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">t_char</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            
+            <span class="n">r_char</span> <span class="o">=</span> <span class="n">charmap</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">s_char</span><span class="p">,</span> <span class="n">t_char</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">r_char</span> <span class="o">!=</span> <span class="n">t_char</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">False</span>
+
+            <span class="n">s_counts</span><span class="p">[</span><span class="n">s_char</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">t_counts</span><span class="p">[</span><span class="n">t_char</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="k">if</span> <span class="n">s_counts</span><span class="p">[</span><span class="n">s_char</span><span class="p">]</span> <span class="o">!=</span> <span class="n">t_counts</span><span class="p">[</span><span class="n">t_char</span><span class="p">]:</span>
+                <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="k">return</span> <span class="bp">True</span>
+</code></pre></div></div>
+
+<h3 id="score">Score</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Runtime: 64 ms, faster than 11.29% of Python3 online submissions for Isomorphic Strings.
+Memory Usage: 13 MB, less than 100.00% of Python3 online submissions for Isomorphic Strings.
+</code></pre></div></div>
 
 
 
@@ -207,14 +221,13 @@ Memory Usage: 13 MB, less than 100.00% of Python3 online submissions for Isomorp
 </section>
 
 
-</article>
+</div>
+<div class="footer container-xl px-5 my-5">
+  
 
 
 
-
-
-
-<footer>
+  <footer>
     <hr class="footer-hr">
     <ul class="social-links">
       
@@ -243,6 +256,7 @@ Memory Usage: 13 MB, less than 100.00% of Python3 online submissions for Isomorp
   </div>  
 </footer>
 
+</div>
 </body>
 </html>
 

@@ -24,11 +24,6 @@
   <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
   <link rel="stylesheet" href="/assets/styles/et-book.min.css">
   <link rel="stylesheet" href="/assets/styles/site.css">
-  
-
-  <!--[if lt IE 9]>
-  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
@@ -81,55 +76,72 @@
 <meta name="twitter:site" content="@rekwah" />
 <meta name="twitter:creator" content="@rekwah" />
 <script type="application/ld+json">
-{"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","url":"https://andrew.hawker.io/dailies/2020/03/17/nuxt-server-side-logging/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"Server side request logging with nuxt.js","dateModified":"2020-03-17T04:58:00-07:00","datePublished":"2020-03-17T04:58:00-07:00","author":{"@type":"Person","name":"Andrew Hawker"},"description":"By default, nuxt.js does not have server-side request logging out of the box. Thankfully, we can quickly add it using the connect-logger with the following additions.","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/dailies/2020/03/17/nuxt-server-side-logging/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"headline":"Server side request logging with nuxt.js","dateModified":"2020-03-17T04:58:00-07:00","datePublished":"2020-03-17T04:58:00-07:00","url":"https://andrew.hawker.io/dailies/2020/03/17/nuxt-server-side-logging/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/dailies/2020/03/17/nuxt-server-side-logging/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"By default, nuxt.js does not have server-side request logging out of the box. Thankfully, we can quickly add it using the connect-logger with the following additions.","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
 
 <body>
-
-
-
-
-<article>
+<div class="header container-xl px-5 my-5 markdown-body">
   
 
+
+
+  
 <header>
-  <h1 class="title"><a name="Server side request logging with nuxt.js"></a>Server side request logging with nuxt.js</h1>
   
+  <h1>
+    <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+    Server side request logging with nuxt.js
+  </h1>
   
-  <p class="byline">March 17, 2020</p>
-  
-  
-  <ul class="tags">
-  
-    <li class="category"><a href="/archives/category/dailies">DAILIES</a></li>
-  
-  
-  
-  
-    <li class="tag"><a href="/archives/tag/nuxt">NUXT (1)</a></li>
-  
-  
-  </ul>
+  <div class="col-12">
+    
+    <p class="h4 color-grey">March 17, 2020</p>
+    
+  </div>
+  <div class="col-12">
+    
+    <ul class="tags">
+    
+      <li class="category"><a href="/archives/category/dailies">DAILIES</a></li>
+    
+    
+    
+    
+      <li class="tag"><a href="/archives/tag/nuxt">NUXT (1)</a></li>
+    
+    
+    </ul>
+  </div>
 </header>
 
 
-
+</div>
+<div class="content container-xl px-5 my-5 markdown-body">
   <p>By default, <a href="https://nuxtjs.org/">nuxt.js</a> does not have server-side request logging out of the box. Thankfully, we can quickly add it using the <a href="https://github.com/geta6/connect-logger">connect-logger</a> with the following additions.</p>
+
 <p><strong>Install the connect-logger package</strong></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a>$ <span class="ex">yarn</span> add connect-logger</span></code></pre></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>yarn add connect-logger
+</code></pre></div></div>
+
 <p><strong>Update ‘serverMiddleware’ in your nuxt.config.js</strong></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> logger <span class="im">from</span> <span class="st">&quot;connect-logger&quot;</span><span class="op">;</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a></span>
-<span id="cb2-3"><a href="#cb2-3"></a>  serverMiddleware<span class="op">:</span> [</span>
-<span id="cb2-4"><a href="#cb2-4"></a>    <span class="at">logger</span>(<span class="op">{</span> <span class="dt">format</span><span class="op">:</span> <span class="st">&quot;%date %status %method %url (%time)&quot;</span> <span class="op">}</span>)</span>
-<span id="cb2-5"><a href="#cb2-5"></a>  ]<span class="op">,</span></span></code></pre></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">logger</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">connect-logger</span><span class="dl">"</span><span class="p">;</span>
+
+  <span class="nl">serverMiddleware</span><span class="p">:</span> <span class="p">[</span>
+    <span class="nx">logger</span><span class="p">({</span> <span class="na">format</span><span class="p">:</span> <span class="dl">"</span><span class="s2">%date %status %method %url (%time)</span><span class="dl">"</span> <span class="p">})</span>
+  <span class="p">],</span>
+</code></pre></div></div>
+
 <p><strong>View the requests in stdout</strong></p>
-<pre><code>app_1  | 20.03.17 18:26:56 302 GET /healthy (513ms)
-app_1  | 20.03.17 18:27:04 302 GET / (114ms)
-app_1  | 20.03.17 18:27:05 302 GET / (38ms)
-app_1  | 20.03.17 18:27:16 302 GET /workspaces/1234 (42ms)</code></pre>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>app_1  | 20.03.17 18:26:56 302 GET /healthy <span class="o">(</span>513ms<span class="o">)</span>
+app_1  | 20.03.17 18:27:04 302 GET / <span class="o">(</span>114ms<span class="o">)</span>
+app_1  | 20.03.17 18:27:05 302 GET / <span class="o">(</span>38ms<span class="o">)</span>
+app_1  | 20.03.17 18:27:16 302 GET /workspaces/1234 <span class="o">(</span>42ms<span class="o">)</span>
+</code></pre></div></div>
 
 
 
@@ -138,14 +150,13 @@ app_1  | 20.03.17 18:27:16 302 GET /workspaces/1234 (42ms)</code></pre>
 </section>
 
 
-</article>
+</div>
+<div class="footer container-xl px-5 my-5">
+  
 
 
 
-
-
-
-<footer>
+  <footer>
     <hr class="footer-hr">
     <ul class="social-links">
       
@@ -174,6 +185,7 @@ app_1  | 20.03.17 18:27:16 302 GET /workspaces/1234 (42ms)</code></pre>
   </div>  
 </footer>
 
+</div>
 </body>
 </html>
 

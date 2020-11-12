@@ -24,11 +24,6 @@
   <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
   <link rel="stylesheet" href="/assets/styles/et-book.min.css">
   <link rel="stylesheet" href="/assets/styles/site.css">
-  
-
-  <!--[if lt IE 9]>
-  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
@@ -81,156 +76,180 @@
 <meta name="twitter:site" content="@rekwah" />
 <meta name="twitter:creator" content="@rekwah" />
 <script type="application/ld+json">
-{"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","url":"https://andrew.hawker.io/writings/2020/07/06/trello-login-support-auth0/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"Adding Trello login support to Auth0","dateModified":"2020-07-06T02:19:00-07:00","datePublished":"2020-07-06T02:19:00-07:00","author":{"@type":"Person","name":"Andrew Hawker"},"description":"At my company Routegy, we use Auth0 for identity management. While it is nice, in theory, to offload authn/authz to someone else so you can focus on building your product, integrating it does have a number of quirks.","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2020/07/06/trello-login-support-auth0/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"headline":"Adding Trello login support to Auth0","dateModified":"2020-07-06T02:19:00-07:00","datePublished":"2020-07-06T02:19:00-07:00","url":"https://andrew.hawker.io/writings/2020/07/06/trello-login-support-auth0/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2020/07/06/trello-login-support-auth0/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"At my company Routegy, we use Auth0 for identity management. While it is nice, in theory, to offload authn/authz to someone else so you can focus on building your product, integrating it does have a number of quirks.","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
 
 <body>
-
-
-
-
-<article>
+<div class="header container-xl px-5 my-5 markdown-body">
   
 
+
+
+  
 <header>
-  <h1 class="title"><a name="Adding Trello login support to Auth0"></a>Adding Trello login support to Auth0</h1>
   
+  <h1>
+    <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+    Adding Trello login support to Auth0
+  </h1>
   
-  <p class="byline">July 6, 2020</p>
-  
-  
-  <ul class="tags">
-  
-    <li class="category"><a href="/archives/category/writings">WRITINGS</a></li>
-  
-  
-  
-  
-    <li class="tag"><a href="/archives/tag/auth0">AUTH0 (1)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/trello">TRELLO (1)</a></li>
-  
-  
-  </ul>
+  <div class="col-12">
+    
+    <p class="h4 color-grey">July 6, 2020</p>
+    
+  </div>
+  <div class="col-12">
+    
+    <ul class="tags">
+    
+      <li class="category"><a href="/archives/category/writings">WRITINGS</a></li>
+    
+    
+    
+    
+      <li class="tag"><a href="/archives/tag/auth0">AUTH0 (1)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/trello">TRELLO (1)</a></li>
+    
+    
+    </ul>
+  </div>
 </header>
 
 
-
+</div>
+<div class="content container-xl px-5 my-5 markdown-body">
   <p>At my company <a href="https://routegy.com">Routegy</a>, we use <a href="https://auth0.com">Auth0</a> for identity management. While it is nice, in theory, to offload authn/authz to someone else so you can focus on building your product, integrating it does have a number of quirks.</p>
+
 <p>In this instance, I was looking to support <a href="https://trello.com">Trello</a> logins, which Auth0 doesn’t support with a native social connection. A quick Google search yields this <a href="https://community.auth0.com/t/auth0-and-trello/17043">community post</a> which recommends that you use the <a href="https://auth0.com/docs/extensions/custom-social-extensions">Custom Social Connections</a> extension. This doesn’t appear to work since Trello uses <a href="https://developer.atlassian.com/cloud/trello/guides/rest-api/authorization/">OAuth 1.1</a> and the Custom Social Connections extension only appears to support OAuth 2.0.</p>
+
 <p>After some further research, I thankfully came across documentation outlining Auth0 support for creating generic <a href="https://auth0.com/docs/connections/adding-generic-oauth1-connection">OAuth 1</a> and <a href="https://auth0.com/docs/connections/social/oauth2">OAuth 2</a> connections. This works by creating an Auth0 connection with OAuth 1.1 urls and writing a custom javascript function that takes information provided in the OAuth callback to create an Auth0 profile.</p>
+
 <p>With some custom code, we should be able to support Trello logins. Let’s dive in!</p>
-<section id="getting-your-trello-credentials" class="level3">
-<h3>Getting your Trello credentials</h3>
-<p>In order to create an OAuth 1.1 connection, you will need your <strong><code>client_id</code></strong> and <strong><code>client_secret</code></strong> pair for Trello. To get these, login to Trello and go to <a href="https://trello.com/app-key" class="uri">https://trello.com/app-key</a>.</p>
-<p>The <strong><code>client_id</code></strong> value will be the <strong><code>Key</code></strong> value found on this page.</p>
-<p>The <strong><code>client_secret</code></strong> value will be found by clicking the <strong><code>Token</code></strong> URL found on that page. This will prompt you to give access to the Trello <code>Server Token</code> application. Granting access will display the value to use.</p>
-<p><img src="/assets/images/posts/trello-server-token.png" /></p>
-</section>
-<section id="creating-a-trello-connection" class="level3">
-<h3>Creating a Trello connection</h3>
-<p><span><label for="sn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-1" class="margin-toggle"/><span class="marginnote"> Read the official documentation <a href="https://auth0.com/docs/api/management/v2/tokens">here</a> for getting your Auth0 Management API token.<br />
-<br />
-</span></span></p>
-<p>To create an arbitrary OAuth 1.1 connection in Auth0, we need to use the Auth0 Management API as there is no support for it in the management dashboard. This can be done with a simple <code>curl</code> command such as:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="ex">curl</span> -X POST</span>
-<span id="cb1-2"><a href="#cb1-2"></a>     <span class="ex">-H</span> <span class="st">&quot;Content-Type: application/json&quot;</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a>     <span class="ex">-H</span> <span class="st">&#39;Authorization: Bearer ${YOUR_AUTH0_MANAGEMENT_API_TOKEN}&#39;</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a>     <span class="ex">-d</span> @trello.json https://<span class="va">${YOUR_AUTH0_DOMAIN}</span>/api/v2/connections</span></code></pre></div>
-<p>This creates an Auth0 connection using the JSON data stored in our local <strong><code>trello.json</code></strong> file. The contents of this file will change based on specifics to your account but will look something like:</p>
-<p><span><label for="sn-2" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-2" class="margin-toggle"/><span class="marginnote"> Read the official documentation <a href="https://developer.atlassian.com/cloud/trello/guides/rest-api/authorization/">here</a> for more information on Trello application name, scope, and expiration.<br />
-<br />
-</span></span></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">{</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>  <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;trello&quot;</span><span class="fu">,</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a>  <span class="dt">&quot;strategy&quot;</span><span class="fu">:</span> <span class="st">&quot;oauth1&quot;</span><span class="fu">,</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a>  <span class="dt">&quot;options&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>    <span class="dt">&quot;client_id&quot;</span><span class="fu">:</span> <span class="st">&quot;${YOUR_TRELLO_CLIENT_ID}&quot;</span><span class="fu">,</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>    <span class="dt">&quot;client_secret&quot;</span><span class="fu">:</span> <span class="st">&quot;${YOUR_TRELLO_CLIENT_SECRET}&quot;</span><span class="fu">,</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a>    <span class="dt">&quot;requestTokenURL&quot;</span><span class="fu">:</span> <span class="st">&quot;https://trello.com/1/OAuthGetRequestToken&quot;</span><span class="fu">,</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a>    <span class="dt">&quot;accessTokenURL&quot;</span><span class="fu">:</span> <span class="st">&quot;https://trello.com/1/OAuthGetAccessToken&quot;</span><span class="fu">,</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a>    <span class="dt">&quot;userAuthorizationURL&quot;</span><span class="fu">:</span> <span class="st">&quot;https://trello.com/1/OAuthAuthorizeToken?name=${APP_NAME}&amp;scope=${SCOPE}&amp;expiration=${EXPIRATION}&quot;</span><span class="fu">,</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a>    <span class="dt">&quot;scripts&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a>      <span class="dt">&quot;fetchUserProfile&quot;</span><span class="fu">:</span> <span class="st">&quot;${SCRIPT}&quot;</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a>    <span class="fu">}</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a>  <span class="fu">},</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a>    <span class="dt">&quot;enabled_clients&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a>      <span class="st">&quot;${AUTH0_CLIENT_1}&quot;</span><span class="ot">,</span></span>
-<span id="cb2-16"><a href="#cb2-16"></a>      <span class="st">&quot;${AUTH0_CLIENT_2}&quot;</span></span>
-<span id="cb2-17"><a href="#cb2-17"></a>    <span class="ot">]</span></span>
-<span id="cb2-18"><a href="#cb2-18"></a><span class="fu">}</span></span></code></pre></div>
+
+<h3 id="getting-your-trello-credentials">Getting your Trello credentials</h3>
+
+<p>In order to create an OAuth 1.1 connection, you will need your <strong><code class="highlighter-rouge">client_id</code></strong> and <strong><code class="highlighter-rouge">client_secret</code></strong> pair for Trello. To get these, login to Trello and go to <a href="https://trello.com/app-key">https://trello.com/app-key</a>.</p>
+
+<p>The <strong><code class="highlighter-rouge">client_id</code></strong> value will be the <strong><code class="highlighter-rouge">Key</code></strong> value found on this page.</p>
+
+<p>The <strong><code class="highlighter-rouge">client_secret</code></strong> value will be found by clicking the <strong><code class="highlighter-rouge">Token</code></strong> URL found on that page. This will prompt you to give access to the Trello <code class="highlighter-rouge">Server Token</code> application. Granting access will display the value to use.</p>
+
+<p><img src="/assets/images/posts/trello-server-token.png" alt="" /></p>
+
+<h3 id="creating-a-trello-connection">Creating a Trello connection</h3>
+
+<p>To create an arbitrary OAuth 1.1 connection in Auth0, we need to use the Auth0 Management API as there is no support for it in the management dashboard. If you don’t already have one, check out the <a href="https://auth0.com/docs/api/management/v2/tokens">official documentation</a> for more details on creating your Management API access token. Once created, this can be done with a simple <code class="highlighter-rouge">curl</code> command such as:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> POST
+     <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span>
+     <span class="nt">-H</span> <span class="s1">'Authorization: Bearer ${YOUR_AUTH0_MANAGEMENT_API_TOKEN}'</span>
+     <span class="nt">-d</span> @trello.json https://<span class="k">${</span><span class="nv">YOUR_AUTH0_DOMAIN</span><span class="k">}</span>/api/v2/connections
+</code></pre></div></div>
+
+<p>This creates an Auth0 connection using the JSON data stored in our local <strong><code class="highlighter-rouge">trello.json</code></strong> file. The contents of this file will change based on specifics to your account but will look something like:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"trello"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"strategy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oauth1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${YOUR_TRELLO_CLIENT_ID}"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"client_secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${YOUR_TRELLO_CLIENT_SECRET}"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"requestTokenURL"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://trello.com/1/OAuthGetRequestToken"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accessTokenURL"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://trello.com/1/OAuthGetAccessToken"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"userAuthorizationURL"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://trello.com/1/OAuthAuthorizeToken?name=${APP_NAME}&amp;scope=${SCOPE}&amp;expiration=${EXPIRATION}"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"fetchUserProfile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${SCRIPT}"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"enabled_clients"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"${AUTH0_CLIENT_1}"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"${AUTH0_CLIENT_2}"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
 <p>This file has a number of variables in it. Let’s go through them one by one:</p>
+
 <ul>
-<li><strong><code>${YOUR_TRELLO_CLIENT_ID}</code></strong> - The <code>client_id</code> value from Trello noted above.</li>
-<li><strong><code>${YOUR_TRELLO_CLIENT_SECRET}</code></strong> - The <code>client_secret</code> value from Trello noted above.</li>
-<li><strong><code>${APP_NAME}</code></strong> - The name of your Trello application, e.g. your company name.</li>
-<li><strong><code>${SCOPE}</code></strong> - The OAuth scope your application is requesting. Comma-separated list of one or more of <strong>read</strong>, <strong>write</strong>, <strong>account</strong>.</li>
-<li><strong><code>${EXPIRATION}</code></strong> - The lifetime of the token/secret Trello sends to Auth0, e.g. <code>never</code>.</li>
-<li><strong><code>${SCRIPT}</code></strong> - The javascript function run to convert Trello information into an Auth0 profile. <strong>See below</strong>.</li>
-<li><strong><code>${AUTH0_CLIENT_XYZ}</code></strong> - The ID’s of all Auth0 Clients that should allow Trello login.</li>
+  <li><strong><code class="highlighter-rouge">${YOUR_TRELLO_CLIENT_ID}</code></strong> - The <code class="highlighter-rouge">client_id</code> value from Trello noted above.</li>
+  <li><strong><code class="highlighter-rouge">${YOUR_TRELLO_CLIENT_SECRET}</code></strong> - The <code class="highlighter-rouge">client_secret</code> value from Trello noted above.</li>
+  <li><strong><code class="highlighter-rouge">${APP_NAME}</code></strong> - The name of your Trello application, e.g. your company name.</li>
+  <li><strong><code class="highlighter-rouge">${SCOPE}</code></strong> - The OAuth scope your application is requesting. Comma-separated list of one or more of <strong>read</strong>, <strong>write</strong>, <strong>account</strong>.</li>
+  <li><strong><code class="highlighter-rouge">${EXPIRATION}</code></strong> - The lifetime of the token/secret Trello sends to Auth0, e.g. <code class="highlighter-rouge">never</code>.</li>
+  <li><strong><code class="highlighter-rouge">${SCRIPT}</code></strong> - The javascript function run to convert Trello information into an Auth0 profile. <strong>See below</strong>.</li>
+  <li><strong><code class="highlighter-rouge">${AUTH0_CLIENT_XYZ}</code></strong> - The ID’s of all Auth0 Clients that should allow Trello login.</li>
 </ul>
-<p>The javascript code for fetch user profile <strong><code>${SCRIPT}</code></strong> is:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">function</span> (token<span class="op">,</span> tokenSecret<span class="op">,</span> ctx<span class="op">,</span> cb) <span class="op">{</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>    <span class="kw">var</span> OAuth <span class="op">=</span> <span class="kw">new</span> <span class="at">require</span>(<span class="st">&#39;oauth&#39;</span>).<span class="at">OAuth</span><span class="op">;</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a>    <span class="kw">var</span> oauth <span class="op">=</span> <span class="kw">new</span> <span class="at">OAuth</span>(</span>
-<span id="cb3-4"><a href="#cb3-4"></a>      <span class="va">ctx</span>.<span class="at">requestTokenURL</span><span class="op">,</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a>      <span class="va">ctx</span>.<span class="at">accessTokenURL</span><span class="op">,</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a>      <span class="va">ctx</span>.<span class="at">client_id</span><span class="op">,</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a>      <span class="va">ctx</span>.<span class="at">client_secret</span><span class="op">,</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a>      <span class="st">&#39;1.0A&#39;</span><span class="op">,</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a>      <span class="kw">null</span><span class="op">,</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a>      <span class="st">&#39;HMAC-SHA1&#39;</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a>    )<span class="op">;</span></span>
-<span id="cb3-12"><a href="#cb3-12"></a></span>
-<span id="cb3-13"><a href="#cb3-13"></a>    <span class="va">oauth</span>.<span class="at">get</span>(<span class="st">&#39;https://api.trello.com/1/members/me&#39;</span><span class="op">,</span> token<span class="op">,</span> tokenSecret<span class="op">,</span> <span class="kw">function</span>(e<span class="op">,</span> b<span class="op">,</span> r) <span class="op">{</span></span>
-<span id="cb3-14"><a href="#cb3-14"></a>        <span class="cf">if</span> (e) <span class="op">{</span></span>
-<span id="cb3-15"><a href="#cb3-15"></a>          <span class="cf">return</span> <span class="at">cb</span>(e)<span class="op">;</span></span>
-<span id="cb3-16"><a href="#cb3-16"></a>        <span class="op">}</span></span>
-<span id="cb3-17"><a href="#cb3-17"></a>        <span class="cf">if</span> (<span class="va">r</span>.<span class="at">statusCode</span> <span class="op">!==</span> <span class="dv">200</span>) <span class="op">{</span></span>
-<span id="cb3-18"><a href="#cb3-18"></a>          <span class="cf">return</span> <span class="at">cb</span>(<span class="kw">new</span> <span class="at">Error</span>(<span class="st">&#39;Failed to authenticate with Trello. Code: &#39;</span> <span class="op">+</span> <span class="va">r</span>.<span class="at">statusCode</span>))<span class="op">;</span></span>
-<span id="cb3-19"><a href="#cb3-19"></a>        <span class="op">}</span></span>
-<span id="cb3-20"><a href="#cb3-20"></a></span>
-<span id="cb3-21"><a href="#cb3-21"></a>        <span class="kw">var</span> member <span class="op">=</span> <span class="va">JSON</span>.<span class="at">parse</span>(b)<span class="op">;</span></span>
-<span id="cb3-22"><a href="#cb3-22"></a></span>
-<span id="cb3-23"><a href="#cb3-23"></a>        <span class="kw">var</span> profile <span class="op">=</span> <span class="op">{</span></span>
-<span id="cb3-24"><a href="#cb3-24"></a>          <span class="dt">user_id</span><span class="op">:</span> <span class="va">member</span>.<span class="at">id</span><span class="op">,</span></span>
-<span id="cb3-25"><a href="#cb3-25"></a>          <span class="dt">email</span><span class="op">:</span> <span class="va">member</span>.<span class="at">email</span><span class="op">,</span></span>
-<span id="cb3-26"><a href="#cb3-26"></a>          <span class="dt">name</span><span class="op">:</span> <span class="va">member</span>.<span class="at">fullName</span><span class="op">,</span></span>
-<span id="cb3-27"><a href="#cb3-27"></a>          <span class="dt">email_verified</span><span class="op">:</span> <span class="va">member</span>.<span class="at">confirmed</span><span class="op">,</span></span>
-<span id="cb3-28"><a href="#cb3-28"></a>          <span class="dt">nickname</span><span class="op">:</span> <span class="va">member</span>.<span class="at">username</span><span class="op">,</span></span>
-<span id="cb3-29"><a href="#cb3-29"></a>          <span class="dt">token</span><span class="op">:</span> token<span class="op">,</span></span>
-<span id="cb3-30"><a href="#cb3-30"></a>          <span class="dt">token_secret</span><span class="op">:</span> tokenSecret</span>
-<span id="cb3-31"><a href="#cb3-31"></a>        <span class="op">};</span></span>
-<span id="cb3-32"><a href="#cb3-32"></a></span>
-<span id="cb3-33"><a href="#cb3-33"></a>        <span class="at">cb</span>(<span class="kw">null</span><span class="op">,</span> profile)<span class="op">;</span></span>
-<span id="cb3-34"><a href="#cb3-34"></a>    <span class="op">}</span>)</span>
-<span id="cb3-35"><a href="#cb3-35"></a><span class="op">}</span></span></code></pre></div>
-</section>
-<section id="calling-the-trello-api-on-their-behalf" class="level3">
-<h3>Calling the Trello API on their behalf</h3>
-<p>Once the user logs in with the Trello Auth0 connection, you’ll see the <code>token</code> and <code>tokenSecret</code> values stored on that user profile. These can be used to call the Trello API on behalf of the user. For example:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">from</span> trello <span class="im">import</span> TrelloClient</span>
-<span id="cb4-2"><a href="#cb4-2"></a></span>
-<span id="cb4-3"><a href="#cb4-3"></a>client <span class="op">=</span> TrelloClient(</span>
-<span id="cb4-4"><a href="#cb4-4"></a>    api_key<span class="op">=</span><span class="st">&#39;$</span><span class="sc">{YOUR_TRELLO_CLIENT_ID}</span><span class="st">&#39;</span>,</span>
-<span id="cb4-5"><a href="#cb4-5"></a>    api_secret<span class="op">=</span><span class="st">&#39;$</span><span class="sc">{YOUR_TRELLO_CLIENT_SECRET}</span><span class="st">&#39;</span>,</span>
-<span id="cb4-6"><a href="#cb4-6"></a>    token<span class="op">=</span><span class="st">&#39;$</span><span class="sc">{TOKEN}</span><span class="st">&#39;</span>,</span>
-<span id="cb4-7"><a href="#cb4-7"></a>    token_secret<span class="op">=</span><span class="st">&#39;$</span><span class="sc">{TOKEN_SECRET}</span><span class="st">&#39;</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a>)</span></code></pre></div>
+
+<p>The Trello <a href="https://developer.atlassian.com/cloud/trello/guides/rest-api/authorization/">official documentation</a> contains more information on the specific values provided like application name, scope, and expiration.</p>
+
+<p>The javascript code for fetch user profile <strong><code class="highlighter-rouge">${SCRIPT}</code></strong> is:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="p">(</span><span class="nx">token</span><span class="p">,</span> <span class="nx">tokenSecret</span><span class="p">,</span> <span class="nx">ctx</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">OAuth</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">oauth</span><span class="dl">'</span><span class="p">).</span><span class="nx">OAuth</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">oauth</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">OAuth</span><span class="p">(</span>
+      <span class="nx">ctx</span><span class="p">.</span><span class="nx">requestTokenURL</span><span class="p">,</span>
+      <span class="nx">ctx</span><span class="p">.</span><span class="nx">accessTokenURL</span><span class="p">,</span>
+      <span class="nx">ctx</span><span class="p">.</span><span class="nx">client_id</span><span class="p">,</span>
+      <span class="nx">ctx</span><span class="p">.</span><span class="nx">client_secret</span><span class="p">,</span>
+      <span class="dl">'</span><span class="s1">1.0A</span><span class="dl">'</span><span class="p">,</span>
+      <span class="kc">null</span><span class="p">,</span>
+      <span class="dl">'</span><span class="s1">HMAC-SHA1</span><span class="dl">'</span>
+    <span class="p">);</span>
+
+    <span class="nx">oauth</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://api.trello.com/1/members/me</span><span class="dl">'</span><span class="p">,</span> <span class="nx">token</span><span class="p">,</span> <span class="nx">tokenSecret</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="nx">cb</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">statusCode</span> <span class="o">!==</span> <span class="mi">200</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="nx">cb</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="dl">'</span><span class="s1">Failed to authenticate with Trello. Code: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">r</span><span class="p">.</span><span class="nx">statusCode</span><span class="p">));</span>
+        <span class="p">}</span>
+
+        <span class="kd">var</span> <span class="nx">member</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">b</span><span class="p">);</span>
+
+        <span class="kd">var</span> <span class="nx">profile</span> <span class="o">=</span> <span class="p">{</span>
+          <span class="na">user_id</span><span class="p">:</span> <span class="nx">member</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+          <span class="na">email</span><span class="p">:</span> <span class="nx">member</span><span class="p">.</span><span class="nx">email</span><span class="p">,</span>
+          <span class="na">name</span><span class="p">:</span> <span class="nx">member</span><span class="p">.</span><span class="nx">fullName</span><span class="p">,</span>
+          <span class="na">email_verified</span><span class="p">:</span> <span class="nx">member</span><span class="p">.</span><span class="nx">confirmed</span><span class="p">,</span>
+          <span class="na">nickname</span><span class="p">:</span> <span class="nx">member</span><span class="p">.</span><span class="nx">username</span><span class="p">,</span>
+          <span class="na">token</span><span class="p">:</span> <span class="nx">token</span><span class="p">,</span>
+          <span class="na">token_secret</span><span class="p">:</span> <span class="nx">tokenSecret</span>
+        <span class="p">};</span>
+
+        <span class="nx">cb</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">profile</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="calling-the-trello-api-on-their-behalf">Calling the Trello API on their behalf</h3>
+
+<p>Once the user logs in with the Trello Auth0 connection, you’ll see the <code class="highlighter-rouge">token</code> and <code class="highlighter-rouge">tokenSecret</code> values stored on that user profile. These can be used to call the Trello API on behalf of the user. For example:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">trello</span> <span class="kn">import</span> <span class="n">TrelloClient</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">TrelloClient</span><span class="p">(</span>
+    <span class="n">api_key</span><span class="o">=</span><span class="s">'${YOUR_TRELLO_CLIENT_ID}'</span><span class="p">,</span>
+    <span class="n">api_secret</span><span class="o">=</span><span class="s">'${YOUR_TRELLO_CLIENT_SECRET}'</span><span class="p">,</span>
+    <span class="n">token</span><span class="o">=</span><span class="s">'${TOKEN}'</span><span class="p">,</span>
+    <span class="n">token_secret</span><span class="o">=</span><span class="s">'${TOKEN_SECRET}'</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
 <p>The variables in this example are as follows:</p>
+
 <ul>
-<li><strong><code>${YOUR_TRELLO_CLIENT_ID}</code></strong> - The <code>client_id</code> value from Trello noted above.</li>
-<li><strong><code>${YOUR_TRELLO_CLIENT_SECRET}</code></strong> - The <code>client_secret</code> value from Trello noted above.</li>
-<li><strong><code>${TOKEN}</code></strong> - The <strong><code>token</code></strong> value stored on the Auth0 user profile.</li>
-<li><strong><code>${TOKEN_SECRET}</code></strong> - The <strong><code>tokenSecret</code></strong> value stored on the Auth0 user profile.</li>
+  <li><strong><code class="highlighter-rouge">${YOUR_TRELLO_CLIENT_ID}</code></strong> - The <code class="highlighter-rouge">client_id</code> value from Trello noted above.</li>
+  <li><strong><code class="highlighter-rouge">${YOUR_TRELLO_CLIENT_SECRET}</code></strong> - The <code class="highlighter-rouge">client_secret</code> value from Trello noted above.</li>
+  <li><strong><code class="highlighter-rouge">${TOKEN}</code></strong> - The <strong><code class="highlighter-rouge">token</code></strong> value stored on the Auth0 user profile.</li>
+  <li><strong><code class="highlighter-rouge">${TOKEN_SECRET}</code></strong> - The <strong><code class="highlighter-rouge">tokenSecret</code></strong> value stored on the Auth0 user profile.</li>
 </ul>
-</section>
-<section id="summary" class="level3">
-<h3>Summary</h3>
+
+<h3 id="summary">Summary</h3>
+
 <p>In order to support Trello connections with Auth0, you must create a custom OAuth 1.1 connection with a custom javascript function that fetches Trello user information to create an Auth0 user profile.</p>
-</section>
 
 
 
@@ -239,14 +258,13 @@
 </section>
 
 
-</article>
+</div>
+<div class="footer container-xl px-5 my-5">
+  
 
 
 
-
-
-
-<footer>
+  <footer>
     <hr class="footer-hr">
     <ul class="social-links">
       
@@ -275,6 +293,7 @@
   </div>  
 </footer>
 
+</div>
 </body>
 </html>
 

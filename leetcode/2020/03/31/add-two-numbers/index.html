@@ -24,11 +24,6 @@
   <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
   <link rel="stylesheet" href="/assets/styles/et-book.min.css">
   <link rel="stylesheet" href="/assets/styles/site.css">
-  
-
-  <!--[if lt IE 9]>
-  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
@@ -81,119 +76,137 @@
 <meta name="twitter:site" content="@rekwah" />
 <meta name="twitter:creator" content="@rekwah" />
 <script type="application/ld+json">
-{"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","url":"https://andrew.hawker.io/leetcode/2020/03/31/add-two-numbers/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"Add Two Numbers","dateModified":"2020-03-31T01:34:00-07:00","datePublished":"2020-03-31T01:34:00-07:00","author":{"@type":"Person","name":"Andrew Hawker"},"description":"I’m trying to get in a habit of starting my mornings off with coffee and a Leetcode problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/leetcode/2020/03/31/add-two-numbers/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"headline":"Add Two Numbers","dateModified":"2020-03-31T01:34:00-07:00","datePublished":"2020-03-31T01:34:00-07:00","url":"https://andrew.hawker.io/leetcode/2020/03/31/add-two-numbers/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/leetcode/2020/03/31/add-two-numbers/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"I’m trying to get in a habit of starting my mornings off with coffee and a Leetcode problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
 
 <body>
-
-
-
-
-<article>
+<div class="header container-xl px-5 my-5 markdown-body">
   
 
+
+
+  
 <header>
-  <h1 class="title"><a name="Add Two Numbers"></a>Add Two Numbers</h1>
   
+  <h1>
+    <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+    Add Two Numbers
+  </h1>
   
-  <p class="byline">March 31, 2020</p>
-  
-  
-  <ul class="tags">
-  
-    <li class="category"><a href="/archives/category/leetcode">LEETCODE</a></li>
-  
-  
-  
-  
-    <li class="tag"><a href="/archives/tag/leetcode-medium">LEETCODE MEDIUM (2)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/python">PYTHON (8)</a></li>
-  
-  
-  </ul>
+  <div class="col-12">
+    
+    <p class="h4 color-grey">March 31, 2020</p>
+    
+  </div>
+  <div class="col-12">
+    
+    <ul class="tags">
+    
+      <li class="category"><a href="/archives/category/leetcode">LEETCODE</a></li>
+    
+    
+    
+    
+      <li class="tag"><a href="/archives/tag/leetcode-medium">LEETCODE MEDIUM (2)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/python">PYTHON (8)</a></li>
+    
+    
+    </ul>
+  </div>
 </header>
 
 
-
+</div>
+<div class="content container-xl px-5 my-5 markdown-body">
   <p>I’m trying to get in a habit of starting my mornings off with coffee and a <a href="https://leetcode.com/">Leetcode</a> problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!</p>
-<section id="add-two-numbers" class="level2">
-<h2><a href="https://leetcode.com/problems/add-two-numbers/">Add Two Numbers</a></h2>
-<section id="problem" class="level3">
-<h3>Problem</h3>
+
+<h2 id="add-two-numbers"><a href="https://leetcode.com/problems/add-two-numbers/">Add Two Numbers</a></h2>
+
+<h3 id="problem">Problem</h3>
+
 <p>You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.</p>
+
 <p>You may assume the two numbers do not contain any leading zero, except the number 0 itself.</p>
+
 <p>Example:</p>
-<pre><code>Input: (2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Input: (2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)
 Output: 7 -&gt; 0 -&gt; 8
-Explanation: 342 + 465 = 807.</code></pre>
-</section>
-<section id="thinking" class="level3">
-<h3>Thinking</h3>
-<p>This one took me a few swings, mainly because I didn’t read that the return value was supposed to be a linked list. I had implemented the logic to sum the linked lists properly and then realized I’d have to iterate over the resulting integer to build a list. Bleh. So I started over so I could implement it in a single iteration of <code>O(N)</code> time.</p>
+Explanation: 342 + 465 = 807.
+</code></pre></div></div>
+
+<h3 id="thinking">Thinking</h3>
+
+<p>This one took me a few swings, mainly because I didn’t read that the return value was supposed to be a linked list. I had implemented the logic to sum the linked lists properly and then realized I’d have to iterate over the resulting integer to build a list. Bleh. So I started over so I could implement it in a single iteration of <code class="highlighter-rouge">O(N)</code> time.</p>
+
 <p>The solution works as follows:</p>
-<p>Continue looping while either of the nodes has a <code>next</code> value.</p>
-<p>Sum digits from each list. Use zero if we’ve exhausted one of the lists. Track a “carry” if sum is greater than 10. Result list should only store <code>sum % 10</code> so it only stores a single digit.</p>
-<p>If we’re at the end of both lists, check to see if we still have a “carry”. If so, need to append another node to result list with the value of <code>1</code>.</p>
-</section>
-<section id="corner-cases" class="level3">
-<h3>Corner Cases</h3>
+
+<p>Continue looping while either of the nodes has a <code class="highlighter-rouge">next</code> value.</p>
+
+<p>Sum digits from each list. Use zero if we’ve exhausted one of the lists. Track a “carry” if sum is greater than 10. Result list should only store <code class="highlighter-rouge">sum % 10</code> so it only stores a single digit.</p>
+
+<p>If we’re at the end of both lists, check to see if we still have a “carry”. If so, need to append another node to result list with the value of <code class="highlighter-rouge">1</code>.</p>
+
+<h3 id="corner-cases">Corner Cases</h3>
+
 <p>The following corner cases are what I missed in my initial solution:</p>
+
 <ul>
-<li>The final “carry” when both lists were exhausted.</li>
+  <li>The final “carry” when both lists were exhausted.</li>
 </ul>
-</section>
-<section id="improvements" class="level3">
-<h3>Improvements</h3>
+
+<h3 id="improvements">Improvements</h3>
+
 <p>I feel like the tracking of the head node relative to the result list moving pointer code is messy.</p>
-</section>
-<section id="solution" class="level3">
-<h3>Solution</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Definition for singly-linked list.</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="co"># class ListNode:</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="co">#     def __init__(self, x):</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co">#         self.val = x</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#         self.next = None</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="kw">class</span> Solution:</span>
-<span id="cb2-8"><a href="#cb2-8"></a>    <span class="kw">def</span> addTwoNumbers(<span class="va">self</span>, l1: ListNode, l2: ListNode) <span class="op">-&gt;</span> ListNode:</span>
-<span id="cb2-9"><a href="#cb2-9"></a>        carry <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a>        </span>
-<span id="cb2-11"><a href="#cb2-11"></a>        head <span class="op">=</span> l3 <span class="op">=</span> ListNode(<span class="va">None</span>)</span>
-<span id="cb2-12"><a href="#cb2-12"></a>        </span>
-<span id="cb2-13"><a href="#cb2-13"></a>        <span class="cf">while</span> <span class="va">True</span>:</span>
-<span id="cb2-14"><a href="#cb2-14"></a>            <span class="cf">if</span> <span class="kw">not</span> l1 <span class="kw">and</span> <span class="kw">not</span> l2:</span>
-<span id="cb2-15"><a href="#cb2-15"></a>                <span class="cf">if</span> carry:</span>
-<span id="cb2-16"><a href="#cb2-16"></a>                    l3.<span class="bu">next</span> <span class="op">=</span> ListNode(carry)</span>
-<span id="cb2-17"><a href="#cb2-17"></a>                <span class="cf">break</span></span>
-<span id="cb2-18"><a href="#cb2-18"></a></span>
-<span id="cb2-19"><a href="#cb2-19"></a>            l1_val <span class="op">=</span> l1.val <span class="cf">if</span> l1 <span class="cf">else</span> <span class="dv">0</span></span>
-<span id="cb2-20"><a href="#cb2-20"></a>            l2_val <span class="op">=</span> l2.val <span class="cf">if</span> l2 <span class="cf">else</span> <span class="dv">0</span></span>
-<span id="cb2-21"><a href="#cb2-21"></a></span>
-<span id="cb2-22"><a href="#cb2-22"></a>            value <span class="op">=</span> l1_val <span class="op">+</span> l2_val <span class="op">+</span> carry</span>
-<span id="cb2-23"><a href="#cb2-23"></a>            digit <span class="op">=</span> value <span class="op">%</span> <span class="dv">10</span></span>
-<span id="cb2-24"><a href="#cb2-24"></a>            </span>
-<span id="cb2-25"><a href="#cb2-25"></a>            <span class="cf">if</span> l3.val <span class="kw">is</span> <span class="va">None</span>:</span>
-<span id="cb2-26"><a href="#cb2-26"></a>                l3.val <span class="op">=</span> digit</span>
-<span id="cb2-27"><a href="#cb2-27"></a>                head <span class="op">=</span> l3</span>
-<span id="cb2-28"><a href="#cb2-28"></a>            <span class="cf">else</span>:</span>
-<span id="cb2-29"><a href="#cb2-29"></a>                l3.<span class="bu">next</span> <span class="op">=</span> ListNode(digit)</span>
-<span id="cb2-30"><a href="#cb2-30"></a>                l3 <span class="op">=</span> l3.<span class="bu">next</span></span>
-<span id="cb2-31"><a href="#cb2-31"></a></span>
-<span id="cb2-32"><a href="#cb2-32"></a>            carry <span class="op">=</span> <span class="dv">1</span> <span class="cf">if</span> value <span class="op">&gt;=</span> <span class="dv">10</span> <span class="cf">else</span> <span class="dv">0</span></span>
-<span id="cb2-33"><a href="#cb2-33"></a>            l1 <span class="op">=</span> l1.<span class="bu">next</span> <span class="cf">if</span> l1 <span class="cf">else</span> <span class="va">None</span></span>
-<span id="cb2-34"><a href="#cb2-34"></a>            l2 <span class="op">=</span> l2.<span class="bu">next</span> <span class="cf">if</span> l2 <span class="cf">else</span> <span class="va">None</span></span>
-<span id="cb2-35"><a href="#cb2-35"></a>        </span>
-<span id="cb2-36"><a href="#cb2-36"></a>        <span class="cf">return</span> head</span></code></pre></div>
-</section>
-<section id="score" class="level3">
-<h3>Score</h3>
-<pre><code>Runtime: 68 ms, faster than 77.41% of Python3 online submissions for Add Two Numbers.
-Memory Usage: 13.8 MB, less than 5.67% of Python3 online submissions for Add Two Numbers.</code></pre>
-</section>
-</section>
+
+<h3 id="solution">Solution</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+</span>
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">addTwoNumbers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l1</span><span class="p">:</span> <span class="n">ListNode</span><span class="p">,</span> <span class="n">l2</span><span class="p">:</span> <span class="n">ListNode</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ListNode</span><span class="p">:</span>
+        <span class="n">carry</span> <span class="o">=</span> <span class="mi">0</span>
+        
+        <span class="n">head</span> <span class="o">=</span> <span class="n">l3</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+        
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">l1</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">l2</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">carry</span><span class="p">:</span>
+                    <span class="n">l3</span><span class="o">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="n">carry</span><span class="p">)</span>
+                <span class="k">break</span>
+
+            <span class="n">l1_val</span> <span class="o">=</span> <span class="n">l1</span><span class="o">.</span><span class="n">val</span> <span class="k">if</span> <span class="n">l1</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="n">l2_val</span> <span class="o">=</span> <span class="n">l2</span><span class="o">.</span><span class="n">val</span> <span class="k">if</span> <span class="n">l2</span> <span class="k">else</span> <span class="mi">0</span>
+
+            <span class="n">value</span> <span class="o">=</span> <span class="n">l1_val</span> <span class="o">+</span> <span class="n">l2_val</span> <span class="o">+</span> <span class="n">carry</span>
+            <span class="n">digit</span> <span class="o">=</span> <span class="n">value</span> <span class="o">%</span> <span class="mi">10</span>
+            
+            <span class="k">if</span> <span class="n">l3</span><span class="o">.</span><span class="n">val</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">l3</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">digit</span>
+                <span class="n">head</span> <span class="o">=</span> <span class="n">l3</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">l3</span><span class="o">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="n">digit</span><span class="p">)</span>
+                <span class="n">l3</span> <span class="o">=</span> <span class="n">l3</span><span class="o">.</span><span class="nb">next</span>
+
+            <span class="n">carry</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="mi">10</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="n">l1</span> <span class="o">=</span> <span class="n">l1</span><span class="o">.</span><span class="nb">next</span> <span class="k">if</span> <span class="n">l1</span> <span class="k">else</span> <span class="bp">None</span>
+            <span class="n">l2</span> <span class="o">=</span> <span class="n">l2</span><span class="o">.</span><span class="nb">next</span> <span class="k">if</span> <span class="n">l2</span> <span class="k">else</span> <span class="bp">None</span>
+        
+        <span class="k">return</span> <span class="n">head</span>
+</code></pre></div></div>
+
+<h3 id="score">Score</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Runtime: 68 ms, faster than 77.41% of Python3 online submissions for Add Two Numbers.
+Memory Usage: 13.8 MB, less than 5.67% of Python3 online submissions for Add Two Numbers.
+</code></pre></div></div>
 
 
 
@@ -202,14 +215,13 @@ Memory Usage: 13.8 MB, less than 5.67% of Python3 online submissions for Add Two
 </section>
 
 
-</article>
+</div>
+<div class="footer container-xl px-5 my-5">
+  
 
 
 
-
-
-
-<footer>
+  <footer>
     <hr class="footer-hr">
     <ul class="social-links">
       
@@ -238,6 +250,7 @@ Memory Usage: 13.8 MB, less than 5.67% of Python3 online submissions for Add Two
   </div>  
 </footer>
 
+</div>
 </body>
 </html>
 

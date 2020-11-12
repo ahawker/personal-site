@@ -24,11 +24,6 @@
   <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
   <link rel="stylesheet" href="/assets/styles/et-book.min.css">
   <link rel="stylesheet" href="/assets/styles/site.css">
-  
-
-  <!--[if lt IE 9]>
-  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
@@ -81,96 +76,112 @@
 <meta name="twitter:site" content="@rekwah" />
 <meta name="twitter:creator" content="@rekwah" />
 <script type="application/ld+json">
-{"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","url":"https://andrew.hawker.io/writings/2014/05/02/continuous-integration-for-mobile-apps-appthwack-jenkins-part-2/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"Continuous Integration for Mobile Apps with AppThwack and Jenkins (Part 2)","dateModified":"2014-05-02T03:43:00-07:00","datePublished":"2014-05-02T03:43:00-07:00","author":{"@type":"Person","name":"Andrew Hawker"},"description":"Personal website of Andrew Hawker","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2014/05/02/continuous-integration-for-mobile-apps-appthwack-jenkins-part-2/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"headline":"Continuous Integration for Mobile Apps with AppThwack and Jenkins (Part 2)","dateModified":"2014-05-02T03:43:00-07:00","datePublished":"2014-05-02T03:43:00-07:00","url":"https://andrew.hawker.io/writings/2014/05/02/continuous-integration-for-mobile-apps-appthwack-jenkins-part-2/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2014/05/02/continuous-integration-for-mobile-apps-appthwack-jenkins-part-2/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"Personal website of Andrew Hawker","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
 
 <body>
-
-
-
-
-<article>
+<div class="header container-xl px-5 my-5 markdown-body">
   
 
+
+
+  
 <header>
-  <h1 class="title"><a name="Continuous Integration for Mobile Apps with AppThwack and Jenkins (Part 2)"></a>Continuous Integration for Mobile Apps with AppThwack and Jenkins (Part 2)</h1>
   
+  <h1>
+    <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+    Continuous Integration for Mobile Apps with AppThwack and Jenkins (Part 2)
+  </h1>
   
-  <p class="byline">May 2, 2014</p>
-  
-  
-  <ul class="tags">
-  
-    <li class="category"><a href="/archives/category/writings">WRITINGS</a></li>
-  
-  
-  
-  
-    <li class="tag"><a href="/archives/tag/appthwack">APPTHWACK (3)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/jenkins">JENKINS (2)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/archive">ARCHIVE (3)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/announcement">ANNOUNCEMENT (3)</a></li>
-  
-  
-  </ul>
+  <div class="col-12">
+    
+    <p class="h4 color-grey">May 2, 2014</p>
+    
+  </div>
+  <div class="col-12">
+    
+    <ul class="tags">
+    
+      <li class="category"><a href="/archives/category/writings">WRITINGS</a></li>
+    
+    
+    
+    
+      <li class="tag"><a href="/archives/tag/appthwack">APPTHWACK (3)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/jenkins">JENKINS (2)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/archive">ARCHIVE (3)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/announcement">ANNOUNCEMENT (3)</a></li>
+    
+    
+    </ul>
+  </div>
 </header>
 
 
+</div>
+<div class="content container-xl px-5 my-5 markdown-body">
+  <p><img src="/assets/images/posts/jenkins-appthwack-header.png" alt="AppThwack Jenkins Header" /></p>
 
-  <p><img src="/assets/images/posts/jenkins-appthwack-header.png" /></p>
-<p>Back in September, we announced the initial release of the official AppThwack Jenkins plugin.<span><label for="sn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-1" class="margin-toggle"/><span class="marginnote"> This is part two of the continuous integration for mobile apps series. Be sure to check out <a href="/writings/2013/09/03/continuous-integration-for-mobile-apps-appthwack-jenkins/">Part 1</a> for getting started with AppThwack and Jenkins.<br />
-<br />
-</span></span> Since its inception, we’re pleased to see many developers seamlessly integrate AppThwack and testing on real mobile devices into their development workflow; testing on a per-commit and nightly-build basis.</p>
+<p>Back in September, we announced the initial release of the official AppThwack Jenkins plugin. Since its inception, we’re pleased to see many developers seamlessly integrate AppThwack and testing on real mobile devices into their development workflow; testing on a per-commit and nightly-build basis.</p>
+
 <p>While the plugin was perfect for capturing build artifacts and kicking off automated tests, it lacked Jenkins UI integration for displaying results. Customer feedback showed that this is an extremely important feature and we couldn’t agree more. The benefits of continuous testing are diminished if developers cannot quickly view results and historical trends. This is essential data for promptly diagnosing problems which facilitates a quick development process.</p>
+
 <p>We’ve been adding features over the past few months and as of today (v1.8) of our plugin, we now have <strong>real-time</strong> AppThwack results right in your Jenkins UI. We have plenty more cool Jenkins features up our sleeves, but we’re happy with the initial release and hope you are too! Let’s jump right in and check it out!</p>
-<section id="instant-feedback" class="level2">
-<h2>Instant Feedback</h2>
-<p><img src="/assets/images/posts/jenkins-appthwack-build-status.png" alt="Build Status" /> It’s important to see the status of your builds as quickly as possible. The AppThwack plugin now attaches to your project view on the Jenkins homepage to display the status of the latest build.</p>
-</section>
-<section id="choose-your-own-adventure" class="level2">
-<h2>Choose your own Adventure</h2>
-<p>Previously, users were required to enter the names of the project and device pool they wanted to use. This wasn’t very user friendly and was prone to typos. Enough of that foolishness! The project and device pool entry fields are now drop-down selections populated automatically for you.<span><label for="sn-2" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-2" class="margin-toggle"/><span class="marginnote"> Interested in testing on real devices for free? Check out our Intel sponsored devices.<br />
-<br />
-</span></span> <span><label for="sn-3" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-3" class="margin-toggle"/><span class="marginnote"> <img src="/assets/images/posts/jenkins-appthwack-settings.png" alt="Project Settings" /><br />
-<br />
-</span></span></p>
-</section>
-<section id="gotta-catch-em-all" class="level2">
-<h2>Gotta catch ’em all</h2>
-<p>It’s your data, use it when you need it. Continuous testing generates tons of logs, screenshots and important device specific data imperative for debugging.<span><label for="sn-4" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-4" class="margin-toggle"/><span class="marginnote"> <img src="/assets/images/posts/jenkins-appthwack-artifacts.png" alt="Artifacts list" /><br />
-<br />
-</span></span></p>
+
+<h2 id="instant-feedback">Instant Feedback</h2>
+
+<p><img src="/assets/images/posts/jenkins-appthwack-build-status.png" alt="Build Status" /></p>
+
+<p>It’s important to see the status of your builds as quickly as possible. The AppThwack plugin now attaches to your project view on the Jenkins homepage to display the status of the latest build.</p>
+
+<h2 id="choose-your-own-adventure">Choose your own Adventure</h2>
+
+<p>Previously, users were required to enter the names of the project and device pool they wanted to use. This wasn’t very user friendly and was prone to typos. Enough of that foolishness! The project and device pool entry fields are now drop-down selections populated automatically for you.</p>
+
+<p><img src="/assets/images/posts/jenkins-appthwack-settings.png" alt="Project Settings" /></p>
+
+<h2 id="gotta-catch-em-all">Gotta catch ‘em all</h2>
+
+<p>It’s your data, use it when you need it. Continuous testing generates tons of logs, screenshots and important device specific data imperative for debugging.</p>
+
+<p><img src="/assets/images/posts/jenkins-appthwack-artifacts.png" alt="Artifacts list" /></p>
+
 <p>All of these test artifacts are now automatically downloaded and stored as part of every Jenkins build, available for deeper analysis whenever you need it.</p>
-</section>
-<section id="bell-bottoms-jnco-jeans-macarena" class="level2">
-<h2>Bell-bottoms? JNCO jeans? Macarena?</h2>
-<p>Stay hip with the latest trends of your build results. <span><label for="sn-5" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-5" class="margin-toggle"/><span class="marginnote"> <img src="/assets/images/posts/jenkins-appthwack-result-graph.png" alt="Project Result Trends" /><br />
-<br />
-</span></span></p>
+
+<h2 id="bell-bottoms-jnco-jeans-macarena">Bell-bottoms? JNCO jeans? Macarena?</h2>
+
+<p>Stay hip with the latest trends of your build results.</p>
+
+<p><img src="/assets/images/posts/jenkins-appthwack-result-graph.png" alt="Project Result Trends" /></p>
+
 <p>Easily view and identify trends in test passes, failures and warnings for every build and see high level results for your most recent AppThwack runs, right on your Jenkins project homepage.</p>
-</section>
-<section id="individual-results" class="level2">
-<h2>Individual Results</h2>
-<p>You can also drill down and view the highlights of a single AppThwack run.<span><label for="sn-6" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-6" class="margin-toggle"/><span class="marginnote"> <img src="/assets/images/posts/jenkins-appthwack-results-table.png" alt="Recent Results" /><br />
-<br />
-</span></span></p>
+
+<h2 id="individual-results">Individual Results</h2>
+
+<p>You can also drill down and view the highlights of a single AppThwack run.</p>
+
 <p>This will display all the high level result data you’ve come to expect, including latest trends in performance data (CPU, Memory, Threads, Network Traffic, FPS, etc).</p>
-<p>Individual tests are grouped by result (pass/fail/warn) and then by each device, enabling you to quickly identify which test and/or device(s) are encountering errors. <span><label for="sn-7" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-7" class="margin-toggle"/><span class="marginnote"> <img src="/assets/images/posts/jenkins-appthwack-report-graphs.png" alt="Report Graphs" /><br />
-<br />
-</span></span></p>
+
+<p><img src="/assets/images/posts/jenkins-appthwack-results-table.png" alt="Recent Results" /></p>
+
+<p>Individual tests are grouped by result (pass/fail/warn) and then by each device, enabling you to quickly identify which test and/or device(s) are encountering errors.</p>
+
 <p>Additionally, each test links back to its own report on AppThwack, allowing for even deeper analysis.</p>
-</section>
-<section id="getting-started" class="level2">
-<h2>Getting Started</h2>
-<p>Interested in mobile Continuous Integration using real devices but not sure where to start? Check out our partner <a href="https://www.cloudbees.com/">CloudBees</a> who specializes in cloud based CI. <span><label for="sn-8" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-8" class="margin-toggle"/><span class="marginnote"> This post was migrated from the <a href="https://blog.appthwack.com">AppThwack Blog</a> which is no longer available. A copy of the original post can be viewed from <a href="https://web.archive.org/web/20140718005710/http://blog.appthwack.com/continuous-integration-for-mobile-apps-appthwack-jenkins-part-2/">archive.org</a>.<br />
-<br />
-</span></span></p>
-</section>
+
+<p><img src="/assets/images/posts/jenkins-appthwack-report-graphs.png" alt="Report Graphs" /></p>
+
+<h2 id="getting-started">Getting Started</h2>
+
+<p>Interested in mobile Continuous Integration using real devices but not sure where to start? Check out our partner <a href="https://www.cloudbees.com/">CloudBees</a> who specializes in cloud based CI.</p>
+
+<hr />
+
+<p><em>This post was migrated from the <a href="https://blog.appthwack.com">AppThwack Blog</a> which is no longer available. A copy of the original post can be viewed from <a href="https://web.archive.org/web/20140718005710/http://blog.appthwack.com/continuous-integration-for-mobile-apps-appthwack-jenkins-part-2/">archive.org</a>.</em></p>
 
 
 
@@ -179,14 +190,13 @@
 </section>
 
 
-</article>
+</div>
+<div class="footer container-xl px-5 my-5">
+  
 
 
 
-
-
-
-<footer>
+  <footer>
     <hr class="footer-hr">
     <ul class="social-links">
       
@@ -215,6 +225,7 @@
   </div>  
 </footer>
 
+</div>
 </body>
 </html>
 

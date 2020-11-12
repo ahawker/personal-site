@@ -24,11 +24,6 @@
   <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
   <link rel="stylesheet" href="/assets/styles/et-book.min.css">
   <link rel="stylesheet" href="/assets/styles/site.css">
-  
-
-  <!--[if lt IE 9]>
-  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
@@ -81,59 +76,71 @@
 <meta name="twitter:site" content="@rekwah" />
 <meta name="twitter:creator" content="@rekwah" />
 <script type="application/ld+json">
-{"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","url":"https://andrew.hawker.io/dailies/2020/02/25/postgres-uninitialized-error/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"Database is uninitialized and superuser password is not specified","dateModified":"2020-02-25T00:55:00-08:00","datePublished":"2020-02-25T00:55:00-08:00","author":{"@type":"Person","name":"Andrew Hawker"},"description":"Pulling down and running the latest Postgres images from Docker Hub now results in errors.","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/dailies/2020/02/25/postgres-uninitialized-error/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"headline":"Database is uninitialized and superuser password is not specified","dateModified":"2020-02-25T00:55:00-08:00","datePublished":"2020-02-25T00:55:00-08:00","url":"https://andrew.hawker.io/dailies/2020/02/25/postgres-uninitialized-error/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/dailies/2020/02/25/postgres-uninitialized-error/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"Pulling down and running the latest Postgres images from Docker Hub now results in errors.","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
 
 <body>
-
-
-
-
-<article>
+<div class="header container-xl px-5 my-5 markdown-body">
   
 
+
+
+  
 <header>
-  <h1 class="title"><a name="Database is uninitialized and superuser password is not specified"></a>Database is uninitialized and superuser password is not specified</h1>
   
+  <h1>
+    <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+    Database is uninitialized and superuser password is not specified
+  </h1>
   
-  <p class="byline">February 25, 2020</p>
-  
-  
-  <ul class="tags">
-  
-    <li class="category"><a href="/archives/category/dailies">DAILIES</a></li>
-  
-  
-  
-  
-    <li class="tag"><a href="/archives/tag/postgres">POSTGRES (1)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/docker">DOCKER (1)</a></li>
-  
-  
-  </ul>
+  <div class="col-12">
+    
+    <p class="h4 color-grey">February 25, 2020</p>
+    
+  </div>
+  <div class="col-12">
+    
+    <ul class="tags">
+    
+      <li class="category"><a href="/archives/category/dailies">DAILIES</a></li>
+    
+    
+    
+    
+      <li class="tag"><a href="/archives/tag/postgres">POSTGRES (1)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/docker">DOCKER (1)</a></li>
+    
+    
+    </ul>
+  </div>
 </header>
 
 
-
+</div>
+<div class="content container-xl px-5 my-5 markdown-body">
   <p>Pulling down and running the latest Postgres images from Docker Hub now results in errors.</p>
-<figure class="fullwidth">
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="ex">postgres_1_33777e03d7d8</span> <span class="kw">|</span> <span class="ex">Error</span>: Database is uninitialized and superuser password is not specified.</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="ex">postgres_1_33777e03d7d8</span> <span class="kw">|</span>        <span class="ex">You</span> must specify POSTGRES_PASSWORD for the superuser. Use</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="ex">postgres_1_33777e03d7d8</span> <span class="kw">|</span>        <span class="st">&quot;-e POSTGRES_PASSWORD=password&quot;</span> <span class="ex">to</span> set it in <span class="st">&quot;docker run&quot;</span>.</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="ex">postgres_1_33777e03d7d8</span> <span class="kw">|</span> </span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="ex">postgres_1_33777e03d7d8</span> <span class="kw">|</span>        <span class="ex">You</span> may also use POSTGRES_HOST_AUTH_METHOD=trust to allow all connections</span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="ex">postgres_1_33777e03d7d8</span> <span class="kw">|</span>        <span class="ex">without</span> a password. This is *not* recommended. See PostgreSQL</span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="ex">postgres_1_33777e03d7d8</span> <span class="kw">|</span>        <span class="ex">documentation</span> about <span class="st">&quot;trust&quot;</span>:</span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="ex">postgres_1_33777e03d7d8</span> <span class="kw">|</span>        <span class="ex">https</span>://www.postgresql.org/docs/current/auth-trust.html</span></code></pre></div>
-</figure>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>postgres_1_33777e03d7d8 | Error: Database is uninitialized and superuser password is not specified.
+postgres_1_33777e03d7d8 |        You must specify POSTGRES_PASSWORD <span class="k">for </span>the superuser. Use
+postgres_1_33777e03d7d8 |        <span class="s2">"-e POSTGRES_PASSWORD=password"</span> to <span class="nb">set </span>it <span class="k">in</span> <span class="s2">"docker run"</span><span class="nb">.</span>
+postgres_1_33777e03d7d8 | 
+postgres_1_33777e03d7d8 |        You may also use <span class="nv">POSTGRES_HOST_AUTH_METHOD</span><span class="o">=</span>trust to allow all connections
+postgres_1_33777e03d7d8 |        without a password. This is <span class="k">*</span>not<span class="k">*</span> recommended. See PostgreSQL
+postgres_1_33777e03d7d8 |        documentation about <span class="s2">"trust"</span>:
+postgres_1_33777e03d7d8 |        https://www.postgresql.org/docs/current/auth-trust.html
+</code></pre></div></div>
+
 <p>Turns out there was a backwards compatibility breaking change added <a href="https://github.com/docker-library/postgres/pull/658">here</a>.</p>
-<p>Update your <code>docker-compose.yml</code> or corresponding configuration with the <strong><code>POSTGRES_HOST_AUTH_METHOD</code></strong> environment variable to revert back to previous behavior or implement a proper password.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> library/postgres:11-alpine</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="at">    </span><span class="fu">environment</span><span class="kw">:</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="at">      </span><span class="fu">POSTGRES_HOST_AUTH_METHOD</span><span class="kw">:</span><span class="at"> trust</span></span></code></pre></div>
+
+<p>Update your <code class="highlighter-rouge">docker-compose.yml</code> or corresponding configuration with the <strong><code class="highlighter-rouge">POSTGRES_HOST_AUTH_METHOD</code></strong> environment variable to revert back to previous behavior or implement a proper password.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="na">image</span><span class="pi">:</span> <span class="s">library/postgres:11-alpine</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">POSTGRES_HOST_AUTH_METHOD</span><span class="pi">:</span> <span class="s">trust</span>
+</code></pre></div></div>
 
 
 
@@ -142,14 +149,13 @@
 </section>
 
 
-</article>
+</div>
+<div class="footer container-xl px-5 my-5">
+  
 
 
 
-
-
-
-<footer>
+  <footer>
     <hr class="footer-hr">
     <ul class="social-links">
       
@@ -178,6 +184,7 @@
   </div>  
 </footer>
 
+</div>
 </body>
 </html>
 

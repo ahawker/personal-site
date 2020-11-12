@@ -24,11 +24,6 @@
   <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
   <link rel="stylesheet" href="/assets/styles/et-book.min.css">
   <link rel="stylesheet" href="/assets/styles/site.css">
-  
-
-  <!--[if lt IE 9]>
-  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
@@ -81,113 +76,131 @@
 <meta name="twitter:site" content="@rekwah" />
 <meta name="twitter:creator" content="@rekwah" />
 <script type="application/ld+json">
-{"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","url":"https://andrew.hawker.io/leetcode/2020/03/24/reverse-vowels-of-a-string/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"Reverse Vowels of a String","dateModified":"2020-03-24T23:42:00-07:00","datePublished":"2020-03-24T23:42:00-07:00","author":{"@type":"Person","name":"Andrew Hawker"},"description":"I’m trying to get in a habit of starting my mornings off with coffee and a Leetcode problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/leetcode/2020/03/24/reverse-vowels-of-a-string/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"headline":"Reverse Vowels of a String","dateModified":"2020-03-24T23:42:00-07:00","datePublished":"2020-03-24T23:42:00-07:00","url":"https://andrew.hawker.io/leetcode/2020/03/24/reverse-vowels-of-a-string/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/leetcode/2020/03/24/reverse-vowels-of-a-string/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"I’m trying to get in a habit of starting my mornings off with coffee and a Leetcode problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
 
 <body>
-
-
-
-
-<article>
+<div class="header container-xl px-5 my-5 markdown-body">
   
 
+
+
+  
 <header>
-  <h1 class="title"><a name="Reverse Vowels of a String"></a>Reverse Vowels of a String</h1>
   
+  <h1>
+    <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+    Reverse Vowels of a String
+  </h1>
   
-  <p class="byline">March 24, 2020</p>
-  
-  
-  <ul class="tags">
-  
-    <li class="category"><a href="/archives/category/leetcode">LEETCODE</a></li>
-  
-  
-  
-  
-    <li class="tag"><a href="/archives/tag/leetcode-easy">LEETCODE EASY (6)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/python">PYTHON (8)</a></li>
-  
-  
-  </ul>
+  <div class="col-12">
+    
+    <p class="h4 color-grey">March 24, 2020</p>
+    
+  </div>
+  <div class="col-12">
+    
+    <ul class="tags">
+    
+      <li class="category"><a href="/archives/category/leetcode">LEETCODE</a></li>
+    
+    
+    
+    
+      <li class="tag"><a href="/archives/tag/leetcode-easy">LEETCODE EASY (6)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/python">PYTHON (8)</a></li>
+    
+    
+    </ul>
+  </div>
 </header>
 
 
-
+</div>
+<div class="content container-xl px-5 my-5 markdown-body">
   <p>I’m trying to get in a habit of starting my mornings off with coffee and a <a href="https://leetcode.com/">Leetcode</a> problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!</p>
-<section id="reverse-vowels-of-a-string" class="level2">
-<h2><a href="https://leetcode.com/problems/reverse-vowels-of-a-string/">Reverse Vowels of a String</a></h2>
-<section id="problem" class="level3">
-<h3>Problem</h3>
-<p>Write a function that takes a string as input and reverse only the vowels of a string.</p>
-<p>The vowels does not include the letter <code>"y"</code>.</p>
-<p>Example inputs:</p>
-<pre><code>Input: &quot;hello&quot;
-Output: &quot;holle&quot;
 
-Input: &quot;leetcode&quot;
-Output: &quot;leotcede&quot;</code></pre>
-</section>
-<section id="thinking" class="level3">
-<h3>Thinking</h3>
-<p>Initial thought was a <a href="https://en.wikibooks.org/wiki/Data_Structures/Stacks_and_Queues%22">queue</a> as the data structure to use here. However, <a href="https://en.wikibooks.org/wiki/Data_Structures/Stacks_and_Queues%22">stack</a> is what I wanted, I was just tired and messed up my ordering.</p>
-<p>I spent some more time thinking about this and it can be solved with a double pointer iteration as well. This is likely the optimal implementation as it does not require double iteration, <code>O(2n)</code>.</p>
+<h2 id="reverse-vowels-of-a-string"><a href="https://leetcode.com/problems/reverse-vowels-of-a-string/">Reverse Vowels of a String</a></h2>
+
+<h3 id="problem">Problem</h3>
+
+<p>Write a function that takes a string as input and reverse only the vowels of a string.</p>
+
+<p>The vowels does not include the letter <code class="highlighter-rouge">"y"</code>.</p>
+
+<p>Example inputs:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Input: "hello"
+Output: "holle"
+
+Input: "leetcode"
+Output: "leotcede"
+</code></pre></div></div>
+
+<h3 id="thinking">Thinking</h3>
+
+<p>Initial thought was a <a href="https://en.wikibooks.org/wiki/Data_Structures/Stacks_and_Queues&quot;">queue</a> as the data structure to use here. However, <a href="https://en.wikibooks.org/wiki/Data_Structures/Stacks_and_Queues&quot;">stack</a> is what I wanted, I was just tired and messed up my ordering.</p>
+
+<p>I spent some more time thinking about this and it can be solved with a double pointer iteration as well. This is likely the optimal implementation as it does not require double iteration, <code class="highlighter-rouge">O(2n)</code>.</p>
+
 <p>In short, my thinking for a naive soltuion was this:</p>
+
 <p>Iterate over the string once, storing all vowels in the stack.</p>
+
 <p>Iterate over it again to build the result string, use consonants when you find them. When you find a vowel, pop from the stack instead and continue.</p>
-</section>
-<section id="corner-cases" class="level3">
-<h3>Corner Cases</h3>
+
+<h3 id="corner-cases">Corner Cases</h3>
+
 <p>The following corner cases are what I missed in my initial solution:</p>
+
 <ul>
-<li>I forgot to include capital letters in my frozenset for determine vowel vs. consonant. :facepalm:</li>
+  <li>I forgot to include capital letters in my frozenset for determine vowel vs. consonant. :facepalm:</li>
 </ul>
-</section>
-<section id="improvements" class="level3">
-<h3>Improvements</h3>
+
+<h3 id="improvements">Improvements</h3>
+
 <p>As mentioned above, a double pointer (head/tail) iteration would be faster and use less memory.</p>
-</section>
-<section id="solution" class="level3">
-<h3>Solution</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">class</span> Solution:</span>
-<span id="cb2-2"><a href="#cb2-2"></a>    vowel_chars <span class="op">=</span> <span class="bu">frozenset</span>([<span class="st">&#39;a&#39;</span>, <span class="st">&#39;A&#39;</span>, <span class="st">&#39;e&#39;</span>, <span class="st">&#39;E&#39;</span>, <span class="st">&#39;i&#39;</span>, <span class="st">&#39;I&#39;</span>, <span class="st">&#39;o&#39;</span>, <span class="st">&#39;O&#39;</span>, <span class="st">&#39;u&#39;</span>, <span class="st">&#39;U&#39;</span>])</span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
-<span id="cb2-5"><a href="#cb2-5"></a>        <span class="va">self</span>.vowels <span class="op">=</span> []</span>
-<span id="cb2-6"><a href="#cb2-6"></a></span>
-<span id="cb2-7"><a href="#cb2-7"></a>    <span class="kw">def</span> is_vowel(<span class="va">self</span>, c):</span>
-<span id="cb2-8"><a href="#cb2-8"></a>        <span class="cf">return</span> c <span class="kw">in</span> <span class="va">self</span>.vowel_chars</span>
-<span id="cb2-9"><a href="#cb2-9"></a></span>
-<span id="cb2-10"><a href="#cb2-10"></a>    <span class="kw">def</span> is_consonant(<span class="va">self</span>, c):</span>
-<span id="cb2-11"><a href="#cb2-11"></a>        <span class="cf">return</span> <span class="kw">not</span> <span class="va">self</span>.is_vowel(c)</span>
-<span id="cb2-12"><a href="#cb2-12"></a></span>
-<span id="cb2-13"><a href="#cb2-13"></a>    <span class="kw">def</span> reverseVowels(<span class="va">self</span>, s: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
-<span id="cb2-14"><a href="#cb2-14"></a>        result <span class="op">=</span> <span class="st">&#39;&#39;</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a></span>
-<span id="cb2-16"><a href="#cb2-16"></a>        <span class="cf">for</span> c <span class="kw">in</span> s:</span>
-<span id="cb2-17"><a href="#cb2-17"></a>            <span class="cf">if</span> <span class="va">self</span>.is_vowel(c):</span>
-<span id="cb2-18"><a href="#cb2-18"></a>                <span class="va">self</span>.vowels.append(c)</span>
-<span id="cb2-19"><a href="#cb2-19"></a>            <span class="cf">else</span>:</span>
-<span id="cb2-20"><a href="#cb2-20"></a>                <span class="cf">continue</span></span>
-<span id="cb2-21"><a href="#cb2-21"></a></span>
-<span id="cb2-22"><a href="#cb2-22"></a>        <span class="cf">for</span> c <span class="kw">in</span> s:</span>
-<span id="cb2-23"><a href="#cb2-23"></a>            <span class="cf">if</span> <span class="va">self</span>.is_vowel(c):</span>
-<span id="cb2-24"><a href="#cb2-24"></a>                result <span class="op">+=</span> <span class="va">self</span>.vowels.pop()</span>
-<span id="cb2-25"><a href="#cb2-25"></a>            <span class="cf">else</span>:</span>
-<span id="cb2-26"><a href="#cb2-26"></a>                result <span class="op">+=</span> c</span>
-<span id="cb2-27"><a href="#cb2-27"></a></span>
-<span id="cb2-28"><a href="#cb2-28"></a>        <span class="cf">return</span> result</span></code></pre></div>
-</section>
-<section id="score" class="level3">
-<h3>Score</h3>
-<pre><code>Runtime: 84 ms, faster than 16.99% of Python3 online submissions for Reverse Vowels of a String.
-Memory Usage: 14.1 MB, less than 93.33% of Python3 online submissions for Reverse Vowels of a String.</code></pre>
-</section>
-</section>
+
+<h3 id="solution">Solution</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="n">vowel_chars</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">([</span><span class="s">'a'</span><span class="p">,</span> <span class="s">'A'</span><span class="p">,</span> <span class="s">'e'</span><span class="p">,</span> <span class="s">'E'</span><span class="p">,</span> <span class="s">'i'</span><span class="p">,</span> <span class="s">'I'</span><span class="p">,</span> <span class="s">'o'</span><span class="p">,</span> <span class="s">'O'</span><span class="p">,</span> <span class="s">'u'</span><span class="p">,</span> <span class="s">'U'</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vowels</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">is_vowel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vowel_chars</span>
+
+    <span class="k">def</span> <span class="nf">is_consonant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_vowel</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">reverseVowels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="s">''</span>
+
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_vowel</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">vowels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_vowel</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
+                <span class="n">result</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vowels</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">+=</span> <span class="n">c</span>
+
+        <span class="k">return</span> <span class="n">result</span>
+</code></pre></div></div>
+
+<h3 id="score">Score</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Runtime: 84 ms, faster than 16.99% of Python3 online submissions for Reverse Vowels of a String.
+Memory Usage: 14.1 MB, less than 93.33% of Python3 online submissions for Reverse Vowels of a String.
+</code></pre></div></div>
 
 
 
@@ -196,14 +209,13 @@ Memory Usage: 14.1 MB, less than 93.33% of Python3 online submissions for Revers
 </section>
 
 
-</article>
+</div>
+<div class="footer container-xl px-5 my-5">
+  
 
 
 
-
-
-
-<footer>
+  <footer>
     <hr class="footer-hr">
     <ul class="social-links">
       
@@ -232,6 +244,7 @@ Memory Usage: 14.1 MB, less than 93.33% of Python3 online submissions for Revers
   </div>  
 </footer>
 
+</div>
 </body>
 </html>
 

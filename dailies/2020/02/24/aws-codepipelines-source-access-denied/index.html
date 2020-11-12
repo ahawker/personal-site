@@ -24,11 +24,6 @@
   <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
   <link rel="stylesheet" href="/assets/styles/et-book.min.css">
   <link rel="stylesheet" href="/assets/styles/site.css">
-  
-
-  <!--[if lt IE 9]>
-  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
@@ -81,69 +76,88 @@
 <meta name="twitter:site" content="@rekwah" />
 <meta name="twitter:creator" content="@rekwah" />
 <script type="application/ld+json">
-{"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","url":"https://andrew.hawker.io/dailies/2020/02/24/aws-codepipelines-source-access-denied/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"AWS CodePipeline DOWNLOAD_SOURCE Access Denied","dateModified":"2020-02-24T03:12:00-08:00","datePublished":"2020-02-24T03:12:00-08:00","author":{"@type":"Person","name":"Andrew Hawker"},"description":"Creating a fresh AWS CodePipeline through the wizard can result in immediate errors.","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/dailies/2020/02/24/aws-codepipelines-source-access-denied/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"headline":"AWS CodePipeline DOWNLOAD_SOURCE Access Denied","dateModified":"2020-02-24T03:12:00-08:00","datePublished":"2020-02-24T03:12:00-08:00","url":"https://andrew.hawker.io/dailies/2020/02/24/aws-codepipelines-source-access-denied/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/dailies/2020/02/24/aws-codepipelines-source-access-denied/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"Creating a fresh AWS CodePipeline through the wizard can result in immediate errors.","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
 
 <body>
-
-
-
-
-<article>
+<div class="header container-xl px-5 my-5 markdown-body">
   
 
+
+
+  
 <header>
-  <h1 class="title"><a name="AWS CodePipeline DOWNLOAD_SOURCE Access Denied"></a>AWS CodePipeline DOWNLOAD_SOURCE Access Denied</h1>
   
+  <h1>
+    <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+    AWS CodePipeline DOWNLOAD_SOURCE Access Denied
+  </h1>
   
-  <p class="byline">February 24, 2020</p>
-  
-  
-  <ul class="tags">
-  
-    <li class="category"><a href="/archives/category/dailies">DAILIES</a></li>
-  
-  
-  
-  
-    <li class="tag"><a href="/archives/tag/aws">AWS (7)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/codepipeline">CODEPIPELINE (2)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/codebuild">CODEBUILD (1)</a></li>
-  
-  
-  </ul>
+  <div class="col-12">
+    
+    <p class="h4 color-grey">February 24, 2020</p>
+    
+  </div>
+  <div class="col-12">
+    
+    <ul class="tags">
+    
+      <li class="category"><a href="/archives/category/dailies">DAILIES</a></li>
+    
+    
+    
+    
+      <li class="tag"><a href="/archives/tag/aws">AWS (7)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/codepipeline">CODEPIPELINE (2)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/codebuild">CODEBUILD (1)</a></li>
+    
+    
+    </ul>
+  </div>
 </header>
 
 
-
+</div>
+<div class="content container-xl px-5 my-5 markdown-body">
   <p>Creating a fresh AWS CodePipeline through the wizard can result in immediate errors.</p>
+
 <p>In your CodeBuild build logs, you’ll see:</p>
-<p><img src="/assets/images/posts/codebuild-waiting-download-source-error.png" /></p>
+
+<p><img src="/assets/images/posts/codebuild-waiting-download-source-error.png" alt="Download Source Error" /></p>
+
 <p>In your CodeBuild phase details, you’ll see:</p>
-<pre><code>CLIENT_ERROR: AccessDenied: Access Denied status code: 403,
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CLIENT_ERROR: AccessDenied: Access Denied status code: 403,
 request id: XXX, host id: XXX/XXX= for primary source and
-source version arn:aws:s3:::${BUCKET}/${PREFIX}/${ARTIFACT_ID}</code></pre>
+source version arn:aws:s3:::${BUCKET}/${PREFIX}/${ARTIFACT_ID}
+</code></pre></div></div>
+
 <p>This happens when you select a non-default S3 bucket location for the Artifact store. In this case, the role/policies automatically created by AWS are not granted access to the Custom S3 bucket location.</p>
+
 <p>In the UI, you’ll see:</p>
-<p><img src="/assets/images/posts/codebuild-custom-location-s3.png" /></p>
+
+<p><img src="/assets/images/posts/codebuild-custom-location-s3.png" alt="S3 Bucket Custom Location" /></p>
+
 <p>To fix this, add the following permissions to the CodeBuild policy:</p>
-<pre><code>{
-    &quot;Effect&quot;: &quot;Allow&quot;,
-    &quot;Action&quot;: [
-        &quot;s3:PutObject&quot;,
-        &quot;s3:GetObject&quot;,
-        &quot;s3:GetObjectVersion&quot;,
-        &quot;s3:GetBucketAcl&quot;,
-        &quot;s3:GetBucketLocation&quot;
-    ],
-    &quot;Resource&quot;: [
-        &quot;arn:aws:s3:::${BUCKET_NAME}*&quot;
-    ]
-},</code></pre>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"s3:PutObject"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"s3:GetObject"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"s3:GetObjectVersion"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"s3:GetBucketAcl"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"s3:GetBucketLocation"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"arn:aws:s3:::${BUCKET_NAME}*"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span></code></pre></div></div>
 
 
 
@@ -152,14 +166,13 @@ source version arn:aws:s3:::${BUCKET}/${PREFIX}/${ARTIFACT_ID}</code></pre>
 </section>
 
 
-</article>
+</div>
+<div class="footer container-xl px-5 my-5">
+  
 
 
 
-
-
-
-<footer>
+  <footer>
     <hr class="footer-hr">
     <ul class="social-links">
       
@@ -188,6 +201,7 @@ source version arn:aws:s3:::${BUCKET}/${PREFIX}/${ARTIFACT_ID}</code></pre>
   </div>  
 </footer>
 
+</div>
 </body>
 </html>
 

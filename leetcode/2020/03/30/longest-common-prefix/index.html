@@ -24,11 +24,6 @@
   <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
   <link rel="stylesheet" href="/assets/styles/et-book.min.css">
   <link rel="stylesheet" href="/assets/styles/site.css">
-  
-
-  <!--[if lt IE 9]>
-  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
@@ -81,106 +76,124 @@
 <meta name="twitter:site" content="@rekwah" />
 <meta name="twitter:creator" content="@rekwah" />
 <script type="application/ld+json">
-{"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","url":"https://andrew.hawker.io/leetcode/2020/03/30/longest-common-prefix/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"Longest Common Prefix","dateModified":"2020-03-30T01:44:00-07:00","datePublished":"2020-03-30T01:44:00-07:00","author":{"@type":"Person","name":"Andrew Hawker"},"description":"I’m trying to get in a habit of starting my mornings off with coffee and a Leetcode problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/leetcode/2020/03/30/longest-common-prefix/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"headline":"Longest Common Prefix","dateModified":"2020-03-30T01:44:00-07:00","datePublished":"2020-03-30T01:44:00-07:00","url":"https://andrew.hawker.io/leetcode/2020/03/30/longest-common-prefix/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/leetcode/2020/03/30/longest-common-prefix/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"I’m trying to get in a habit of starting my mornings off with coffee and a Leetcode problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
 
 <body>
-
-
-
-
-<article>
+<div class="header container-xl px-5 my-5 markdown-body">
   
 
+
+
+  
 <header>
-  <h1 class="title"><a name="Longest Common Prefix"></a>Longest Common Prefix</h1>
   
+  <h1>
+    <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+    Longest Common Prefix
+  </h1>
   
-  <p class="byline">March 30, 2020</p>
-  
-  
-  <ul class="tags">
-  
-    <li class="category"><a href="/archives/category/leetcode">LEETCODE</a></li>
-  
-  
-  
-  
-    <li class="tag"><a href="/archives/tag/leetcode-easy">LEETCODE EASY (6)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/python">PYTHON (8)</a></li>
-  
-  
-  </ul>
+  <div class="col-12">
+    
+    <p class="h4 color-grey">March 30, 2020</p>
+    
+  </div>
+  <div class="col-12">
+    
+    <ul class="tags">
+    
+      <li class="category"><a href="/archives/category/leetcode">LEETCODE</a></li>
+    
+    
+    
+    
+      <li class="tag"><a href="/archives/tag/leetcode-easy">LEETCODE EASY (6)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/python">PYTHON (8)</a></li>
+    
+    
+    </ul>
+  </div>
 </header>
 
 
-
+</div>
+<div class="content container-xl px-5 my-5 markdown-body">
   <p>I’m trying to get in a habit of starting my mornings off with coffee and a <a href="https://leetcode.com/">Leetcode</a> problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!</p>
-<section id="longest-common-prefix" class="level2">
-<h2><a href="https://leetcode.com/problems/longest-common-prefix/">Longest Common Prefix</a></h2>
-<section id="problem" class="level3">
-<h3>Problem</h3>
-<p>Write a function to find the longest common prefix string amongst an array of strings.</p>
-<p>If there is no common prefix, return an empty string "".</p>
-<p>All given inputs are in lowercase letters a-z.</p>
-<p>Example inputs:</p>
-<pre><code>Input: [&quot;flower&quot;,&quot;flow&quot;,&quot;flight&quot;]
-Output: &quot;fl&quot;
 
-Input: [&quot;dog&quot;,&quot;racecar&quot;,&quot;car&quot;]
-Output: &quot;&quot;
-Explanation: There is no common prefix among the input strings.</code></pre>
-</section>
-<section id="thinking" class="level3">
-<h3>Thinking</h3>
+<h2 id="longest-common-prefix"><a href="https://leetcode.com/problems/longest-common-prefix/">Longest Common Prefix</a></h2>
+
+<h3 id="problem">Problem</h3>
+
+<p>Write a function to find the longest common prefix string amongst an array of strings.</p>
+
+<p>If there is no common prefix, return an empty string “”.</p>
+
+<p>All given inputs are in lowercase letters a-z.</p>
+
+<p>Example inputs:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Input: ["flower","flow","flight"]
+Output: "fl"
+
+Input: ["dog","racecar","car"]
+Output: ""
+Explanation: There is no common prefix among the input strings.
+</code></pre></div></div>
+
+<h3 id="thinking">Thinking</h3>
+
 <p>This one seems pretty straight forward.</p>
+
 <p>Maintain an index and loop through each string, checking the current character to see if it is the same. If it’s not, or we run out of characters in one of the strings, we’re done.</p>
+
 <p>With that index, just slice the string to get the prefix.</p>
-</section>
-<section id="corner-cases" class="level3">
-<h3>Corner Cases</h3>
+
+<h3 id="corner-cases">Corner Cases</h3>
+
 <p>The following corner cases are what I missed in my initial solution:</p>
+
 <ul>
-<li>Handling the zero/empty string case.</li>
+  <li>Handling the zero/empty string case.</li>
 </ul>
-</section>
-<section id="improvements" class="level3">
-<h3>Improvements</h3>
-<p>Inlining the <code>is_equal_at_index</code> function inside of the loop will likely increase runtime speed here at the cost of readability.</p>
-</section>
-<section id="solution" class="level3">
-<h3>Solution</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">class</span> Solution:</span>
-<span id="cb2-2"><a href="#cb2-2"></a>    <span class="kw">def</span> is_equal_at_index(<span class="va">self</span>, strs: List[<span class="bu">str</span>], i: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">bool</span>:</span>
-<span id="cb2-3"><a href="#cb2-3"></a>        char <span class="op">=</span> strs[<span class="dv">0</span>][i]</span>
-<span id="cb2-4"><a href="#cb2-4"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(strs)):</span>
-<span id="cb2-5"><a href="#cb2-5"></a>            <span class="cf">if</span> char <span class="op">!=</span> strs[j][i]:</span>
-<span id="cb2-6"><a href="#cb2-6"></a>                <span class="cf">return</span> <span class="va">False</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a>        <span class="cf">return</span> <span class="va">True</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a></span>
-<span id="cb2-9"><a href="#cb2-9"></a>    <span class="kw">def</span> longestCommonPrefix(<span class="va">self</span>, strs: List[<span class="bu">str</span>]) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
-<span id="cb2-10"><a href="#cb2-10"></a>        i <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a></span>
-<span id="cb2-12"><a href="#cb2-12"></a>        <span class="cf">while</span> <span class="va">True</span>:</span>
-<span id="cb2-13"><a href="#cb2-13"></a>            <span class="cf">try</span>:</span>
-<span id="cb2-14"><a href="#cb2-14"></a>                <span class="cf">if</span> <span class="kw">not</span> <span class="va">self</span>.is_equal_at_index(strs, i):</span>
-<span id="cb2-15"><a href="#cb2-15"></a>                    <span class="cf">break</span></span>
-<span id="cb2-16"><a href="#cb2-16"></a>            <span class="cf">except</span> <span class="pp">IndexError</span>:</span>
-<span id="cb2-17"><a href="#cb2-17"></a>                <span class="cf">break</span></span>
-<span id="cb2-18"><a href="#cb2-18"></a>            <span class="cf">else</span>:</span>
-<span id="cb2-19"><a href="#cb2-19"></a>                i <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb2-20"><a href="#cb2-20"></a></span>
-<span id="cb2-21"><a href="#cb2-21"></a>        <span class="cf">return</span> strs[<span class="dv">0</span>][<span class="dv">0</span>:i] <span class="cf">if</span> i <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">&#39;&#39;</span></span></code></pre></div>
-</section>
-<section id="score" class="level3">
-<h3>Score</h3>
-<pre><code>Runtime: 32 ms, faster than 66.42% of Python3 online submissions for Longest Common Prefix.
-Memory Usage: 13.9 MB, less than 6.67% of Python3 online submissions for Longest Common Prefix.</code></pre>
-</section>
-</section>
+
+<h3 id="improvements">Improvements</h3>
+
+<p>Inlining the <code class="highlighter-rouge">is_equal_at_index</code> function inside of the loop will likely increase runtime speed here at the cost of readability.</p>
+
+<h3 id="solution">Solution</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">is_equal_at_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">strs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="n">char</span> <span class="o">=</span> <span class="n">strs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">strs</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">char</span> <span class="o">!=</span> <span class="n">strs</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]:</span>
+                <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="bp">True</span>
+
+    <span class="k">def</span> <span class="nf">longestCommonPrefix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">strs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_equal_at_index</span><span class="p">(</span><span class="n">strs</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+                    <span class="k">break</span>
+            <span class="k">except</span> <span class="nb">IndexError</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="n">strs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s">''</span>
+
+</code></pre></div></div>
+
+<h3 id="score">Score</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Runtime: 32 ms, faster than 66.42% of Python3 online submissions for Longest Common Prefix.
+Memory Usage: 13.9 MB, less than 6.67% of Python3 online submissions for Longest Common Prefix.
+</code></pre></div></div>
 
 
 
@@ -189,14 +202,13 @@ Memory Usage: 13.9 MB, less than 6.67% of Python3 online submissions for Longest
 </section>
 
 
-</article>
+</div>
+<div class="footer container-xl px-5 my-5">
+  
 
 
 
-
-
-
-<footer>
+  <footer>
     <hr class="footer-hr">
     <ul class="social-links">
       
@@ -225,6 +237,7 @@ Memory Usage: 13.9 MB, less than 6.67% of Python3 online submissions for Longest
   </div>  
 </footer>
 
+</div>
 </body>
 </html>
 

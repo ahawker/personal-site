@@ -24,11 +24,6 @@
   <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
   <link rel="stylesheet" href="/assets/styles/et-book.min.css">
   <link rel="stylesheet" href="/assets/styles/site.css">
-  
-
-  <!--[if lt IE 9]>
-  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
@@ -81,62 +76,72 @@
 <meta name="twitter:site" content="@rekwah" />
 <meta name="twitter:creator" content="@rekwah" />
 <script type="application/ld+json">
-{"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","url":"https://andrew.hawker.io/writings/2020/02/09/snowplow-fargate/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"Snowplow on AWS Fargate","dateModified":"2020-02-09T10:33:00-08:00","datePublished":"2020-02-09T10:33:00-08:00","author":{"@type":"Person","name":"Andrew Hawker"},"description":"Over the past few days, I’ve been working on deploying Snowplow on AWS Fargate for my company Routegy.","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2020/02/09/snowplow-fargate/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"headline":"Snowplow on AWS Fargate","dateModified":"2020-02-09T10:33:00-08:00","datePublished":"2020-02-09T10:33:00-08:00","url":"https://andrew.hawker.io/writings/2020/02/09/snowplow-fargate/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2020/02/09/snowplow-fargate/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"Over the past few days, I’ve been working on deploying Snowplow on AWS Fargate for my company Routegy.","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
 
 <body>
-
-
-
-
-<article>
+<div class="header container-xl px-5 my-5 markdown-body">
   
 
+
+
+  
 <header>
-  <h1 class="title"><a name="Snowplow on AWS Fargate"></a>Snowplow on AWS Fargate</h1>
   
+  <h1>
+    <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+    Snowplow on AWS Fargate
+  </h1>
   
-  <p class="byline">February 9, 2020</p>
-  
-  
-  <ul class="tags">
-  
-    <li class="category"><a href="/archives/category/writings">WRITINGS</a></li>
-  
-  
-  
-  
-    <li class="tag"><a href="/archives/tag/snowplow">SNOWPLOW (4)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/aws">AWS (7)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/ecs">ECS (5)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/fargate">FARGATE (5)</a></li>
-  
-  
-  </ul>
+  <div class="col-12">
+    
+    <p class="h4 color-grey">February 9, 2020</p>
+    
+  </div>
+  <div class="col-12">
+    
+    <ul class="tags">
+    
+      <li class="category"><a href="/archives/category/writings">WRITINGS</a></li>
+    
+    
+    
+    
+      <li class="tag"><a href="/archives/tag/snowplow">SNOWPLOW (4)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/aws">AWS (7)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/ecs">ECS (5)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/fargate">FARGATE (5)</a></li>
+    
+    
+    </ul>
+  </div>
 </header>
 
 
-
+</div>
+<div class="content container-xl px-5 my-5 markdown-body">
   <p>Over the past few days, I’ve been working on deploying <a href="https://github.com/snowplow/snowplow">Snowplow</a> on <a href="https://aws.amazon.com/fargate/">AWS Fargate</a> for my company <a href="https://routegy.com">Routegy</a>.</p>
-<p>I’m deploying the <em>streaming</em> version of Snowplow, using the <a href="https://github.com/%20snowplow/snowplow/wiki/Setting-up-the-Scala-Stream-Collector">Scala Stream Collector</a> and <a href="https://github.com/%20snowplow/snowplow/wiki/setting-up-stream-enrich">Stream Enricher</a> using slightly modified versions of the official <a href="https://github.com/snowplow/snowplow-docker">dockerfiles</a>.</p>
+
+<p>I’m deploying the <em>streaming</em> version of Snowplow, using the <a href="https://github.com/ snowplow/snowplow/wiki/Setting-up-the-Scala-Stream-Collector">Scala Stream Collector</a> and <a href="https://github.com/ snowplow/snowplow/wiki/setting-up-stream-enrich">Stream Enricher</a> using slightly modified versions of the official <a href="https://github.com/snowplow/snowplow-docker">dockerfiles</a>.</p>
+
 <p>However, AWS ECS/Fargate is an undocumented platform on the <a href="https://github.com/snowplow/snowplow">Snowplow Wiki</a> so there have been some growing pains. This blog series will cover some of the gotchas, problems, and solutions I found along the way.</p>
-<section id="part-1-using-ecs-task-role-permissions" class="level2">
-<h2>Part 1: Using ECS Task Role Permissions</h2>
+
+<h2 id="part-1-using-ecs-task-role-permissions">Part 1: Using ECS Task Role Permissions</h2>
+
 <p><strong><a href="/writings/2020/02/10/snowplow-fargate-task-role/">Snowplow on AWS Fargate - Task Role</a></strong> outlines how to configure your Snowplow components properly to give them access to the ECS task role.</p>
-</section>
-<section id="part-2-stream-enricher-gotchas" class="level2">
-<h2>Part 2: Stream Enricher Gotchas</h2>
+
+<h2 id="part-2-stream-enricher-gotchas">Part 2: Stream Enricher Gotchas</h2>
+
 <p><strong><a href="/writings/2020/02/11/snowplow-fargate-enricher/">Snowplow on AWS Fargate - Stream Enricher</a></strong> contains more information for running the <a href="https://github.com/snowplow/snowplow/wiki/setting-up-stream-enrich">Snowplow Stream Enrich</a> component.</p>
-</section>
-<section id="part-3-iam-permissions" class="level2">
-<h2>Part 3: IAM Permissions</h2>
+
+<h2 id="part-3-iam-permissions">Part 3: IAM Permissions</h2>
+
 <p><strong><a href="/writings/2020/02/12/snowplow-fargate-permissions/">Snowplow on AWS Fargate - IAM Permissions</a></strong> contains IAM policy document examples for each Snowplow component to give it the minimum required security access.</p>
-</section>
 
 
 
@@ -145,14 +150,13 @@
 </section>
 
 
-</article>
+</div>
+<div class="footer container-xl px-5 my-5">
+  
 
 
 
-
-
-
-<footer>
+  <footer>
     <hr class="footer-hr">
     <ul class="social-links">
       
@@ -181,6 +185,7 @@
   </div>  
 </footer>
 
+</div>
 </body>
 </html>
 

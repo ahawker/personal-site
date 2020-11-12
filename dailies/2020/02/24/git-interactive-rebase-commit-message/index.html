@@ -24,11 +24,6 @@
   <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
   <link rel="stylesheet" href="/assets/styles/et-book.min.css">
   <link rel="stylesheet" href="/assets/styles/site.css">
-  
-
-  <!--[if lt IE 9]>
-  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
@@ -81,55 +76,69 @@
 <meta name="twitter:site" content="@rekwah" />
 <meta name="twitter:creator" content="@rekwah" />
 <script type="application/ld+json">
-{"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","url":"https://andrew.hawker.io/dailies/2020/02/24/git-interactive-rebase-commit-message/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"Edit git commit message during interactive rebase","dateModified":"2020-02-24T03:12:00-08:00","datePublished":"2020-02-24T03:12:00-08:00","author":{"@type":"Person","name":"Andrew Hawker"},"description":"Previously, this is how I would edit git commit messages beyond HEAD within the history.","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/dailies/2020/02/24/git-interactive-rebase-commit-message/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"headline":"Edit git commit message during interactive rebase","dateModified":"2020-02-24T03:12:00-08:00","datePublished":"2020-02-24T03:12:00-08:00","url":"https://andrew.hawker.io/dailies/2020/02/24/git-interactive-rebase-commit-message/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/dailies/2020/02/24/git-interactive-rebase-commit-message/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"Previously, this is how I would edit git commit messages beyond HEAD within the history.","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
 
 <body>
-
-
-
-
-<article>
+<div class="header container-xl px-5 my-5 markdown-body">
   
 
+
+
+  
 <header>
-  <h1 class="title"><a name="Edit git commit message during interactive rebase"></a>Edit git commit message during interactive rebase</h1>
   
+  <h1>
+    <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+    Edit git commit message during interactive rebase
+  </h1>
   
-  <p class="byline">February 24, 2020</p>
-  
-  
-  <ul class="tags">
-  
-    <li class="category"><a href="/archives/category/dailies">DAILIES</a></li>
-  
-  
-  
-  
-    <li class="tag"><a href="/archives/tag/git">GIT (1)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/rebase">REBASE (1)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/commit">COMMIT (1)</a></li>
-  
-  
-  </ul>
+  <div class="col-12">
+    
+    <p class="h4 color-grey">February 24, 2020</p>
+    
+  </div>
+  <div class="col-12">
+    
+    <ul class="tags">
+    
+      <li class="category"><a href="/archives/category/dailies">DAILIES</a></li>
+    
+    
+    
+    
+      <li class="tag"><a href="/archives/tag/git">GIT (1)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/rebase">REBASE (1)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/commit">COMMIT (1)</a></li>
+    
+    
+    </ul>
+  </div>
 </header>
 
 
+</div>
+<div class="content container-xl px-5 my-5 markdown-body">
+  <p>Previously, this is how I would edit <code class="highlighter-rouge">git</code> commit messages beyond <code class="highlighter-rouge">HEAD</code> within the history.</p>
 
-  <p>Previously, this is how I would edit <code>git</code> commit messages beyond <code>HEAD</code> within the history.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a>$ <span class="fu">git</span> rebase -i <span class="va">${HASH}</span>^1</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="ex">...Mark</span> commits with <span class="kw">`</span><span class="ex">edit</span><span class="kw">`</span> command</span>
-<span id="cb1-3"><a href="#cb1-3"></a>$ <span class="fu">git</span> commit --amend</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="ex">...Update</span> message</span>
-<span id="cb1-5"><a href="#cb1-5"></a>$ <span class="fu">git</span> rebase --continue</span></code></pre></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git rebase <span class="nt">-i</span> <span class="k">${</span><span class="nv">HASH</span><span class="k">}</span>^1
+...Mark commits with <span class="sb">`</span>edit<span class="sb">`</span> <span class="nb">command</span>
+<span class="nv">$ </span>git commit <span class="nt">--amend</span>
+...Update message
+<span class="nv">$ </span>git rebase <span class="nt">--continue</span>
+</code></pre></div></div>
+
 <p>Thankfully there is a shortcut for this flow as it’s a bit cumbersome.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a>$ <span class="fu">git</span> rebase -i <span class="va">${HASH}</span>^1</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="ex">...Mark</span> commits with <span class="kw">`</span><span class="ex">reword</span><span class="kw">`</span> command</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="ex">...Update</span> message</span></code></pre></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git rebase <span class="nt">-i</span> <span class="k">${</span><span class="nv">HASH</span><span class="k">}</span>^1
+...Mark commits with <span class="sb">`</span>reword<span class="sb">`</span> <span class="nb">command</span>
+...Update message
+</code></pre></div></div>
+
 <p>More info in the git docs <a href="https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History">here</a>.</p>
 
 
@@ -139,14 +148,13 @@
 </section>
 
 
-</article>
+</div>
+<div class="footer container-xl px-5 my-5">
+  
 
 
 
-
-
-
-<footer>
+  <footer>
     <hr class="footer-hr">
     <ul class="social-links">
       
@@ -175,6 +183,7 @@
   </div>  
 </footer>
 
+</div>
 </body>
 </html>
 

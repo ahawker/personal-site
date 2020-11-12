@@ -24,11 +24,6 @@
   <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
   <link rel="stylesheet" href="/assets/styles/et-book.min.css">
   <link rel="stylesheet" href="/assets/styles/site.css">
-  
-
-  <!--[if lt IE 9]>
-  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
@@ -81,113 +76,138 @@
 <meta name="twitter:site" content="@rekwah" />
 <meta name="twitter:creator" content="@rekwah" />
 <script type="application/ld+json">
-{"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","url":"https://andrew.hawker.io/writings/2020/02/11/snowplow-fargate-enricher/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"Snowplow on AWS Fargate - Stream Enrich","dateModified":"2020-02-11T13:32:00-08:00","datePublished":"2020-02-11T13:32:00-08:00","author":{"@type":"Person","name":"Andrew Hawker"},"description":"Personal website of Andrew Hawker","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2020/02/11/snowplow-fargate-enricher/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"headline":"Snowplow on AWS Fargate - Stream Enrich","dateModified":"2020-02-11T13:32:00-08:00","datePublished":"2020-02-11T13:32:00-08:00","url":"https://andrew.hawker.io/writings/2020/02/11/snowplow-fargate-enricher/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2020/02/11/snowplow-fargate-enricher/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"Personal website of Andrew Hawker","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
 
 <body>
-
-
-
-
-<article>
+<div class="header container-xl px-5 my-5 markdown-body">
   
 
+
+
+  
 <header>
-  <h1 class="title"><a name="Snowplow on AWS Fargate - Stream Enrich"></a>Snowplow on AWS Fargate - Stream Enrich</h1>
   
+  <h1>
+    <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+    Snowplow on AWS Fargate - Stream Enrich
+  </h1>
   
-  <p class="byline">February 11, 2020</p>
-  
-  
-  <ul class="tags">
-  
-    <li class="category"><a href="/archives/category/writings">WRITINGS</a></li>
-  
-  
-  
-  
-    <li class="tag"><a href="/archives/tag/snowplow">SNOWPLOW (4)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/aws">AWS (7)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/ecs">ECS (5)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/fargate">FARGATE (5)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/stream">STREAM (1)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/enrich">ENRICH (1)</a></li>
-  
-  
-  </ul>
+  <div class="col-12">
+    
+    <p class="h4 color-grey">February 11, 2020</p>
+    
+  </div>
+  <div class="col-12">
+    
+    <ul class="tags">
+    
+      <li class="category"><a href="/archives/category/writings">WRITINGS</a></li>
+    
+    
+    
+    
+      <li class="tag"><a href="/archives/tag/snowplow">SNOWPLOW (4)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/aws">AWS (7)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/ecs">ECS (5)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/fargate">FARGATE (5)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/stream">STREAM (1)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/enrich">ENRICH (1)</a></li>
+    
+    
+    </ul>
+  </div>
 </header>
 
 
-
+</div>
+<div class="content container-xl px-5 my-5 markdown-body">
   <hr />
+
 <p>This is part <strong>three</strong> of a blog post series about <strong>Snowplow on AWS Fargate</strong>.</p>
+
 <ul>
-<li><a href="/writings/2020/02/09/snowplow-fargate/">Part 1: Snowplow on AWS Fargate</a></li>
-<li><a href="/writings/2020/02/10/snowplow-fargate-task-role/">Part 2: Snowplow on AWS Fargate - Task Role</a></li>
-<li><a href="/writings/2020/02/12/snowplow-fargate-permissions/">Part 4: Snowplow on AWS Fargate - IAM Permissions</a></li>
+  <li><a href="/writings/2020/02/09/snowplow-fargate/">Part 1: Snowplow on AWS Fargate</a></li>
+  <li><a href="/writings/2020/02/10/snowplow-fargate-task-role/">Part 2: Snowplow on AWS Fargate - Task Role</a></li>
+  <li><a href="/writings/2020/02/12/snowplow-fargate-permissions/">Part 4: Snowplow on AWS Fargate - IAM Permissions</a></li>
 </ul>
+
 <hr />
-<section id="goal" class="level3">
-<h3>Goal</h3>
+
+<h3 id="goal">Goal</h3>
+
 <p>This post will outline common problems (and their solutions) encountered when running the <a href="https://github.com/snowplow/snowplow/wiki/Run-Stream-Enrich">Snowplow Stream Enrich</a> container on AWS Fargate.</p>
-</section>
-<section id="name-does-not-resolve" class="level2">
-<h2>Name does not resolve</h2>
-<p>The is a common problem with ECS agent not properly setting up the <code>/etc/hosts</code> file and appears as well on AWS Fargate.</p>
+
+<h2 id="name-does-not-resolve">Name does not resolve</h2>
+
+<p>The is a common problem with ECS agent not properly setting up the <code class="highlighter-rouge">/etc/hosts</code> file and appears as well on AWS Fargate.</p>
+
 <p>Example stack trace:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1"></a><span class="bn">02</span>:<span class="dv">58</span>:<span class="dv">45</span> <span class="bu">Exception</span> in thread <span class="st">&quot;main&quot;</span> java.<span class="fu">net</span>.<span class="fu">UnknownHostException</span>: 3b76b684dc30: 3b76b684dc30: <span class="bu">Name</span> does not resolve</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="bn">02</span>:<span class="dv">58</span>:<span class="dv">45</span> at java.<span class="fu">net</span>.<span class="fu">InetAddress</span>.<span class="fu">getLocalHost</span>(<span class="bu">InetAddress</span>.<span class="fu">java</span>:<span class="dv">1505</span>)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="bn">02</span>:<span class="dv">58</span>:<span class="dv">45</span> at com.<span class="fu">snowplowanalytics</span>.<span class="fu">snowplow</span>.<span class="fu">enrich</span>.<span class="fu">stream</span>.<span class="fu">sources</span>.<span class="fu">KinesisSource</span>.<span class="fu">run</span>(KinesisSource.<span class="fu">scala</span>:<span class="dv">117</span>)</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="bn">02</span>:<span class="dv">58</span>:<span class="dv">45</span> at com.<span class="fu">snowplowanalytics</span>.<span class="fu">snowplow</span>.<span class="fu">enrich</span>.<span class="fu">stream</span>.<span class="fu">KinesisEnrich</span>$.<span class="fu">main</span>(KinesisEnrich.<span class="fu">scala</span>:<span class="dv">81</span>)</span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="bn">02</span>:<span class="dv">58</span>:<span class="dv">45</span> at com.<span class="fu">snowplowanalytics</span>.<span class="fu">snowplow</span>.<span class="fu">enrich</span>.<span class="fu">stream</span>.<span class="fu">KinesisEnrich</span>.<span class="fu">main</span>(KinesisEnrich.<span class="fu">scala</span>)</span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="bn">02</span>:<span class="dv">58</span>:<span class="dv">45</span> Caused by: java.<span class="fu">net</span>.<span class="fu">UnknownHostException</span>: 3b76b684dc30: <span class="bu">Name</span> does not resolve</span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="bn">02</span>:<span class="dv">58</span>:<span class="dv">45</span> at java.<span class="fu">net</span>.<span class="fu">Inet4AddressImpl</span>.<span class="fu">lookupAllHostAddr</span>(Native <span class="bu">Method</span>)</span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="bn">02</span>:<span class="dv">58</span>:<span class="dv">45</span> at java.<span class="fu">net</span>.<span class="fu">InetAddress</span>$<span class="fl">2.</span><span class="fu">lookupAllHostAddr</span>(<span class="bu">InetAddress</span>.<span class="fu">java</span>:<span class="dv">928</span>)</span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="bn">02</span>:<span class="dv">58</span>:<span class="dv">45</span> at java.<span class="fu">net</span>.<span class="fu">InetAddress</span>.<span class="fu">getAddressesFromNameService</span>(<span class="bu">InetAddress</span>.<span class="fu">java</span>:<span class="dv">1323</span>)</span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="bn">02</span>:<span class="dv">58</span>:<span class="dv">45</span> at java.<span class="fu">net</span>.<span class="fu">InetAddress</span>.<span class="fu">getLocalHost</span>(<span class="bu">InetAddress</span>.<span class="fu">java</span>:<span class="dv">1500</span>)</span></code></pre></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mo">02</span><span class="o">:</span><span class="mi">58</span><span class="o">:</span><span class="mi">45</span> <span class="nc">Exception</span> <span class="n">in</span> <span class="n">thread</span> <span class="s">"main"</span> <span class="n">java</span><span class="o">.</span><span class="na">net</span><span class="o">.</span><span class="na">UnknownHostException</span><span class="o">:</span> <span class="mi">3</span><span class="nl">b76b684dc30:</span> <span class="mi">3</span><span class="nl">b76b684dc30:</span> <span class="nc">Name</span> <span class="n">does</span> <span class="n">not</span> <span class="n">resolve</span>
+<span class="mo">02</span><span class="o">:</span><span class="mi">58</span><span class="o">:</span><span class="mi">45</span> <span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">net</span><span class="o">.</span><span class="na">InetAddress</span><span class="o">.</span><span class="na">getLocalHost</span><span class="o">(</span><span class="nc">InetAddress</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">1505</span><span class="o">)</span>
+<span class="mo">02</span><span class="o">:</span><span class="mi">58</span><span class="o">:</span><span class="mi">45</span> <span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">snowplowanalytics</span><span class="o">.</span><span class="na">snowplow</span><span class="o">.</span><span class="na">enrich</span><span class="o">.</span><span class="na">stream</span><span class="o">.</span><span class="na">sources</span><span class="o">.</span><span class="na">KinesisSource</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">KinesisSource</span><span class="o">.</span><span class="na">scala</span><span class="o">:</span><span class="mi">117</span><span class="o">)</span>
+<span class="mo">02</span><span class="o">:</span><span class="mi">58</span><span class="o">:</span><span class="mi">45</span> <span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">snowplowanalytics</span><span class="o">.</span><span class="na">snowplow</span><span class="o">.</span><span class="na">enrich</span><span class="o">.</span><span class="na">stream</span><span class="o">.</span><span class="na">KinesisEnrich</span><span class="err">$</span><span class="o">.</span><span class="na">main</span><span class="o">(</span><span class="nc">KinesisEnrich</span><span class="o">.</span><span class="na">scala</span><span class="o">:</span><span class="mi">81</span><span class="o">)</span>
+<span class="mo">02</span><span class="o">:</span><span class="mi">58</span><span class="o">:</span><span class="mi">45</span> <span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">snowplowanalytics</span><span class="o">.</span><span class="na">snowplow</span><span class="o">.</span><span class="na">enrich</span><span class="o">.</span><span class="na">stream</span><span class="o">.</span><span class="na">KinesisEnrich</span><span class="o">.</span><span class="na">main</span><span class="o">(</span><span class="nc">KinesisEnrich</span><span class="o">.</span><span class="na">scala</span><span class="o">)</span>
+<span class="mo">02</span><span class="o">:</span><span class="mi">58</span><span class="o">:</span><span class="mi">45</span> <span class="nc">Caused</span> <span class="nl">by:</span> <span class="n">java</span><span class="o">.</span><span class="na">net</span><span class="o">.</span><span class="na">UnknownHostException</span><span class="o">:</span> <span class="mi">3</span><span class="nl">b76b684dc30:</span> <span class="nc">Name</span> <span class="n">does</span> <span class="n">not</span> <span class="n">resolve</span>
+<span class="mo">02</span><span class="o">:</span><span class="mi">58</span><span class="o">:</span><span class="mi">45</span> <span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">net</span><span class="o">.</span><span class="na">Inet4AddressImpl</span><span class="o">.</span><span class="na">lookupAllHostAddr</span><span class="o">(</span><span class="nc">Native</span> <span class="nc">Method</span><span class="o">)</span>
+<span class="mo">02</span><span class="o">:</span><span class="mi">58</span><span class="o">:</span><span class="mi">45</span> <span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">net</span><span class="o">.</span><span class="na">InetAddress</span><span class="err">$</span><span class="mi">2</span><span class="o">.</span><span class="na">lookupAllHostAddr</span><span class="o">(</span><span class="nc">InetAddress</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">928</span><span class="o">)</span>
+<span class="mo">02</span><span class="o">:</span><span class="mi">58</span><span class="o">:</span><span class="mi">45</span> <span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">net</span><span class="o">.</span><span class="na">InetAddress</span><span class="o">.</span><span class="na">getAddressesFromNameService</span><span class="o">(</span><span class="nc">InetAddress</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">1323</span><span class="o">)</span>
+<span class="mo">02</span><span class="o">:</span><span class="mi">58</span><span class="o">:</span><span class="mi">45</span> <span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">net</span><span class="o">.</span><span class="na">InetAddress</span><span class="o">.</span><span class="na">getLocalHost</span><span class="o">(</span><span class="nc">InetAddress</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">1500</span><span class="o">)</span>
+</code></pre></div></div>
+
 <p>After some investigation, <a href="https://stackoverflow.com/questions/49592709/aws-fargate-hostname-not-doable">this</a> Stack Overflow post got me going in the correct direction with some slight modifications required.</p>
-<p>First, the ethernet interface in AWS Fargate is going to be <strong><code>eth0</code></strong>. Second, if you’re using the official snowplow docker images, they already define an <code>ENTRYPOINT</code> instruction, so you’ll need to override this. Write your own and call the original.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a>⇒  <span class="fu">cat</span> entrypoint.sh</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="co">#!/usr/bin/dumb-init /bin/sh</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">set</span> <span class="ex">-e</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="bu">echo</span> <span class="st">&quot;</span><span class="va">$(</span><span class="ex">ip</span> a <span class="kw">|</span> <span class="fu">grep</span> -A2 eth0 <span class="kw">|</span> <span class="fu">grep</span> inet <span class="kw">|</span> <span class="fu">awk</span> <span class="st">&#39;{print $2}&#39;</span> <span class="kw">|</span> <span class="fu">sed</span> <span class="st">&#39;s#/.*##g&#39;</span> <span class="va">)</span><span class="st"> </span><span class="va">$(</span><span class="fu">hostname</span><span class="va">)</span><span class="st">&quot;</span> <span class="op">&gt;&gt;</span> /etc/hosts</span>
-<span id="cb2-6"><a href="#cb2-6"></a></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="bu">exec</span> docker-entrypoint.sh <span class="va">$*</span></span></code></pre></div>
-</section>
-<section id="bucket-not-found" class="level2">
-<h2>Bucket not found</h2>
+
+<p>First, the ethernet interface in AWS Fargate is going to be <strong><code class="highlighter-rouge">eth0</code></strong>.
+Second, if you’re using the official snowplow docker images, they already define an <code class="highlighter-rouge">ENTRYPOINT</code> instruction, so you’ll need to override this. Write your own and call the original.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>⇒  <span class="nb">cat </span>entrypoint.sh
+<span class="c">#!/usr/bin/dumb-init /bin/sh</span>
+<span class="nb">set</span> <span class="nt">-e</span>
+
+<span class="nb">echo</span> <span class="s2">"</span><span class="si">$(</span>ip a | <span class="nb">grep</span> <span class="nt">-A2</span> eth0 | <span class="nb">grep </span>inet | <span class="nb">awk</span> <span class="s1">'{print $2}'</span> | <span class="nb">sed</span> <span class="s1">'s#/.*##g'</span> <span class="si">)</span><span class="s2"> </span><span class="si">$(</span><span class="nb">hostname</span><span class="si">)</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> /etc/hosts
+
+<span class="nb">exec </span>docker-entrypoint.sh <span class="nv">$*</span>
+</code></pre></div></div>
+
+<h2 id="bucket-not-found">Bucket not found</h2>
+
 <p>This is a problem related to the “enrichment” configuration files and the defaults defined <a href="https://github.com/snowplow/snowplow/tree/master/3-enrich/config/enrichments/">here</a>.</p>
+
 <p>The problem can crop up in a number of ways (based on your config) but may look something like these:</p>
-<pre><code>NonEmptyList(The bucket is in this region: eu-west-1. Please use this region to retry the request (Service: Amazon S3; Status Code: 301
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NonEmptyList(The bucket is in this region: eu-west-1. Please use this region to retry the request (Service: Amazon S3; Status Code: 301
 
 NonEmptyList(Access Denied (Service: Amazon S3; Status Code: 403; Error Code: AccessDenied; Request ID: xxx; S3 Extended Request ID: sjCFZle+xxx/xxx=), Access Denied (Service: Amazon S3; Status Code: 403; Error Code: AccessDenied; Request ID: xxx; S3 Extended Request ID: xxx/xxx/xxx/xxx=))
 
-02:18:58 Exception in thread &quot;Thread-6&quot; java.net.UnknownHostException: snowplow-hosted-assets-us-west-2
+02:18:58 Exception in thread "Thread-6" java.net.UnknownHostException: snowplow-hosted-assets-us-west-2
 02:18:58 at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:184)
 02:18:58 at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
 02:18:58 at java.net.Socket.connect(Socket.java:589)
-02:18:58 at java.net.Socket.connect(Socket.java:538)</code></pre>
-<p>The <a href="https://github.com/snowplow/snowplow/wiki/ua-parser-enrichment">UA Parser</a> and <a href="https://github.com/snowplow/snowplow/wiki/IP-lookups-enrichment">Geolite IP Lookups</a> enrichments can both be configured to pull resources down from S3 buckets, however they use slightly different syntax. The <a href="https://github.com/snowplow/snowplow/blob/master/3-enrich/config/enrichments/ip_lookups.json">ip_lookups.json</a> file uses a <code>http://</code> URI scheme to a file in an S3 bucket while the <a href="https://github.com/snowplow/snowplow/blob/master/3-enrich/config/enrichments/ua_parser_config.json">us_parser_config.json</a> uses <code>s3://</code>.</p>
-<p>I switched both of mine to <code>http://</code> URI schemes to work around the problem, e.g.</p>
-<p><span><label for="sn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-1" class="margin-toggle"/><span class="marginnote"> Snowplow will eventually stop self hosting the Geolite databases so you will need to host them yourself. See the original <a href="https://discourse.snowplowanalytics.com/t/deprecation-notice-snowplow-will-stop-hosting-the-maxmind-geolite2-database-on-behalf-of-users/3468">deprecation notice</a> for more details.<br />
-<br />
-</span></span></p>
-<pre><code>&quot;uri&quot;: &quot;http://snowplow-hosted-assets.s3.amazonaws.com/third-party/maxmind&quot;
+02:18:58 at java.net.Socket.connect(Socket.java:538)
+</code></pre></div></div>
 
-&quot;uri&quot;: &quot;http://snowplow-hosted-assets.s3.amazonaws.com/third-party/ua-parser&quot;</code></pre>
-<section id="next" class="level3">
-<h3>Next</h3>
+<p>The <a href="https://github.com/snowplow/snowplow/wiki/ua-parser-enrichment">UA Parser</a> and <a href="https://github.com/snowplow/snowplow/wiki/IP-lookups-enrichment">Geolite IP Lookups</a> enrichments can both be configured to pull resources down from S3 buckets, however they use slightly different syntax. The <a href="https://github.com/snowplow/snowplow/blob/master/3-enrich/config/enrichments/ip_lookups.json">ip_lookups.json</a> file uses a <code class="highlighter-rouge">http://</code> URI scheme to a file in an S3 bucket while the <a href="https://github.com/snowplow/snowplow/blob/master/3-enrich/config/enrichments/ua_parser_config.json">us_parser_config.json</a> uses <code class="highlighter-rouge">s3://</code>.</p>
+
+<p>I switched both of mine to <code class="highlighter-rouge">http://</code> URI schemes to work around the problem, e.g.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"uri": "http://snowplow-hosted-assets.s3.amazonaws.com/third-party/maxmind"
+
+"uri": "http://snowplow-hosted-assets.s3.amazonaws.com/third-party/ua-parser"
+</code></pre></div></div>
+
+<p><strong>Note:</strong> Per their forums, Snowplow will eventually stop self hosting the Geolite databases so you will need to host them yourself. See the original <a href="https://discourse.snowplowanalytics.com/t/deprecation-notice-snowplow-will-stop-hosting-the-maxmind-geolite2-database-on-behalf-of-users/3468">deprecation notice</a> for more details.</p>
+
+<h3 id="next">Next</h3>
+
 <p>Check out the next post in this series, <a href="/writings/2020/02/12/snowplow-fargate-permissions/">Snowplow on AWS Fargate - IAM Permissions</a>, which covers IAM permissions required to run all Snowplow processes on AWS Fargate.</p>
-</section>
-</section>
 
 
 
@@ -196,14 +216,13 @@ NonEmptyList(Access Denied (Service: Amazon S3; Status Code: 403; Error Code: Ac
 </section>
 
 
-</article>
+</div>
+<div class="footer container-xl px-5 my-5">
+  
 
 
 
-
-
-
-<footer>
+  <footer>
     <hr class="footer-hr">
     <ul class="social-links">
       
@@ -232,6 +251,7 @@ NonEmptyList(Access Denied (Service: Amazon S3; Status Code: 403; Error Code: Ac
   </div>  
 </footer>
 
+</div>
 </body>
 </html>
 

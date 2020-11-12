@@ -1,0 +1,27 @@
+notes.txt
+
+
+    {% if page.author %}
+    {% assign author = site.data.authors[page.author] %}
+
+    <!-- <div class="col-12">
+      <div class="v-align-middle">
+        <div class="p-2 mr-2 v-align-middle">
+          <img class="avatar" src="{{ author.picture }}">
+        </div>
+        <div>
+          {% if author.name %}
+          <span class="h2 text-normal lh-condensed">{{ author.name }}</span>
+          {% endif %}
+          {% if author.title %}
+          <p class="h4 text-gray text-normal mb-2">{{ author.title }}</p>
+          {% endif %}
+          {% if author.twitter %}
+          <a class="text-base" href="https://twitter.com/{{ author.twitter }}">@{{ author.twitter }}</a>
+          {% endif %}
+          {% if page.date %}
+          <p class="text-gray text-xs">Written: {{ page.date | date: "%B %-d, %Y" }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div> -->

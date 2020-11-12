@@ -1,534 +1,612 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://andrew.hawker.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://andrew.hawker.io/" rel="alternate" type="text/html" /><updated>2020-11-10T09:56:01-08:00</updated><id>https://andrew.hawker.io/feed.xml</id><title type="html">Andrew Hawker</title><subtitle>Personal website of Andrew Hawker</subtitle><author><name>Andrew Hawker</name></author><entry><title type="html">Django HashID URL Converter</title><link href="https://andrew.hawker.io/dailies/2020/11/10/django-hashid-url-converter/" rel="alternate" type="text/html" title="Django HashID URL Converter" /><published>2020-11-10T01:04:00-08:00</published><updated>2020-11-10T01:04:00-08:00</updated><id>https://andrew.hawker.io/dailies/2020/11/10/django-hashid-url-converter</id><content type="html" xml:base="https://andrew.hawker.io/dailies/2020/11/10/django-hashid-url-converter/">&lt;p&gt;HashID’s allow you to convert an integer into a “&lt;a href=&quot;https://carnage.github.io/2015/08/cryptanalysis-of-hashids&quot;&gt;unique&lt;/a&gt;” short string.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://andrew.hawker.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://andrew.hawker.io/" rel="alternate" type="text/html" /><updated>2020-11-11T16:36:44-08:00</updated><id>https://andrew.hawker.io/feed.xml</id><title type="html">Andrew Hawker</title><subtitle>Personal website of Andrew Hawker</subtitle><author><name>Andrew Hawker</name></author><entry><title type="html">Django HashID URL Converter</title><link href="https://andrew.hawker.io/dailies/2020/11/10/django-hashid-url-converter/" rel="alternate" type="text/html" title="Django HashID URL Converter" /><published>2020-11-10T01:04:00-08:00</published><updated>2020-11-10T01:04:00-08:00</updated><id>https://andrew.hawker.io/dailies/2020/11/10/django-hashid-url-converter</id><content type="html" xml:base="https://andrew.hawker.io/dailies/2020/11/10/django-hashid-url-converter/">&lt;p&gt;HashID’s allow you to convert an integer into a “&lt;a href=&quot;https://carnage.github.io/2015/08/cryptanalysis-of-hashids&quot;&gt;unique&lt;/a&gt;” short string.&lt;/p&gt;
+
 &lt;p&gt;If you &lt;a href=&quot;https://github.com/nshafer/django-hashid-field&quot;&gt;Django HashID Field&lt;/a&gt;, you’ll want to create a custom path converter so you can accept them in URL’s.&lt;/p&gt;
-&lt;p&gt;&lt;span&gt;&lt;label for=&quot;sn-1&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-1&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; You can skip the factory function and just define a normal class with your own &lt;code&gt;min_length/alphabet&lt;/code&gt; values for simplicity.&lt;br /&gt;
-&lt;br /&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot; id=&quot;cb1&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span id=&quot;cb1-1&quot;&gt;&lt;a href=&quot;#cb1-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;im&quot;&gt;from&lt;/span&gt; hashids &lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; Hashids&lt;/span&gt;
-&lt;span id=&quot;cb1-2&quot;&gt;&lt;a href=&quot;#cb1-2&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-3&quot;&gt;&lt;a href=&quot;#cb1-3&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; hashid_converter_factory(min_length&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;, alphabet&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;Hashids.ALPHABET)&lt;/span&gt;
-&lt;span id=&quot;cb1-4&quot;&gt;&lt;a href=&quot;#cb1-4&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;co&quot;&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-5&quot;&gt;&lt;a href=&quot;#cb1-5&quot;&gt;&lt;/a&gt;&lt;span class=&quot;co&quot;&gt;    Factory function to create a Django URL path converter for HashID&amp;#39;s using a&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-6&quot;&gt;&lt;a href=&quot;#cb1-6&quot;&gt;&lt;/a&gt;&lt;span class=&quot;co&quot;&gt;    specific min_length and alphabet.&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-7&quot;&gt;&lt;a href=&quot;#cb1-7&quot;&gt;&lt;/a&gt;&lt;span class=&quot;co&quot;&gt;    &amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-8&quot;&gt;&lt;a href=&quot;#cb1-8&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;kw&quot;&gt;class&lt;/span&gt; HashIdConverter:&lt;/span&gt;
-&lt;span id=&quot;cb1-9&quot;&gt;&lt;a href=&quot;#cb1-9&quot;&gt;&lt;/a&gt;        regex &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;vs&quot;&gt;r&amp;#39;[&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;{}&lt;/span&gt;&lt;span class=&quot;vs&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;{{}}&lt;/span&gt;&lt;span class=&quot;vs&quot;&gt;&amp;#39;&lt;/span&gt;.&lt;span class=&quot;bu&quot;&gt;format&lt;/span&gt;(min_length, alphabet)&lt;/span&gt;
-&lt;span id=&quot;cb1-10&quot;&gt;&lt;a href=&quot;#cb1-10&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-11&quot;&gt;&lt;a href=&quot;#cb1-11&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; to_python(&lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;, value):&lt;/span&gt;
-&lt;span id=&quot;cb1-12&quot;&gt;&lt;a href=&quot;#cb1-12&quot;&gt;&lt;/a&gt;            &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; value&lt;/span&gt;
-&lt;span id=&quot;cb1-13&quot;&gt;&lt;a href=&quot;#cb1-13&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-14&quot;&gt;&lt;a href=&quot;#cb1-14&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; to_url(&lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;, value):&lt;/span&gt;
-&lt;span id=&quot;cb1-15&quot;&gt;&lt;a href=&quot;#cb1-15&quot;&gt;&lt;/a&gt;            &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; value.hashid&lt;/span&gt;
-&lt;span id=&quot;cb1-16&quot;&gt;&lt;a href=&quot;#cb1-16&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-17&quot;&gt;&lt;a href=&quot;#cb1-17&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; HashIdConverter&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;hashids&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Hashids&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;hashid_converter_factory&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;min_length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alphabet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Hashids&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ALPHABET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
+    Factory function to create a Django URL path converter for HashID's using a
+    specific min_length and alphabet.
+    &quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HashIdConverter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;regex&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;r'[{}]{{}}'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;min_length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alphabet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;to_python&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;to_url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hashid&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HashIdConverter&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; You can skip the factory function and just define a normal class with your own &lt;code class=&quot;highlighter-rouge&quot;&gt;min_length/alphabet&lt;/code&gt; values for simplicity.&lt;/p&gt;
+
 &lt;p&gt;With that defined, you can simply register the converter and use it in your urlpatterns.&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot; id=&quot;cb2&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span id=&quot;cb2-1&quot;&gt;&lt;a href=&quot;#cb2-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;im&quot;&gt;from&lt;/span&gt; django.urls &lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; include, path, register_converter&lt;/span&gt;
-&lt;span id=&quot;cb2-2&quot;&gt;&lt;a href=&quot;#cb2-2&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-3&quot;&gt;&lt;a href=&quot;#cb2-3&quot;&gt;&lt;/a&gt;register_converter(hashid_converter_factory(min_length&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;7&lt;/span&gt;), &lt;span class=&quot;st&quot;&gt;&amp;#39;hashid&amp;#39;&lt;/span&gt;)&lt;/span&gt;
-&lt;span id=&quot;cb2-4&quot;&gt;&lt;a href=&quot;#cb2-4&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-5&quot;&gt;&lt;a href=&quot;#cb2-5&quot;&gt;&lt;/a&gt;urlpatterns &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; [&lt;/span&gt;
-&lt;span id=&quot;cb2-6&quot;&gt;&lt;a href=&quot;#cb2-6&quot;&gt;&lt;/a&gt;    path(&lt;span class=&quot;st&quot;&gt;&amp;#39;codes/&amp;lt;hashid:pk&amp;gt;/&amp;#39;&lt;/span&gt;, ...)&lt;/span&gt;
-&lt;span id=&quot;cb2-7&quot;&gt;&lt;a href=&quot;#cb2-7&quot;&gt;&lt;/a&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="dailies" /><category term="django" /><category term="django-rest-framework" /><category term="hashid" /><summary type="html">HashID’s allow you to convert an integer into a “unique” short string.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Hostname versioning + ngrok in Django REST Framework</title><link href="https://andrew.hawker.io/dailies/2020/11/03/drf-hostname-versioning/" rel="alternate" type="text/html" title="Hostname versioning + ngrok in Django REST Framework" /><published>2020-11-03T07:51:00-08:00</published><updated>2020-11-03T07:51:00-08:00</updated><id>https://andrew.hawker.io/dailies/2020/11/03/drf-hostname-versioning</id><content type="html" xml:base="https://andrew.hawker.io/dailies/2020/11/03/drf-hostname-versioning/">&lt;p&gt;By default, &lt;a href=&quot;https://www.django-rest-framework.org/&quot;&gt;Django REST Framework&lt;/a&gt; contains an &lt;a href=&quot;https://www.django-rest-framework.org/api-guide/versioning/#hostnameversioning&quot;&gt;implementation&lt;/a&gt; for managing API versions via hostname, e.g. &lt;code&gt;v1.example.org&lt;/code&gt;. The downside of this implementation is that it doesn’t support &lt;code&gt;N&lt;/code&gt; level nesting of subdomains to parse the version value, e.g. &lt;code&gt;v1.api.example.org&lt;/code&gt; or running local instances behind proxies like &lt;a href=&quot;https://ngrok.com/&quot;&gt;ngrok&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;django.urls&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;include&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;register_converter&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;register_converter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hashid_converter_factory&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;min_length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'hashid'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;urlpatterns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'codes/&amp;lt;hashid:pk&amp;gt;/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="dailies" /><category term="django" /><category term="django-rest-framework" /><category term="hashid" /><summary type="html">HashID’s allow you to convert an integer into a “unique” short string.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Hostname versioning + ngrok in Django REST Framework</title><link href="https://andrew.hawker.io/dailies/2020/11/03/drf-hostname-versioning/" rel="alternate" type="text/html" title="Hostname versioning + ngrok in Django REST Framework" /><published>2020-11-03T07:51:00-08:00</published><updated>2020-11-03T07:51:00-08:00</updated><id>https://andrew.hawker.io/dailies/2020/11/03/drf-hostname-versioning</id><content type="html" xml:base="https://andrew.hawker.io/dailies/2020/11/03/drf-hostname-versioning/">&lt;p&gt;By default, &lt;a href=&quot;https://www.django-rest-framework.org/&quot;&gt;Django REST Framework&lt;/a&gt; contains an &lt;a href=&quot;https://www.django-rest-framework.org/api-guide/versioning/#hostnameversioning&quot;&gt;implementation&lt;/a&gt; for managing API versions via hostname, e.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;v1.example.org&lt;/code&gt;. The downside of this implementation is that it doesn’t support &lt;code class=&quot;highlighter-rouge&quot;&gt;N&lt;/code&gt; level nesting of subdomains to parse the version value, e.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;v1.api.example.org&lt;/code&gt; or running local instances behind proxies like &lt;a href=&quot;https://ngrok.com/&quot;&gt;ngrok&lt;/a&gt;.&lt;/p&gt;
+
 &lt;p&gt;Thankfully, we can easily write a simple implementation to do so.&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot; id=&quot;cb1&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span id=&quot;cb1-1&quot;&gt;&lt;a href=&quot;#cb1-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; re&lt;/span&gt;
-&lt;span id=&quot;cb1-2&quot;&gt;&lt;a href=&quot;#cb1-2&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-3&quot;&gt;&lt;a href=&quot;#cb1-3&quot;&gt;&lt;/a&gt;&lt;span class=&quot;im&quot;&gt;from&lt;/span&gt; django.conf &lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; settings&lt;/span&gt;
-&lt;span id=&quot;cb1-4&quot;&gt;&lt;a href=&quot;#cb1-4&quot;&gt;&lt;/a&gt;&lt;span class=&quot;im&quot;&gt;from&lt;/span&gt; rest_framework &lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; exceptions, versioning&lt;/span&gt;
-&lt;span id=&quot;cb1-5&quot;&gt;&lt;a href=&quot;#cb1-5&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-6&quot;&gt;&lt;a href=&quot;#cb1-6&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;class&lt;/span&gt; HostNameVersioning(versioning.HostNameVersioning):&lt;/span&gt;
-&lt;span id=&quot;cb1-7&quot;&gt;&lt;a href=&quot;#cb1-7&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;co&quot;&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-8&quot;&gt;&lt;a href=&quot;#cb1-8&quot;&gt;&lt;/a&gt;&lt;span class=&quot;co&quot;&gt;    Capture version via hostname in the request. This versioning scheme supports subdomains&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-9&quot;&gt;&lt;a href=&quot;#cb1-9&quot;&gt;&lt;/a&gt;&lt;span class=&quot;co&quot;&gt;    of &amp;#39;N&amp;#39; levels deep.&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-10&quot;&gt;&lt;a href=&quot;#cb1-10&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-11&quot;&gt;&lt;a href=&quot;#cb1-11&quot;&gt;&lt;/a&gt;&lt;span class=&quot;co&quot;&gt;    * {default_subdomain}.foobar.com -&amp;gt; Uses default version&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-12&quot;&gt;&lt;a href=&quot;#cb1-12&quot;&gt;&lt;/a&gt;&lt;span class=&quot;co&quot;&gt;    * v1.{default_subdomain}.foobar.com -&amp;gt; Uses v1&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-13&quot;&gt;&lt;a href=&quot;#cb1-13&quot;&gt;&lt;/a&gt;&lt;span class=&quot;co&quot;&gt;    * v1.{default_subdomain}.foo.bar.baz.com -&amp;gt; Uses v1&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-14&quot;&gt;&lt;a href=&quot;#cb1-14&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-15&quot;&gt;&lt;a href=&quot;#cb1-15&quot;&gt;&lt;/a&gt;&lt;span class=&quot;co&quot;&gt;    If running behind a service like ngrok, calls to your public domain,&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-16&quot;&gt;&lt;a href=&quot;#cb1-16&quot;&gt;&lt;/a&gt;&lt;span class=&quot;co&quot;&gt;    e.g. http://7zz979551271.ngrok.io will use the default version value.&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-17&quot;&gt;&lt;a href=&quot;#cb1-17&quot;&gt;&lt;/a&gt;&lt;span class=&quot;co&quot;&gt;    &amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-18&quot;&gt;&lt;a href=&quot;#cb1-18&quot;&gt;&lt;/a&gt;    allow_ngrok &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; settings.DEBUG&lt;/span&gt;
-&lt;span id=&quot;cb1-19&quot;&gt;&lt;a href=&quot;#cb1-19&quot;&gt;&lt;/a&gt;    allowed_versions &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; (&lt;span class=&quot;st&quot;&gt;&amp;#39;v1&amp;#39;&lt;/span&gt;,)&lt;/span&gt;
-&lt;span id=&quot;cb1-20&quot;&gt;&lt;a href=&quot;#cb1-20&quot;&gt;&lt;/a&gt;    default_subdomain &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; settings.VERSIONING_DEFAULT_SUBDOMAIN&lt;/span&gt;
-&lt;span id=&quot;cb1-21&quot;&gt;&lt;a href=&quot;#cb1-21&quot;&gt;&lt;/a&gt;    default_version &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;v1&amp;#39;&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-22&quot;&gt;&lt;a href=&quot;#cb1-22&quot;&gt;&lt;/a&gt;    version_param &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;version&amp;#39;&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-23&quot;&gt;&lt;a href=&quot;#cb1-23&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-24&quot;&gt;&lt;a href=&quot;#cb1-24&quot;&gt;&lt;/a&gt;    ip_address_regex &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; re.&lt;span class=&quot;bu&quot;&gt;compile&lt;/span&gt;(&lt;span class=&quot;vs&quot;&gt;r&amp;#39;(^(([0-9]|[1-9][0-9]|1[0-9]&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;{2}&lt;/span&gt;&lt;span class=&quot;vs&quot;&gt;|2[0-4][0-9]|25[0-5])\.)&amp;#39;&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-25&quot;&gt;&lt;a href=&quot;#cb1-25&quot;&gt;&lt;/a&gt;                                  &lt;span class=&quot;vs&quot;&gt;r&amp;#39;&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;{3}&lt;/span&gt;&lt;span class=&quot;vs&quot;&gt;([0-9]|[1-9][0-9]|1[0-9]&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;{2}&lt;/span&gt;&lt;span class=&quot;vs&quot;&gt;|2[0-4][0-9]|25[0-5])$)&amp;#39;&lt;/span&gt;)&lt;/span&gt;
-&lt;span id=&quot;cb1-26&quot;&gt;&lt;a href=&quot;#cb1-26&quot;&gt;&lt;/a&gt;    hostname_regex &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; re.&lt;span class=&quot;bu&quot;&gt;compile&lt;/span&gt;(&lt;span class=&quot;vs&quot;&gt;r&amp;#39;([a-zA-Z0-9]+)\.(?:[a-zA-Z0-9]+\.)+&amp;#39;&lt;/span&gt;)&lt;/span&gt;
-&lt;span id=&quot;cb1-27&quot;&gt;&lt;a href=&quot;#cb1-27&quot;&gt;&lt;/a&gt;    ngrok_regex &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; re.&lt;span class=&quot;bu&quot;&gt;compile&lt;/span&gt;(&lt;span class=&quot;vs&quot;&gt;r&amp;#39;([a-zA-Z0-9]+)\.ngrok.io&amp;#39;&lt;/span&gt;)&lt;/span&gt;
-&lt;span id=&quot;cb1-28&quot;&gt;&lt;a href=&quot;#cb1-28&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-29&quot;&gt;&lt;a href=&quot;#cb1-29&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; determine_version(&lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;, request, &lt;span class=&quot;op&quot;&gt;*&lt;/span&gt;args, &lt;span class=&quot;op&quot;&gt;**&lt;/span&gt;kwargs):&lt;/span&gt;
-&lt;span id=&quot;cb1-30&quot;&gt;&lt;a href=&quot;#cb1-30&quot;&gt;&lt;/a&gt;        hostname, separator, port &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; request.get_host().partition(&lt;span class=&quot;st&quot;&gt;&amp;#39;:&amp;#39;&lt;/span&gt;)&lt;/span&gt;
-&lt;span id=&quot;cb1-31&quot;&gt;&lt;a href=&quot;#cb1-31&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-32&quot;&gt;&lt;a href=&quot;#cb1-32&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;co&quot;&gt;# Check ngrok requests for local environment proxy.&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-33&quot;&gt;&lt;a href=&quot;#cb1-33&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;.allow_ngrok:&lt;/span&gt;
-&lt;span id=&quot;cb1-34&quot;&gt;&lt;a href=&quot;#cb1-34&quot;&gt;&lt;/a&gt;            match &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;.ngrok_regex.match(hostname)&lt;/span&gt;
-&lt;span id=&quot;cb1-35&quot;&gt;&lt;a href=&quot;#cb1-35&quot;&gt;&lt;/a&gt;            &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; match:&lt;/span&gt;
-&lt;span id=&quot;cb1-36&quot;&gt;&lt;a href=&quot;#cb1-36&quot;&gt;&lt;/a&gt;                &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;.default_version&lt;/span&gt;
-&lt;span id=&quot;cb1-37&quot;&gt;&lt;a href=&quot;#cb1-37&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-38&quot;&gt;&lt;a href=&quot;#cb1-38&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;co&quot;&gt;# Check requests to IP address.&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-39&quot;&gt;&lt;a href=&quot;#cb1-39&quot;&gt;&lt;/a&gt;        match &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;.ip_address_regex.match(hostname)&lt;/span&gt;
-&lt;span id=&quot;cb1-40&quot;&gt;&lt;a href=&quot;#cb1-40&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; match:&lt;/span&gt;
-&lt;span id=&quot;cb1-41&quot;&gt;&lt;a href=&quot;#cb1-41&quot;&gt;&lt;/a&gt;            &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;.default_version&lt;/span&gt;
-&lt;span id=&quot;cb1-42&quot;&gt;&lt;a href=&quot;#cb1-42&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-43&quot;&gt;&lt;a href=&quot;#cb1-43&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;co&quot;&gt;# Check requests to hostname.&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-44&quot;&gt;&lt;a href=&quot;#cb1-44&quot;&gt;&lt;/a&gt;        match &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;.hostname_regex.match(hostname)&lt;/span&gt;
-&lt;span id=&quot;cb1-45&quot;&gt;&lt;a href=&quot;#cb1-45&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;not&lt;/span&gt; match:&lt;/span&gt;
-&lt;span id=&quot;cb1-46&quot;&gt;&lt;a href=&quot;#cb1-46&quot;&gt;&lt;/a&gt;            &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;.default_version&lt;/span&gt;
-&lt;span id=&quot;cb1-47&quot;&gt;&lt;a href=&quot;#cb1-47&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-48&quot;&gt;&lt;a href=&quot;#cb1-48&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;co&quot;&gt;# Check for version subdomain.&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-49&quot;&gt;&lt;a href=&quot;#cb1-49&quot;&gt;&lt;/a&gt;        version &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; match.group(&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;)&lt;/span&gt;
-&lt;span id=&quot;cb1-50&quot;&gt;&lt;a href=&quot;#cb1-50&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; version &lt;span class=&quot;op&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;.default_subdomain:&lt;/span&gt;
-&lt;span id=&quot;cb1-51&quot;&gt;&lt;a href=&quot;#cb1-51&quot;&gt;&lt;/a&gt;            &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;.default_version&lt;/span&gt;
-&lt;span id=&quot;cb1-52&quot;&gt;&lt;a href=&quot;#cb1-52&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;.is_allowed_version(version):&lt;/span&gt;
-&lt;span id=&quot;cb1-53&quot;&gt;&lt;a href=&quot;#cb1-53&quot;&gt;&lt;/a&gt;            &lt;span class=&quot;cf&quot;&gt;raise&lt;/span&gt; exceptions.NotFound(&lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;.invalid_version_message)&lt;/span&gt;
-&lt;span id=&quot;cb1-54&quot;&gt;&lt;a href=&quot;#cb1-54&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; version&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;You can set this versioning strategy per view or globally in your &lt;code&gt;REST_FRAMEWORK&lt;/code&gt; settings within &lt;code&gt;settings.py&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot; id=&quot;cb2&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span id=&quot;cb2-1&quot;&gt;&lt;a href=&quot;#cb2-1&quot;&gt;&lt;/a&gt;    REST_FRAMEWORK &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; {&lt;/span&gt;
-&lt;span id=&quot;cb2-2&quot;&gt;&lt;a href=&quot;#cb2-2&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;st&quot;&gt;&amp;#39;DEFAULT_VERSIONING_CLASS&amp;#39;&lt;/span&gt;: &lt;span class=&quot;st&quot;&gt;&amp;#39;common.versioning.HostNameVersioning&amp;#39;&lt;/span&gt;,&lt;/span&gt;
-&lt;span id=&quot;cb2-3&quot;&gt;&lt;a href=&quot;#cb2-3&quot;&gt;&lt;/a&gt;        ...&lt;/span&gt;
-&lt;span id=&quot;cb2-4&quot;&gt;&lt;a href=&quot;#cb2-4&quot;&gt;&lt;/a&gt;        ...&lt;/span&gt;
-&lt;span id=&quot;cb2-5&quot;&gt;&lt;a href=&quot;#cb2-5&quot;&gt;&lt;/a&gt;    }&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="dailies" /><category term="django" /><category term="django-rest-framework" /><category term="ngrok" /><summary type="html">By default, Django REST Framework contains an implementation for managing API versions via hostname, e.g. v1.example.org. The downside of this implementation is that it doesn’t support N level nesting of subdomains to parse the version value, e.g. v1.api.example.org or running local instances behind proxies like ngrok.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">How touchless customer feedback is evolving</title><link href="https://andrew.hawker.io/writings/2020/07/23/how-touchless-customer-feedback-is-evolving/" rel="alternate" type="text/html" title="How touchless customer feedback is evolving" /><published>2020-07-23T04:07:00-07:00</published><updated>2020-07-23T04:07:00-07:00</updated><id>https://andrew.hawker.io/writings/2020/07/23/how-touchless-customer-feedback-is-evolving</id><content type="html" xml:base="https://andrew.hawker.io/writings/2020/07/23/how-touchless-customer-feedback-is-evolving/">&lt;p&gt;&lt;span&gt;&lt;label for=&quot;sn-1&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-1&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;img src=&quot;/assets/images/routegy-logo-mountain-light-small.png&quot; /&gt;&lt;br /&gt;
-&lt;br /&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;Check out &lt;a href=&quot;https://blog.routegy.com/2020/07/23/how-touchless-customer-feedback-is-evolving/&quot;&gt;my post&lt;/a&gt; on the &lt;a href=&quot;https://routegy.com&quot;&gt;Routegy&lt;/a&gt; company blog where I discuss the intersection of touchless technology and customer feedback during the COVID-19 pandemic.&lt;/p&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="writings" /><category term="routegy" /><category term="touchless" /><category term="contactless" /><summary type="html">&amp;#8853;</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Adding Trello login support to Auth0</title><link href="https://andrew.hawker.io/writings/2020/07/06/trello-login-support-auth0/" rel="alternate" type="text/html" title="Adding Trello login support to Auth0" /><published>2020-07-06T02:19:00-07:00</published><updated>2020-07-06T02:19:00-07:00</updated><id>https://andrew.hawker.io/writings/2020/07/06/trello-login-support-auth0</id><content type="html" xml:base="https://andrew.hawker.io/writings/2020/07/06/trello-login-support-auth0/">&lt;p&gt;At my company &lt;a href=&quot;https://routegy.com&quot;&gt;Routegy&lt;/a&gt;, we use &lt;a href=&quot;https://auth0.com&quot;&gt;Auth0&lt;/a&gt; for identity management. While it is nice, in theory, to offload authn/authz to someone else so you can focus on building your product, integrating it does have a number of quirks.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;re&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;django.conf&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;settings&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;rest_framework&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exceptions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;versioning&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HostNameVersioning&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;versioning&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HostNameVersioning&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
+    Capture version via hostname in the request. This versioning scheme supports subdomains
+    of 'N' levels deep.
+
+    * {default_subdomain}.foobar.com -&amp;gt; Uses default version
+    * v1.{default_subdomain}.foobar.com -&amp;gt; Uses v1
+    * v1.{default_subdomain}.foo.bar.baz.com -&amp;gt; Uses v1
+
+    If running behind a service like ngrok, calls to your public domain,
+    e.g. http://7zz979551271.ngrok.io will use the default version value.
+    &quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;allow_ngrok&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;settings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DEBUG&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;allowed_versions&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'v1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;default_subdomain&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;settings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;VERSIONING_DEFAULT_SUBDOMAIN&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;default_version&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'v1'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;version_param&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'version'&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;ip_address_regex&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r'(^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.)'&lt;/span&gt;
+                                  &lt;span class=&quot;s&quot;&gt;r'{3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$)'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;hostname_regex&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r'([a-zA-Z0-9]+)\.(?:[a-zA-Z0-9]+\.)+'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ngrok_regex&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r'([a-zA-Z0-9]+)\.ngrok.io'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;determine_version&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kwargs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;hostname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;separator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;port&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;partition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;':'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;# Check ngrok requests for local environment proxy.
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;allow_ngrok&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ngrok_regex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hostname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;default_version&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;# Check requests to IP address.
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ip_address_regex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hostname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;default_version&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;# Check requests to hostname.
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hostname_regex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hostname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;default_version&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;# Check for version subdomain.
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;default_subdomain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;default_version&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_allowed_version&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;raise&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exceptions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NotFound&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;invalid_version_message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can set this versioning strategy per view or globally in your &lt;code class=&quot;highlighter-rouge&quot;&gt;REST_FRAMEWORK&lt;/code&gt; settings within &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.py&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;n&quot;&gt;REST_FRAMEWORK&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;'DEFAULT_VERSIONING_CLASS'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'common.versioning.HostNameVersioning'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="dailies" /><category term="django" /><category term="django-rest-framework" /><category term="ngrok" /><summary type="html">By default, Django REST Framework contains an implementation for managing API versions via hostname, e.g. v1.example.org. The downside of this implementation is that it doesn’t support N level nesting of subdomains to parse the version value, e.g. v1.api.example.org or running local instances behind proxies like ngrok.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">How touchless customer feedback is evolving</title><link href="https://andrew.hawker.io/writings/2020/07/23/how-touchless-customer-feedback-is-evolving/" rel="alternate" type="text/html" title="How touchless customer feedback is evolving" /><published>2020-07-23T04:07:00-07:00</published><updated>2020-07-23T04:07:00-07:00</updated><id>https://andrew.hawker.io/writings/2020/07/23/how-touchless-customer-feedback-is-evolving</id><content type="html" xml:base="https://andrew.hawker.io/writings/2020/07/23/how-touchless-customer-feedback-is-evolving/">&lt;p&gt;&lt;img class=&quot;float-right&quot; src=&quot;/assets/images/routegy-logo-mountain-light-small.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Check out &lt;a href=&quot;https://blog.routegy.com/2020/07/23/how-touchless-customer-feedback-is-evolving/&quot;&gt;my post&lt;/a&gt; on the &lt;a href=&quot;https://routegy.com&quot;&gt;Routegy&lt;/a&gt; company blog where I discuss the intersection of touchless technology and customer feedback during the COVID-19 pandemic.&lt;/p&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="writings" /><category term="routegy" /><category term="touchless" /><category term="contactless" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Adding Trello login support to Auth0</title><link href="https://andrew.hawker.io/writings/2020/07/06/trello-login-support-auth0/" rel="alternate" type="text/html" title="Adding Trello login support to Auth0" /><published>2020-07-06T02:19:00-07:00</published><updated>2020-07-06T02:19:00-07:00</updated><id>https://andrew.hawker.io/writings/2020/07/06/trello-login-support-auth0</id><content type="html" xml:base="https://andrew.hawker.io/writings/2020/07/06/trello-login-support-auth0/">&lt;p&gt;At my company &lt;a href=&quot;https://routegy.com&quot;&gt;Routegy&lt;/a&gt;, we use &lt;a href=&quot;https://auth0.com&quot;&gt;Auth0&lt;/a&gt; for identity management. While it is nice, in theory, to offload authn/authz to someone else so you can focus on building your product, integrating it does have a number of quirks.&lt;/p&gt;
+
 &lt;p&gt;In this instance, I was looking to support &lt;a href=&quot;https://trello.com&quot;&gt;Trello&lt;/a&gt; logins, which Auth0 doesn’t support with a native social connection. A quick Google search yields this &lt;a href=&quot;https://community.auth0.com/t/auth0-and-trello/17043&quot;&gt;community post&lt;/a&gt; which recommends that you use the &lt;a href=&quot;https://auth0.com/docs/extensions/custom-social-extensions&quot;&gt;Custom Social Connections&lt;/a&gt; extension. This doesn’t appear to work since Trello uses &lt;a href=&quot;https://developer.atlassian.com/cloud/trello/guides/rest-api/authorization/&quot;&gt;OAuth 1.1&lt;/a&gt; and the Custom Social Connections extension only appears to support OAuth 2.0.&lt;/p&gt;
+
 &lt;p&gt;After some further research, I thankfully came across documentation outlining Auth0 support for creating generic &lt;a href=&quot;https://auth0.com/docs/connections/adding-generic-oauth1-connection&quot;&gt;OAuth 1&lt;/a&gt; and &lt;a href=&quot;https://auth0.com/docs/connections/social/oauth2&quot;&gt;OAuth 2&lt;/a&gt; connections. This works by creating an Auth0 connection with OAuth 1.1 urls and writing a custom javascript function that takes information provided in the OAuth callback to create an Auth0 profile.&lt;/p&gt;
+
 &lt;p&gt;With some custom code, we should be able to support Trello logins. Let’s dive in!&lt;/p&gt;
-&lt;section id=&quot;getting-your-trello-credentials&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Getting your Trello credentials&lt;/h3&gt;
-&lt;p&gt;In order to create an OAuth 1.1 connection, you will need your &lt;strong&gt;&lt;code&gt;client_id&lt;/code&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;code&gt;client_secret&lt;/code&gt;&lt;/strong&gt; pair for Trello. To get these, login to Trello and go to &lt;a href=&quot;https://trello.com/app-key&quot; class=&quot;uri&quot;&gt;https://trello.com/app-key&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;The &lt;strong&gt;&lt;code&gt;client_id&lt;/code&gt;&lt;/strong&gt; value will be the &lt;strong&gt;&lt;code&gt;Key&lt;/code&gt;&lt;/strong&gt; value found on this page.&lt;/p&gt;
-&lt;p&gt;The &lt;strong&gt;&lt;code&gt;client_secret&lt;/code&gt;&lt;/strong&gt; value will be found by clicking the &lt;strong&gt;&lt;code&gt;Token&lt;/code&gt;&lt;/strong&gt; URL found on that page. This will prompt you to give access to the Trello &lt;code&gt;Server Token&lt;/code&gt; application. Granting access will display the value to use.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/trello-server-token.png&quot; /&gt;&lt;/p&gt;
-&lt;/section&gt;
-&lt;section id=&quot;creating-a-trello-connection&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Creating a Trello connection&lt;/h3&gt;
-&lt;p&gt;&lt;span&gt;&lt;label for=&quot;sn-1&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-1&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; Read the official documentation &lt;a href=&quot;https://auth0.com/docs/api/management/v2/tokens&quot;&gt;here&lt;/a&gt; for getting your Auth0 Management API token.&lt;br /&gt;
-&lt;br /&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;To create an arbitrary OAuth 1.1 connection in Auth0, we need to use the Auth0 Management API as there is no support for it in the management dashboard. This can be done with a simple &lt;code&gt;curl&lt;/code&gt; command such as:&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot; id=&quot;cb1&quot;&gt;&lt;pre class=&quot;sourceCode bash&quot;&gt;&lt;code class=&quot;sourceCode bash&quot;&gt;&lt;span id=&quot;cb1-1&quot;&gt;&lt;a href=&quot;#cb1-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;curl&lt;/span&gt; -X POST&lt;/span&gt;
-&lt;span id=&quot;cb1-2&quot;&gt;&lt;a href=&quot;#cb1-2&quot;&gt;&lt;/a&gt;     &lt;span class=&quot;ex&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;quot;Content-Type: application/json&amp;quot;&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-3&quot;&gt;&lt;a href=&quot;#cb1-3&quot;&gt;&lt;/a&gt;     &lt;span class=&quot;ex&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;Authorization: Bearer ${YOUR_AUTH0_MANAGEMENT_API_TOKEN}&amp;#39;&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-4&quot;&gt;&lt;a href=&quot;#cb1-4&quot;&gt;&lt;/a&gt;     &lt;span class=&quot;ex&quot;&gt;-d&lt;/span&gt; @trello.json https://&lt;span class=&quot;va&quot;&gt;${YOUR_AUTH0_DOMAIN}&lt;/span&gt;/api/v2/connections&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This creates an Auth0 connection using the JSON data stored in our local &lt;strong&gt;&lt;code&gt;trello.json&lt;/code&gt;&lt;/strong&gt; file. The contents of this file will change based on specifics to your account but will look something like:&lt;/p&gt;
-&lt;p&gt;&lt;span&gt;&lt;label for=&quot;sn-2&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-2&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; Read the official documentation &lt;a href=&quot;https://developer.atlassian.com/cloud/trello/guides/rest-api/authorization/&quot;&gt;here&lt;/a&gt; for more information on Trello application name, scope, and expiration.&lt;br /&gt;
-&lt;br /&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot; id=&quot;cb2&quot;&gt;&lt;pre class=&quot;sourceCode json&quot;&gt;&lt;code class=&quot;sourceCode json&quot;&gt;&lt;span id=&quot;cb2-1&quot;&gt;&lt;a href=&quot;#cb2-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;fu&quot;&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-2&quot;&gt;&lt;a href=&quot;#cb2-2&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;dt&quot;&gt;&amp;quot;name&amp;quot;&lt;/span&gt;&lt;span class=&quot;fu&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;quot;trello&amp;quot;&lt;/span&gt;&lt;span class=&quot;fu&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-3&quot;&gt;&lt;a href=&quot;#cb2-3&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;dt&quot;&gt;&amp;quot;strategy&amp;quot;&lt;/span&gt;&lt;span class=&quot;fu&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;quot;oauth1&amp;quot;&lt;/span&gt;&lt;span class=&quot;fu&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-4&quot;&gt;&lt;a href=&quot;#cb2-4&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;dt&quot;&gt;&amp;quot;options&amp;quot;&lt;/span&gt;&lt;span class=&quot;fu&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-5&quot;&gt;&lt;a href=&quot;#cb2-5&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;dt&quot;&gt;&amp;quot;client_id&amp;quot;&lt;/span&gt;&lt;span class=&quot;fu&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;quot;${YOUR_TRELLO_CLIENT_ID}&amp;quot;&lt;/span&gt;&lt;span class=&quot;fu&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-6&quot;&gt;&lt;a href=&quot;#cb2-6&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;dt&quot;&gt;&amp;quot;client_secret&amp;quot;&lt;/span&gt;&lt;span class=&quot;fu&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;quot;${YOUR_TRELLO_CLIENT_SECRET}&amp;quot;&lt;/span&gt;&lt;span class=&quot;fu&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-7&quot;&gt;&lt;a href=&quot;#cb2-7&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;dt&quot;&gt;&amp;quot;requestTokenURL&amp;quot;&lt;/span&gt;&lt;span class=&quot;fu&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;quot;https://trello.com/1/OAuthGetRequestToken&amp;quot;&lt;/span&gt;&lt;span class=&quot;fu&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-8&quot;&gt;&lt;a href=&quot;#cb2-8&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;dt&quot;&gt;&amp;quot;accessTokenURL&amp;quot;&lt;/span&gt;&lt;span class=&quot;fu&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;quot;https://trello.com/1/OAuthGetAccessToken&amp;quot;&lt;/span&gt;&lt;span class=&quot;fu&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-9&quot;&gt;&lt;a href=&quot;#cb2-9&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;dt&quot;&gt;&amp;quot;userAuthorizationURL&amp;quot;&lt;/span&gt;&lt;span class=&quot;fu&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;quot;https://trello.com/1/OAuthAuthorizeToken?name=${APP_NAME}&amp;amp;scope=${SCOPE}&amp;amp;expiration=${EXPIRATION}&amp;quot;&lt;/span&gt;&lt;span class=&quot;fu&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-10&quot;&gt;&lt;a href=&quot;#cb2-10&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;dt&quot;&gt;&amp;quot;scripts&amp;quot;&lt;/span&gt;&lt;span class=&quot;fu&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-11&quot;&gt;&lt;a href=&quot;#cb2-11&quot;&gt;&lt;/a&gt;      &lt;span class=&quot;dt&quot;&gt;&amp;quot;fetchUserProfile&amp;quot;&lt;/span&gt;&lt;span class=&quot;fu&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;quot;${SCRIPT}&amp;quot;&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-12&quot;&gt;&lt;a href=&quot;#cb2-12&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;fu&quot;&gt;}&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-13&quot;&gt;&lt;a href=&quot;#cb2-13&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;fu&quot;&gt;},&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-14&quot;&gt;&lt;a href=&quot;#cb2-14&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;dt&quot;&gt;&amp;quot;enabled_clients&amp;quot;&lt;/span&gt;&lt;span class=&quot;fu&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;ot&quot;&gt;[&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-15&quot;&gt;&lt;a href=&quot;#cb2-15&quot;&gt;&lt;/a&gt;      &lt;span class=&quot;st&quot;&gt;&amp;quot;${AUTH0_CLIENT_1}&amp;quot;&lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-16&quot;&gt;&lt;a href=&quot;#cb2-16&quot;&gt;&lt;/a&gt;      &lt;span class=&quot;st&quot;&gt;&amp;quot;${AUTH0_CLIENT_2}&amp;quot;&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-17&quot;&gt;&lt;a href=&quot;#cb2-17&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;ot&quot;&gt;]&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-18&quot;&gt;&lt;a href=&quot;#cb2-18&quot;&gt;&lt;/a&gt;&lt;span class=&quot;fu&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;getting-your-trello-credentials&quot;&gt;Getting your Trello credentials&lt;/h3&gt;
+
+&lt;p&gt;In order to create an OAuth 1.1 connection, you will need your &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;client_id&lt;/code&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;client_secret&lt;/code&gt;&lt;/strong&gt; pair for Trello. To get these, login to Trello and go to &lt;a href=&quot;https://trello.com/app-key&quot;&gt;https://trello.com/app-key&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;client_id&lt;/code&gt;&lt;/strong&gt; value will be the &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Key&lt;/code&gt;&lt;/strong&gt; value found on this page.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;client_secret&lt;/code&gt;&lt;/strong&gt; value will be found by clicking the &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Token&lt;/code&gt;&lt;/strong&gt; URL found on that page. This will prompt you to give access to the Trello &lt;code class=&quot;highlighter-rouge&quot;&gt;Server Token&lt;/code&gt; application. Granting access will display the value to use.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/trello-server-token.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;creating-a-trello-connection&quot;&gt;Creating a Trello connection&lt;/h3&gt;
+
+&lt;p&gt;To create an arbitrary OAuth 1.1 connection in Auth0, we need to use the Auth0 Management API as there is no support for it in the management dashboard. If you don’t already have one, check out the &lt;a href=&quot;https://auth0.com/docs/api/management/v2/tokens&quot;&gt;official documentation&lt;/a&gt; for more details on creating your Management API access token. Once created, this can be done with a simple &lt;code class=&quot;highlighter-rouge&quot;&gt;curl&lt;/code&gt; command such as:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; POST
+     &lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Content-Type: application/json&quot;&lt;/span&gt;
+     &lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Authorization: Bearer ${YOUR_AUTH0_MANAGEMENT_API_TOKEN}'&lt;/span&gt;
+     &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; @trello.json https://&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;YOUR_AUTH0_DOMAIN&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;/api/v2/connections
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This creates an Auth0 connection using the JSON data stored in our local &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;trello.json&lt;/code&gt;&lt;/strong&gt; file. The contents of this file will change based on specifics to your account but will look something like:&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;trello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;strategy&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;oauth1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;options&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;client_id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;${YOUR_TRELLO_CLIENT_ID}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;client_secret&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;${YOUR_TRELLO_CLIENT_SECRET}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;requestTokenURL&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://trello.com/1/OAuthGetRequestToken&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;accessTokenURL&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://trello.com/1/OAuthGetAccessToken&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;userAuthorizationURL&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://trello.com/1/OAuthAuthorizeToken?name=${APP_NAME}&amp;amp;scope=${SCOPE}&amp;amp;expiration=${EXPIRATION}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;fetchUserProfile&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;${SCRIPT}&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;enabled_clients&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;${AUTH0_CLIENT_1}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;${AUTH0_CLIENT_2}&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;p&gt;This file has a number of variables in it. Let’s go through them one by one:&lt;/p&gt;
+
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;&lt;code&gt;${YOUR_TRELLO_CLIENT_ID}&lt;/code&gt;&lt;/strong&gt; - The &lt;code&gt;client_id&lt;/code&gt; value from Trello noted above.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;code&gt;${YOUR_TRELLO_CLIENT_SECRET}&lt;/code&gt;&lt;/strong&gt; - The &lt;code&gt;client_secret&lt;/code&gt; value from Trello noted above.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;code&gt;${APP_NAME}&lt;/code&gt;&lt;/strong&gt; - The name of your Trello application, e.g. your company name.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;code&gt;${SCOPE}&lt;/code&gt;&lt;/strong&gt; - The OAuth scope your application is requesting. Comma-separated list of one or more of &lt;strong&gt;read&lt;/strong&gt;, &lt;strong&gt;write&lt;/strong&gt;, &lt;strong&gt;account&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;code&gt;${EXPIRATION}&lt;/code&gt;&lt;/strong&gt; - The lifetime of the token/secret Trello sends to Auth0, e.g. &lt;code&gt;never&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;code&gt;${SCRIPT}&lt;/code&gt;&lt;/strong&gt; - The javascript function run to convert Trello information into an Auth0 profile. &lt;strong&gt;See below&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;code&gt;${AUTH0_CLIENT_XYZ}&lt;/code&gt;&lt;/strong&gt; - The ID’s of all Auth0 Clients that should allow Trello login.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${YOUR_TRELLO_CLIENT_ID}&lt;/code&gt;&lt;/strong&gt; - The &lt;code class=&quot;highlighter-rouge&quot;&gt;client_id&lt;/code&gt; value from Trello noted above.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${YOUR_TRELLO_CLIENT_SECRET}&lt;/code&gt;&lt;/strong&gt; - The &lt;code class=&quot;highlighter-rouge&quot;&gt;client_secret&lt;/code&gt; value from Trello noted above.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${APP_NAME}&lt;/code&gt;&lt;/strong&gt; - The name of your Trello application, e.g. your company name.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${SCOPE}&lt;/code&gt;&lt;/strong&gt; - The OAuth scope your application is requesting. Comma-separated list of one or more of &lt;strong&gt;read&lt;/strong&gt;, &lt;strong&gt;write&lt;/strong&gt;, &lt;strong&gt;account&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${EXPIRATION}&lt;/code&gt;&lt;/strong&gt; - The lifetime of the token/secret Trello sends to Auth0, e.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;never&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${SCRIPT}&lt;/code&gt;&lt;/strong&gt; - The javascript function run to convert Trello information into an Auth0 profile. &lt;strong&gt;See below&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${AUTH0_CLIENT_XYZ}&lt;/code&gt;&lt;/strong&gt; - The ID’s of all Auth0 Clients that should allow Trello login.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;The javascript code for fetch user profile &lt;strong&gt;&lt;code&gt;${SCRIPT}&lt;/code&gt;&lt;/strong&gt; is:&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot; id=&quot;cb3&quot;&gt;&lt;pre class=&quot;sourceCode js&quot;&gt;&lt;code class=&quot;sourceCode javascript&quot;&gt;&lt;span id=&quot;cb3-1&quot;&gt;&lt;a href=&quot;#cb3-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt; (token&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt; tokenSecret&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt; ctx&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt; cb) &lt;span class=&quot;op&quot;&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-2&quot;&gt;&lt;a href=&quot;#cb3-2&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;kw&quot;&gt;var&lt;/span&gt; OAuth &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;at&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;st&quot;&gt;&amp;#39;oauth&amp;#39;&lt;/span&gt;).&lt;span class=&quot;at&quot;&gt;OAuth&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-3&quot;&gt;&lt;a href=&quot;#cb3-3&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;kw&quot;&gt;var&lt;/span&gt; oauth &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;at&quot;&gt;OAuth&lt;/span&gt;(&lt;/span&gt;
-&lt;span id=&quot;cb3-4&quot;&gt;&lt;a href=&quot;#cb3-4&quot;&gt;&lt;/a&gt;      &lt;span class=&quot;va&quot;&gt;ctx&lt;/span&gt;.&lt;span class=&quot;at&quot;&gt;requestTokenURL&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-5&quot;&gt;&lt;a href=&quot;#cb3-5&quot;&gt;&lt;/a&gt;      &lt;span class=&quot;va&quot;&gt;ctx&lt;/span&gt;.&lt;span class=&quot;at&quot;&gt;accessTokenURL&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-6&quot;&gt;&lt;a href=&quot;#cb3-6&quot;&gt;&lt;/a&gt;      &lt;span class=&quot;va&quot;&gt;ctx&lt;/span&gt;.&lt;span class=&quot;at&quot;&gt;client_id&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-7&quot;&gt;&lt;a href=&quot;#cb3-7&quot;&gt;&lt;/a&gt;      &lt;span class=&quot;va&quot;&gt;ctx&lt;/span&gt;.&lt;span class=&quot;at&quot;&gt;client_secret&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-8&quot;&gt;&lt;a href=&quot;#cb3-8&quot;&gt;&lt;/a&gt;      &lt;span class=&quot;st&quot;&gt;&amp;#39;1.0A&amp;#39;&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-9&quot;&gt;&lt;a href=&quot;#cb3-9&quot;&gt;&lt;/a&gt;      &lt;span class=&quot;kw&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-10&quot;&gt;&lt;a href=&quot;#cb3-10&quot;&gt;&lt;/a&gt;      &lt;span class=&quot;st&quot;&gt;&amp;#39;HMAC-SHA1&amp;#39;&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-11&quot;&gt;&lt;a href=&quot;#cb3-11&quot;&gt;&lt;/a&gt;    )&lt;span class=&quot;op&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-12&quot;&gt;&lt;a href=&quot;#cb3-12&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-13&quot;&gt;&lt;a href=&quot;#cb3-13&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;va&quot;&gt;oauth&lt;/span&gt;.&lt;span class=&quot;at&quot;&gt;get&lt;/span&gt;(&lt;span class=&quot;st&quot;&gt;&amp;#39;https://api.trello.com/1/members/me&amp;#39;&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt; token&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt; tokenSecret&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt;(e&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt; b&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt; r) &lt;span class=&quot;op&quot;&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-14&quot;&gt;&lt;a href=&quot;#cb3-14&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; (e) &lt;span class=&quot;op&quot;&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-15&quot;&gt;&lt;a href=&quot;#cb3-15&quot;&gt;&lt;/a&gt;          &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;at&quot;&gt;cb&lt;/span&gt;(e)&lt;span class=&quot;op&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-16&quot;&gt;&lt;a href=&quot;#cb3-16&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;op&quot;&gt;}&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-17&quot;&gt;&lt;a href=&quot;#cb3-17&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; (&lt;span class=&quot;va&quot;&gt;r&lt;/span&gt;.&lt;span class=&quot;at&quot;&gt;statusCode&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;!==&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;200&lt;/span&gt;) &lt;span class=&quot;op&quot;&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-18&quot;&gt;&lt;a href=&quot;#cb3-18&quot;&gt;&lt;/a&gt;          &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;at&quot;&gt;cb&lt;/span&gt;(&lt;span class=&quot;kw&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;at&quot;&gt;Error&lt;/span&gt;(&lt;span class=&quot;st&quot;&gt;&amp;#39;Failed to authenticate with Trello. Code: &amp;#39;&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;r&lt;/span&gt;.&lt;span class=&quot;at&quot;&gt;statusCode&lt;/span&gt;))&lt;span class=&quot;op&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-19&quot;&gt;&lt;a href=&quot;#cb3-19&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;op&quot;&gt;}&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-20&quot;&gt;&lt;a href=&quot;#cb3-20&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-21&quot;&gt;&lt;a href=&quot;#cb3-21&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;kw&quot;&gt;var&lt;/span&gt; member &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;JSON&lt;/span&gt;.&lt;span class=&quot;at&quot;&gt;parse&lt;/span&gt;(b)&lt;span class=&quot;op&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-22&quot;&gt;&lt;a href=&quot;#cb3-22&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-23&quot;&gt;&lt;a href=&quot;#cb3-23&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;kw&quot;&gt;var&lt;/span&gt; profile &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;{&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-24&quot;&gt;&lt;a href=&quot;#cb3-24&quot;&gt;&lt;/a&gt;          &lt;span class=&quot;dt&quot;&gt;user_id&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;member&lt;/span&gt;.&lt;span class=&quot;at&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-25&quot;&gt;&lt;a href=&quot;#cb3-25&quot;&gt;&lt;/a&gt;          &lt;span class=&quot;dt&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;member&lt;/span&gt;.&lt;span class=&quot;at&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-26&quot;&gt;&lt;a href=&quot;#cb3-26&quot;&gt;&lt;/a&gt;          &lt;span class=&quot;dt&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;member&lt;/span&gt;.&lt;span class=&quot;at&quot;&gt;fullName&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-27&quot;&gt;&lt;a href=&quot;#cb3-27&quot;&gt;&lt;/a&gt;          &lt;span class=&quot;dt&quot;&gt;email_verified&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;member&lt;/span&gt;.&lt;span class=&quot;at&quot;&gt;confirmed&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-28&quot;&gt;&lt;a href=&quot;#cb3-28&quot;&gt;&lt;/a&gt;          &lt;span class=&quot;dt&quot;&gt;nickname&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;member&lt;/span&gt;.&lt;span class=&quot;at&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-29&quot;&gt;&lt;a href=&quot;#cb3-29&quot;&gt;&lt;/a&gt;          &lt;span class=&quot;dt&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;:&lt;/span&gt; token&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-30&quot;&gt;&lt;a href=&quot;#cb3-30&quot;&gt;&lt;/a&gt;          &lt;span class=&quot;dt&quot;&gt;token_secret&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;:&lt;/span&gt; tokenSecret&lt;/span&gt;
-&lt;span id=&quot;cb3-31&quot;&gt;&lt;a href=&quot;#cb3-31&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;op&quot;&gt;};&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-32&quot;&gt;&lt;a href=&quot;#cb3-32&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-33&quot;&gt;&lt;a href=&quot;#cb3-33&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;at&quot;&gt;cb&lt;/span&gt;(&lt;span class=&quot;kw&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt; profile)&lt;span class=&quot;op&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-34&quot;&gt;&lt;a href=&quot;#cb3-34&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;op&quot;&gt;}&lt;/span&gt;)&lt;/span&gt;
-&lt;span id=&quot;cb3-35&quot;&gt;&lt;a href=&quot;#cb3-35&quot;&gt;&lt;/a&gt;&lt;span class=&quot;op&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/section&gt;
-&lt;section id=&quot;calling-the-trello-api-on-their-behalf&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Calling the Trello API on their behalf&lt;/h3&gt;
-&lt;p&gt;Once the user logs in with the Trello Auth0 connection, you’ll see the &lt;code&gt;token&lt;/code&gt; and &lt;code&gt;tokenSecret&lt;/code&gt; values stored on that user profile. These can be used to call the Trello API on behalf of the user. For example:&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot; id=&quot;cb4&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span id=&quot;cb4-1&quot;&gt;&lt;a href=&quot;#cb4-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;im&quot;&gt;from&lt;/span&gt; trello &lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; TrelloClient&lt;/span&gt;
-&lt;span id=&quot;cb4-2&quot;&gt;&lt;a href=&quot;#cb4-2&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb4-3&quot;&gt;&lt;a href=&quot;#cb4-3&quot;&gt;&lt;/a&gt;client &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; TrelloClient(&lt;/span&gt;
-&lt;span id=&quot;cb4-4&quot;&gt;&lt;a href=&quot;#cb4-4&quot;&gt;&lt;/a&gt;    api_key&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;$&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;{YOUR_TRELLO_CLIENT_ID}&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;&lt;/span&gt;,&lt;/span&gt;
-&lt;span id=&quot;cb4-5&quot;&gt;&lt;a href=&quot;#cb4-5&quot;&gt;&lt;/a&gt;    api_secret&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;$&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;{YOUR_TRELLO_CLIENT_SECRET}&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;&lt;/span&gt;,&lt;/span&gt;
-&lt;span id=&quot;cb4-6&quot;&gt;&lt;a href=&quot;#cb4-6&quot;&gt;&lt;/a&gt;    token&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;$&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;{TOKEN}&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;&lt;/span&gt;,&lt;/span&gt;
-&lt;span id=&quot;cb4-7&quot;&gt;&lt;a href=&quot;#cb4-7&quot;&gt;&lt;/a&gt;    token_secret&lt;span class=&quot;op&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;$&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;{TOKEN_SECRET}&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb4-8&quot;&gt;&lt;a href=&quot;#cb4-8&quot;&gt;&lt;/a&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The Trello &lt;a href=&quot;https://developer.atlassian.com/cloud/trello/guides/rest-api/authorization/&quot;&gt;official documentation&lt;/a&gt; contains more information on the specific values provided like application name, scope, and expiration.&lt;/p&gt;
+
+&lt;p&gt;The javascript code for fetch user profile &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${SCRIPT}&lt;/code&gt;&lt;/strong&gt; is:&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tokenSecret&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ctx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;OAuth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;oauth&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;OAuth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;oauth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;OAuth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;ctx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;requestTokenURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;ctx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;accessTokenURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;ctx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;client_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;ctx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;client_secret&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;1.0A&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;HMAC-SHA1&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;oauth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;https://api.trello.com/1/members/me&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tokenSecret&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;statusCode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Failed to authenticate with Trello. Code: &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;statusCode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;member&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;profile&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;user_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;member&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;member&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;member&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fullName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;email_verified&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;member&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;confirmed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;nickname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;member&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;token_secret&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tokenSecret&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+        &lt;span class=&quot;nx&quot;&gt;cb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;profile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;calling-the-trello-api-on-their-behalf&quot;&gt;Calling the Trello API on their behalf&lt;/h3&gt;
+
+&lt;p&gt;Once the user logs in with the Trello Auth0 connection, you’ll see the &lt;code class=&quot;highlighter-rouge&quot;&gt;token&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;tokenSecret&lt;/code&gt; values stored on that user profile. These can be used to call the Trello API on behalf of the user. For example:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;trello&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TrelloClient&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TrelloClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;api_key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'${YOUR_TRELLO_CLIENT_ID}'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;api_secret&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'${YOUR_TRELLO_CLIENT_SECRET}'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'${TOKEN}'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;token_secret&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'${TOKEN_SECRET}'&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;p&gt;The variables in this example are as follows:&lt;/p&gt;
+
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;&lt;code&gt;${YOUR_TRELLO_CLIENT_ID}&lt;/code&gt;&lt;/strong&gt; - The &lt;code&gt;client_id&lt;/code&gt; value from Trello noted above.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;code&gt;${YOUR_TRELLO_CLIENT_SECRET}&lt;/code&gt;&lt;/strong&gt; - The &lt;code&gt;client_secret&lt;/code&gt; value from Trello noted above.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;code&gt;${TOKEN}&lt;/code&gt;&lt;/strong&gt; - The &lt;strong&gt;&lt;code&gt;token&lt;/code&gt;&lt;/strong&gt; value stored on the Auth0 user profile.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;code&gt;${TOKEN_SECRET}&lt;/code&gt;&lt;/strong&gt; - The &lt;strong&gt;&lt;code&gt;tokenSecret&lt;/code&gt;&lt;/strong&gt; value stored on the Auth0 user profile.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${YOUR_TRELLO_CLIENT_ID}&lt;/code&gt;&lt;/strong&gt; - The &lt;code class=&quot;highlighter-rouge&quot;&gt;client_id&lt;/code&gt; value from Trello noted above.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${YOUR_TRELLO_CLIENT_SECRET}&lt;/code&gt;&lt;/strong&gt; - The &lt;code class=&quot;highlighter-rouge&quot;&gt;client_secret&lt;/code&gt; value from Trello noted above.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${TOKEN}&lt;/code&gt;&lt;/strong&gt; - The &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;token&lt;/code&gt;&lt;/strong&gt; value stored on the Auth0 user profile.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${TOKEN_SECRET}&lt;/code&gt;&lt;/strong&gt; - The &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;tokenSecret&lt;/code&gt;&lt;/strong&gt; value stored on the Auth0 user profile.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;/section&gt;
-&lt;section id=&quot;summary&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Summary&lt;/h3&gt;
-&lt;p&gt;In order to support Trello connections with Auth0, you must create a custom OAuth 1.1 connection with a custom javascript function that fetches Trello user information to create an Auth0 user profile.&lt;/p&gt;
-&lt;/section&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="writings" /><category term="auth0" /><category term="trello" /><summary type="html">At my company Routegy, we use Auth0 for identity management. While it is nice, in theory, to offload authn/authz to someone else so you can focus on building your product, integrating it does have a number of quirks.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">An examination of the curbside pickup experience</title><link href="https://andrew.hawker.io/writings/2020/06/30/an-examination-of-the-curbside-experience/" rel="alternate" type="text/html" title="An examination of the curbside pickup experience" /><published>2020-06-30T03:24:00-07:00</published><updated>2020-06-30T03:24:00-07:00</updated><id>https://andrew.hawker.io/writings/2020/06/30/an-examination-of-the-curbside-experience</id><content type="html" xml:base="https://andrew.hawker.io/writings/2020/06/30/an-examination-of-the-curbside-experience/">&lt;p&gt;&lt;span&gt;&lt;label for=&quot;sn-1&quot; class=&quot;margin-toggle&quot;&gt;&amp;#8853;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sn-1&quot; class=&quot;margin-toggle&quot;/&gt;&lt;span class=&quot;marginnote&quot;&gt; &lt;img src=&quot;/assets/images/routegy-logo-mountain-light-small.png&quot; /&gt;&lt;br /&gt;
-&lt;br /&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;Check out &lt;a href=&quot;https://blog.routegy.com/2020/06/30/examination-curbside-pickup-experience/&quot;&gt;my post&lt;/a&gt; on the &lt;a href=&quot;https://routegy.com&quot;&gt;Routegy&lt;/a&gt; company blog where I discuss curbside pickup industry trends during the COVID-19 pandemic.&lt;/p&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="writings" /><category term="routegy" /><category term="curbside pickup" /><category term="touchless" /><category term="contactless" /><summary type="html">&amp;#8853;</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Contest - Day 2 - Happy Number</title><link href="https://andrew.hawker.io/leetcode/2020/04/02/contest-day-2-happy-number/" rel="alternate" type="text/html" title="Contest - Day 2 - Happy Number" /><published>2020-04-02T01:21:00-07:00</published><updated>2020-04-02T01:21:00-07:00</updated><id>https://andrew.hawker.io/leetcode/2020/04/02/contest-day-2-happy-number</id><content type="html" xml:base="https://andrew.hawker.io/leetcode/2020/04/02/contest-day-2-happy-number/">&lt;p&gt;&lt;a href=&quot;https://leetcode.com/&quot;&gt;Leetcode&lt;/a&gt; is running a 30 day “Covid 19” style contest for everyone on self quarantine and social distancing. Let’s jump in!&lt;/p&gt;
-&lt;section id=&quot;happy-number&quot; class=&quot;level2&quot;&gt;
-&lt;h2&gt;&lt;a href=&quot;https://leetcode.com/problems/happy-number/&quot;&gt;Happy Number&lt;/a&gt;&lt;/h2&gt;
-&lt;section id=&quot;problem&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Problem&lt;/h3&gt;
+
+&lt;h3 id=&quot;summary&quot;&gt;Summary&lt;/h3&gt;
+
+&lt;p&gt;In order to support Trello connections with Auth0, you must create a custom OAuth 1.1 connection with a custom javascript function that fetches Trello user information to create an Auth0 user profile.&lt;/p&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="writings" /><category term="auth0" /><category term="trello" /><summary type="html">At my company Routegy, we use Auth0 for identity management. While it is nice, in theory, to offload authn/authz to someone else so you can focus on building your product, integrating it does have a number of quirks.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">An examination of the curbside pickup experience</title><link href="https://andrew.hawker.io/writings/2020/06/30/an-examination-of-the-curbside-experience/" rel="alternate" type="text/html" title="An examination of the curbside pickup experience" /><published>2020-06-30T03:24:00-07:00</published><updated>2020-06-30T03:24:00-07:00</updated><id>https://andrew.hawker.io/writings/2020/06/30/an-examination-of-the-curbside-experience</id><content type="html" xml:base="https://andrew.hawker.io/writings/2020/06/30/an-examination-of-the-curbside-experience/">&lt;p&gt;&lt;img class=&quot;float-right&quot; src=&quot;/assets/images/routegy-logo-mountain-light-small.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Check out &lt;a href=&quot;https://blog.routegy.com/2020/06/30/examination-curbside-pickup-experience/&quot;&gt;my post&lt;/a&gt; on the &lt;a href=&quot;https://routegy.com&quot;&gt;Routegy&lt;/a&gt; company blog where I discuss curbside pickup industry trends during the COVID-19 pandemic.&lt;/p&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="writings" /><category term="routegy" /><category term="curbside pickup" /><category term="touchless" /><category term="contactless" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Contest - Day 2 - Happy Number</title><link href="https://andrew.hawker.io/leetcode/2020/04/02/contest-day-2-happy-number/" rel="alternate" type="text/html" title="Contest - Day 2 - Happy Number" /><published>2020-04-02T01:21:00-07:00</published><updated>2020-04-02T01:21:00-07:00</updated><id>https://andrew.hawker.io/leetcode/2020/04/02/contest-day-2-happy-number</id><content type="html" xml:base="https://andrew.hawker.io/leetcode/2020/04/02/contest-day-2-happy-number/">&lt;p&gt;&lt;a href=&quot;https://leetcode.com/&quot;&gt;Leetcode&lt;/a&gt; is running a 30 day “Covid 19” style contest for everyone on self quarantine and social distancing. Let’s jump in!&lt;/p&gt;
+
+&lt;h2 id=&quot;happy-number&quot;&gt;&lt;a href=&quot;https://leetcode.com/problems/happy-number/&quot;&gt;Happy Number&lt;/a&gt;&lt;/h2&gt;
+
+&lt;h3 id=&quot;problem&quot;&gt;Problem&lt;/h3&gt;
+
 &lt;p&gt;Write an algorithm to determine if a number is “happy”.&lt;/p&gt;
+
 &lt;p&gt;A happy number is a number defined by the following process: Starting with any positive integer, replace the number by the sum of the squares of its digits, and repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1. Those numbers for which this process ends in 1 are happy numbers.&lt;/p&gt;
+
 &lt;p&gt;Example:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Input: 19
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Input: 19
 Output: true
 Explanation: 
 12 + 92 = 82
 82 + 22 = 68
 62 + 82 = 100
-12 + 02 + 02 = 1&lt;/code&gt;&lt;/pre&gt;
-&lt;/section&gt;
-&lt;section id=&quot;thinking&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Thinking&lt;/h3&gt;
-&lt;p&gt;Once you know how to pull individual digits out of a number, these are &lt;em&gt;relatively&lt;/em&gt; straight forward. You just need to keep track of your in-progress sums vs. total sums and the total sums you’ve previously seen for loop detection.&lt;/p&gt;
-&lt;p&gt;To get a digit, you just mod the number by its base (&lt;code&gt;10&lt;/code&gt;, assuming its &lt;code&gt;base 10&lt;/code&gt;). Then you divide the original number by its base and continue. An unrolled look for the number &lt;code&gt;19&lt;/code&gt; would look like:&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot; id=&quot;cb2&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span id=&quot;cb2-1&quot;&gt;&lt;a href=&quot;#cb2-1&quot;&gt;&lt;/a&gt;x &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;19&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-2&quot;&gt;&lt;a href=&quot;#cb2-2&quot;&gt;&lt;/a&gt;x &lt;span class=&quot;op&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;  &lt;span class=&quot;co&quot;&gt;# =&amp;gt; 9&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-3&quot;&gt;&lt;a href=&quot;#cb2-3&quot;&gt;&lt;/a&gt;x &lt;span class=&quot;op&quot;&gt;//=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;  &lt;span class=&quot;co&quot;&gt;# (x =&amp;gt; 1)&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-4&quot;&gt;&lt;a href=&quot;#cb2-4&quot;&gt;&lt;/a&gt;x &lt;span class=&quot;op&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;  &lt;span class=&quot;co&quot;&gt;# =&amp;gt; 1&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-5&quot;&gt;&lt;a href=&quot;#cb2-5&quot;&gt;&lt;/a&gt;x &lt;span class=&quot;op&quot;&gt;//=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;  &lt;span class=&quot;co&quot;&gt;# (x =&amp;gt; 0)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/section&gt;
-&lt;section id=&quot;corner-cases&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Corner Cases&lt;/h3&gt;
+12 + 02 + 02 = 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;thinking&quot;&gt;Thinking&lt;/h3&gt;
+
+&lt;p&gt;Once you know how to pull individual digits out of a number, these are &lt;em&gt;relatively&lt;/em&gt; straight forward. You just need to keep track of your in-progress sums vs. total sums and the total sums you’ve previously seen for loop detection.&lt;/p&gt;
+
+&lt;p&gt;To get a digit, you just mod the number by its base (&lt;code class=&quot;highlighter-rouge&quot;&gt;10&lt;/code&gt;, assuming its &lt;code class=&quot;highlighter-rouge&quot;&gt;base 10&lt;/code&gt;). Then you divide the original number by its base and continue. An unrolled look for the number &lt;code class=&quot;highlighter-rouge&quot;&gt;19&lt;/code&gt; would look like:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;19&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# =&amp;gt; 9
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# (x =&amp;gt; 1)
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# =&amp;gt; 1
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# (x =&amp;gt; 0)
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;corner-cases&quot;&gt;Corner Cases&lt;/h3&gt;
+
 &lt;p&gt;I don’t think I missed any this time.&lt;/p&gt;
-&lt;/section&gt;
-&lt;section id=&quot;improvements&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Improvements&lt;/h3&gt;
+
+&lt;h3 id=&quot;improvements&quot;&gt;Improvements&lt;/h3&gt;
+
 &lt;p&gt;There’s possibly a way to detect loops without using a set (mathematical) to decrease memory usage but I don’t know of it.&lt;/p&gt;
-&lt;/section&gt;
-&lt;section id=&quot;solution&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Solution&lt;/h3&gt;
-&lt;div class=&quot;sourceCode&quot; id=&quot;cb3&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span id=&quot;cb3-1&quot;&gt;&lt;a href=&quot;#cb3-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;class&lt;/span&gt; Solution:&lt;/span&gt;
-&lt;span id=&quot;cb3-2&quot;&gt;&lt;a href=&quot;#cb3-2&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; isHappy(&lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;, n: &lt;span class=&quot;bu&quot;&gt;int&lt;/span&gt;) &lt;span class=&quot;op&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bu&quot;&gt;bool&lt;/span&gt;:&lt;/span&gt;
-&lt;span id=&quot;cb3-3&quot;&gt;&lt;a href=&quot;#cb3-3&quot;&gt;&lt;/a&gt;        seen &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bu&quot;&gt;set&lt;/span&gt;()&lt;/span&gt;
-&lt;span id=&quot;cb3-4&quot;&gt;&lt;a href=&quot;#cb3-4&quot;&gt;&lt;/a&gt;        curr &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; n&lt;/span&gt;
-&lt;span id=&quot;cb3-5&quot;&gt;&lt;a href=&quot;#cb3-5&quot;&gt;&lt;/a&gt;        prev &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; n&lt;/span&gt;
-&lt;span id=&quot;cb3-6&quot;&gt;&lt;a href=&quot;#cb3-6&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-7&quot;&gt;&lt;a href=&quot;#cb3-7&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;cf&quot;&gt;while&lt;/span&gt; prev &lt;span class=&quot;op&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;:&lt;/span&gt;
-&lt;span id=&quot;cb3-8&quot;&gt;&lt;a href=&quot;#cb3-8&quot;&gt;&lt;/a&gt;            &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; prev &lt;span class=&quot;kw&quot;&gt;in&lt;/span&gt; seen:&lt;/span&gt;
-&lt;span id=&quot;cb3-9&quot;&gt;&lt;a href=&quot;#cb3-9&quot;&gt;&lt;/a&gt;                &lt;span class=&quot;cf&quot;&gt;break&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-10&quot;&gt;&lt;a href=&quot;#cb3-10&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-11&quot;&gt;&lt;a href=&quot;#cb3-11&quot;&gt;&lt;/a&gt;            seen.add(prev)&lt;/span&gt;
-&lt;span id=&quot;cb3-12&quot;&gt;&lt;a href=&quot;#cb3-12&quot;&gt;&lt;/a&gt;            curr &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; prev&lt;/span&gt;
-&lt;span id=&quot;cb3-13&quot;&gt;&lt;a href=&quot;#cb3-13&quot;&gt;&lt;/a&gt;            prev &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;   &lt;/span&gt;
-&lt;span id=&quot;cb3-14&quot;&gt;&lt;a href=&quot;#cb3-14&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-15&quot;&gt;&lt;a href=&quot;#cb3-15&quot;&gt;&lt;/a&gt;            &lt;span class=&quot;cf&quot;&gt;while&lt;/span&gt; curr:&lt;/span&gt;
-&lt;span id=&quot;cb3-16&quot;&gt;&lt;a href=&quot;#cb3-16&quot;&gt;&lt;/a&gt;                digit &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; curr &lt;span class=&quot;op&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-17&quot;&gt;&lt;a href=&quot;#cb3-17&quot;&gt;&lt;/a&gt;                curr &lt;span class=&quot;op&quot;&gt;//=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-18&quot;&gt;&lt;a href=&quot;#cb3-18&quot;&gt;&lt;/a&gt;                prev &lt;span class=&quot;op&quot;&gt;+=&lt;/span&gt; digit &lt;span class=&quot;op&quot;&gt;**&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-19&quot;&gt;&lt;a href=&quot;#cb3-19&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-20&quot;&gt;&lt;a href=&quot;#cb3-20&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; prev &lt;span class=&quot;op&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/section&gt;
-&lt;section id=&quot;score&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Score&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;Runtime: 36 ms, faster than 30.40% of Python3 online submissions for Happy Number.
-Memory Usage: 13.9 MB, less than 5.26% of Python3 online submissions for Happy Number.&lt;/code&gt;&lt;/pre&gt;
-&lt;/section&gt;
-&lt;/section&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="leetcode" /><category term="leetcode easy" /><category term="leetcode covid contest" /><category term="python" /><summary type="html">Leetcode is running a 30 day “Covid 19” style contest for everyone on self quarantine and social distancing. Let’s jump in!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Contest - Day 1 - Single Number</title><link href="https://andrew.hawker.io/leetcode/2020/04/01/contest-day-1-single-number/" rel="alternate" type="text/html" title="Contest - Day 1 - Single Number" /><published>2020-04-01T01:37:00-07:00</published><updated>2020-04-01T01:37:00-07:00</updated><id>https://andrew.hawker.io/leetcode/2020/04/01/contest-day-1-single-number</id><content type="html" xml:base="https://andrew.hawker.io/leetcode/2020/04/01/contest-day-1-single-number/">&lt;p&gt;&lt;a href=&quot;https://leetcode.com/&quot;&gt;Leetcode&lt;/a&gt; is running a 30 day “Covid 19” style contest for everyone on self quarantine and social distancing. Let’s jump in!&lt;/p&gt;
-&lt;section id=&quot;single-number&quot; class=&quot;level2&quot;&gt;
-&lt;h2&gt;&lt;a href=&quot;https://leetcode.com/problems/single-number/&quot;&gt;Single Number&lt;/a&gt;&lt;/h2&gt;
-&lt;section id=&quot;problem&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Problem&lt;/h3&gt;
+
+&lt;h3 id=&quot;solution&quot;&gt;Solution&lt;/h3&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;isHappy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;bool&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;seen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;curr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
+
+            &lt;span class=&quot;n&quot;&gt;seen&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;curr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;   
+
+            &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;curr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;digit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;curr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;curr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;digit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;score&quot;&gt;Score&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Runtime: 36 ms, faster than 30.40% of Python3 online submissions for Happy Number.
+Memory Usage: 13.9 MB, less than 5.26% of Python3 online submissions for Happy Number.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="leetcode" /><category term="leetcode easy" /><category term="leetcode covid contest" /><category term="python" /><summary type="html">Leetcode is running a 30 day “Covid 19” style contest for everyone on self quarantine and social distancing. Let’s jump in!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Contest - Day 1 - Single Number</title><link href="https://andrew.hawker.io/leetcode/2020/04/01/contest-day-1-single-number/" rel="alternate" type="text/html" title="Contest - Day 1 - Single Number" /><published>2020-04-01T01:37:00-07:00</published><updated>2020-04-01T01:37:00-07:00</updated><id>https://andrew.hawker.io/leetcode/2020/04/01/contest-day-1-single-number</id><content type="html" xml:base="https://andrew.hawker.io/leetcode/2020/04/01/contest-day-1-single-number/">&lt;p&gt;&lt;a href=&quot;https://leetcode.com/&quot;&gt;Leetcode&lt;/a&gt; is running a 30 day “Covid 19” style contest for everyone on self quarantine and social distancing. Let’s jump in!&lt;/p&gt;
+
+&lt;h2 id=&quot;single-number&quot;&gt;&lt;a href=&quot;https://leetcode.com/problems/single-number/&quot;&gt;Single Number&lt;/a&gt;&lt;/h2&gt;
+
+&lt;h3 id=&quot;problem&quot;&gt;Problem&lt;/h3&gt;
+
 &lt;p&gt;Given a non-empty array of integers, every element appears twice except for one. Find that single one.&lt;/p&gt;
+
 &lt;p&gt;Note:&lt;/p&gt;
+
 &lt;p&gt;Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?&lt;/p&gt;
+
 &lt;p&gt;Examples:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Input: [2,2,1]
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Input: [2,2,1]
 Output: 1
 
 Input: [4,1,2,1,2]
-Output: 4&lt;/code&gt;&lt;/pre&gt;
-&lt;/section&gt;
-&lt;section id=&quot;thinking&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Thinking&lt;/h3&gt;
-&lt;p&gt;This is very easy using the &lt;code&gt;collections.Counter&lt;/code&gt; in python stlib. That might be &lt;em&gt;cheating&lt;/em&gt; but I’m going to allow it. Stand on the shoulders of well tested (code) giants, I say.&lt;/p&gt;
+Output: 4
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;thinking&quot;&gt;Thinking&lt;/h3&gt;
+
+&lt;p&gt;This is very easy using the &lt;code class=&quot;highlighter-rouge&quot;&gt;collections.Counter&lt;/code&gt; in python stlib. That might be &lt;em&gt;cheating&lt;/em&gt; but I’m going to allow it. Stand on the shoulders of well tested (code) giants, I say.&lt;/p&gt;
+
 &lt;p&gt;However, the question posits there is a way to do it without using &lt;em&gt;extra&lt;/em&gt; memory. So, storing counters is likely not the optimal solution.&lt;/p&gt;
+
 &lt;p&gt;This led me to thinking about truth tables. What boolean operation will indicate &lt;em&gt;once&lt;/em&gt; but not &lt;em&gt;twice&lt;/em&gt;? &lt;strong&gt;XOR&lt;/strong&gt;. For example:&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot; id=&quot;cb2&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span id=&quot;cb2-1&quot;&gt;&lt;a href=&quot;#cb2-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-2&quot;&gt;&lt;a href=&quot;#cb2-2&quot;&gt;&lt;/a&gt;&lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;fl&quot;&gt;0.&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;p&gt;If the result of our &lt;strong&gt;XOR&lt;/strong&gt; logic is the input value, there is only one occurrence of it. If it’s zero, then there was either none, or more than 1 of them.&lt;/p&gt;
-&lt;/section&gt;
-&lt;section id=&quot;corner-cases&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Corner Cases&lt;/h3&gt;
+
+&lt;h3 id=&quot;corner-cases&quot;&gt;Corner Cases&lt;/h3&gt;
+
 &lt;p&gt;I don’t think I missed any this time.&lt;/p&gt;
-&lt;/section&gt;
-&lt;section id=&quot;improvements&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Improvements&lt;/h3&gt;
+
+&lt;h3 id=&quot;improvements&quot;&gt;Improvements&lt;/h3&gt;
+
 &lt;p&gt;I don’t think I missed any this time.&lt;/p&gt;
-&lt;/section&gt;
-&lt;section id=&quot;solution&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Solution&lt;/h3&gt;
+
+&lt;h3 id=&quot;solution&quot;&gt;Solution&lt;/h3&gt;
+
 &lt;p&gt;&lt;strong&gt;Counting&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot; id=&quot;cb3&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span id=&quot;cb3-1&quot;&gt;&lt;a href=&quot;#cb3-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; collections&lt;/span&gt;
-&lt;span id=&quot;cb3-2&quot;&gt;&lt;a href=&quot;#cb3-2&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb3-3&quot;&gt;&lt;a href=&quot;#cb3-3&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;class&lt;/span&gt; Solution:&lt;/span&gt;
-&lt;span id=&quot;cb3-4&quot;&gt;&lt;a href=&quot;#cb3-4&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; singleNumber(&lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;, nums: List[&lt;span class=&quot;bu&quot;&gt;int&lt;/span&gt;]) &lt;span class=&quot;op&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bu&quot;&gt;int&lt;/span&gt;:&lt;/span&gt;
-&lt;span id=&quot;cb3-5&quot;&gt;&lt;a href=&quot;#cb3-5&quot;&gt;&lt;/a&gt;        counts &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; collections.Counter(nums)&lt;/span&gt;
-&lt;span id=&quot;cb3-6&quot;&gt;&lt;a href=&quot;#cb3-6&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; counts.most_common()[&lt;span class=&quot;op&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;][&lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;collections&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;singleNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;counts&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collections&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;counts&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;most_common&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;p&gt;&lt;strong&gt;XOR&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot; id=&quot;cb4&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span id=&quot;cb4-1&quot;&gt;&lt;a href=&quot;#cb4-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;class&lt;/span&gt; Solution:&lt;/span&gt;
-&lt;span id=&quot;cb4-2&quot;&gt;&lt;a href=&quot;#cb4-2&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; singleNumber(&lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;, nums: List[&lt;span class=&quot;bu&quot;&gt;int&lt;/span&gt;]) &lt;span class=&quot;op&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bu&quot;&gt;int&lt;/span&gt;:&lt;/span&gt;
-&lt;span id=&quot;cb4-3&quot;&gt;&lt;a href=&quot;#cb4-3&quot;&gt;&lt;/a&gt;        r &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb4-4&quot;&gt;&lt;a href=&quot;#cb4-4&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;cf&quot;&gt;for&lt;/span&gt; n &lt;span class=&quot;kw&quot;&gt;in&lt;/span&gt; nums:&lt;/span&gt;
-&lt;span id=&quot;cb4-5&quot;&gt;&lt;a href=&quot;#cb4-5&quot;&gt;&lt;/a&gt;            r &lt;span class=&quot;op&quot;&gt;^=&lt;/span&gt; n&lt;/span&gt;
-&lt;span id=&quot;cb4-6&quot;&gt;&lt;a href=&quot;#cb4-6&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; r&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/section&gt;
-&lt;section id=&quot;score&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Score&lt;/h3&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;singleNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;score&quot;&gt;Score&lt;/h3&gt;
+
 &lt;p&gt;&lt;strong&gt;Counting&lt;/strong&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Runtime: 84 ms, faster than 85.38% of Python3 online submissions for Single Number.
-Memory Usage: 16.3 MB, less than 6.56% of Python3 online submissions for Single Number.&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Runtime: 84 ms, faster than 85.38% of Python3 online submissions for Single Number.
+Memory Usage: 16.3 MB, less than 6.56% of Python3 online submissions for Single Number.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;p&gt;&lt;strong&gt;XOR&lt;/strong&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Runtime: 88 ms, faster than 65.17% of Python3 online submissions for Single Number.
-Memory Usage: 15.6 MB, less than 6.56% of Python3 online submissions for Single Number.&lt;/code&gt;&lt;/pre&gt;
-&lt;/section&gt;
-&lt;/section&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="leetcode" /><category term="leetcode easy" /><category term="leetcode covid contest" /><category term="python" /><summary type="html">Leetcode is running a 30 day “Covid 19” style contest for everyone on self quarantine and social distancing. Let’s jump in!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Add Two Numbers</title><link href="https://andrew.hawker.io/leetcode/2020/03/31/add-two-numbers/" rel="alternate" type="text/html" title="Add Two Numbers" /><published>2020-03-31T01:34:00-07:00</published><updated>2020-03-31T01:34:00-07:00</updated><id>https://andrew.hawker.io/leetcode/2020/03/31/add-two-numbers</id><content type="html" xml:base="https://andrew.hawker.io/leetcode/2020/03/31/add-two-numbers/">&lt;p&gt;I’m trying to get in a habit of starting my mornings off with coffee and a &lt;a href=&quot;https://leetcode.com/&quot;&gt;Leetcode&lt;/a&gt; problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!&lt;/p&gt;
-&lt;section id=&quot;add-two-numbers&quot; class=&quot;level2&quot;&gt;
-&lt;h2&gt;&lt;a href=&quot;https://leetcode.com/problems/add-two-numbers/&quot;&gt;Add Two Numbers&lt;/a&gt;&lt;/h2&gt;
-&lt;section id=&quot;problem&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Problem&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Runtime: 88 ms, faster than 65.17% of Python3 online submissions for Single Number.
+Memory Usage: 15.6 MB, less than 6.56% of Python3 online submissions for Single Number.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="leetcode" /><category term="leetcode easy" /><category term="leetcode covid contest" /><category term="python" /><summary type="html">Leetcode is running a 30 day “Covid 19” style contest for everyone on self quarantine and social distancing. Let’s jump in!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Add Two Numbers</title><link href="https://andrew.hawker.io/leetcode/2020/03/31/add-two-numbers/" rel="alternate" type="text/html" title="Add Two Numbers" /><published>2020-03-31T01:34:00-07:00</published><updated>2020-03-31T01:34:00-07:00</updated><id>https://andrew.hawker.io/leetcode/2020/03/31/add-two-numbers</id><content type="html" xml:base="https://andrew.hawker.io/leetcode/2020/03/31/add-two-numbers/">&lt;p&gt;I’m trying to get in a habit of starting my mornings off with coffee and a &lt;a href=&quot;https://leetcode.com/&quot;&gt;Leetcode&lt;/a&gt; problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!&lt;/p&gt;
+
+&lt;h2 id=&quot;add-two-numbers&quot;&gt;&lt;a href=&quot;https://leetcode.com/problems/add-two-numbers/&quot;&gt;Add Two Numbers&lt;/a&gt;&lt;/h2&gt;
+
+&lt;h3 id=&quot;problem&quot;&gt;Problem&lt;/h3&gt;
+
 &lt;p&gt;You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.&lt;/p&gt;
+
 &lt;p&gt;You may assume the two numbers do not contain any leading zero, except the number 0 itself.&lt;/p&gt;
+
 &lt;p&gt;Example:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Input: (2 -&amp;gt; 4 -&amp;gt; 3) + (5 -&amp;gt; 6 -&amp;gt; 4)
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Input: (2 -&amp;gt; 4 -&amp;gt; 3) + (5 -&amp;gt; 6 -&amp;gt; 4)
 Output: 7 -&amp;gt; 0 -&amp;gt; 8
-Explanation: 342 + 465 = 807.&lt;/code&gt;&lt;/pre&gt;
-&lt;/section&gt;
-&lt;section id=&quot;thinking&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Thinking&lt;/h3&gt;
-&lt;p&gt;This one took me a few swings, mainly because I didn’t read that the return value was supposed to be a linked list. I had implemented the logic to sum the linked lists properly and then realized I’d have to iterate over the resulting integer to build a list. Bleh. So I started over so I could implement it in a single iteration of &lt;code&gt;O(N)&lt;/code&gt; time.&lt;/p&gt;
+Explanation: 342 + 465 = 807.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;thinking&quot;&gt;Thinking&lt;/h3&gt;
+
+&lt;p&gt;This one took me a few swings, mainly because I didn’t read that the return value was supposed to be a linked list. I had implemented the logic to sum the linked lists properly and then realized I’d have to iterate over the resulting integer to build a list. Bleh. So I started over so I could implement it in a single iteration of &lt;code class=&quot;highlighter-rouge&quot;&gt;O(N)&lt;/code&gt; time.&lt;/p&gt;
+
 &lt;p&gt;The solution works as follows:&lt;/p&gt;
-&lt;p&gt;Continue looping while either of the nodes has a &lt;code&gt;next&lt;/code&gt; value.&lt;/p&gt;
-&lt;p&gt;Sum digits from each list. Use zero if we’ve exhausted one of the lists. Track a “carry” if sum is greater than 10. Result list should only store &lt;code&gt;sum % 10&lt;/code&gt; so it only stores a single digit.&lt;/p&gt;
-&lt;p&gt;If we’re at the end of both lists, check to see if we still have a “carry”. If so, need to append another node to result list with the value of &lt;code&gt;1&lt;/code&gt;.&lt;/p&gt;
-&lt;/section&gt;
-&lt;section id=&quot;corner-cases&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Corner Cases&lt;/h3&gt;
+
+&lt;p&gt;Continue looping while either of the nodes has a &lt;code class=&quot;highlighter-rouge&quot;&gt;next&lt;/code&gt; value.&lt;/p&gt;
+
+&lt;p&gt;Sum digits from each list. Use zero if we’ve exhausted one of the lists. Track a “carry” if sum is greater than 10. Result list should only store &lt;code class=&quot;highlighter-rouge&quot;&gt;sum % 10&lt;/code&gt; so it only stores a single digit.&lt;/p&gt;
+
+&lt;p&gt;If we’re at the end of both lists, check to see if we still have a “carry”. If so, need to append another node to result list with the value of &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;corner-cases&quot;&gt;Corner Cases&lt;/h3&gt;
+
 &lt;p&gt;The following corner cases are what I missed in my initial solution:&lt;/p&gt;
+
 &lt;ul&gt;
-&lt;li&gt;The final “carry” when both lists were exhausted.&lt;/li&gt;
+  &lt;li&gt;The final “carry” when both lists were exhausted.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;/section&gt;
-&lt;section id=&quot;improvements&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Improvements&lt;/h3&gt;
+
+&lt;h3 id=&quot;improvements&quot;&gt;Improvements&lt;/h3&gt;
+
 &lt;p&gt;I feel like the tracking of the head node relative to the result list moving pointer code is messy.&lt;/p&gt;
-&lt;/section&gt;
-&lt;section id=&quot;solution&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Solution&lt;/h3&gt;
-&lt;div class=&quot;sourceCode&quot; id=&quot;cb2&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span id=&quot;cb2-1&quot;&gt;&lt;a href=&quot;#cb2-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;co&quot;&gt;# Definition for singly-linked list.&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-2&quot;&gt;&lt;a href=&quot;#cb2-2&quot;&gt;&lt;/a&gt;&lt;span class=&quot;co&quot;&gt;# class ListNode:&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-3&quot;&gt;&lt;a href=&quot;#cb2-3&quot;&gt;&lt;/a&gt;&lt;span class=&quot;co&quot;&gt;#     def __init__(self, x):&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-4&quot;&gt;&lt;a href=&quot;#cb2-4&quot;&gt;&lt;/a&gt;&lt;span class=&quot;co&quot;&gt;#         self.val = x&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-5&quot;&gt;&lt;a href=&quot;#cb2-5&quot;&gt;&lt;/a&gt;&lt;span class=&quot;co&quot;&gt;#         self.next = None&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-6&quot;&gt;&lt;a href=&quot;#cb2-6&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-7&quot;&gt;&lt;a href=&quot;#cb2-7&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;class&lt;/span&gt; Solution:&lt;/span&gt;
-&lt;span id=&quot;cb2-8&quot;&gt;&lt;a href=&quot;#cb2-8&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; addTwoNumbers(&lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;, l1: ListNode, l2: ListNode) &lt;span class=&quot;op&quot;&gt;-&amp;gt;&lt;/span&gt; ListNode:&lt;/span&gt;
-&lt;span id=&quot;cb2-9&quot;&gt;&lt;a href=&quot;#cb2-9&quot;&gt;&lt;/a&gt;        carry &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-10&quot;&gt;&lt;a href=&quot;#cb2-10&quot;&gt;&lt;/a&gt;        &lt;/span&gt;
-&lt;span id=&quot;cb2-11&quot;&gt;&lt;a href=&quot;#cb2-11&quot;&gt;&lt;/a&gt;        head &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; l3 &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; ListNode(&lt;span class=&quot;va&quot;&gt;None&lt;/span&gt;)&lt;/span&gt;
-&lt;span id=&quot;cb2-12&quot;&gt;&lt;a href=&quot;#cb2-12&quot;&gt;&lt;/a&gt;        &lt;/span&gt;
-&lt;span id=&quot;cb2-13&quot;&gt;&lt;a href=&quot;#cb2-13&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;cf&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;True&lt;/span&gt;:&lt;/span&gt;
-&lt;span id=&quot;cb2-14&quot;&gt;&lt;a href=&quot;#cb2-14&quot;&gt;&lt;/a&gt;            &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;not&lt;/span&gt; l1 &lt;span class=&quot;kw&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;not&lt;/span&gt; l2:&lt;/span&gt;
-&lt;span id=&quot;cb2-15&quot;&gt;&lt;a href=&quot;#cb2-15&quot;&gt;&lt;/a&gt;                &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; carry:&lt;/span&gt;
-&lt;span id=&quot;cb2-16&quot;&gt;&lt;a href=&quot;#cb2-16&quot;&gt;&lt;/a&gt;                    l3.&lt;span class=&quot;bu&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; ListNode(carry)&lt;/span&gt;
-&lt;span id=&quot;cb2-17&quot;&gt;&lt;a href=&quot;#cb2-17&quot;&gt;&lt;/a&gt;                &lt;span class=&quot;cf&quot;&gt;break&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-18&quot;&gt;&lt;a href=&quot;#cb2-18&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-19&quot;&gt;&lt;a href=&quot;#cb2-19&quot;&gt;&lt;/a&gt;            l1_val &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; l1.val &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; l1 &lt;span class=&quot;cf&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-20&quot;&gt;&lt;a href=&quot;#cb2-20&quot;&gt;&lt;/a&gt;            l2_val &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; l2.val &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; l2 &lt;span class=&quot;cf&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-21&quot;&gt;&lt;a href=&quot;#cb2-21&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-22&quot;&gt;&lt;a href=&quot;#cb2-22&quot;&gt;&lt;/a&gt;            value &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; l1_val &lt;span class=&quot;op&quot;&gt;+&lt;/span&gt; l2_val &lt;span class=&quot;op&quot;&gt;+&lt;/span&gt; carry&lt;/span&gt;
-&lt;span id=&quot;cb2-23&quot;&gt;&lt;a href=&quot;#cb2-23&quot;&gt;&lt;/a&gt;            digit &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; value &lt;span class=&quot;op&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-24&quot;&gt;&lt;a href=&quot;#cb2-24&quot;&gt;&lt;/a&gt;            &lt;/span&gt;
-&lt;span id=&quot;cb2-25&quot;&gt;&lt;a href=&quot;#cb2-25&quot;&gt;&lt;/a&gt;            &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; l3.val &lt;span class=&quot;kw&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;None&lt;/span&gt;:&lt;/span&gt;
-&lt;span id=&quot;cb2-26&quot;&gt;&lt;a href=&quot;#cb2-26&quot;&gt;&lt;/a&gt;                l3.val &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; digit&lt;/span&gt;
-&lt;span id=&quot;cb2-27&quot;&gt;&lt;a href=&quot;#cb2-27&quot;&gt;&lt;/a&gt;                head &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; l3&lt;/span&gt;
-&lt;span id=&quot;cb2-28&quot;&gt;&lt;a href=&quot;#cb2-28&quot;&gt;&lt;/a&gt;            &lt;span class=&quot;cf&quot;&gt;else&lt;/span&gt;:&lt;/span&gt;
-&lt;span id=&quot;cb2-29&quot;&gt;&lt;a href=&quot;#cb2-29&quot;&gt;&lt;/a&gt;                l3.&lt;span class=&quot;bu&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; ListNode(digit)&lt;/span&gt;
-&lt;span id=&quot;cb2-30&quot;&gt;&lt;a href=&quot;#cb2-30&quot;&gt;&lt;/a&gt;                l3 &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; l3.&lt;span class=&quot;bu&quot;&gt;next&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-31&quot;&gt;&lt;a href=&quot;#cb2-31&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-32&quot;&gt;&lt;a href=&quot;#cb2-32&quot;&gt;&lt;/a&gt;            carry &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; value &lt;span class=&quot;op&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;cf&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-33&quot;&gt;&lt;a href=&quot;#cb2-33&quot;&gt;&lt;/a&gt;            l1 &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; l1.&lt;span class=&quot;bu&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; l1 &lt;span class=&quot;cf&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;None&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-34&quot;&gt;&lt;a href=&quot;#cb2-34&quot;&gt;&lt;/a&gt;            l2 &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; l2.&lt;span class=&quot;bu&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; l2 &lt;span class=&quot;cf&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;None&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-35&quot;&gt;&lt;a href=&quot;#cb2-35&quot;&gt;&lt;/a&gt;        &lt;/span&gt;
-&lt;span id=&quot;cb2-36&quot;&gt;&lt;a href=&quot;#cb2-36&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; head&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/section&gt;
-&lt;section id=&quot;score&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Score&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;Runtime: 68 ms, faster than 77.41% of Python3 online submissions for Add Two Numbers.
-Memory Usage: 13.8 MB, less than 5.67% of Python3 online submissions for Add Two Numbers.&lt;/code&gt;&lt;/pre&gt;
-&lt;/section&gt;
-&lt;/section&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="leetcode" /><category term="leetcode medium" /><category term="python" /><summary type="html">I’m trying to get in a habit of starting my mornings off with coffee and a Leetcode problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Longest Common Prefix</title><link href="https://andrew.hawker.io/leetcode/2020/03/30/longest-common-prefix/" rel="alternate" type="text/html" title="Longest Common Prefix" /><published>2020-03-30T01:44:00-07:00</published><updated>2020-03-30T01:44:00-07:00</updated><id>https://andrew.hawker.io/leetcode/2020/03/30/longest-common-prefix</id><content type="html" xml:base="https://andrew.hawker.io/leetcode/2020/03/30/longest-common-prefix/">&lt;p&gt;I’m trying to get in a habit of starting my mornings off with coffee and a &lt;a href=&quot;https://leetcode.com/&quot;&gt;Leetcode&lt;/a&gt; problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!&lt;/p&gt;
-&lt;section id=&quot;longest-common-prefix&quot; class=&quot;level2&quot;&gt;
-&lt;h2&gt;&lt;a href=&quot;https://leetcode.com/problems/longest-common-prefix/&quot;&gt;Longest Common Prefix&lt;/a&gt;&lt;/h2&gt;
-&lt;section id=&quot;problem&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Problem&lt;/h3&gt;
+
+&lt;h3 id=&quot;solution&quot;&gt;Solution&lt;/h3&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addTwoNumbers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;carry&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+        
+        &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        
+        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;l3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;carry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
+
+            &lt;span class=&quot;n&quot;&gt;l1_val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;l2_val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+
+            &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1_val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2_val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carry&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;digit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;
+            
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;l3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;digit&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l3&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;l3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;digit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;l3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;
+
+            &lt;span class=&quot;n&quot;&gt;carry&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;
+        
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;score&quot;&gt;Score&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Runtime: 68 ms, faster than 77.41% of Python3 online submissions for Add Two Numbers.
+Memory Usage: 13.8 MB, less than 5.67% of Python3 online submissions for Add Two Numbers.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="leetcode" /><category term="leetcode medium" /><category term="python" /><summary type="html">I’m trying to get in a habit of starting my mornings off with coffee and a Leetcode problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Longest Common Prefix</title><link href="https://andrew.hawker.io/leetcode/2020/03/30/longest-common-prefix/" rel="alternate" type="text/html" title="Longest Common Prefix" /><published>2020-03-30T01:44:00-07:00</published><updated>2020-03-30T01:44:00-07:00</updated><id>https://andrew.hawker.io/leetcode/2020/03/30/longest-common-prefix</id><content type="html" xml:base="https://andrew.hawker.io/leetcode/2020/03/30/longest-common-prefix/">&lt;p&gt;I’m trying to get in a habit of starting my mornings off with coffee and a &lt;a href=&quot;https://leetcode.com/&quot;&gt;Leetcode&lt;/a&gt; problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!&lt;/p&gt;
+
+&lt;h2 id=&quot;longest-common-prefix&quot;&gt;&lt;a href=&quot;https://leetcode.com/problems/longest-common-prefix/&quot;&gt;Longest Common Prefix&lt;/a&gt;&lt;/h2&gt;
+
+&lt;h3 id=&quot;problem&quot;&gt;Problem&lt;/h3&gt;
+
 &lt;p&gt;Write a function to find the longest common prefix string amongst an array of strings.&lt;/p&gt;
-&lt;p&gt;If there is no common prefix, return an empty string &quot;&quot;.&lt;/p&gt;
+
+&lt;p&gt;If there is no common prefix, return an empty string “”.&lt;/p&gt;
+
 &lt;p&gt;All given inputs are in lowercase letters a-z.&lt;/p&gt;
-&lt;p&gt;Example inputs:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Input: [&amp;quot;flower&amp;quot;,&amp;quot;flow&amp;quot;,&amp;quot;flight&amp;quot;]
-Output: &amp;quot;fl&amp;quot;
 
-Input: [&amp;quot;dog&amp;quot;,&amp;quot;racecar&amp;quot;,&amp;quot;car&amp;quot;]
-Output: &amp;quot;&amp;quot;
-Explanation: There is no common prefix among the input strings.&lt;/code&gt;&lt;/pre&gt;
-&lt;/section&gt;
-&lt;section id=&quot;thinking&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Thinking&lt;/h3&gt;
+&lt;p&gt;Example inputs:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Input: [&quot;flower&quot;,&quot;flow&quot;,&quot;flight&quot;]
+Output: &quot;fl&quot;
+
+Input: [&quot;dog&quot;,&quot;racecar&quot;,&quot;car&quot;]
+Output: &quot;&quot;
+Explanation: There is no common prefix among the input strings.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;thinking&quot;&gt;Thinking&lt;/h3&gt;
+
 &lt;p&gt;This one seems pretty straight forward.&lt;/p&gt;
+
 &lt;p&gt;Maintain an index and loop through each string, checking the current character to see if it is the same. If it’s not, or we run out of characters in one of the strings, we’re done.&lt;/p&gt;
+
 &lt;p&gt;With that index, just slice the string to get the prefix.&lt;/p&gt;
-&lt;/section&gt;
-&lt;section id=&quot;corner-cases&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Corner Cases&lt;/h3&gt;
+
+&lt;h3 id=&quot;corner-cases&quot;&gt;Corner Cases&lt;/h3&gt;
+
 &lt;p&gt;The following corner cases are what I missed in my initial solution:&lt;/p&gt;
+
 &lt;ul&gt;
-&lt;li&gt;Handling the zero/empty string case.&lt;/li&gt;
+  &lt;li&gt;Handling the zero/empty string case.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;/section&gt;
-&lt;section id=&quot;improvements&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Improvements&lt;/h3&gt;
-&lt;p&gt;Inlining the &lt;code&gt;is_equal_at_index&lt;/code&gt; function inside of the loop will likely increase runtime speed here at the cost of readability.&lt;/p&gt;
-&lt;/section&gt;
-&lt;section id=&quot;solution&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Solution&lt;/h3&gt;
-&lt;div class=&quot;sourceCode&quot; id=&quot;cb2&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span id=&quot;cb2-1&quot;&gt;&lt;a href=&quot;#cb2-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;class&lt;/span&gt; Solution:&lt;/span&gt;
-&lt;span id=&quot;cb2-2&quot;&gt;&lt;a href=&quot;#cb2-2&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; is_equal_at_index(&lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;, strs: List[&lt;span class=&quot;bu&quot;&gt;str&lt;/span&gt;], i: &lt;span class=&quot;bu&quot;&gt;int&lt;/span&gt;) &lt;span class=&quot;op&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bu&quot;&gt;bool&lt;/span&gt;:&lt;/span&gt;
-&lt;span id=&quot;cb2-3&quot;&gt;&lt;a href=&quot;#cb2-3&quot;&gt;&lt;/a&gt;        char &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; strs[&lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;][i]&lt;/span&gt;
-&lt;span id=&quot;cb2-4&quot;&gt;&lt;a href=&quot;#cb2-4&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;cf&quot;&gt;for&lt;/span&gt; j &lt;span class=&quot;kw&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;bu&quot;&gt;range&lt;/span&gt;(&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;bu&quot;&gt;len&lt;/span&gt;(strs)):&lt;/span&gt;
-&lt;span id=&quot;cb2-5&quot;&gt;&lt;a href=&quot;#cb2-5&quot;&gt;&lt;/a&gt;            &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; char &lt;span class=&quot;op&quot;&gt;!=&lt;/span&gt; strs[j][i]:&lt;/span&gt;
-&lt;span id=&quot;cb2-6&quot;&gt;&lt;a href=&quot;#cb2-6&quot;&gt;&lt;/a&gt;                &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;False&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-7&quot;&gt;&lt;a href=&quot;#cb2-7&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;True&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-8&quot;&gt;&lt;a href=&quot;#cb2-8&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-9&quot;&gt;&lt;a href=&quot;#cb2-9&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; longestCommonPrefix(&lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;, strs: List[&lt;span class=&quot;bu&quot;&gt;str&lt;/span&gt;]) &lt;span class=&quot;op&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bu&quot;&gt;str&lt;/span&gt;:&lt;/span&gt;
-&lt;span id=&quot;cb2-10&quot;&gt;&lt;a href=&quot;#cb2-10&quot;&gt;&lt;/a&gt;        i &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-11&quot;&gt;&lt;a href=&quot;#cb2-11&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-12&quot;&gt;&lt;a href=&quot;#cb2-12&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;cf&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;True&lt;/span&gt;:&lt;/span&gt;
-&lt;span id=&quot;cb2-13&quot;&gt;&lt;a href=&quot;#cb2-13&quot;&gt;&lt;/a&gt;            &lt;span class=&quot;cf&quot;&gt;try&lt;/span&gt;:&lt;/span&gt;
-&lt;span id=&quot;cb2-14&quot;&gt;&lt;a href=&quot;#cb2-14&quot;&gt;&lt;/a&gt;                &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;.is_equal_at_index(strs, i):&lt;/span&gt;
-&lt;span id=&quot;cb2-15&quot;&gt;&lt;a href=&quot;#cb2-15&quot;&gt;&lt;/a&gt;                    &lt;span class=&quot;cf&quot;&gt;break&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-16&quot;&gt;&lt;a href=&quot;#cb2-16&quot;&gt;&lt;/a&gt;            &lt;span class=&quot;cf&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;pp&quot;&gt;IndexError&lt;/span&gt;:&lt;/span&gt;
-&lt;span id=&quot;cb2-17&quot;&gt;&lt;a href=&quot;#cb2-17&quot;&gt;&lt;/a&gt;                &lt;span class=&quot;cf&quot;&gt;break&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-18&quot;&gt;&lt;a href=&quot;#cb2-18&quot;&gt;&lt;/a&gt;            &lt;span class=&quot;cf&quot;&gt;else&lt;/span&gt;:&lt;/span&gt;
-&lt;span id=&quot;cb2-19&quot;&gt;&lt;a href=&quot;#cb2-19&quot;&gt;&lt;/a&gt;                i &lt;span class=&quot;op&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-20&quot;&gt;&lt;a href=&quot;#cb2-20&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-21&quot;&gt;&lt;a href=&quot;#cb2-21&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; strs[&lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;][&lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;:i] &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; i &lt;span class=&quot;op&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;cf&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/section&gt;
-&lt;section id=&quot;score&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Score&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;Runtime: 32 ms, faster than 66.42% of Python3 online submissions for Longest Common Prefix.
-Memory Usage: 13.9 MB, less than 6.67% of Python3 online submissions for Longest Common Prefix.&lt;/code&gt;&lt;/pre&gt;
-&lt;/section&gt;
-&lt;/section&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="leetcode" /><category term="leetcode easy" /><category term="python" /><summary type="html">I’m trying to get in a habit of starting my mornings off with coffee and a Leetcode problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Longest Substring Without Repeating Characters</title><link href="https://andrew.hawker.io/leetcode/2020/03/27/longest-substring-without-repeating-characters/" rel="alternate" type="text/html" title="Longest Substring Without Repeating Characters" /><published>2020-03-27T00:11:00-07:00</published><updated>2020-03-27T00:11:00-07:00</updated><id>https://andrew.hawker.io/leetcode/2020/03/27/longest-substring-without-repeating-characters</id><content type="html" xml:base="https://andrew.hawker.io/leetcode/2020/03/27/longest-substring-without-repeating-characters/">&lt;p&gt;I’m trying to get in a habit of starting my mornings off with coffee and a &lt;a href=&quot;https://leetcode.com/&quot;&gt;Leetcode&lt;/a&gt; problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!&lt;/p&gt;
-&lt;section id=&quot;longest-substring-without-repeating-characters&quot; class=&quot;level2&quot;&gt;
-&lt;h2&gt;&lt;a href=&quot;https://leetcode.com/problems/longest-substring-without-repeating-characters/&quot;&gt;Longest Substring Without Repeating Characters&lt;/a&gt;&lt;/h2&gt;
-&lt;section id=&quot;problem&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Problem&lt;/h3&gt;
+
+&lt;h3 id=&quot;improvements&quot;&gt;Improvements&lt;/h3&gt;
+
+&lt;p&gt;Inlining the &lt;code class=&quot;highlighter-rouge&quot;&gt;is_equal_at_index&lt;/code&gt; function inside of the loop will likely increase runtime speed here at the cost of readability.&lt;/p&gt;
+
+&lt;h3 id=&quot;solution&quot;&gt;Solution&lt;/h3&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;is_equal_at_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;strs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;bool&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;strs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;strs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;longestCommonPrefix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;strs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_equal_at_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;IndexError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;strs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;''&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;score&quot;&gt;Score&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Runtime: 32 ms, faster than 66.42% of Python3 online submissions for Longest Common Prefix.
+Memory Usage: 13.9 MB, less than 6.67% of Python3 online submissions for Longest Common Prefix.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="leetcode" /><category term="leetcode easy" /><category term="python" /><summary type="html">I’m trying to get in a habit of starting my mornings off with coffee and a Leetcode problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Longest Substring Without Repeating Characters</title><link href="https://andrew.hawker.io/leetcode/2020/03/27/longest-substring-without-repeating-characters/" rel="alternate" type="text/html" title="Longest Substring Without Repeating Characters" /><published>2020-03-27T00:11:00-07:00</published><updated>2020-03-27T00:11:00-07:00</updated><id>https://andrew.hawker.io/leetcode/2020/03/27/longest-substring-without-repeating-characters</id><content type="html" xml:base="https://andrew.hawker.io/leetcode/2020/03/27/longest-substring-without-repeating-characters/">&lt;p&gt;I’m trying to get in a habit of starting my mornings off with coffee and a &lt;a href=&quot;https://leetcode.com/&quot;&gt;Leetcode&lt;/a&gt; problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!&lt;/p&gt;
+
+&lt;h2 id=&quot;longest-substring-without-repeating-characters&quot;&gt;&lt;a href=&quot;https://leetcode.com/problems/longest-substring-without-repeating-characters/&quot;&gt;Longest Substring Without Repeating Characters&lt;/a&gt;&lt;/h2&gt;
+
+&lt;h3 id=&quot;problem&quot;&gt;Problem&lt;/h3&gt;
+
 &lt;p&gt;Given a string, find the length of the longest substring without repeating characters.&lt;/p&gt;
+
 &lt;p&gt;Example inputs:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Input: &amp;quot;abcabcbb&amp;quot;
-Output: 3
-Explanation: The answer is &amp;quot;abc&amp;quot;, with the length of 3.
 
-Input: &amp;quot;bbbbb&amp;quot;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Input: &quot;abcabcbb&quot;
+Output: 3
+Explanation: The answer is &quot;abc&quot;, with the length of 3.
+
+Input: &quot;bbbbb&quot;
 Output: 1
-Explanation: The answer is &amp;quot;b&amp;quot;, with the length of 1.
+Explanation: The answer is &quot;b&quot;, with the length of 1.
 
-Input: &amp;quot;pwwkew&amp;quot;
+Input: &quot;pwwkew&quot;
 Output: 3
-Explanation: The answer is &amp;quot;wke&amp;quot;, with the length of 3.
-             Note that the answer must be a substring, &amp;quot;pwke&amp;quot; is a subsequence and not a substring.&lt;/code&gt;&lt;/pre&gt;
-&lt;/section&gt;
-&lt;section id=&quot;thinking&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Thinking&lt;/h3&gt;
-&lt;p&gt;I spent some time thinking about this but couldn’t come up with anything faster than &lt;code&gt;O(N^2)&lt;/code&gt; although I can almost guarantee there is a way.&lt;/p&gt;
+Explanation: The answer is &quot;wke&quot;, with the length of 3.
+             Note that the answer must be a substring, &quot;pwke&quot; is a subsequence and not a substring.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;thinking&quot;&gt;Thinking&lt;/h3&gt;
+
+&lt;p&gt;I spent some time thinking about this but couldn’t come up with anything faster than &lt;code class=&quot;highlighter-rouge&quot;&gt;O(N^2)&lt;/code&gt; although I can almost guarantee there is a way.&lt;/p&gt;
+
 &lt;p&gt;In any case, the thought is iterate through the permutations and use a set to track the characters seen. When we run into a character we’ve seen, capture the length (if the max), and reset on next initial character.&lt;/p&gt;
-&lt;/section&gt;
-&lt;section id=&quot;corner-cases&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Corner Cases&lt;/h3&gt;
+
+&lt;h3 id=&quot;corner-cases&quot;&gt;Corner Cases&lt;/h3&gt;
+
 &lt;p&gt;The following corner cases are what I missed in my initial solution:&lt;/p&gt;
+
 &lt;ul&gt;
-&lt;li&gt;If iteration completes w/o running into a character it hasn’t seen.&lt;/li&gt;
+  &lt;li&gt;If iteration completes w/o running into a character it hasn’t seen.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;/section&gt;
-&lt;section id=&quot;improvements&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Improvements&lt;/h3&gt;
+
+&lt;h3 id=&quot;improvements&quot;&gt;Improvements&lt;/h3&gt;
+
 &lt;p&gt;There is probably a way to cleanup the logic so the seen &amp;amp; fallthrough code can be merged instead of copied.&lt;/p&gt;
-&lt;p&gt;There is probably a faster solution than &lt;code&gt;O(N^2)&lt;/code&gt;.&lt;/p&gt;
-&lt;/section&gt;
-&lt;section id=&quot;solution&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Solution&lt;/h3&gt;
-&lt;div class=&quot;sourceCode&quot; id=&quot;cb2&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span id=&quot;cb2-1&quot;&gt;&lt;a href=&quot;#cb2-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;class&lt;/span&gt; Solution:&lt;/span&gt;
-&lt;span id=&quot;cb2-2&quot;&gt;&lt;a href=&quot;#cb2-2&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;kw&quot;&gt;def&lt;/span&gt; lengthOfLongestSubstring(&lt;span class=&quot;va&quot;&gt;self&lt;/span&gt;, s: &lt;span class=&quot;bu&quot;&gt;str&lt;/span&gt;) &lt;span class=&quot;op&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bu&quot;&gt;int&lt;/span&gt;:&lt;/span&gt;
-&lt;span id=&quot;cb2-3&quot;&gt;&lt;a href=&quot;#cb2-3&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;not&lt;/span&gt; s:&lt;/span&gt;
-&lt;span id=&quot;cb2-4&quot;&gt;&lt;a href=&quot;#cb2-4&quot;&gt;&lt;/a&gt;            &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-5&quot;&gt;&lt;a href=&quot;#cb2-5&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-6&quot;&gt;&lt;a href=&quot;#cb2-6&quot;&gt;&lt;/a&gt;        seen &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bu&quot;&gt;set&lt;/span&gt;()&lt;/span&gt;
-&lt;span id=&quot;cb2-7&quot;&gt;&lt;a href=&quot;#cb2-7&quot;&gt;&lt;/a&gt;        max_len &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;-1&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-8&quot;&gt;&lt;a href=&quot;#cb2-8&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-9&quot;&gt;&lt;a href=&quot;#cb2-9&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;cf&quot;&gt;for&lt;/span&gt; i &lt;span class=&quot;kw&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;bu&quot;&gt;range&lt;/span&gt;(&lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;bu&quot;&gt;len&lt;/span&gt;(s)):&lt;/span&gt;
-&lt;span id=&quot;cb2-10&quot;&gt;&lt;a href=&quot;#cb2-10&quot;&gt;&lt;/a&gt;            seen.add(s[i])&lt;/span&gt;
-&lt;span id=&quot;cb2-11&quot;&gt;&lt;a href=&quot;#cb2-11&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-12&quot;&gt;&lt;a href=&quot;#cb2-12&quot;&gt;&lt;/a&gt;            &lt;span class=&quot;cf&quot;&gt;for&lt;/span&gt; j &lt;span class=&quot;kw&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;bu&quot;&gt;range&lt;/span&gt;(i&lt;span class=&quot;op&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; , &lt;span class=&quot;bu&quot;&gt;len&lt;/span&gt;(s)):&lt;/span&gt;
-&lt;span id=&quot;cb2-13&quot;&gt;&lt;a href=&quot;#cb2-13&quot;&gt;&lt;/a&gt;                &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; s[j] &lt;span class=&quot;kw&quot;&gt;in&lt;/span&gt; seen:&lt;/span&gt;
-&lt;span id=&quot;cb2-14&quot;&gt;&lt;a href=&quot;#cb2-14&quot;&gt;&lt;/a&gt;                    max_len &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bu&quot;&gt;max&lt;/span&gt;(max_len, &lt;span class=&quot;bu&quot;&gt;len&lt;/span&gt;(seen))&lt;/span&gt;
-&lt;span id=&quot;cb2-15&quot;&gt;&lt;a href=&quot;#cb2-15&quot;&gt;&lt;/a&gt;                    seen.clear()&lt;/span&gt;
-&lt;span id=&quot;cb2-16&quot;&gt;&lt;a href=&quot;#cb2-16&quot;&gt;&lt;/a&gt;                    &lt;span class=&quot;cf&quot;&gt;break&lt;/span&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-17&quot;&gt;&lt;a href=&quot;#cb2-17&quot;&gt;&lt;/a&gt;                &lt;span class=&quot;cf&quot;&gt;else&lt;/span&gt;:&lt;/span&gt;
-&lt;span id=&quot;cb2-18&quot;&gt;&lt;a href=&quot;#cb2-18&quot;&gt;&lt;/a&gt;                    seen.add(s[j])&lt;/span&gt;
-&lt;span id=&quot;cb2-19&quot;&gt;&lt;a href=&quot;#cb2-19&quot;&gt;&lt;/a&gt;            &lt;span class=&quot;cf&quot;&gt;else&lt;/span&gt;:&lt;/span&gt;
-&lt;span id=&quot;cb2-20&quot;&gt;&lt;a href=&quot;#cb2-20&quot;&gt;&lt;/a&gt;                max_len &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bu&quot;&gt;max&lt;/span&gt;(max_len, &lt;span class=&quot;bu&quot;&gt;len&lt;/span&gt;(seen))&lt;/span&gt;
-&lt;span id=&quot;cb2-21&quot;&gt;&lt;a href=&quot;#cb2-21&quot;&gt;&lt;/a&gt;                seen.clear()&lt;/span&gt;
-&lt;span id=&quot;cb2-22&quot;&gt;&lt;a href=&quot;#cb2-22&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb2-23&quot;&gt;&lt;a href=&quot;#cb2-23&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; max_len&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/section&gt;
-&lt;section id=&quot;score&quot; class=&quot;level3&quot;&gt;
-&lt;h3&gt;Score&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;Runtime: 508 ms, faster than 15.12% of Python3 online submissions for Longest Substring Without Repeating Characters.
-Memory Usage: 13.9 MB, less than 5.10% of Python3 online submissions for Longest Substring Without Repeating Characters.&lt;/code&gt;&lt;/pre&gt;
-&lt;/section&gt;
-&lt;/section&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="leetcode" /><category term="leetcode medium" /><category term="python" /><summary type="html">I’m trying to get in a habit of starting my mornings off with coffee and a Leetcode problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+
+&lt;p&gt;There is probably a faster solution than &lt;code class=&quot;highlighter-rouge&quot;&gt;O(N^2)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;solution&quot;&gt;Solution&lt;/h3&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;lengthOfLongestSubstring&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;seen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;max_len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;seen&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;max_len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max_len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;seen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;seen&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;clear&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;seen&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;max_len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max_len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;seen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;seen&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;clear&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max_len&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;score&quot;&gt;Score&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Runtime: 508 ms, faster than 15.12% of Python3 online submissions for Longest Substring Without Repeating Characters.
+Memory Usage: 13.9 MB, less than 5.10% of Python3 online submissions for Longest Substring Without Repeating Characters.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="leetcode" /><category term="leetcode medium" /><category term="python" /><summary type="html">I’m trying to get in a habit of starting my mornings off with coffee and a Leetcode problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

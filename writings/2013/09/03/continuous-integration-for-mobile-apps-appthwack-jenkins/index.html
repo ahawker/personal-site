@@ -24,11 +24,6 @@
   <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
   <link rel="stylesheet" href="/assets/styles/et-book.min.css">
   <link rel="stylesheet" href="/assets/styles/site.css">
-  
-
-  <!--[if lt IE 9]>
-  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
@@ -81,149 +76,180 @@
 <meta name="twitter:site" content="@rekwah" />
 <meta name="twitter:creator" content="@rekwah" />
 <script type="application/ld+json">
-{"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","url":"https://andrew.hawker.io/writings/2013/09/03/continuous-integration-for-mobile-apps-appthwack-jenkins/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"Continuous Integration for Mobile Apps with AppThwack and Jenkins","dateModified":"2013-09-03T06:51:00-07:00","datePublished":"2013-09-03T06:51:00-07:00","author":{"@type":"Person","name":"Andrew Hawker"},"description":"Personal website of Andrew Hawker","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2013/09/03/continuous-integration-for-mobile-apps-appthwack-jenkins/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"headline":"Continuous Integration for Mobile Apps with AppThwack and Jenkins","dateModified":"2013-09-03T06:51:00-07:00","datePublished":"2013-09-03T06:51:00-07:00","url":"https://andrew.hawker.io/writings/2013/09/03/continuous-integration-for-mobile-apps-appthwack-jenkins/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2013/09/03/continuous-integration-for-mobile-apps-appthwack-jenkins/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"Personal website of Andrew Hawker","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
 
 <body>
-
-
-
-
-<article>
+<div class="header container-xl px-5 my-5 markdown-body">
   
 
+
+
+  
 <header>
-  <h1 class="title"><a name="Continuous Integration for Mobile Apps with AppThwack and Jenkins"></a>Continuous Integration for Mobile Apps with AppThwack and Jenkins</h1>
   
+  <h1>
+    <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+    Continuous Integration for Mobile Apps with AppThwack and Jenkins
+  </h1>
   
-  <p class="byline">September 3, 2013</p>
-  
-  
-  <ul class="tags">
-  
-    <li class="category"><a href="/archives/category/writings">WRITINGS</a></li>
-  
-  
-  
-  
-    <li class="tag"><a href="/archives/tag/appthwack">APPTHWACK (3)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/jenkins">JENKINS (2)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/archive">ARCHIVE (3)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/announcement">ANNOUNCEMENT (3)</a></li>
-  
-  
-  </ul>
+  <div class="col-12">
+    
+    <p class="h4 color-grey">September 3, 2013</p>
+    
+  </div>
+  <div class="col-12">
+    
+    <ul class="tags">
+    
+      <li class="category"><a href="/archives/category/writings">WRITINGS</a></li>
+    
+    
+    
+    
+      <li class="tag"><a href="/archives/tag/appthwack">APPTHWACK (3)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/jenkins">JENKINS (2)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/archive">ARCHIVE (3)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/announcement">ANNOUNCEMENT (3)</a></li>
+    
+    
+    </ul>
+  </div>
 </header>
 
 
+</div>
+<div class="content container-xl px-5 my-5 markdown-body">
+  <p><img src="/assets/images/posts/jenkins-appthwack-header.png" alt="AppThwack Jenkins Header" /></p>
 
-  <p><img src="/assets/images/posts/jenkins-appthwack-header.png" /></p>
-<p>Today, were happy to announce the initial release of our <a href="https://jenkins.io/">Jenkins</a> plugin, which introduces AppThwack into your <a href="https://en.wikipedia.org/wiki/Continuous_integration">Continuous Integration</a> cycle.<span><label for="sn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-1" class="margin-toggle"/><span class="marginnote"> This is part one of a blog post series about continuous integration for mobile apps. Be sure to check out <a href="/writings/2014/05/02/continuous-integration-for-mobile-apps-appthwack-jenkins-part-2/">Part 2</a> for more advanced plugin features such as results integration and performance graphs.<br />
-<br />
-</span></span></p>
-<p>As developers ourselves, we understand the importance of seamless tool integrations within the development workflow. Last week we announced the release of our <a href="/writings/2013/08/28/android-app-testing-android-studio-gradle/">Android Studio/Gradle</a> plugin, which enables testing of Android apps on hundreds of devices directly from your IDE.</p>
-<p>Ready to get started? Here’s a quick tutorial to get started with <a href="http://web.archive.org/web/20140929012749/https://appthwack.com">AppThwack</a>, <a href="https://jenkins.io/">Jenkins</a> and <a href="https://en.wikipedia.org/wiki/Continuous_integration">Continuous Integration</a> for mobile apps. Once you’re up and running, you’ll be able to kick off tests on our <a href="http://web.archive.org/web/20140929012749/https://appthwack.com/devicelab">device lab</a> from your own Jenkins server!</p>
-<section id="installation" class="level2">
-<h2>Installation</h2>
+<p>Today, were happy to announce the initial release of our <a href="https://jenkins.io/">Jenkins</a> plugin, which introduces AppThwack into your <a href="https://en.wikipedia.org/wiki/Continuous_integration">Continuous Integration</a> cycle.</p>
+
+<p>As developers ourselves, we understand the importance of seamless tool integrations within the development workflow.
+Last week we announced the release of our <a href="/writings/2013/08/28/android-app-testing-android-studio-gradle/">Android Studio/Gradle</a> plugin,
+which enables testing of Android apps on hundreds of devices directly from your IDE.</p>
+
+<p>Ready to get started? Here’s a quick tutorial to get started with <a href="http://web.archive.org/web/20140929012749/https://appthwack.com">AppThwack</a>,
+<a href="https://jenkins.io/">Jenkins</a> and <a href="https://en.wikipedia.org/wiki/Continuous_integration">Continuous Integration</a> for mobile apps.
+Once you’re up and running, you’ll be able to kick off tests on our <a href="http://web.archive.org/web/20140929012749/https://appthwack.com/devicelab">device lab</a> from your own Jenkins server!</p>
+
+<h2 id="installation">Installation</h2>
+
 <p>The AppThwack plugin lives in the official Jenkins-CI maven repository. That means you can download/install it directly from within your running Jenkins server.</p>
+
 <p>Starting at the Jenkins homepage, navigate to the <strong>Manage Jenkins &gt; Manage Plugins</strong> page.</p>
-<p><span><label for="sn-2" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-2" class="margin-toggle"/><span class="marginnote"> <img src="/assets/images/posts/jenkins-appthwack-plugin-select.png" alt="Plugin Select" /><br />
-<br />
-</span></span> From the plugin view, click the <strong>Available</strong> tab and scroll to find the AppThwack plugin.</p>
+
+<p>From the plugin view, click the <strong>Available</strong> tab and scroll to find the AppThwack plugin.</p>
+
+<p><img src="/assets/images/posts/jenkins-appthwack-plugin-select.png" alt="Plugin Select" /></p>
+
 <p>Finally, scroll to the bottom and click <strong>Install</strong>.</p>
-</section>
-<section id="system-settings" class="level2">
-<h2>System Settings</h2>
+
+<h2 id="system-settings">System Settings</h2>
+
 <p>Navigate to <strong>Manage Jenkins &gt; Configure System</strong>.</p>
-<p>Scroll down to the <em>AppThwack</em> settings section to add your <a href="https://web-beta.archive.org/web/20150303112303/https://appthwack.com/user/profile">API Key</a>.<span><label for="sn-3" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-3" class="margin-toggle"/><span class="marginnote"> <img src="/assets/images/posts/jenkins-appthwack-api-key.png" alt="API Key" /><br />
-<br />
-</span></span> This key is used to authenticate your Jenkins server with AppThwack and is used across all of your Jenkins projects.</p>
+
+<p>Scroll down to the <em>AppThwack</em> settings section to add your <a href="https://web-beta.archive.org/web/20150303112303/https://appthwack.com/user/profile">API Key</a>. This key is used to authenticate your Jenkins server with AppThwack and is used across all of your Jenkins projects.</p>
+
+<p><img src="/assets/images/posts/jenkins-appthwack-api-key.png" alt="API Key" /></p>
+
 <p>Now that your API key added, its time to navigate to a Jenkins project and configure the post-build action.</p>
-</section>
-<section id="project-settings" class="level2">
-<h2>Project Settings</h2>
+
+<h2 id="project-settings">Project Settings</h2>
+
 <p>Navigate to a project of your choice and click <strong>Configure</strong> button from the left-hand side menu.</p>
-<section id="add-post-build-action" class="level3">
-<h3>Add Post-build action</h3>
-<p><span><label for="sn-4" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-4" class="margin-toggle"/><span class="marginnote"> <img src="/assets/images/posts/jenkins-appthwack-action.png" alt="Post Build Action" /><br />
-<br />
-</span></span> Click the <em>Add post-build action</em> button, select <strong>Run Tests on AppThwack</strong> and you’ll notice a new, AppThwack specific settings section appear. All remaining configuration will happen here.</p>
-</section>
-<section id="choose-your-project-and-device-pool" class="level3">
-<h3>Choose your Project and Device Pool</h3>
-<p><span><label for="sn-5" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-5" class="margin-toggle"/><span class="marginnote"> <img src="/assets/images/posts/jenkins-appthwack-settings-fields.png" alt="Settings" /><br />
-<br />
-</span></span> First up is selecting your AppThwack project and selecting which devices to test on.</p>
-</section>
-<section id="find-your-application" class="level3">
-<h3>Find your Application</h3>
-<p>Next up is configuring the plugin to find your newly built mobile app. The application field allows for standard Jenkins (ant) <a href="http://stackoverflow.com/questions/69835/how-do-i-use-nant-ant-naming-patterns">pattern matching</a> with expandable <a href="https://wiki.jenkins-ci.org/display/JENKINS/Building+a+software+project#Buildingasoftwareproject-JenkinsSetEnvironmentVariables">environment variables</a>. Please note that this pattern is relative to the Jenkins <strong>workspace</strong> currently being used by the project/build.</p>
-</section>
-</section>
-<section id="test-settings" class="level2">
-<h2>Test Settings</h2>
-<p>The next step is selecting which tests you wish to run. If you dont have custom tests written for your app (yet), you can still run the AppThwack built-in compatibility test suites. These suites will Install, Launch, Explore and Stress your app with no code changes necessary.</p>
+
+<h3 id="add-post-build-action">Add Post-build action</h3>
+
+<p>Click the <em>Add post-build action</em> button, select <strong>Run Tests on AppThwack</strong> and you’ll notice a new,
+AppThwack specific settings section appear. All remaining configuration will happen here.</p>
+
+<p><img src="/assets/images/posts/jenkins-appthwack-action.png" alt="Post Build Action" /></p>
+
+<h3 id="choose-your-project-and-device-pool">Choose your Project and Device Pool</h3>
+
+<p>First up is selecting your AppThwack project and selecting which devices to test on.</p>
+
+<p><img src="/assets/images/posts/jenkins-appthwack-settings-fields.png" alt="Settings" /></p>
+
+<h3 id="find-your-application">Find your Application</h3>
+
+<p>Next up is configuring the plugin to find your newly built mobile app.
+The application field allows for standard Jenkins (ant) <a href="http://stackoverflow.com/questions/69835/how-do-i-use-nant-ant-naming-patterns">pattern matching</a> with
+expandable <a href="https://wiki.jenkins-ci.org/display/JENKINS/Building+a+software+project#Buildingasoftwareproject-JenkinsSetEnvironmentVariables">environment variables</a>.
+Please note that this pattern is relative to the Jenkins <strong>workspace</strong> currently being used by the project/build.</p>
+
+<h2 id="test-settings">Test Settings</h2>
+
+<p>The next step is selecting which tests you wish to run. If you dont have custom tests written for your app (yet), you can still run the AppThwack built-in compatibility test suites.
+These suites will Install, Launch, Explore and Stress your app with no code changes necessary.</p>
+
 <p>Lets walk-through configuring some tests for both Android and iOS.</p>
-<section id="built-in-test-suites" class="level3">
-<h3>Built-in Test Suites</h3>
-<p><span><label for="sn-6" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-6" class="margin-toggle"/><span class="marginnote"> <img src="/assets/images/posts/jenkins-appthwack-builtin-android.png" alt="Built-in Android" /><br />
-<br />
-</span></span> AppThwack provides a built-in compatibility test suite for both Android and iOS.</p>
+
+<h3 id="built-in-test-suites">Built-in Test Suites</h3>
+
+<p>AppThwack provides a built-in compatibility test suite for both Android and iOS.</p>
+
 <p>The built-in Android test suite supports additional options for configuring our AppExplorer. These are <em>optional</em> and should configured on a case-by-case basis.</p>
-</section>
-<section id="calabash" class="level3">
-<h3>Calabash</h3>
-<p><span><label for="sn-7" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-7" class="margin-toggle"/><span class="marginnote"> <img src="/assets/images/posts/jenkins-appthwack-calabash.png" alt="Calabash" /><br />
-<br />
-</span></span> You can run your custom <a href="http://calaba.sh/">Calabash</a> scripts for both Android and iOS. Please note that the features field supports the same pattern matching and environment variables as the application one above.</p>
-</section>
-<section id="junitrobotium" class="level3">
-<h3>JUnit/Robotium</h3>
-<p><span><label for="sn-8" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-8" class="margin-toggle"/><span class="marginnote"> <img src="/assets/images/posts/jenkins-appthwack-junit.png" alt="JUnit" /><br />
-<br />
-</span></span> Have a JUnit/Robotium project building with your app? Same pattern matching rules apply.</p>
-</section>
-<section id="kif" class="level3">
-<h3>KIF</h3>
-<p><span><label for="sn-9" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-9" class="margin-toggle"/><span class="marginnote"> <img src="/assets/images/posts/jenkins-appthwack-kif.png" alt="KIF" /><br />
-<br />
-</span></span> Functional tests on iOS with KIF are supported too; no configuration required</p>
-</section>
-<section id="uia" class="level3">
-<h3>UIA</h3>
-<p><span><label for="sn-10" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-10" class="margin-toggle"/><span class="marginnote"> <img src="/assets/images/posts/jenkins-appthwack-uia.png" alt="UIA" /><br />
-<br />
-</span></span> Last, but certainly not least, iOS UI Automation. Same pattern rules apply for finding your Javascript tests.</p>
+
+<p><img src="/assets/images/posts/jenkins-appthwack-builtin-android.png" alt="Built-in Android" /></p>
+
+<h3 id="calabash">Calabash</h3>
+
+<p>You can run your custom <a href="http://calaba.sh/">Calabash</a> scripts for both Android and iOS.
+Please note that the features field supports the same pattern matching and environment variables as the application one above.</p>
+
+<p><img src="/assets/images/posts/jenkins-appthwack-calabash.png" alt="Calabash" /></p>
+
+<h3 id="junitrobotium">JUnit/Robotium</h3>
+
+<p>Have a JUnit/Robotium project building with your app? Same pattern matching rules apply.</p>
+
+<p><img src="/assets/images/posts/jenkins-appthwack-junit.png" alt="JUnit" /></p>
+
+<h3 id="kif">KIF</h3>
+
+<p>Functional tests on iOS with KIF are supported too; no configuration required</p>
+
+<p><img src="/assets/images/posts/jenkins-appthwack-kif.png" alt="KIF" /></p>
+
+<h3 id="uia">UIA</h3>
+
+<p>Last, but certainly not least, iOS UI Automation. Same pattern rules apply for finding your Javascript tests.</p>
+
+<p><img src="/assets/images/posts/jenkins-appthwack-uia.png" alt="UIA" /></p>
+
 <p>Click <em>Save</em> as the configuration is complete!</p>
-</section>
-</section>
-<section id="buildtest" class="level2">
-<h2>Build/Test</h2>
+
+<h2 id="buildtest">Build/Test</h2>
+
 <p>To manually kick off a build from a Jenkins project, click the <strong>Build Now</strong> button from the left-side menu.</p>
+
 <p>Once your app builds successfully, an examination of the Console Output will yield the following:</p>
-<figure class="fullwidth">
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="ex">...</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>[<span class="ex">AppThwack</span>] Using Project <span class="st">&#39;demoproject-ios&#39;</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a>[<span class="ex">AppThwack</span>] Using DevicePool <span class="st">&#39;hawker-test-pool-ios&#39;</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a>[<span class="ex">AppThwack</span>] Archiving artifact <span class="st">&#39;IOSTestApp.ipa&#39;</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a>[<span class="ex">AppThwack</span>] Using App <span class="st">&#39;/home/ahawker/src/appthwack-jenkins/work/jobs/test/builds/2013-08-30_17-54-09/archive/IOSTestApp.ipa&#39;</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a>[<span class="ex">AppThwack</span>] Archiving artifact <span class="st">&#39;calabash.zip&#39;</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a>[<span class="ex">AppThwack</span>] Using <span class="st">&#39;calabash&#39;</span> test content from <span class="st">&#39;/home/ahawker/src/appthwack-jenkins/work/jobs/test/builds/2013-08-30_17-54-09/archive/calabash.zip&#39;</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a>[<span class="ex">AppThwack</span>] Scheduling <span class="st">&#39;calabash&#39;</span> run <span class="st">&#39;IOSTestApp.ipa (Jenkins)&#39;</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a>[<span class="ex">AppThwack</span>] Congrats! See your test run at https://appthwack.com/project/demoproject-ios/run/24549</span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="ex">Finished</span>: SUCCESS</span></code></pre></div>
-</figure>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
+<span class="o">[</span>AppThwack] Using Project <span class="s1">'demoproject-ios'</span>
+<span class="o">[</span>AppThwack] Using DevicePool <span class="s1">'hawker-test-pool-ios'</span>
+<span class="o">[</span>AppThwack] Archiving artifact <span class="s1">'IOSTestApp.ipa'</span>
+<span class="o">[</span>AppThwack] Using App <span class="s1">'/home/ahawker/src/appthwack-jenkins/work/jobs/test/builds/2013-08-30_17-54-09/archive/IOSTestApp.ipa'</span>
+<span class="o">[</span>AppThwack] Archiving artifact <span class="s1">'calabash.zip'</span>
+<span class="o">[</span>AppThwack] Using <span class="s1">'calabash'</span> <span class="nb">test </span>content from <span class="s1">'/home/ahawker/src/appthwack-jenkins/work/jobs/test/builds/2013-08-30_17-54-09/archive/calabash.zip'</span>
+<span class="o">[</span>AppThwack] Scheduling <span class="s1">'calabash'</span> run <span class="s1">'IOSTestApp.ipa (Jenkins)'</span>
+<span class="o">[</span>AppThwack] Congrats! See your <span class="nb">test </span>run at https://appthwack.com/project/demoproject-ios/run/24549
+Finished: SUCCESS
+</code></pre></div></div>
+
 <p>You’re done! You can now schedule tests on AppThwack from your own Jenkins Continuous Integration server!</p>
+
 <p>Using the AppThwack Jenkins plugin (or any of our tools) in your development process? Let us know! Wed love to hear success stories and feedback about how we can improve our integration into your workflow.</p>
-<p>Having a problem or want to contribute? The plugin is open source! Check out the Github page for more details! <span><label for="sn-11" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-11" class="margin-toggle"/><span class="marginnote"> This post was migrated from the <a href="https://blog.appthwack.com">AppThwack Blog</a> which is no longer available. A copy of the original post can be viewed from <a href="https://web-beta.archive.org/web/20150303112303/http://blog.appthwack.com:80/continuous-integration-for-mobile-apps/">archive.org</a>.<br />
-<br />
-</span></span></p>
-</section>
+
+<hr />
+
+<p><em>This post was migrated from the <a href="https://blog.appthwack.com">AppThwack Blog</a> which is no longer available. A copy of the original post can be viewed from <a href="https://web-beta.archive.org/web/20150303112303/http://blog.appthwack.com:80/continuous-integration-for-mobile-apps/">archive.org</a>.</em></p>
 
 
 
@@ -232,14 +258,13 @@
 </section>
 
 
-</article>
+</div>
+<div class="footer container-xl px-5 my-5">
+  
 
 
 
-
-
-
-<footer>
+  <footer>
     <hr class="footer-hr">
     <ul class="social-links">
       
@@ -268,6 +293,7 @@
   </div>  
 </footer>
 
+</div>
 </body>
 </html>
 

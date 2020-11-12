@@ -24,11 +24,6 @@
   <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
   <link rel="stylesheet" href="/assets/styles/et-book.min.css">
   <link rel="stylesheet" href="/assets/styles/site.css">
-  
-
-  <!--[if lt IE 9]>
-  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
@@ -81,75 +76,88 @@
 <meta name="twitter:site" content="@rekwah" />
 <meta name="twitter:creator" content="@rekwah" />
 <script type="application/ld+json">
-{"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","url":"https://andrew.hawker.io/dailies/2020/11/10/django-hashid-url-converter/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"Django HashID URL Converter","dateModified":"2020-11-10T01:04:00-08:00","datePublished":"2020-11-10T01:04:00-08:00","author":{"@type":"Person","name":"Andrew Hawker"},"description":"HashID’s allow you to convert an integer into a “unique” short string.","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/dailies/2020/11/10/django-hashid-url-converter/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"headline":"Django HashID URL Converter","dateModified":"2020-11-10T01:04:00-08:00","datePublished":"2020-11-10T01:04:00-08:00","url":"https://andrew.hawker.io/dailies/2020/11/10/django-hashid-url-converter/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/dailies/2020/11/10/django-hashid-url-converter/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"HashID’s allow you to convert an integer into a “unique” short string.","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
 
 <body>
-
-
-
-
-<article>
+<div class="header container-xl px-5 my-5 markdown-body">
   
 
+
+
+  
 <header>
-  <h1 class="title"><a name="Django HashID URL Converter"></a>Django HashID URL Converter</h1>
   
+  <h1>
+    <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+    Django HashID URL Converter
+  </h1>
   
-  <p class="byline">November 10, 2020</p>
-  
-  
-  <ul class="tags">
-  
-    <li class="category"><a href="/archives/category/dailies">DAILIES</a></li>
-  
-  
-  
-  
-    <li class="tag"><a href="/archives/tag/django">DJANGO (2)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/django-rest-framework">DJANGO-REST-FRAMEWORK (2)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/hashid">HASHID (1)</a></li>
-  
-  
-  </ul>
+  <div class="col-12">
+    
+    <p class="h4 color-grey">November 10, 2020</p>
+    
+  </div>
+  <div class="col-12">
+    
+    <ul class="tags">
+    
+      <li class="category"><a href="/archives/category/dailies">DAILIES</a></li>
+    
+    
+    
+    
+      <li class="tag"><a href="/archives/tag/django">DJANGO (2)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/django-rest-framework">DJANGO-REST-FRAMEWORK (2)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/hashid">HASHID (1)</a></li>
+    
+    
+    </ul>
+  </div>
 </header>
 
 
-
+</div>
+<div class="content container-xl px-5 my-5 markdown-body">
   <p>HashID’s allow you to convert an integer into a “<a href="https://carnage.github.io/2015/08/cryptanalysis-of-hashids">unique</a>” short string.</p>
+
 <p>If you <a href="https://github.com/nshafer/django-hashid-field">Django HashID Field</a>, you’ll want to create a custom path converter so you can accept them in URL’s.</p>
-<p><span><label for="sn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-1" class="margin-toggle"/><span class="marginnote"> You can skip the factory function and just define a normal class with your own <code>min_length/alphabet</code> values for simplicity.<br />
-<br />
-</span></span></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">from</span> hashids <span class="im">import</span> Hashids</span>
-<span id="cb1-2"><a href="#cb1-2"></a></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">def</span> hashid_converter_factory(min_length<span class="op">=</span><span class="dv">0</span>, alphabet<span class="op">=</span>Hashids.ALPHABET)</span>
-<span id="cb1-4"><a href="#cb1-4"></a>    <span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="co">    Factory function to create a Django URL path converter for HashID&#39;s using a</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="co">    specific min_length and alphabet.</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co">    &quot;&quot;&quot;</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a>    <span class="kw">class</span> HashIdConverter:</span>
-<span id="cb1-9"><a href="#cb1-9"></a>        regex <span class="op">=</span> <span class="vs">r&#39;[</span><span class="sc">{}</span><span class="vs">]</span><span class="sc">{{}}</span><span class="vs">&#39;</span>.<span class="bu">format</span>(min_length, alphabet)</span>
-<span id="cb1-10"><a href="#cb1-10"></a></span>
-<span id="cb1-11"><a href="#cb1-11"></a>        <span class="kw">def</span> to_python(<span class="va">self</span>, value):</span>
-<span id="cb1-12"><a href="#cb1-12"></a>            <span class="cf">return</span> value</span>
-<span id="cb1-13"><a href="#cb1-13"></a></span>
-<span id="cb1-14"><a href="#cb1-14"></a>        <span class="kw">def</span> to_url(<span class="va">self</span>, value):</span>
-<span id="cb1-15"><a href="#cb1-15"></a>            <span class="cf">return</span> value.hashid</span>
-<span id="cb1-16"><a href="#cb1-16"></a></span>
-<span id="cb1-17"><a href="#cb1-17"></a>    <span class="cf">return</span> HashIdConverter</span></code></pre></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">hashids</span> <span class="kn">import</span> <span class="n">Hashids</span>
+
+<span class="k">def</span> <span class="nf">hashid_converter_factory</span><span class="p">(</span><span class="n">min_length</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">alphabet</span><span class="o">=</span><span class="n">Hashids</span><span class="o">.</span><span class="n">ALPHABET</span><span class="p">)</span>
+    <span class="s">"""
+    Factory function to create a Django URL path converter for HashID's using a
+    specific min_length and alphabet.
+    """</span>
+    <span class="k">class</span> <span class="nc">HashIdConverter</span><span class="p">:</span>
+        <span class="n">regex</span> <span class="o">=</span> <span class="s">r'[{}]{{}}'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">min_length</span><span class="p">,</span> <span class="n">alphabet</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">to_python</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">value</span>
+
+        <span class="k">def</span> <span class="nf">to_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">hashid</span>
+
+    <span class="k">return</span> <span class="n">HashIdConverter</span>
+</code></pre></div></div>
+
+<p><strong>Note:</strong> You can skip the factory function and just define a normal class with your own <code class="highlighter-rouge">min_length/alphabet</code> values for simplicity.</p>
+
 <p>With that defined, you can simply register the converter and use it in your urlpatterns.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">from</span> django.urls <span class="im">import</span> include, path, register_converter</span>
-<span id="cb2-2"><a href="#cb2-2"></a></span>
-<span id="cb2-3"><a href="#cb2-3"></a>register_converter(hashid_converter_factory(min_length<span class="op">=</span><span class="dv">7</span>), <span class="st">&#39;hashid&#39;</span>)</span>
-<span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a>urlpatterns <span class="op">=</span> [</span>
-<span id="cb2-6"><a href="#cb2-6"></a>    path(<span class="st">&#39;codes/&lt;hashid:pk&gt;/&#39;</span>, ...)</span>
-<span id="cb2-7"><a href="#cb2-7"></a>]</span></code></pre></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">include</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">register_converter</span>
+
+<span class="n">register_converter</span><span class="p">(</span><span class="n">hashid_converter_factory</span><span class="p">(</span><span class="n">min_length</span><span class="o">=</span><span class="mi">7</span><span class="p">),</span> <span class="s">'hashid'</span><span class="p">)</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s">'codes/&lt;hashid:pk&gt;/'</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">]</span>
+</code></pre></div></div>
 
 
 
@@ -158,14 +166,13 @@
 </section>
 
 
-</article>
+</div>
+<div class="footer container-xl px-5 my-5">
+  
 
 
 
-
-
-
-<footer>
+  <footer>
     <hr class="footer-hr">
     <ul class="social-links">
       
@@ -194,6 +201,7 @@
   </div>  
 </footer>
 
+</div>
 </body>
 </html>
 

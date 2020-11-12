@@ -24,11 +24,6 @@
   <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
   <link rel="stylesheet" href="/assets/styles/et-book.min.css">
   <link rel="stylesheet" href="/assets/styles/site.css">
-  
-
-  <!--[if lt IE 9]>
-  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
@@ -81,184 +76,260 @@
 <meta name="twitter:site" content="@rekwah" />
 <meta name="twitter:creator" content="@rekwah" />
 <script type="application/ld+json">
-{"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","url":"https://andrew.hawker.io/writings/2013/08/28/android-app-testing-android-studio-gradle/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"Android app testing with Android Studio (Gradle) and AppThwack","dateModified":"2013-08-28T04:43:00-07:00","datePublished":"2013-08-28T04:43:00-07:00","author":{"@type":"Person","name":"Andrew Hawker"},"description":"Heres a quick tutorial to get started with AppThwack, Android Studio and Gradle. Once you’re up and running you’ll be able to kick off tests on our device lab from the IDE or command line. You can run our built-in compatibility tests or run your own (JUnit/Robotium, Calabash, MonkeyTalk, etc), giving you full control over when, what, and where youre testing your app.","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2013/08/28/android-app-testing-android-studio-gradle/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"headline":"Android app testing with Android Studio (Gradle) and AppThwack","dateModified":"2013-08-28T04:43:00-07:00","datePublished":"2013-08-28T04:43:00-07:00","url":"https://andrew.hawker.io/writings/2013/08/28/android-app-testing-android-studio-gradle/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2013/08/28/android-app-testing-android-studio-gradle/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"Heres a quick tutorial to get started with AppThwack, Android Studio and Gradle. Once you’re up and running you’ll be able to kick off tests on our device lab from the IDE or command line. You can run our built-in compatibility tests or run your own (JUnit/Robotium, Calabash, MonkeyTalk, etc), giving you full control over when, what, and where youre testing your app.","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
 
 <body>
-
-
-
-
-<article>
+<div class="header container-xl px-5 my-5 markdown-body">
   
 
+
+
+  
 <header>
-  <h1 class="title"><a name="Android app testing with Android Studio (Gradle) and AppThwack"></a>Android app testing with Android Studio (Gradle) and AppThwack</h1>
   
+  <h1>
+    <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+    Android app testing with Android Studio (Gradle) and AppThwack
+  </h1>
   
-  <p class="byline">August 28, 2013</p>
-  
-  
-  <ul class="tags">
-  
-    <li class="category"><a href="/archives/category/writings">WRITINGS</a></li>
-  
-  
-  
-  
-    <li class="tag"><a href="/archives/tag/appthwack">APPTHWACK (3)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/gradle">GRADLE (1)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/archive">ARCHIVE (3)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/announcement">ANNOUNCEMENT (3)</a></li>
-  
-  
-  </ul>
+  <div class="col-12">
+    
+    <p class="h4 color-grey">August 28, 2013</p>
+    
+  </div>
+  <div class="col-12">
+    
+    <ul class="tags">
+    
+      <li class="category"><a href="/archives/category/writings">WRITINGS</a></li>
+    
+    
+    
+    
+      <li class="tag"><a href="/archives/tag/appthwack">APPTHWACK (3)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/gradle">GRADLE (1)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/archive">ARCHIVE (3)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/announcement">ANNOUNCEMENT (3)</a></li>
+    
+    
+    </ul>
+  </div>
 </header>
 
 
+</div>
+<div class="content container-xl px-5 my-5 markdown-body">
+  <p>Heres a quick tutorial to get started with <a href="http://web.archive.org/web/20140717021901/https://appthwack.com">AppThwack</a>,
+<a href="https://developer.android.com/studio/index.html">Android Studio</a> and <a href="https://gradle.org/">Gradle</a>.
+Once you’re up and running you’ll be able to kick off tests on our <a href="http://web.archive.org/web/20140717021901/https://appthwack.com/devicelab">device lab</a>
+from the IDE or command line.
+You can run our built-in compatibility tests or run your own (JUnit/Robotium, Calabash, MonkeyTalk, etc),
+giving you full control over when, what, and where youre testing your app.</p>
 
-  <p>Heres a quick tutorial to get started with <a href="http://web.archive.org/web/20140717021901/https://appthwack.com">AppThwack</a>, <a href="https://developer.android.com/studio/index.html">Android Studio</a> and <a href="https://gradle.org/">Gradle</a>. Once you’re up and running you’ll be able to kick off tests on our <a href="http://web.archive.org/web/20140717021901/https://appthwack.com/devicelab">device lab</a> from the IDE or command line. You can run our built-in compatibility tests or run your own (JUnit/Robotium, Calabash, MonkeyTalk, etc), giving you full control over when, what, and where youre testing your app.</p>
-<p>Having a problem or interested in contributing? This plugin is open source! Check out the <a href="http://web.archive.org/web/20140717021901/https://github.com/appthwack/gradle-plugin">Github</a> page for more details.</p>
-<section id="configure-gradle" class="level2">
-<h2>Configure Gradle</h2>
-<p><span><label for="sn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-1" class="margin-toggle"/><span class="marginnote"> <img src="/assets/images/posts/gradle-appthwack-project-layout.png" alt="Project Layout" /><br />
-<br />
-</span></span> To add AppThwack support to an existing Android Studio project, we must modify the project specific build.gradle file. Be sure to select your app specific build.gradle file as the top-level file is for configuration options across all projects.</p>
-<section id="apply-the-plugin" class="level3">
-<h3>Apply the plugin</h3>
+<p>Having a problem or interested in contributing? This plugin is open source! Check out the
+<a href="http://web.archive.org/web/20140717021901/https://github.com/appthwack/gradle-plugin">Github</a> page for more details.</p>
+
+<h2 id="configure-gradle">Configure Gradle</h2>
+
+<p><sup id="fnref:project-layout" role="doc-noteref"><a href="#fn:project-layout" class="footnote">1</a></sup> To add AppThwack support to an existing Android Studio project, we must modify the project specific build.gradle file.
+Be sure to select your app specific build.gradle file as the top-level file is for configuration options across all projects.</p>
+
+<p><img src="/assets/images/posts/gradle-appthwack-project-layout.png" alt="Project Layout" /></p>
+
+<h3 id="apply-the-plugin">Apply the plugin</h3>
+
 <p>Adding any custom plugin to Gradle is a simple call to <em>apply</em> plugin.</p>
-<pre><code>apply plugin: &#39;appthwack&#39;</code></pre>
-</section>
-<section id="add-plugin-dependencies" class="level3">
-<h3>Add plugin dependencies</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apply plugin: 'appthwack'
+</code></pre></div></div>
+
+<h3 id="add-plugin-dependencies">Add plugin dependencies</h3>
+
 <p>Add the AppThwack plugin+dependencies to the classpath so it can be built.</p>
-<pre><code>dependencies {
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dependencies {
     //...
-    classpath &#39;com.sun.jersey:jersey-core:1.8&#39;
+    classpath 'com.sun.jersey:jersey-core:1.8'
 
     // Version needs to match current version of the plugin (See the github readme for current version)
-    classpath &#39;com.appthwack:gradle:1.3&#39;
-}</code></pre>
-</section>
-<section id="appthwack-settings" class="level3">
-<h3>AppThwack settings</h3>
-<p>All AppThwack specific configuration happens within the appthwack closure of your build.gradle file. The first step is adding your account <a href="http://web.archive.org/web/20140717021901/https://appthwack.com/user/profile">API Key</a>, the target project to use and a pool of devices to test on.</p>
-<p><span><label for="sn-2" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-2" class="margin-toggle"/><span class="marginnote"> Visit <a href="https://appthwack.com/user/profile">https://appthwack.com/user/profile</a> for your API Key.<br />
-<br />
-</span></span></p>
-<pre><code>appthwack {
-    apiKey=&#39;...&#39;
-    project=&#39;My Android App Project&#39;
-    devicePool=&#39;Top 10 devices&#39;
+    classpath 'com.appthwack:gradle:1.3'
+}
+</code></pre></div></div>
+
+<h3 id="appthwack-settings">AppThwack settings</h3>
+
+<p>All AppThwack specific configuration happens within the appthwack closure of your build.gradle file.
+The first step is adding your account <a href="http://web.archive.org/web/20140717021901/https://appthwack.com/user/profile">API Key</a>,
+the target project to use and a pool of devices to test on.</p>
+
+<p><sup id="fnref:api-key" role="doc-noteref"><a href="#fn:api-key" class="footnote">2</a></sup></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>appthwack {
+    apiKey='...'
+    project='My Android App Project'
+    devicePool='Top 10 devices'
     // ...
-}</code></pre>
-<p>With the account and project configured, now its time to configure the tests. Within the same appthwack closure, we can configure JUnit/Robotium, Calabash or AppExplorer test runs.</p>
-</section>
-<section id="junitrobotium-tests" class="level3">
-<h3>JUnit/Robotium Tests</h3>
+}
+</code></pre></div></div>
+<p>{-} Visit <a href="https://appthwack.com/user/profile">https://appthwack.com/user/profile</a> for your API Key.</p>
+
+<p>With the account and project configured, now its time to configure the tests.
+Within the same appthwack closure, we can configure JUnit/Robotium, Calabash or AppExplorer test runs.</p>
+
+<h3 id="junitrobotium-tests">JUnit/Robotium Tests</h3>
+
 <p>Selecting a JUnit run will automatically use the test APK which is built with your application.</p>
-<p><span><label for="sn-3" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-3" class="margin-toggle"/><span class="marginnote"> The ‘testFilter’ parameter is optional and should be omitted if you wish to run the entire JUnit test suite built with your app.<br />
-<br />
-</span></span></p>
-<pre><code>appthwack {
+
+<p><sup id="fnref:test-filter" role="doc-noteref"><a href="#fn:test-filter" class="footnote">3</a></sup></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>appthwack {
     // ...
     junit (
-        &#39;com.appthwack.MyApp.tests#TestFoo&#39; // testFilter
+        'com.appthwack.MyApp.tests#TestFoo' // testFilter
     )
-}</code></pre>
-</section>
-<section id="calabash-tests" class="level3">
-<h3>Calabash Tests</h3>
+}
+</code></pre></div></div>
+<p>{-} The ‘testFilter’ parameter is optional and should be omitted if you wish to run the entire JUnit test suite built with your app.</p>
+
+<h3 id="calabash-tests">Calabash Tests</h3>
+
 <p>Selecting a Calabash run will test your newly built application with the selected features.</p>
-<p><span><label for="sn-4" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-4" class="margin-toggle"/><span class="marginnote"> The ‘path’ parameter is required and should point to a local copy of your Calabash features zip.<br />
-<br />
-</span></span> <span><label for="sn-5" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-5" class="margin-toggle"/><span class="marginnote"> The ‘tags’ parameter is optional and represents a set of Cucumber based tags to pass to Calabash and should be omitted if you wish to run the entire test suite.<br />
-<br />
-</span></span></p>
-<pre><code>appthwack {
+
+<p><sup id="fnref:calabash-path" role="doc-noteref"><a href="#fn:calabash-path" class="footnote">4</a></sup>
+[^calabash-tags]</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>appthwack {
     // ...
     calabash (
-        &#39;/src/app/tests/calabash/features.zip&#39;, // path
-        &#39;@uitest&#39; // tags
+        '/src/app/tests/calabash/features.zip', // path
+        '@uitest' // tags
     )
-}</code></pre>
-</section>
-<section id="appexplorer-tests" class="level3">
-<h3>AppExplorer Tests</h3>
+}
+</code></pre></div></div>
+<p>{-} The ‘path’ parameter is required and should point to a local copy of your Calabash features zip.
+[^calabash-tags]:
+  {-} The ‘tags’ parameter is optional and represents a set of Cucumber based tags to pass to Calabash and should be omitted if you wish to run the entire test suite.</p>
+
+<h3 id="appexplorer-tests">AppExplorer Tests</h3>
+
 <p>Selecting an AppExplorer run will test your newly built application with the AppThwack AppExplorer and Exerciser Monkey.</p>
-<p><span><label for="sn-6" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-6" class="margin-toggle"/><span class="marginnote"> The ‘username’ parameter is optional and should contain a string value to inject into signin forms.<br />
-<br />
-</span></span> <span><label for="sn-7" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-7" class="margin-toggle"/><span class="marginnote"> The ‘username’ parameter is optional and should contain a string value to inject into signin forms.<br />
-<br />
-</span></span> <span><label for="sn-8" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-8" class="margin-toggle"/><span class="marginnote"> The ‘launchdata’ parameter is optional and should contain URI to pass to the launch activity.<br />
-<br />
-</span></span> <span><label for="sn-9" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-9" class="margin-toggle"/><span class="marginnote"> The ‘eventcount’ parameter is optional and should be the number of events the exerciser monkey should run.<br />
-<br />
-</span></span> <span><label for="sn-10" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-10" class="margin-toggle"/><span class="marginnote"> The ‘monkeyseed’ parameter is optional and is the seed value for the exerciser monkey randomized. Using the same value across runs should yield the same set of events.<br />
-<br />
-</span></span></p>
-<pre><code>appthwack {
+
+<p><sup id="fnref:explorer-username" role="doc-noteref"><a href="#fn:explorer-username" class="footnote">5</a></sup>
+<sup id="fnref:explorer-username:1" role="doc-noteref"><a href="#fn:explorer-username" class="footnote">5</a></sup>
+[^explorer-launchdata]
+[^explorer-eventcount]
+[^explorer-monkeyseed]</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>appthwack {
     //...
     appexplorer (
-        &#39;test_account&#39;, // username
-        &#39;testpassword123&#39;, // password
-        &#39;...&#39;, // launchdata
+        'test_account', // username
+        'testpassword123', // password
+        '...', // launchdata
         1000, // eventcount
         0 // monkeyseed
     )
-}</code></pre>
+}
+</code></pre></div></div>
+<p>{-} The ‘username’ parameter is optional and should contain a string value to inject into signin forms.
+[^explorer-password]:
+  {-} The ‘password’ parameter is optional and should contain a string value to inject into signin forms.
+[^explorer-launchdata]:
+  {-} The ‘launchdata’ parameter is optional and should contain URI to pass to the launch activity.
+[^explorer-eventcount]:
+  {-} The ‘eventcount’ parameter is optional and should be the number of events the exerciser monkey should run.
+[^explorer-monkeyseed]:
+  {-} The ‘monkeyseed’ parameter is optional and is the seed value for the exerciser monkey randomized. Using the same value across runs should yield the same set of events.</p>
+
 <p>Thats it! Now that our build.gradle is complete, lets setup a quick task in Android Studio to upload and run our tests.</p>
-</section>
-</section>
-<section id="configure-android-studio" class="level2">
-<h2>Configure Android Studio</h2>
+
+<h2 id="configure-android-studio">Configure Android Studio</h2>
+
 <p>We’ll need to add a new <em>Run Configuration</em> in Android Studio so we can quickly start our test runs.</p>
-<section id="add-a-new-run-configuration" class="level3">
-<h3>Add a new Run Configuration</h3>
-<p><span><label for="sn-11" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-11" class="margin-toggle"/><span class="marginnote"> <img src="/assets/images/posts/gradle-appthwack-task.png" alt="Add Configuration" /><br />
-<br />
-</span></span> Select <strong>Run &gt; Edit Configurations</strong> from the Android Studio menu bar.</p>
-<p>In the Run/Debug Configurations dialog, click the Add New Configuration in the top left-hand corner and add a new Gradle configuration. <img src="/assets/images/posts/gradle-appthwack-task-config.png" alt="Task Configuration" /></p>
+
+<h3 id="add-a-new-run-configuration">Add a new Run Configuration</h3>
+
+<p><sup id="fnref:add-configuration" role="doc-noteref"><a href="#fn:add-configuration" class="footnote">6</a></sup> Select <strong>Run &gt; Edit Configurations</strong> from the Android Studio menu bar.</p>
+
+<p><img src="/assets/images/posts/gradle-appthwack-task.png" alt="Add Configuration" /></p>
+
+<p>In the Run/Debug Configurations dialog, click the Add New Configuration in the top left-hand corner and add a new Gradle configuration.
+<img src="/assets/images/posts/gradle-appthwack-task-config.png" alt="Task Configuration" /></p>
+
 <p>Add the <strong>appthwackUpload</strong> task to your new Run Configuration.</p>
+
 <p>Thats it for Android Studio! Now its time to run our tests.</p>
-</section>
-</section>
-<section id="running-tests" class="level2">
-<h2>Running Tests</h2>
+
+<h2 id="running-tests">Running Tests</h2>
+
 <p>Now that our configuration is complete, we can kick off AppThwack test runs from Android Studio or directly through Gradle.</p>
-<section id="android-studio" class="level3">
-<h3>Android Studio</h3>
-<p><span><label for="sn-12" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-12" class="margin-toggle"/><span class="marginnote"> <img src="/assets/images/posts/gradle-appthwack-run-configuration.png" alt="Run Configuration" /><br />
-<br />
-</span></span> Select our <strong>Run Tests on AppThwack</strong> configuration from the drop down on the menu bar and hit play!</p>
-</section>
-<section id="gradle" class="level3">
-<h3>Gradle</h3>
+
+<h3 id="android-studio">Android Studio</h3>
+
+<p><sup id="fnref:run-configuration" role="doc-noteref"><a href="#fn:run-configuration" class="footnote">7</a></sup> Select our <strong>Run Tests on AppThwack</strong> configuration from the drop down on the menu bar and hit play!</p>
+
+<p><img src="/assets/images/posts/gradle-appthwack-run-configuration.png" alt="Run Configuration" /></p>
+
+<h3 id="gradle">Gradle</h3>
+
 <p>All Android Studio projects are packaged with the GradleWrapper, which gives us Gradle command line access from any platform.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1"></a>$ <span class="bu">cd</span> /src/MyApp</span>
-<span id="cb7-2"><a href="#cb7-2"></a>$ <span class="ex">./gradlew</span> appthwackUpload</span></code></pre></div>
-</section>
-<section id="results" class="level3">
-<h3>Results</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> /src/MyApp
+<span class="nv">$ </span>./gradlew appthwackUpload
+</code></pre></div></div>
+
+<h3 id="results">Results</h3>
+
 <p>On a successful run from Android Studio or Gradle, your output will look something like this.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a><span class="ex">...</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>:<span class="ex">GradleTestApp</span>:appthwackUpload</span>
-<span id="cb8-3"><a href="#cb8-3"></a>[<span class="ex">AppThwack</span>] Using Project <span class="st">&#39;demoproject&#39;</span>.</span>
-<span id="cb8-4"><a href="#cb8-4"></a>[<span class="ex">AppThwack</span>] Using DevicePool <span class="st">&#39;Top 10 devices&#39;</span>.</span>
-<span id="cb8-5"><a href="#cb8-5"></a>[<span class="ex">AppThwack</span>] Uploading apk <span class="st">&#39;GradleTestApp-debug-unaligned.apk&#39;</span>.</span>
-<span id="cb8-6"><a href="#cb8-6"></a>[<span class="ex">AppThwack</span>] Uploading test apk <span class="st">&#39;GradleTestApp-test-unaligned.apk&#39;</span>.</span>
-<span id="cb8-7"><a href="#cb8-7"></a>[<span class="ex">AppThwack</span>] Scheduling <span class="st">&#39;junit&#39;</span> run <span class="st">&#39;GradleTestApp-debug-unaligned.apk (Gradle)&#39;</span>.</span>
-<span id="cb8-8"><a href="#cb8-8"></a>[<span class="ex">AppThwack</span>] Congrats! See your test results at https://appthwack.com/project/demoproject/run/24219.</span></code></pre></div>
-<p>Now you can kick off AppThwack test runs from your shell or IDE. <span><label for="sn-13" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-13" class="margin-toggle"/><span class="marginnote"> This post was migrated from the <a href="https://blog.appthwack.com">AppThwack Blog</a> which is no longer available. A copy of the original post can be viewed from <a href="http://web.archive.org/web/20140717021901/http://blog.appthwack.com/android-app-testing-android-studio-gradle/">archive.org</a>.<br />
-<br />
-</span></span></p>
-</section>
-</section>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
+:GradleTestApp:appthwackUpload
+<span class="o">[</span>AppThwack] Using Project <span class="s1">'demoproject'</span><span class="nb">.</span>
+<span class="o">[</span>AppThwack] Using DevicePool <span class="s1">'Top 10 devices'</span><span class="nb">.</span>
+<span class="o">[</span>AppThwack] Uploading apk <span class="s1">'GradleTestApp-debug-unaligned.apk'</span><span class="nb">.</span>
+<span class="o">[</span>AppThwack] Uploading <span class="nb">test </span>apk <span class="s1">'GradleTestApp-test-unaligned.apk'</span><span class="nb">.</span>
+<span class="o">[</span>AppThwack] Scheduling <span class="s1">'junit'</span> run <span class="s1">'GradleTestApp-debug-unaligned.apk (Gradle)'</span><span class="nb">.</span>
+<span class="o">[</span>AppThwack] Congrats! See your <span class="nb">test </span>results at https://appthwack.com/project/demoproject/run/24219.
+</code></pre></div></div>
+
+<p>Now you can kick off AppThwack test runs from your shell or IDE. <sup id="fnref:archived" role="doc-noteref"><a href="#fn:archived" class="footnote">8</a></sup></p>
+
+<p>This post was migrated from the <a href="https://blog.appthwack.com">AppThwack Blog</a> which is no longer available.
+  A copy of the original post can be viewed from <a href="http://web.archive.org/web/20140717021901/http://blog.appthwack.com/android-app-testing-android-studio-gradle/">archive.org</a>.</p>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:project-layout" role="doc-endnote">
+      <p>{-} <a href="#fnref:project-layout" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:api-key" role="doc-endnote">
+
+      <p><a href="#fnref:api-key" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:test-filter" role="doc-endnote">
+
+      <p><a href="#fnref:test-filter" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:calabash-path" role="doc-endnote">
+
+      <p><a href="#fnref:calabash-path" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:explorer-username" role="doc-endnote">
+
+      <p><a href="#fnref:explorer-username" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:explorer-username:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+    </li>
+    <li id="fn:add-configuration" role="doc-endnote">
+      <p>{-} <a href="#fnref:add-configuration" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:run-configuration" role="doc-endnote">
+      <p>{-} <a href="#fnref:run-configuration" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:archived" role="doc-endnote">
+      <p>{-} <a href="#fnref:archived" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
 
 
 
@@ -267,14 +338,13 @@
 </section>
 
 
-</article>
+</div>
+<div class="footer container-xl px-5 my-5">
+  
 
 
 
-
-
-
-<footer>
+  <footer>
     <hr class="footer-hr">
     <ul class="social-links">
       
@@ -303,6 +373,7 @@
   </div>  
 </footer>
 
+</div>
 </body>
 </html>
 

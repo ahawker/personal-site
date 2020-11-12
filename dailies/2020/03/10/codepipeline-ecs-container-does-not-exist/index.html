@@ -24,11 +24,6 @@
   <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
   <link rel="stylesheet" href="/assets/styles/et-book.min.css">
   <link rel="stylesheet" href="/assets/styles/site.css">
-  
-
-  <!--[if lt IE 9]>
-  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
@@ -81,97 +76,120 @@
 <meta name="twitter:site" content="@rekwah" />
 <meta name="twitter:creator" content="@rekwah" />
 <script type="application/ld+json">
-{"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","url":"https://andrew.hawker.io/dailies/2020/03/10/codepipeline-ecs-container-does-not-exist/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"The AWS ECS container does not exist","dateModified":"2020-03-10T05:17:00-07:00","datePublished":"2020-03-10T05:17:00-07:00","author":{"@type":"Person","name":"Andrew Hawker"},"description":"Problem","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/dailies/2020/03/10/codepipeline-ecs-container-does-not-exist/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"headline":"The AWS ECS container does not exist","dateModified":"2020-03-10T05:17:00-07:00","datePublished":"2020-03-10T05:17:00-07:00","url":"https://andrew.hawker.io/dailies/2020/03/10/codepipeline-ecs-container-does-not-exist/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/dailies/2020/03/10/codepipeline-ecs-container-does-not-exist/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"Problem","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
 
 <body>
-
-
-
-
-<article>
+<div class="header container-xl px-5 my-5 markdown-body">
   
 
+
+
+  
 <header>
-  <h1 class="title"><a name="The AWS ECS container does not exist"></a>The AWS ECS container does not exist</h1>
   
+  <h1>
+    <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+    The AWS ECS container does not exist
+  </h1>
   
-  <p class="byline">March 10, 2020</p>
-  
-  
-  <ul class="tags">
-  
-    <li class="category"><a href="/archives/category/dailies">DAILIES</a></li>
-  
-  
-  
-  
-    <li class="tag"><a href="/archives/tag/aws">AWS (7)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/codepipeline">CODEPIPELINE (2)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/ecs">ECS (5)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/fargate">FARGATE (5)</a></li>
-  
-  
-  </ul>
+  <div class="col-12">
+    
+    <p class="h4 color-grey">March 10, 2020</p>
+    
+  </div>
+  <div class="col-12">
+    
+    <ul class="tags">
+    
+      <li class="category"><a href="/archives/category/dailies">DAILIES</a></li>
+    
+    
+    
+    
+      <li class="tag"><a href="/archives/tag/aws">AWS (7)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/codepipeline">CODEPIPELINE (2)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/ecs">ECS (5)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/fargate">FARGATE (5)</a></li>
+    
+    
+    </ul>
+  </div>
 </header>
 
 
+</div>
+<div class="content container-xl px-5 my-5 markdown-body">
+  <h2 id="problem">Problem</h2>
 
-  <section id="problem" class="level2">
-<h2>Problem</h2>
-<p>Your CodePipeline ECS deployment is failing with a <strong><code>The AWS ECS container ${container} does not exist</code></strong> message.</p>
-</section>
-<section id="scenario" class="level2">
-<h2>Scenario</h2>
-<p><span><label for="sn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-1" class="margin-toggle"/><span class="marginnote"> Check out the official AWS documentation for the <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html#container_definitions">container definitions</a> for more details<br />
-<br />
-</span></span></p>
-<p>This problem can occur in a number of situations but let’s just imagine we have a task definition contains a single entry in its <code>container definitions</code>. Now we want to add another container to the task, say a sidecar container like the <a href="https://docs.datadoghq.com/integrations/ecs_fargate/">datadog agent</a>.</p>
+<p>Your CodePipeline ECS deployment is failing with a <strong><code class="highlighter-rouge">The AWS ECS container ${container} does not exist</code></strong> message.</p>
+
+<h2 id="scenario">Scenario</h2>
+
+<p>This problem can occur in a number of situations but let’s just imagine we have a task definition contains a single entry in its <code class="highlighter-rouge">container definitions</code>.<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote">1</a></sup> Now we want to add another container to the task, say a sidecar container like the <a href="https://docs.datadoghq.com/integrations/ecs_fargate/">datadog agent</a>.</p>
+
 <p>First, you add it to your ECS task definition and push a new revision.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1"></a><span class="ot">[</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>  <span class="er">...</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a>  <span class="er">...</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a>  <span class="fu">{</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a>    <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;${datadog_name}&quot;</span><span class="fu">,</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a>    <span class="dt">&quot;image&quot;</span><span class="fu">:</span> <span class="st">&quot;${datadog_image}&quot;</span><span class="fu">,</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a>    <span class="dt">&quot;essential&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a>    <span class="dt">&quot;logConfiguration&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a>      <span class="dt">&quot;logDriver&quot;</span><span class="fu">:</span> <span class="st">&quot;awslogs&quot;</span><span class="fu">,</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a>      <span class="dt">&quot;options&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb1-11"><a href="#cb1-11"></a>        <span class="dt">&quot;awslogs-group&quot;</span><span class="fu">:</span> <span class="st">&quot;/aws/ecs/${cluster_name}/${datadog_name}&quot;</span><span class="fu">,</span></span>
-<span id="cb1-12"><a href="#cb1-12"></a>        <span class="dt">&quot;awslogs-region&quot;</span><span class="fu">:</span> <span class="st">&quot;us-west-2&quot;</span><span class="fu">,</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a>        <span class="dt">&quot;awslogs-stream-prefix&quot;</span><span class="fu">:</span> <span class="st">&quot;${datadog_name}&quot;</span></span>
-<span id="cb1-14"><a href="#cb1-14"></a>      <span class="fu">}</span></span>
-<span id="cb1-15"><a href="#cb1-15"></a>    <span class="fu">},</span></span>
-<span id="cb1-16"><a href="#cb1-16"></a>    <span class="dt">&quot;secrets&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb1-17"><a href="#cb1-17"></a>      <span class="fu">{</span> <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;DD_API_KEY&quot;</span><span class="fu">,</span>  <span class="dt">&quot;valueFrom&quot;</span><span class="fu">:</span> <span class="st">&quot;${DD_API_KEY}&quot;</span> <span class="fu">}</span></span>
-<span id="cb1-18"><a href="#cb1-18"></a>    <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb1-19"><a href="#cb1-19"></a>    <span class="dt">&quot;environment&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb1-20"><a href="#cb1-20"></a>      <span class="fu">{</span> <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;ECS_FARGATE&quot;</span><span class="fu">,</span> <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="st">&quot;true&quot;</span> <span class="fu">}</span></span>
-<span id="cb1-21"><a href="#cb1-21"></a>    <span class="ot">]</span></span>
-<span id="cb1-22"><a href="#cb1-22"></a>  <span class="fu">}</span></span>
-<span id="cb1-23"><a href="#cb1-23"></a><span class="ot">]</span></span></code></pre></div>
-<p>Second, you add it to your <code>imagedefinitions.json</code> generated in your CodePipeline build stage.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1"></a><span class="ot">[</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>    <span class="fu">{</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a>        <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;${your_container_name}&quot;</span><span class="fu">,</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a>        <span class="dt">&quot;imageUri&quot;</span><span class="fu">:</span><span class="st">&quot;${your_container_image}&quot;</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>    <span class="fu">}</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>    <span class="fu">{</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a>        <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;${datadog_agent_name}&quot;</span><span class="fu">,</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a>        <span class="dt">&quot;imageUri&quot;</span><span class="fu">:</span><span class="st">&quot;${datadog_agent_image}&quot;</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a>    <span class="fu">}</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="ot">]</span></span></code></pre></div>
-<p>After that, you run a new CodePipeline and run into the following error: <strong><code>The AWS ECS container datadog-agent does not exist</code></strong>.</p>
-<p><img src="/assets/images/posts/container-does-not-exist.png" /></p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="w">
+  </span><span class="err">...</span><span class="w">
+  </span><span class="err">...</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${datadog_name}"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${datadog_image}"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"essential"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"logConfiguration"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"logDriver"</span><span class="p">:</span><span class="w"> </span><span class="s2">"awslogs"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"awslogs-group"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/aws/ecs/${cluster_name}/${datadog_name}"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"awslogs-region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"us-west-2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"awslogs-stream-prefix"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${datadog_name}"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"secrets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w"> </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DD_API_KEY"</span><span class="p">,</span><span class="w">  </span><span class="nl">"valueFrom"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${DD_API_KEY}"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"environment"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w"> </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ECS_FARGATE"</span><span class="p">,</span><span class="w"> </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Second, you add it to your <code class="highlighter-rouge">imagedefinitions.json</code> generated in your CodePipeline build stage.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="w">
+	</span><span class="p">{</span><span class="w">
+		</span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${your_container_name}"</span><span class="p">,</span><span class="w">
+		</span><span class="nl">"imageUri"</span><span class="p">:</span><span class="s2">"${your_container_image}"</span><span class="w">
+	</span><span class="p">}</span><span class="w">
+	</span><span class="p">{</span><span class="w">
+		</span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${datadog_agent_name}"</span><span class="p">,</span><span class="w">
+		</span><span class="nl">"imageUri"</span><span class="p">:</span><span class="s2">"${datadog_agent_image}"</span><span class="w">
+	</span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<p>After that, you run a new CodePipeline and run into the following error: <strong><code class="highlighter-rouge">The AWS ECS container datadog-agent does not exist</code></strong>.</p>
+
+<p><img src="/assets/images/posts/container-does-not-exist.png" alt="Container Does Not Exist" /></p>
+
 <p>What the heck?</p>
+
 <p>The ECS service being updated with a new task definition from CodePipeline <strong>MUST</strong> have the container defined in it. This means that you must add the container definition, create a new task revision, <strong>AND</strong> force a new service deployment <em>prior</em> to doing an ECS deployment via CodePipeline.</p>
-</section>
+
+<hr />
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p><a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html#container_definitions">https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html#container_definitions</a> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
 
 
 
@@ -180,14 +198,13 @@
 </section>
 
 
-</article>
+</div>
+<div class="footer container-xl px-5 my-5">
+  
 
 
 
-
-
-
-<footer>
+  <footer>
     <hr class="footer-hr">
     <ul class="social-links">
       
@@ -216,6 +233,7 @@
   </div>  
 </footer>
 
+</div>
 </body>
 </html>
 

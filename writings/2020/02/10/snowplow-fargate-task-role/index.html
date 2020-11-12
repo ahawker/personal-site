@@ -24,11 +24,6 @@
   <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
   <link rel="stylesheet" href="/assets/styles/et-book.min.css">
   <link rel="stylesheet" href="/assets/styles/site.css">
-  
-
-  <!--[if lt IE 9]>
-  <script src="/assets/js/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
@@ -81,80 +76,96 @@
 <meta name="twitter:site" content="@rekwah" />
 <meta name="twitter:creator" content="@rekwah" />
 <script type="application/ld+json">
-{"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","url":"https://andrew.hawker.io/writings/2020/02/10/snowplow-fargate-task-role/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"headline":"Snowplow on AWS Fargate - Task Role","dateModified":"2020-02-10T03:26:00-08:00","datePublished":"2020-02-10T03:26:00-08:00","author":{"@type":"Person","name":"Andrew Hawker"},"description":"Personal website of Andrew Hawker","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2020/02/10/snowplow-fargate-task-role/"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"headline":"Snowplow on AWS Fargate - Task Role","dateModified":"2020-02-10T03:26:00-08:00","datePublished":"2020-02-10T03:26:00-08:00","url":"https://andrew.hawker.io/writings/2020/02/10/snowplow-fargate-task-role/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2020/02/10/snowplow-fargate-task-role/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"Personal website of Andrew Hawker","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
 
 <body>
-
-
-
-
-<article>
+<div class="header container-xl px-5 my-5 markdown-body">
   
 
+
+
+  
 <header>
-  <h1 class="title"><a name="Snowplow on AWS Fargate - Task Role"></a>Snowplow on AWS Fargate - Task Role</h1>
   
+  <h1>
+    <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+    Snowplow on AWS Fargate - Task Role
+  </h1>
   
-  <p class="byline">February 10, 2020</p>
-  
-  
-  <ul class="tags">
-  
-    <li class="category"><a href="/archives/category/writings">WRITINGS</a></li>
-  
-  
-  
-  
-    <li class="tag"><a href="/archives/tag/snowplow">SNOWPLOW (4)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/aws">AWS (7)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/ecs">ECS (5)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/fargate">FARGATE (5)</a></li>
-  
-    <li class="tag"><a href="/archives/tag/task">TASK (1)</a></li>
-  
-  
-  </ul>
+  <div class="col-12">
+    
+    <p class="h4 color-grey">February 10, 2020</p>
+    
+  </div>
+  <div class="col-12">
+    
+    <ul class="tags">
+    
+      <li class="category"><a href="/archives/category/writings">WRITINGS</a></li>
+    
+    
+    
+    
+      <li class="tag"><a href="/archives/tag/snowplow">SNOWPLOW (4)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/aws">AWS (7)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/ecs">ECS (5)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/fargate">FARGATE (5)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/task">TASK (1)</a></li>
+    
+    
+    </ul>
+  </div>
 </header>
 
 
-
+</div>
+<div class="content container-xl px-5 my-5 markdown-body">
   <hr />
+
 <p>This is part <strong>two</strong> of a blog post series about <strong>Snowplow on AWS Fargate</strong>.</p>
+
 <ul>
-<li><a href="/writings/2020/02/09/snowplow-fargate/">Part 1: Snowplow on AWS Fargate</a></li>
-<li><a href="/writings/2020/02/11/snowplow-fargate-enricher/">Part 3: Snowplow on AWS Fargate - Stream Enrich</a></li>
-<li><a href="/writings/2020/02/12/snowplow-fargate-permissions/">Part 4: Snowplow on AWS Fargate - IAM Permissions</a></li>
+  <li><a href="/writings/2020/02/09/snowplow-fargate/">Part 1: Snowplow on AWS Fargate</a></li>
+  <li><a href="/writings/2020/02/11/snowplow-fargate-enricher/">Part 3: Snowplow on AWS Fargate - Stream Enrich</a></li>
+  <li><a href="/writings/2020/02/12/snowplow-fargate-permissions/">Part 4: Snowplow on AWS Fargate - IAM Permissions</a></li>
 </ul>
+
 <hr />
-<section id="goal" class="level3">
-<h3>Goal</h3>
+
+<h3 id="goal">Goal</h3>
+
 <p>This post will outline the problem of using the IAM role/policy granted to AWS Fargate tasks so Snowplow components can access AWS resources.</p>
-</section>
-<section id="using-permissions-in-ecs-task-role" class="level2">
-<h2>Using permissions in ECS task role</h2>
+
+<h2 id="using-permissions-in-ecs-task-role">Using permissions in ECS task role</h2>
+
 <p>The first problem you’re likely to run into is permission errors related to assuming the <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html">task role</a> in your AWS ECS task definition. Lucky for us, this is just a minor configuration tweak.</p>
+
 <p>If you follow along with the documentation for <a href="https://github.com/snowplow/snowplow/wiki/Configure-the-Scala-Stream-Collector">configuring the scala stream collector</a> and use start with the default <a href="https://raw.githubusercontent.com/snowplow/snowplow/master/2-collectors/scala-stream-collector/examples/config.hocon.sample">application.conf</a> you’ll run into this problem.</p>
-<p>By default, the <code>application.conf</code> file uses the value <strong>iam</strong> for its <code>aws.accessKey</code> and <code>aws.secretKey</code> configuration values. This value works for deployment directly on EC2 instances but <strong>does not</strong> work when running as an ECS Fargate task. For these, you need to use the AWS default credential provider. Thankfully, Snowplow supports this, so just a simple change from <strong>iam</strong> to <strong>default</strong> will get you around this problem.</p>
-<pre><code>aws {
+
+<p>By default, the <code class="highlighter-rouge">application.conf</code> file uses the value <strong>iam</strong> for its <code class="highlighter-rouge">aws.accessKey</code> and <code class="highlighter-rouge">aws.secretKey</code> configuration values. This value works for deployment directly on EC2 instances but <strong>does not</strong> work when running as an ECS Fargate task. For these, you need to use the AWS default credential provider. Thankfully, Snowplow supports this, so just a simple change from <strong>iam</strong> to <strong>default</strong> will get you around this problem.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws {
  -    accessKey = iam
  +    accessKey = default
      accessKey = ${?COLLECTOR_STREAMS_SINK_AWS_ACCESS_KEY}
  -    secretKey = iam
  +    secretKey = default
      secretKey = ${?COLLECTOR_STREAMS_SINK_AWS_SECRET_KEY}
-}</code></pre>
-<p>If you’re following along with the Snowplow Wiki setup guide, you’ll first run into this with the <a href="https://github.com/snowplow/snowplow/wiki/Setting-up-a-collector">Scala Streaming Collector</a>. However, this change will be required for all components being run as Fargate tasks, e.g. Stream Enrich, S3 Loader, ES Loader, etc.</p>
-<section id="next" class="level3">
-<h3>Next</h3>
+}
+</code></pre></div></div>
+
+<p>If you’re following along with the Snowplow Wiki setup guide, you’ll first run into this with the <a href="https://github.com/snowplow/snowplow/wiki/Setting-up-a-collector">Scala Streaming Collector</a>. However, this change will be required for all components being run as Fargate tasks, e.g. Stream Enrich, S3 Loader, ES Loader, etc.</p>
+
+<h3 id="next">Next</h3>
+
 <p>Check out the next post in this series, <a href="/writings/2020/02/11/snowplow-fargate-enricher/">Snowplow on AWS Fargate - Stream Enrich</a>, which covers the Stream Enrich process on AWS Fargate.</p>
-</section>
-</section>
 
 
 
@@ -163,14 +174,13 @@
 </section>
 
 
-</article>
+</div>
+<div class="footer container-xl px-5 my-5">
+  
 
 
 
-
-
-
-<footer>
+  <footer>
     <hr class="footer-hr">
     <ul class="social-links">
       
@@ -199,6 +209,7 @@
   </div>  
 </footer>
 
+</div>
 </body>
 </html>
 
