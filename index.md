@@ -47,7 +47,7 @@ _These are short-form/bite-sized/TIL style posts that are concise and to the poi
 
 <span class="h2">[Morning Coffee & Code]({{ site.baseurl }}/archives/category/leetcode)</span>
 
-_Solving simple leetcode problems with my morning coffee._
+_Solving simple coding exercises with my morning coffee._
 
 {% assign leetcode_prev_year = nil %}
 {% assign leetcode_curr_year = nil %}
