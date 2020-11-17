@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8" lang="en">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Andrew Hawker">
+  <meta name="generator" content="jekyll">
+  
+  <meta name="dcterms.date" content="2020-11-16 06:46:00 -0800">
+  
+  
+  <meta name="keywords" content="django django-rest-framework django-activity-stream">
+  
+
+  <link rel="canonical" href="https://andrew.hawker.io/writings/2020/11/16/drf-activity-stream-serializers/" />
+
+  
+  <title>Django Activity Stream with Django REST Framework – Andrew Hawker</title>
+  
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
+  <link rel="stylesheet" href="/assets/styles/et-book.min.css">
+  <link rel="stylesheet" href="/assets/styles/site.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+
+  <link rel="manifest" href="/assets/site.webmanifest">
+
+  <meta name="msapplication-TileColor" content="#2d89ef">
+  <meta name="msapplication-config" content="/assets/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- RSS -->
+  <link type="application/atom+xml" rel="alternate" href="https://andrew.hawker.io/feed.xml" title="Andrew Hawker" />
+
+  <!-- Google Analytics -->
+  
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36365256-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  
+
+  <!-- SEO -->
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Django Activity Stream with Django REST Framework | Andrew Hawker</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Django Activity Stream with Django REST Framework" />
+<meta name="author" content="Andrew Hawker" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Introduction" />
+<meta property="og:description" content="Introduction" />
+<link rel="canonical" href="https://andrew.hawker.io/writings/2020/11/16/drf-activity-stream-serializers/" />
+<meta property="og:url" content="https://andrew.hawker.io/writings/2020/11/16/drf-activity-stream-serializers/" />
+<meta property="og:site_name" content="Andrew Hawker" />
+<meta property="og:image" content="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-11-16T06:46:00-08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:image" content="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" />
+<meta property="twitter:title" content="Django Activity Stream with Django REST Framework" />
+<meta name="twitter:site" content="@rekwah" />
+<meta name="twitter:creator" content="@rekwah" />
+<script type="application/ld+json">
+{"headline":"Django Activity Stream with Django REST Framework","dateModified":"2020-11-16T06:46:00-08:00","datePublished":"2020-11-16T06:46:00-08:00","url":"https://andrew.hawker.io/writings/2020/11/16/drf-activity-stream-serializers/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2020/11/16/drf-activity-stream-serializers/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"Introduction","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+
+<body>
+<div class="header container-xl px-5 my-5 markdown-body">
+  
+
+
+
+  
+<header>
+  
+  <h1>
+    <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+    Django Activity Stream with Django REST Framework
+  </h1>
+  
+  <div class="col-12">
+    
+    <p class="h4 color-grey">November 16, 2020</p>
+    
+  </div>
+  <div class="col-12">
+    
+    <ul class="tags">
+    
+      <li class="category"><a href="/archives/category/writings">WRITINGS</a></li>
+    
+    
+    
+    
+      <li class="tag"><a href="/archives/tag/django">DJANGO (3)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/django-rest-framework">DJANGO-REST-FRAMEWORK (3)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/django-activity-stream">DJANGO-ACTIVITY-STREAM (1)</a></li>
+    
+    
+    </ul>
+  </div>
+</header>
+
+
+</div>
+<div class="content container-xl px-5 my-5 markdown-body">
+  <h2 id="introduction">Introduction</h2>
+
+<p>This post is a quick walkthrough of <a href="https://github.com/justquick/django-activity-stream">Django Activity Stream</a>, <a href="https://www.django-rest-framework.org/">Django REST Framework</a>, and some code snippets for getting them to work together.</p>
+
+<p>Django Activity Stream allows you to add “social network” style activity streams to your Django application. Individual events of a stream (actions) are categorized by four main components:</p>
+
+<ul>
+  <li><strong>Actor</strong>. The object that performed the activity.</li>
+  <li><strong>Verb</strong>. The verb phrase that identifies the action of the activity.</li>
+  <li><strong>Action Object</strong>. (Optional) The object linked to the action itself.</li>
+  <li><strong>Target</strong>. (Optional) The object to which the activity was performed.</li>
+</ul>
+
+<p>GitHub is a great example of this.</p>
+
+<p><img src="/assets/images/posts/github-activity-stream.jpg" alt="Screenshot of GitHub activity stream" /></p>
+
+<p>Let’s break this screenshot down into the components outlined above.</p>
+
+<ul>
+  <li><strong>Actor</strong>: Users or bots</li>
+  <li><strong>Verb</strong>: Pushed or starred</li>
+  <li><strong>Action Object</strong>: Commits, pull requests, or nothing</li>
+  <li><strong>Target:</strong> Repository or organization</li>
+</ul>
+
+<p>As we can see, the activity stream is a heterogeneous collection of actions, where the components can be different types.</p>
+
+<p>How does Django Activity Stream model this? The <code class="highlighter-rouge">Actor</code>, <code class="highlighter-rouge">Action Object</code> and <code class="highlighter-rouge">Target</code> are generic foreign keys to any arbitrary Django model using the Django content framework. There’s a bit of a performance hit for this (additional queries) but is extremely flexible and can be extended to any time of new Django models you define.</p>
+
+<p>Since these actions make the activity stream heterogeneous, we need to be able to have serializers for any/all types used, depending on the type of model linked through the generic foreign keys. How do we handle this with Django REST Framework?</p>
+
+<h2 id="solution">Solution</h2>
+
+<p>First, we define a generic serializer for the <code class="highlighter-rouge">Action</code> models that uses a custom field serializer for the <code class="highlighter-rouge">actor</code>, <code class="highlighter-rouge">action_object</code> and <code class="highlighter-rouge">target</code> fields.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">ActionSerializer</span><span class="p">(</span><span class="n">Serializer</span><span class="p">):</span>
+    <span class="s">"""
+    DRF serializer for :class:`~activity.models.Action`.
+    """</span>
+    <span class="n">actor</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">ActivityGenericRelatedField</span><span class="p">(</span><span class="n">read_only</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">action_object</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">ActivityGenericRelatedField</span><span class="p">(</span><span class="n">read_only</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">ActivityGenericRelatedField</span><span class="p">(</span><span class="n">read_only</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">(</span><span class="n">Serializer</span><span class="o">.</span><span class="n">Meta</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Action</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">'id'</span><span class="p">,</span> <span class="s">'actor'</span><span class="p">,</span> <span class="s">'verb'</span><span class="p">,</span> <span class="s">'action_object'</span><span class="p">,</span> <span class="s">'target'</span><span class="p">,</span> <span class="s">'public'</span><span class="p">,</span> <span class="s">'description'</span><span class="p">,</span> <span class="s">'timestamp'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>This custom field serializer chooses the appropriate registered serializer based on the type of model it’s attempting to serialize through the generic foreign key. Let’s take a look at an example that uses some serializers that map to GitHub types.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Registry of GFK serializers used in activity stream.
+</span><span class="n">GFK_MODEL_SERIALIZER_MAPPING</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">User</span><span class="p">:</span> <span class="n">UserActionSerializer</span><span class="p">,</span>
+    <span class="n">Bot</span><span class="p">:</span> <span class="n">BotActionSerializer</span><span class="p">,</span>
+    <span class="n">Team</span><span class="p">:</span> <span class="n">TeamActionSerializer</span><span class="p">,</span>
+    <span class="n">Commit</span><span class="p">:</span> <span class="n">CommitActionSerializer</span><span class="p">,</span>
+    <span class="n">Star</span><span class="p">:</span> <span class="n">FunctionActionSerializer</span><span class="p">,</span>
+    <span class="n">Push</span><span class="p">:</span> <span class="n">PushActionSerializer</span><span class="p">,</span>
+    <span class="n">PullRequest</span><span class="p">:</span> <span class="n">PullRequestActionSerializer</span><span class="p">,</span>
+    <span class="n">Organization</span><span class="p">:</span> <span class="n">OrganizationActionSerializer</span><span class="p">,</span>
+    <span class="n">Repository</span><span class="p">:</span> <span class="n">RepositoryActionSerializer</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">ActivityGenericRelatedField</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">Field</span><span class="p">):</span>
+    <span class="s">"""
+    DRF Serializer field that serializers GenericForeignKey fields on the :class:`~activity.models.Action`
+    of known model types to their respective ActionSerializer implementation.
+    """</span>
+
+    <span class="k">def</span> <span class="nf">to_representation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">serializer_cls</span> <span class="o">=</span> <span class="n">GFK_MODEL_SERIALIZER_MAPPING</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">serializer_cls</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">)</span><span class="o">.</span><span class="n">data</span> <span class="k">if</span> <span class="n">serializer_cls</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>An example of a simple action serializer could be imagined as:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">OrganizationActionSerializer</span><span class="p">(</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="s">"""
+    DRF model serializer for :class:`~organizations.models.Organization` when referenced
+    from an action.
+    """</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">'id'</span><span class="p">,</span> <span class="s">'url'</span><span class="p">,</span> <span class="s">'model_type'</span><span class="p">,</span> <span class="s">'name'</span><span class="p">,</span> <span class="s">'slug'</span><span class="p">)</span>
+        <span class="n">read_only_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">'id'</span><span class="p">,</span> <span class="s">'url'</span><span class="p">,</span> <span class="s">'model_type'</span><span class="p">,</span> <span class="s">'name'</span><span class="p">,</span> <span class="s">'slug'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>With serializers like that, we can add a simple model mixin that allows us to query the activity stream items for a specific model instance.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">ActorModel</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="s">"""
+    Mixin to add activity related functionality to activity 'actor' model types.
+    """</span>
+
+    <span class="k">def</span> <span class="nf">activity_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">25</span><span class="p">):</span>
+        <span class="s">"""
+        Returns queryset that yields back :class:`~activity.models.Action` instances
+        where the current model instance was any part (actor, target, or action_object) of the action.
+        """</span>
+        <span class="k">return</span> <span class="n">Action</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nb">any</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_limit</span><span class="o">=</span><span class="n">limit</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">abstract</span> <span class="o">=</span> <span class="bp">True</span>
+</code></pre></div></div>
+
+<p>If our models use a mixin like that, we can make a simple call in our viewset:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">ActivityViewSetMixin</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">activity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="s">"""
+        Get activity stream for the current object.
+        """</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_object</span><span class="p">()</span>
+        <span class="n">queryset</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">activity_stream</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">responses</span><span class="o">.</span><span class="n">serialized_list_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queryset</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>With all of that hooked up and a URL route defined, we can easily query the activity stream for any object. For example, the above GitHub activities queried from a theoretical endpoint.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">user_activity</span> <span class="o">=</span> <span class="n">viewsets</span><span class="o">.</span><span class="n">UserView</span><span class="o">.</span><span class="n">as_view</span><span class="p">({</span><span class="s">'get'</span><span class="p">:</span> <span class="s">'activity'</span><span class="p">})</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s">'users/&lt;uuid:user_pk&gt;/'</span><span class="p">,</span> <span class="n">include</span><span class="p">([</span>
+        <span class="n">path</span><span class="p">(</span><span class="s">'activity'</span><span class="p">,</span> <span class="n">user_activity</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">'user-activity'</span><span class="p">)</span>
+    <span class="p">]))</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>⇒  curl <span class="nt">-X</span> GET <span class="se">\</span>
+        <span class="nt">-H</span> <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+        <span class="nt">-H</span> <span class="s2">"Authorization: Bearer </span><span class="k">${</span><span class="nv">API_KEY</span><span class="k">}</span><span class="s2">"</span> <span class="se">\</span>
+        https://api.example.org/users/8E4F9AF6-BCF7-44DC-B071-A68FC9A7E39F/activity | python <span class="nt">-m</span> json.tool
+<span class="o">{</span>
+    <span class="s2">"next"</span>: null,
+    <span class="s2">"prev"</span>: null,
+    <span class="s2">"results"</span>: <span class="o">[</span>
+        <span class="o">{</span>
+            <span class="s2">"actor"</span>: <span class="o">{</span>
+                <span class="s2">"id"</span>: <span class="s2">"5D006EEC-86D1-42DC-A963-BC8708A7F6D0"</span>,
+                <span class="s2">"model_type"</span>: <span class="s2">"bot"</span>,
+                <span class="s2">"name"</span>: <span class="s2">"dependabot-preview"</span>,
+                <span class="s2">"email"</span>: <span class="s2">"dependabot-preview@github.no-reply.com"</span>
+            <span class="o">}</span>,
+            <span class="s2">"action_object"</span>: <span class="o">{</span>
+                <span class="s2">"id"</span>: <span class="s2">"385ACEA5-DE9E-4EE8-813B-A5ACC47A9716"</span>,
+                <span class="s2">"url"</span>: <span class="s2">"https://api.example.org/repositories/8E4F9AF6-BCF7-44DC-B071-A68FC9A7E39F/tree/385ACEA5-DE9E-4EE8-813B-A5ACC47A9716"</span>,
+                <span class="s2">"model_type"</span>: <span class="s2">"branch"</span>,
+                <span class="s2">"name"</span>: <span class="s2">"dependabot/pip/sphinx-rtd-theme-0.5.0"</span>,
+                <span class="s2">"slug"</span>: <span class="s2">"dependabot/pip/sphinx-rtd-theme-0.5.0"</span>
+            <span class="o">}</span>,
+            <span class="s2">"target"</span>: <span class="o">{</span>
+                <span class="s2">"id"</span>: <span class="s2">"0aeedbdd-dc07-4218-9c1f-ccbf782925c4"</span>,
+                <span class="s2">"url"</span>: <span class="s2">"https://api.example.org/repositories/8E4F9AF6-BCF7-44DC-B071-A68FC9A7E39F"</span>,
+                <span class="s2">"model_type"</span>: <span class="s2">"repository"</span>,
+                <span class="s2">"name"</span>: <span class="s2">"transport-protocol"</span>,
+                <span class="s2">"slug"</span>: <span class="s2">"adbpy/transport-protocol"</span>
+            <span class="o">}</span>,
+            <span class="s2">"verb"</span>: <span class="s2">"pushed"</span>,
+            <span class="s2">"timestamp"</span>: <span class="s2">"2020-06-12T15:01:41+0000"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+            <span class="s2">"actor"</span>: <span class="o">{</span>
+                <span class="s2">"id"</span>: <span class="s2">"383D4A7C-CF39-45C6-B024-EC7F524DA42C"</span>,
+                <span class="s2">"model_type"</span>: <span class="s2">"user"</span>,
+                <span class="s2">"name"</span>: <span class="s2">"Pawel Wojnarowicz"</span>,
+                <span class="s2">"email"</span>: <span class="s2">"pawel@example.org"</span>
+            <span class="o">}</span>,
+            <span class="s2">"action_object"</span>: <span class="o">{</span>
+                <span class="s2">"id"</span>: <span class="s2">"15BEBE88-CA5A-47D5-A413-DA7B67154667"</span>,
+                <span class="s2">"url"</span>: <span class="s2">"https://api.example.org/repositories/8E4F9AF6-BCF7-44DC-B071-A68FC9A7E39F/tree/385ACEA5-DE9E-4EE8-813B-A5ACC47A9716"</span>,
+                <span class="s2">"model_type"</span>: <span class="s2">"commit"</span>,
+                <span class="s2">"name"</span>: <span class="s2">"master"</span>,
+                <span class="s2">"slug"</span>: <span class="s2">"master"</span>
+            <span class="o">}</span>,
+            <span class="s2">"target"</span>: <span class="o">{</span>
+                <span class="s2">"id"</span>: <span class="s2">"16561C6E-7EC8-41FA-AD9F-261484FE58F4"</span>,
+                <span class="s2">"url"</span>: <span class="s2">"https://api.example.org/repositories/8E4F9AF6-BCF7-44DC-B071-A68FC9A7E39F/tree/385ACEA5-DE9E-4EE8-813B-A5ACC47A9716"</span>,
+                <span class="s2">"model_type"</span>: <span class="s2">"repository"</span>,
+                <span class="s2">"name"</span>: <span class="s2">"routegy-touch-web-app"</span>,
+                <span class="s2">"slug"</span>: <span class="s2">"routegy/routegy-touch-web-app"</span>
+            <span class="o">}</span>,
+            <span class="s2">"verb"</span>: <span class="s2">"pushed"</span>,
+            <span class="s2">"timestamp"</span>: <span class="s2">"2020-06-11T16:50:23+0000"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+            <span class="s2">"actor"</span>: <span class="o">{</span>
+                <span class="s2">"id"</span>: <span class="s2">"B5371262-CEF7-4E24-B2DF-792E71666B7C"</span>,
+                <span class="s2">"model_type"</span>: <span class="s2">"user"</span>,
+                <span class="s2">"name"</span>: <span class="s2">"wywly"</span>,
+                <span class="s2">"email"</span>: <span class="s2">"wywly@example.org"</span>
+            <span class="o">}</span>,
+            <span class="s2">"action_object"</span>: null,
+            <span class="s2">"target"</span>: <span class="o">{</span>
+                <span class="s2">"id"</span>: <span class="s2">"16561C6E-7EC8-41FA-AD9F-261484FE58F4"</span>,
+                <span class="s2">"url"</span>: <span class="s2">"https://api.example.org/repositories/8E4F9AF6-BCF7-44DC-B071-A68FC9A7E39F/tree/385ACEA5-DE9E-4EE8-813B-A5ACC47A9716"</span>,
+                <span class="s2">"model_type"</span>: <span class="s2">"repository"</span>,
+                <span class="s2">"name"</span>: <span class="s2">"crython"</span>,
+                <span class="s2">"slug"</span>: <span class="s2">"ahawker/crython"</span>
+            <span class="o">}</span>,
+            <span class="s2">"verb"</span>: <span class="s2">"starred"</span>,
+            <span class="s2">"timestamp"</span>: <span class="s2">"2020-05-31T16:26:48+0000"</span>
+        <span class="o">}</span>
+    <span class="o">]</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="followingfollowers">Following/Followers</h2>
+
+<p>Django Activity Streams also has support for following and followers. This flag can also be customized so we could implement following and a “stars/stargazers” mechanism like GitHub.</p>
+
+<p>We can extend our previous model/viewset mixins to support these as well.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Flags</span><span class="p">:</span>
+    <span class="s">"""
+    Contains common used follow flags.
+    """</span>
+    <span class="n">Following</span> <span class="o">=</span> <span class="s">'following'</span>
+
+
+
+<span class="k">class</span> <span class="nc">ActorModel</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="s">"""
+    Mixin to add activity related functionality to activity 'actor' model types.
+    """</span>
+
+    <span class="k">def</span> <span class="nf">activity_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">25</span><span class="p">):</span>
+        <span class="s">"""
+        Returns queryset that yields back :class:`~activity.models.Action` instances
+        where the current model instance was any part (actor, target, or action_object) of the action.
+        """</span>
+        <span class="k">return</span> <span class="n">Action</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nb">any</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_limit</span><span class="o">=</span><span class="n">limit</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">followers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">25</span><span class="p">):</span>
+        <span class="s">"""
+        Returns queryset that yields back :class:`~activity.models.Follow` instances
+        that contain references to users following this instance.
+        """</span>
+        <span class="k">return</span> <span class="n">Follow</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">followers_qs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="n">actions</span><span class="o">.</span><span class="n">Flags</span><span class="o">.</span><span class="n">Following</span><span class="p">)[:</span><span class="n">limit</span><span class="p">]</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">abstract</span> <span class="o">=</span> <span class="bp">True</span>
+
+
+<span class="k">class</span> <span class="nc">UserModel</span><span class="p">(</span><span class="n">ActorModel</span><span class="p">):</span>
+    <span class="s">"""
+    Mixin to add activity related functionality to activity user model types.
+    """</span>
+
+    <span class="k">def</span> <span class="nf">user_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">25</span><span class="p">):</span>
+        <span class="s">"""
+        Returns queryset that yields back :class:`~activity.models.Action` instances
+        related to actors this user is following.
+        """</span>
+        <span class="k">return</span> <span class="n">Action</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">follow_flag</span><span class="o">=</span><span class="n">actions</span><span class="o">.</span><span class="n">Flags</span><span class="o">.</span><span class="n">Following</span><span class="p">,</span> <span class="n">_limit</span><span class="o">=</span><span class="n">limit</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">following</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">25</span><span class="p">):</span>
+        <span class="s">"""
+        Returns queryset that yields back :class:`~activity.models.Follow` instances
+        that contain references to users the current user is following.
+        """</span>
+        <span class="k">return</span> <span class="n">Follow</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">following_qs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="n">actions</span><span class="o">.</span><span class="n">Flags</span><span class="o">.</span><span class="n">Following</span><span class="p">)[:</span><span class="n">limit</span><span class="p">]</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">abstract</span> <span class="o">=</span> <span class="bp">True</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">FeedViewSetMixin</span><span class="p">:</span>
+    <span class="s">"""
+    Mixin that adds a 'feed' action to the viewset.
+
+    This requires that the model being served by the viewset has the
+    :class:`~activity.models.UserMixin`.
+    """</span>
+    <span class="n">feed_serializer_class</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">ActionListSerializer</span>
+
+    <span class="k">def</span> <span class="nf">feed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="s">"""
+        Get user stream for the current object.
+        """</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+        <span class="n">queryset</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">user_stream</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">responses</span><span class="o">.</span><span class="n">serialized_list_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queryset</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">FollowViewSetMixin</span><span class="p">:</span>
+    <span class="s">"""
+    Mixin that adds 'follow' action to ViewSet.
+    """</span>
+
+    <span class="k">def</span> <span class="nf">follow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="s">"""
+        Configure authenticated user to follow object stream.
+        """</span>
+        <span class="n">user</span><span class="p">,</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_object</span><span class="p">()</span>
+
+        <span class="k">with</span> <span class="n">transaction</span><span class="o">.</span><span class="n">atomic</span><span class="p">():</span>
+            <span class="n">signals</span><span class="o">.</span><span class="n">pre_follow</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">sender</span><span class="o">=</span><span class="n">obj</span><span class="o">.</span><span class="n">__class__</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+            <span class="n">actions</span><span class="o">.</span><span class="n">follow</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
+            <span class="n">signals</span><span class="o">.</span><span class="n">post_follow</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">sender</span><span class="o">=</span><span class="n">obj</span><span class="o">.</span><span class="n">__class__</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">responses</span><span class="o">.</span><span class="n">NoContent</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">UnfollowViewSetMixin</span><span class="p">:</span>
+    <span class="s">"""
+    Mixin that adds 'unfollow' action to the ViewSet.
+    """</span>
+
+    <span class="k">def</span> <span class="nf">unfollow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="s">"""
+        Configure authenticated user to unfollow object stream.
+        """</span>
+        <span class="n">user</span><span class="p">,</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_object</span><span class="p">()</span>
+
+        <span class="k">with</span> <span class="n">transaction</span><span class="o">.</span><span class="n">atomic</span><span class="p">():</span>
+            <span class="n">signals</span><span class="o">.</span><span class="n">pre_unfollow</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">sender</span><span class="o">=</span><span class="n">obj</span><span class="o">.</span><span class="n">__class__</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+            <span class="n">actions</span><span class="o">.</span><span class="n">unfollow</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
+            <span class="n">signals</span><span class="o">.</span><span class="n">post_unfollow</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">sender</span><span class="o">=</span><span class="n">obj</span><span class="o">.</span><span class="n">__class__</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">responses</span><span class="o">.</span><span class="n">NoContent</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">FollowersViewSetMixin</span><span class="p">:</span>
+    <span class="s">"""
+    Mixin that adds 'followers' action to the ViewSet.
+    """</span>
+    <span class="n">followers_serializer_class</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">FollowersSerializer</span>
+
+    <span class="k">def</span> <span class="nf">followers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="s">"""
+        Get list of users that are following the current actor.
+        """</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_object</span><span class="p">()</span>
+        <span class="n">queryset</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">followers</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">responses</span><span class="o">.</span><span class="n">serialized_list_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queryset</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">FollowingViewSetMixin</span><span class="p">:</span>
+    <span class="s">"""
+    Mixin that adds 'following' action to the ViewSet.
+    """</span>
+    <span class="n">following_serializer_class</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">FollowingSerializer</span>
+
+    <span class="k">def</span> <span class="nf">following</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="s">"""
+        Get list of actors the current user is following.
+        """</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+        <span class="n">queryset</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">following</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">responses</span><span class="o">.</span><span class="n">serialized_list_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queryset</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Update your urlpatterns to include the new routes.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">user_activity</span> <span class="o">=</span> <span class="n">viewsets</span><span class="o">.</span><span class="n">UserViewSet</span><span class="o">.</span><span class="n">as_view</span><span class="p">({</span><span class="s">'get'</span><span class="p">:</span> <span class="s">'activity'</span><span class="p">})</span>
+<span class="n">user_followers</span> <span class="o">=</span> <span class="n">viewsets</span><span class="o">.</span><span class="n">UserViewSet</span><span class="o">.</span><span class="n">as_view</span><span class="p">({</span><span class="s">'get'</span><span class="p">:</span> <span class="s">'followers'</span><span class="p">})</span>
+<span class="n">user_follow</span> <span class="o">=</span> <span class="n">viewsets</span><span class="o">.</span><span class="n">UserViewSet</span><span class="o">.</span><span class="n">as_view</span><span class="p">({</span><span class="s">'post'</span><span class="p">:</span> <span class="s">'follow'</span><span class="p">})</span>
+<span class="n">user_unfollow</span> <span class="o">=</span> <span class="n">viewsets</span><span class="o">.</span><span class="n">UserViewSet</span><span class="o">.</span><span class="n">as_view</span><span class="p">({</span><span class="s">'delete'</span><span class="p">:</span> <span class="s">'unfollow'</span><span class="p">})</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s">'users/&lt;uuid:user_pk&gt;/'</span><span class="p">,</span> <span class="n">include</span><span class="p">([</span>
+        <span class="n">path</span><span class="p">(</span><span class="s">'activity'</span><span class="p">,</span> <span class="n">user_activity</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">'user-activity'</span><span class="p">),</span>
+        <span class="n">path</span><span class="p">(</span><span class="s">'followers'</span><span class="p">,</span> <span class="n">user_followers</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">'user-followers'</span><span class="p">),</span>
+        <span class="n">path</span><span class="p">(</span><span class="s">'follow'</span><span class="p">,</span> <span class="n">user_follow</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">'user-follow'</span><span class="p">),</span>
+        <span class="n">path</span><span class="p">(</span><span class="s">'unfollow'</span><span class="p">,</span> <span class="n">user_unfollow</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">'user-unfollow'</span><span class="p">)</span>
+    <span class="p">]))</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>We can make POST requests to <code class="highlighter-rouge">follow</code>, <code class="highlighter-rouge">unfollow</code>, and simple GET requests to see what users are following an individual repository, another user, or any specific Django model instance you want.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>⇒  curl <span class="nt">-X</span> GET <span class="se">\</span>
+        <span class="nt">-H</span> <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+        <span class="nt">-H</span> <span class="s2">"Authorization: Bearer </span><span class="k">${</span><span class="nv">AUTH0_TOKEN</span><span class="k">}</span><span class="s2">"</span> <span class="se">\</span>
+        https://api.example.org/users/B8810FEF-1CC6-4647-ABFD-A8E9211F4918/followers | python <span class="nt">-m</span> json.tool
+<span class="o">{</span>
+    <span class="s2">"next"</span>: null,
+    <span class="s2">"prev"</span>: null,
+    <span class="s2">"results"</span>: <span class="o">[</span>
+        <span class="o">{</span>
+            <span class="s2">"started"</span>: <span class="s2">"2020-02-02T23:29:44+0000"</span>,
+            <span class="s2">"user"</span>: <span class="o">{</span>
+                <span class="s2">"id"</span>: <span class="s2">"A96A8499-9D39-4F75-99E7-33A876981CD1"</span>,
+                <span class="s2">"model_type"</span>: <span class="s2">"user"</span>,
+                <span class="s2">"name"</span>: <span class="s2">"Andrew Hawker"</span>,
+                <span class="s2">"email"</span>: <span class="s2">"hawker@example.org"</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">]</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+
+
+<section>
+  <p class="return-home"><em><a href="/">Return home</a></em></p>
+</section>
+
+
+</div>
+<div class="footer container-xl px-5 my-5">
+  
+
+
+
+  <footer>
+    <hr class="footer-hr">
+    <ul class="social-links">
+      
+        <li><a href="https://www.routegy.com" target="_blank" title="Employer"><span class="fa fa-2x fa-building social-icon"></span></a></li>
+      
+        <li><a href="https://goo.gl/maps/kUBP3GgPGiG2" target="_blank" title="Location"><span class="fa fa-2x fa-map-marker social-icon"></span></a></li>
+      
+        <li><a href="https://stackoverflow.com/users/84942/ahawker" target="_blank" title="Stack Overflow"><span class="fa fa-2x fa-stack-overflow social-icon"></span></a></li>
+      
+        <li><a href="https://github.com/ahawker" target="_blank" title="GitHub"><span class="fa fa-2x fa-github-alt social-icon"></span></a></li>
+      
+        <li><a href="https://linkedin.com/in/ahawker" target="_blank" title="LinkedIn"><span class="fa fa-2x fa-linkedin-square social-icon"></span></a></li>
+      
+        <li><a href="https://twitter.com/rekwah" target="_blank" title="Twitter"><span class="fa fa-2x fa-twitter social-icon"></span></a></li>
+      
+        <li><a href="mailto:andrew.r.hawker@gmail.com" target="_blank" title="Email"><span class="fa fa-2x fa-envelope social-icon"></span></a></li>
+      
+        <li><a href="/feed.xml" target="_blank" title="RSS"><span class="fa fa-2x fa-rss social-icon"></span></a></li>
+      
+        <li><a href="/assets/resume.pdf" target="_blank" title="Resume"><span class="fa fa-2x fa-file social-icon"></span></a></li>
+        
+    </ul>
+  <div class="credits">
+    <span>&copy; 2013 - 2020 &nbsp;&nbsp;ANDREW HAWKER</span></br> <br>
+    <span>Code for this website can be found <a href="https://github.com/ahawker/personal-site">here</a>.</span>
+  </div>  
+</footer>
+
+</div>
+</body>
+</html>
+
