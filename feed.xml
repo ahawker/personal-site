@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://andrew.hawker.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://andrew.hawker.io/" rel="alternate" type="text/html" /><updated>2020-11-18T12:08:36-08:00</updated><id>https://andrew.hawker.io/feed.xml</id><title type="html">Andrew Hawker</title><subtitle>Personal website of Andrew Hawker</subtitle><author><name>Andrew Hawker</name></author><entry><title type="html">Range Sum of BST</title><link href="https://andrew.hawker.io/leetcode/2020/11/18/range-sum-of-bst/" rel="alternate" type="text/html" title="Range Sum of BST" /><published>2020-11-18T04:04:00-08:00</published><updated>2020-11-18T04:04:00-08:00</updated><id>https://andrew.hawker.io/leetcode/2020/11/18/range-sum-of-bst</id><content type="html" xml:base="https://andrew.hawker.io/leetcode/2020/11/18/range-sum-of-bst/">&lt;p&gt;I’m trying to get in a habit of starting my mornings off with coffee and a &lt;a href=&quot;https://leetcode.com/&quot;&gt;Leetcode&lt;/a&gt; problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://andrew.hawker.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://andrew.hawker.io/" rel="alternate" type="text/html" /><updated>2020-11-18T14:57:17-08:00</updated><id>https://andrew.hawker.io/feed.xml</id><title type="html">Andrew Hawker</title><subtitle>Personal website of Andrew Hawker</subtitle><author><name>Andrew Hawker</name></author><entry><title type="html">Range Sum of BST</title><link href="https://andrew.hawker.io/leetcode/2020/11/18/range-sum-of-bst/" rel="alternate" type="text/html" title="Range Sum of BST" /><published>2020-11-18T04:04:00-08:00</published><updated>2020-11-18T04:04:00-08:00</updated><id>https://andrew.hawker.io/leetcode/2020/11/18/range-sum-of-bst</id><content type="html" xml:base="https://andrew.hawker.io/leetcode/2020/11/18/range-sum-of-bst/">&lt;p&gt;I’m trying to get in a habit of starting my mornings off with coffee and a &lt;a href=&quot;https://leetcode.com/&quot;&gt;Leetcode&lt;/a&gt; problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!&lt;/p&gt;
 
 &lt;h2 id=&quot;range-sum-of-bst&quot;&gt;&lt;a href=&quot;https://leetcode.com/problems/range-sum-of-bst/&quot;&gt;Range Sum of BST&lt;/a&gt;&lt;/h2&gt;
 
@@ -8,7 +8,7 @@
 
 &lt;p&gt;Example 1:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://assets.leetcode.com/uploads/2020/11/05/bst1.jpg&quot; alt=&quot;Example 1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/bst1.jpg&quot; alt=&quot;Example 1&quot; /&gt;&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Input: root = [10,5,15,3,7,null,18], low = 7, high = 15
 Output: 32
@@ -16,7 +16,7 @@ Output: 32
 
 &lt;p&gt;Example 2:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://assets.leetcode.com/uploads/2020/11/05/bst2.jpg&quot; alt=&quot;Example 2&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/bst2.jpg&quot; alt=&quot;Example 2&quot; /&gt;&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Input: root = [10,5,15,3,7,13,18,1,null,6], low = 6, high = 10
 Output: 23
