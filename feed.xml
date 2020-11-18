@@ -1,4 +1,249 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://andrew.hawker.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://andrew.hawker.io/" rel="alternate" type="text/html" /><updated>2020-11-18T10:25:27-08:00</updated><id>https://andrew.hawker.io/feed.xml</id><title type="html">Andrew Hawker</title><subtitle>Personal website of Andrew Hawker</subtitle><author><name>Andrew Hawker</name></author><entry><title type="html">Django Activity Stream Prefetch Generic Foreign Keys</title><link href="https://andrew.hawker.io/writings/2020/11/18/django-activity-stream-prefetch-generic-foreign-key/" rel="alternate" type="text/html" title="Django Activity Stream Prefetch Generic Foreign Keys" /><published>2020-11-18T01:46:00-08:00</published><updated>2020-11-18T01:46:00-08:00</updated><id>https://andrew.hawker.io/writings/2020/11/18/django-activity-stream-prefetch-generic-foreign-key</id><content type="html" xml:base="https://andrew.hawker.io/writings/2020/11/18/django-activity-stream-prefetch-generic-foreign-key/">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://andrew.hawker.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://andrew.hawker.io/" rel="alternate" type="text/html" /><updated>2020-11-18T12:08:36-08:00</updated><id>https://andrew.hawker.io/feed.xml</id><title type="html">Andrew Hawker</title><subtitle>Personal website of Andrew Hawker</subtitle><author><name>Andrew Hawker</name></author><entry><title type="html">Range Sum of BST</title><link href="https://andrew.hawker.io/leetcode/2020/11/18/range-sum-of-bst/" rel="alternate" type="text/html" title="Range Sum of BST" /><published>2020-11-18T04:04:00-08:00</published><updated>2020-11-18T04:04:00-08:00</updated><id>https://andrew.hawker.io/leetcode/2020/11/18/range-sum-of-bst</id><content type="html" xml:base="https://andrew.hawker.io/leetcode/2020/11/18/range-sum-of-bst/">&lt;p&gt;I’m trying to get in a habit of starting my mornings off with coffee and a &lt;a href=&quot;https://leetcode.com/&quot;&gt;Leetcode&lt;/a&gt; problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!&lt;/p&gt;
+
+&lt;h2 id=&quot;range-sum-of-bst&quot;&gt;&lt;a href=&quot;https://leetcode.com/problems/range-sum-of-bst/&quot;&gt;Range Sum of BST&lt;/a&gt;&lt;/h2&gt;
+
+&lt;h3 id=&quot;problem&quot;&gt;Problem&lt;/h3&gt;
+
+&lt;p&gt;Given the root node of a binary search tree, return the sum of values of all nodes with a value in the range [low, high].&lt;/p&gt;
+
+&lt;p&gt;Example 1:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://assets.leetcode.com/uploads/2020/11/05/bst1.jpg&quot; alt=&quot;Example 1&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Input: root = [10,5,15,3,7,null,18], low = 7, high = 15
+Output: 32
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Example 2:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://assets.leetcode.com/uploads/2020/11/05/bst2.jpg&quot; alt=&quot;Example 2&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Input: root = [10,5,15,3,7,13,18,1,null,6], low = 6, high = 10
+Output: 23
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Constraints:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;* The number of nodes in the tree is in the range [1, 2 * 104].
+* 1 &amp;lt;= Node.val &amp;lt;= 105
+* 1 &amp;lt;= low &amp;lt;= high &amp;lt;= 105
+* All Node.val are unique.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;thinking&quot;&gt;Thinking&lt;/h3&gt;
+
+&lt;p&gt;This appears to be a simple traversal where DFS or BFS will suffice. A full traversal will get the required sum value but we can optimize it where we can ignore certain left/right child nodes based on the current node value. Simply put, if the current node value is less than the range lower bound, we can ignore all left children of this node, since all of those node values will be less than the current. This rule can be applied to the right side as well, just ignoring values above the upper bound.&lt;/p&gt;
+
+&lt;h3 id=&quot;corner-cases&quot;&gt;Corner Cases&lt;/h3&gt;
+
+&lt;p&gt;I don’t think I missed any this time.&lt;/p&gt;
+
+&lt;h3 id=&quot;improvements&quot;&gt;Improvements&lt;/h3&gt;
+
+&lt;p&gt;None that I can think of. Just the standard recursive vs. iterative trade offs.&lt;/p&gt;
+
+&lt;h3 id=&quot;solution&quot;&gt;Solution&lt;/h3&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;collections&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rangeSumBST&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TreeNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;low&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;high&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;seen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collections&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;deque&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;popleft&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+            &lt;span class=&quot;n&quot;&gt;is_low&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;low&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;is_high&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;high&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;
+
+            &lt;span class=&quot;c1&quot;&gt;# If the value is in range, include it in our sum.
+&lt;/span&gt;            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_low&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_high&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;
+
+            &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;
+
+            &lt;span class=&quot;c1&quot;&gt;# Don't traverse left if the current value is less than
+&lt;/span&gt;            &lt;span class=&quot;c1&quot;&gt;# our lower bound since all values &quot;further&quot; left will be less than
+&lt;/span&gt;            &lt;span class=&quot;c1&quot;&gt;# the current.
+&lt;/span&gt;            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_low&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;seen&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+            &lt;span class=&quot;c1&quot;&gt;# Don't traverse right if the current value is more than
+&lt;/span&gt;            &lt;span class=&quot;c1&quot;&gt;# our upper bound since all values further right will be more than
+&lt;/span&gt;            &lt;span class=&quot;c1&quot;&gt;# the current.
+&lt;/span&gt;            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_high&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;seen&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;score&quot;&gt;Score&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Runtime: 200 ms, faster than 90.29% of Python3 online submissions for Range Sum of BST.
+Memory Usage: 22 MB, less than 91.37% of Python3 online submissions for Range Sum of BST.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="leetcode" /><category term="leetcode easy" /><category term="python" /><category term="binary search tree" /><category term="breadth-first search" /><summary type="html">I’m trying to get in a habit of starting my mornings off with coffee and a Leetcode problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Django REST Framework with Multiple Lookup Fields</title><link href="https://andrew.hawker.io/writings/2020/11/18/django-rest-framework-multi-lookup-fields/" rel="alternate" type="text/html" title="Django REST Framework with Multiple Lookup Fields" /><published>2020-11-18T02:53:00-08:00</published><updated>2020-11-18T02:53:00-08:00</updated><id>https://andrew.hawker.io/writings/2020/11/18/django-rest-framework-multi-lookup-fields</id><content type="html" xml:base="https://andrew.hawker.io/writings/2020/11/18/django-rest-framework-multi-lookup-fields/">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;If you use &lt;a href=&quot;https://github.com/justquick/django-activity-stream&quot;&gt;Django Activity Stream&lt;/a&gt;, you’re likely to run into query performance problems when querying &lt;code class=&quot;highlighter-rouge&quot;&gt;Action&lt;/code&gt; instances when implementing a “most recent activity” style stream.&lt;/p&gt;
+
+&lt;p&gt;The reason for this performance hit is because the &lt;code class=&quot;highlighter-rouge&quot;&gt;Action&lt;/code&gt; model has &lt;code class=&quot;highlighter-rouge&quot;&gt;actor&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;action_object&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;target&lt;/code&gt; generic foreign keys. For each &lt;code class=&quot;highlighter-rouge&quot;&gt;action&lt;/code&gt; queried, you’ll also end up querying the &lt;code class=&quot;highlighter-rouge&quot;&gt;User&lt;/code&gt; table (Actor), the &lt;code class=&quot;highlighter-rouge&quot;&gt;ContentType&lt;/code&gt; table for the GFK types (&lt;code class=&quot;highlighter-rouge&quot;&gt;action_object&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;target&lt;/code&gt;) and then their respective tables. This isn’t an &lt;code class=&quot;highlighter-rouge&quot;&gt;N+1&lt;/code&gt; query, it’s closer to an &lt;code class=&quot;highlighter-rouge&quot;&gt;(N + 1) * (K + 1)&lt;/code&gt; query, where &lt;code class=&quot;highlighter-rouge&quot;&gt;N&lt;/code&gt; is the number of &lt;code class=&quot;highlighter-rouge&quot;&gt;Action&lt;/code&gt; instances and &lt;code class=&quot;highlighter-rouge&quot;&gt;K&lt;/code&gt; is the number of distinct &lt;code class=&quot;highlighter-rouge&quot;&gt;ContentType&lt;/code&gt; used.&lt;/p&gt;
+
+&lt;p&gt;With some prefetching, we should be able to get this down to &lt;code class=&quot;highlighter-rouge&quot;&gt;K + 1&lt;/code&gt; query.&lt;/p&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;Solution&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;This is a solution derived from this old &lt;a href=&quot;https://djangosnippets.org/snippets/2492/&quot;&gt;Django snippet&lt;/a&gt;, specifically for Django Activity Stream.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;First off, let’s start with an implementation to prefetch relations for all Generic Foreign Keys of a queryset. This process goes as follows:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Find all GFK fields on a queryset model&lt;/li&gt;
+  &lt;li&gt;Fetch &lt;code class=&quot;highlighter-rouge&quot;&gt;ContentType&lt;/code&gt; information for distinct types through the GFK fields&lt;/li&gt;
+  &lt;li&gt;Recursively prefetch the related objects through the GFK (if the related model itself has)&lt;/li&gt;
+  &lt;li&gt;Set prefetch value to the model instance after its loaded&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;collections&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;django.contrib.contenttypes.fields&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GenericForeignKey&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;django.contrib.contenttypes.models&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ContentType&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;prefetch_relations&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queryset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
+    Prefetch content type relations for GenericForeignKeys to reduce N+1 queries.
+    &quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# Get all GenericForeignKey fields on all models of the queryset.
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;gfks&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_queryset_generic_foreign_keys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queryset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;# Get mapping of GFK content_type -&amp;gt; list of GFK object_pks for all GFK's on the queryset.
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;gfks_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_content_type_to_content_mapping_for_gfks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queryset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gfks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content_type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;object_pks&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gfks_data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# Get all model instances referenced through a GFK.
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;gfk_models&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prefetch_relations&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;content_type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model_class&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;objects&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pk__in&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;object_pks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;select_related&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gfk_model&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gfk_models&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gfk&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_queryset_gfk_content_generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queryset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gfks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;qs_model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gfk_field_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gfk_content_type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gfk_object_pk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gfk&lt;/span&gt;
+
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gfk_content_type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content_type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gfk_object_pk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gfk_model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# str compare otherwise UUID PK's puke. :(
+&lt;/span&gt;                    &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
+
+                &lt;span class=&quot;nb&quot;&gt;setattr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qs_model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gfk_field_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gfk_model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;queryset&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;_queryset_generic_foreign_keys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queryset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
+    Build mapping of name -&amp;gt; field for GenericForeignKey fields on the queryset.
+    &quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;gfks&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;field&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;queryset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__dict__&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;isinstance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;field&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GenericForeignKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;gfks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;field&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gfks&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;_queryset_gfk_content_generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queryset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gfks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
+    Generator function that yields information about all GenericForeignKey fields for all models of a queryset.
+    &quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;model&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;queryset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;field_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;field&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gfks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;content_type_id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;getattr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;field&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_meta&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_field&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;field&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ct_field&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_attname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content_type_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
+
+            &lt;span class=&quot;n&quot;&gt;content_type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ContentType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;objects&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_for_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;content_type_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;object_pk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;getattr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;field&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fk_field&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+            &lt;span class=&quot;k&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;field_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content_type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;object_pk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;_content_type_to_content_mapping_for_gfks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queryset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gfks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
+    Build mapping of content_type -&amp;gt; [content_pk] for the given queryset and its generic foreign keys.
+    &quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collections&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;defaultdict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;field_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content_type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;object_pk&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_queryset_gfk_content_generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queryset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gfks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;content_type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;object_pk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now that we can functionality for prefetching generic relation values, we need to modify the &lt;code class=&quot;highlighter-rouge&quot;&gt;QuerySet&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;Manager&lt;/code&gt;
+implementations we use for the Django Activity Stream models.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;actstream&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gfk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;managers&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;.prefetch&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prefetch_relations&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;PrefetchGFKQuerySet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gfk&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GFKQuerySet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
+    QuerySet that extends :class:`~actstream.gfk.GFKQuerySet` to use
+    :func:`~activity.prefetch.prefetch_relations` instead of the default implementation.
+    &quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fetch_generic_relations&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prefetch_relations&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ActionManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;managers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ActionManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
+    Manager for :class:`~activity.models.Action`.
+    &quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_queryset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PrefetchGFKQuerySet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;FollowManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;managers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FollowManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
+    Manager for :class:`~activity.models.Follow`.
+    &quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_queryset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PrefetchGFKQuerySet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now we’ll just setup some proxy models for the activity stream base models so we can override the default manager.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;actstream&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Action&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Action&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
+    Proxy object to activity stream action model.
+    &quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;objects&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;managers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ActionManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Meta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;proxy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Follow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Follow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
+    Proxy object to activity stream action model.
+    &quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;objects&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;managers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FollowManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Meta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;proxy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now queries like &lt;code class=&quot;highlighter-rouge&quot;&gt;Action.objects.any&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Action.objects.user&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;Follow.objects.followers_qs&lt;/code&gt; will all prefetch objects through their generic foreign keys.&lt;/p&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="writings" /><category term="django" /><category term="django-rest-framework" /><summary type="html">Introduction</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Django Activity Stream Prefetch Generic Foreign Keys</title><link href="https://andrew.hawker.io/writings/2020/11/18/django-activity-stream-prefetch-generic-foreign-key/" rel="alternate" type="text/html" title="Django Activity Stream Prefetch Generic Foreign Keys" /><published>2020-11-18T01:46:00-08:00</published><updated>2020-11-18T01:46:00-08:00</updated><id>https://andrew.hawker.io/writings/2020/11/18/django-activity-stream-prefetch-generic-foreign-key</id><content type="html" xml:base="https://andrew.hawker.io/writings/2020/11/18/django-activity-stream-prefetch-generic-foreign-key/">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
 &lt;p&gt;If you use &lt;a href=&quot;https://github.com/justquick/django-activity-stream&quot;&gt;Django Activity Stream&lt;/a&gt;, you’re likely to run into query performance problems when querying &lt;code class=&quot;highlighter-rouge&quot;&gt;Action&lt;/code&gt; instances when implementing a “most recent activity” style stream.&lt;/p&gt;
 
@@ -862,151 +1107,4 @@ Memory Usage: 20 MB, less than 75.98% of Python3 online submissions for Remove I
 
 &lt;p&gt;In order to support Trello connections with Auth0, you must create a custom OAuth 1.1 connection with a custom javascript function that fetches Trello user information to create an Auth0 user profile.&lt;/p&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="writings" /><category term="auth0" /><category term="trello" /><summary type="html">At my company Routegy, we use Auth0 for identity management. While it is nice, in theory, to offload authn/authz to someone else so you can focus on building your product, integrating it does have a number of quirks.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">An examination of the curbside pickup experience</title><link href="https://andrew.hawker.io/writings/2020/06/30/an-examination-of-the-curbside-experience/" rel="alternate" type="text/html" title="An examination of the curbside pickup experience" /><published>2020-06-30T03:24:00-07:00</published><updated>2020-06-30T03:24:00-07:00</updated><id>https://andrew.hawker.io/writings/2020/06/30/an-examination-of-the-curbside-experience</id><content type="html" xml:base="https://andrew.hawker.io/writings/2020/06/30/an-examination-of-the-curbside-experience/">&lt;p&gt;&lt;img class=&quot;float-right&quot; src=&quot;/assets/images/routegy-logo-mountain-light-small.png&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Check out &lt;a href=&quot;https://blog.routegy.com/2020/06/30/examination-curbside-pickup-experience/&quot;&gt;my post&lt;/a&gt; on the &lt;a href=&quot;https://routegy.com&quot;&gt;Routegy&lt;/a&gt; company blog where I discuss curbside pickup industry trends during the COVID-19 pandemic.&lt;/p&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="writings" /><category term="routegy" /><category term="curbside pickup" /><category term="touchless" /><category term="contactless" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Contest - Day 2 - Happy Number</title><link href="https://andrew.hawker.io/leetcode/2020/04/02/contest-day-2-happy-number/" rel="alternate" type="text/html" title="Contest - Day 2 - Happy Number" /><published>2020-04-02T01:21:00-07:00</published><updated>2020-04-02T01:21:00-07:00</updated><id>https://andrew.hawker.io/leetcode/2020/04/02/contest-day-2-happy-number</id><content type="html" xml:base="https://andrew.hawker.io/leetcode/2020/04/02/contest-day-2-happy-number/">&lt;p&gt;&lt;a href=&quot;https://leetcode.com/&quot;&gt;Leetcode&lt;/a&gt; is running a 30 day “Covid 19” style contest for everyone on self quarantine and social distancing. Let’s jump in!&lt;/p&gt;
-
-&lt;h2 id=&quot;happy-number&quot;&gt;&lt;a href=&quot;https://leetcode.com/problems/happy-number/&quot;&gt;Happy Number&lt;/a&gt;&lt;/h2&gt;
-
-&lt;h3 id=&quot;problem&quot;&gt;Problem&lt;/h3&gt;
-
-&lt;p&gt;Write an algorithm to determine if a number is “happy”.&lt;/p&gt;
-
-&lt;p&gt;A happy number is a number defined by the following process: Starting with any positive integer, replace the number by the sum of the squares of its digits, and repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1. Those numbers for which this process ends in 1 are happy numbers.&lt;/p&gt;
-
-&lt;p&gt;Example:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Input: 19
-Output: true
-Explanation: 
-12 + 92 = 82
-82 + 22 = 68
-62 + 82 = 100
-12 + 02 + 02 = 1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;thinking&quot;&gt;Thinking&lt;/h3&gt;
-
-&lt;p&gt;Once you know how to pull individual digits out of a number, these are &lt;em&gt;relatively&lt;/em&gt; straight forward. You just need to keep track of your in-progress sums vs. total sums and the total sums you’ve previously seen for loop detection.&lt;/p&gt;
-
-&lt;p&gt;To get a digit, you just mod the number by its base (&lt;code class=&quot;highlighter-rouge&quot;&gt;10&lt;/code&gt;, assuming its &lt;code class=&quot;highlighter-rouge&quot;&gt;base 10&lt;/code&gt;). Then you divide the original number by its base and continue. An unrolled look for the number &lt;code class=&quot;highlighter-rouge&quot;&gt;19&lt;/code&gt; would look like:&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;19&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# =&amp;gt; 9
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# (x =&amp;gt; 1)
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# =&amp;gt; 1
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# (x =&amp;gt; 0)
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;corner-cases&quot;&gt;Corner Cases&lt;/h3&gt;
-
-&lt;p&gt;I don’t think I missed any this time.&lt;/p&gt;
-
-&lt;h3 id=&quot;improvements&quot;&gt;Improvements&lt;/h3&gt;
-
-&lt;p&gt;There’s possibly a way to detect loops without using a set (mathematical) to decrease memory usage but I don’t know of it.&lt;/p&gt;
-
-&lt;h3 id=&quot;solution&quot;&gt;Solution&lt;/h3&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;isHappy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;bool&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;seen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;curr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;
-
-        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
-
-            &lt;span class=&quot;n&quot;&gt;seen&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;curr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;   
-
-            &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;curr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;digit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;curr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;curr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;digit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
-
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;score&quot;&gt;Score&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Runtime: 36 ms, faster than 30.40% of Python3 online submissions for Happy Number.
-Memory Usage: 13.9 MB, less than 5.26% of Python3 online submissions for Happy Number.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="leetcode" /><category term="leetcode easy" /><category term="leetcode covid contest" /><category term="python" /><summary type="html">Leetcode is running a 30 day “Covid 19” style contest for everyone on self quarantine and social distancing. Let’s jump in!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Contest - Day 1 - Single Number</title><link href="https://andrew.hawker.io/leetcode/2020/04/01/contest-day-1-single-number/" rel="alternate" type="text/html" title="Contest - Day 1 - Single Number" /><published>2020-04-01T01:37:00-07:00</published><updated>2020-04-01T01:37:00-07:00</updated><id>https://andrew.hawker.io/leetcode/2020/04/01/contest-day-1-single-number</id><content type="html" xml:base="https://andrew.hawker.io/leetcode/2020/04/01/contest-day-1-single-number/">&lt;p&gt;&lt;a href=&quot;https://leetcode.com/&quot;&gt;Leetcode&lt;/a&gt; is running a 30 day “Covid 19” style contest for everyone on self quarantine and social distancing. Let’s jump in!&lt;/p&gt;
-
-&lt;h2 id=&quot;single-number&quot;&gt;&lt;a href=&quot;https://leetcode.com/problems/single-number/&quot;&gt;Single Number&lt;/a&gt;&lt;/h2&gt;
-
-&lt;h3 id=&quot;problem&quot;&gt;Problem&lt;/h3&gt;
-
-&lt;p&gt;Given a non-empty array of integers, every element appears twice except for one. Find that single one.&lt;/p&gt;
-
-&lt;p&gt;Note:&lt;/p&gt;
-
-&lt;p&gt;Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?&lt;/p&gt;
-
-&lt;p&gt;Examples:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Input: [2,2,1]
-Output: 1
-
-Input: [4,1,2,1,2]
-Output: 4
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;thinking&quot;&gt;Thinking&lt;/h3&gt;
-
-&lt;p&gt;This is very easy using the &lt;code class=&quot;highlighter-rouge&quot;&gt;collections.Counter&lt;/code&gt; in python stlib. That might be &lt;em&gt;cheating&lt;/em&gt; but I’m going to allow it. Stand on the shoulders of well tested (code) giants, I say.&lt;/p&gt;
-
-&lt;p&gt;However, the question posits there is a way to do it without using &lt;em&gt;extra&lt;/em&gt; memory. So, storing counters is likely not the optimal solution.&lt;/p&gt;
-
-&lt;p&gt;This led me to thinking about truth tables. What boolean operation will indicate &lt;em&gt;once&lt;/em&gt; but not &lt;em&gt;twice&lt;/em&gt;? &lt;strong&gt;XOR&lt;/strong&gt;. For example:&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;If the result of our &lt;strong&gt;XOR&lt;/strong&gt; logic is the input value, there is only one occurrence of it. If it’s zero, then there was either none, or more than 1 of them.&lt;/p&gt;
-
-&lt;h3 id=&quot;corner-cases&quot;&gt;Corner Cases&lt;/h3&gt;
-
-&lt;p&gt;I don’t think I missed any this time.&lt;/p&gt;
-
-&lt;h3 id=&quot;improvements&quot;&gt;Improvements&lt;/h3&gt;
-
-&lt;p&gt;I don’t think I missed any this time.&lt;/p&gt;
-
-&lt;h3 id=&quot;solution&quot;&gt;Solution&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;Counting&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;collections&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;singleNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;counts&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collections&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;counts&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;most_common&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;XOR&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;singleNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;score&quot;&gt;Score&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;Counting&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Runtime: 84 ms, faster than 85.38% of Python3 online submissions for Single Number.
-Memory Usage: 16.3 MB, less than 6.56% of Python3 online submissions for Single Number.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;XOR&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Runtime: 88 ms, faster than 65.17% of Python3 online submissions for Single Number.
-Memory Usage: 15.6 MB, less than 6.56% of Python3 online submissions for Single Number.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="leetcode" /><category term="leetcode easy" /><category term="leetcode covid contest" /><category term="python" /><summary type="html">Leetcode is running a 30 day “Covid 19” style contest for everyone on self quarantine and social distancing. Let’s jump in!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+&lt;p&gt;Check out &lt;a href=&quot;https://blog.routegy.com/2020/06/30/examination-curbside-pickup-experience/&quot;&gt;my post&lt;/a&gt; on the &lt;a href=&quot;https://routegy.com&quot;&gt;Routegy&lt;/a&gt; company blog where I discuss curbside pickup industry trends during the COVID-19 pandemic.&lt;/p&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="writings" /><category term="routegy" /><category term="curbside pickup" /><category term="touchless" /><category term="contactless" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
