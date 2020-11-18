@@ -166,7 +166,7 @@
         <span class="p">)</span>
         <span class="k">for</span> <span class="n">gfk_model</span> <span class="ow">in</span> <span class="n">gfk_models</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">gfk</span> <span class="ow">in</span> <span class="n">_queryset_gfk_content_generator</span><span class="p">(</span><span class="n">queryset</span><span class="p">,</span> <span class="n">gfks</span><span class="p">):</span>
-                <span class="n">qs_model</span><span class="p">,</span> <span class="n">gfk_field_name</span><span class="p">,</span> <span class="n">gfk_content_type</span><span class="p">,</span> <span class="n">gfk_object_id</span> <span class="o">=</span> <span class="n">gfk</span>
+                <span class="n">qs_model</span><span class="p">,</span> <span class="n">gfk_field_name</span><span class="p">,</span> <span class="n">gfk_content_type</span><span class="p">,</span> <span class="n">gfk_object_pk</span> <span class="o">=</span> <span class="n">gfk</span>
 
                 <span class="k">if</span> <span class="n">gfk_content_type</span> <span class="o">!=</span> <span class="n">content_type</span><span class="p">:</span>
                     <span class="k">continue</span>
