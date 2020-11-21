@@ -12,9 +12,9 @@ keywords: [snowplow, aws, ecs, fargate, stream, enrich]
 
 This is part **three** of a blog post series about **Snowplow on AWS Fargate**.
 
-* [Part 1: Snowplow on AWS Fargate]({% post_url /2020-02-09-snowplow-fargate %})
-* [Part 2: Snowplow on AWS Fargate - Task Role]({% post_url /2020-02-10-snowplow-fargate-task-role %})
-* [Part 4: Snowplow on AWS Fargate - IAM Permissions]({% post_url /2020-02-12-snowplow-fargate-permissions %})
+* [Part 1: Snowplow on AWS Fargate]({% post_url /writings/2020-02-09-snowplow-fargate %})
+* [Part 2: Snowplow on AWS Fargate - Task Role]({% post_url /writings/2020-02-10-snowplow-fargate-task-role %})
+* [Part 4: Snowplow on AWS Fargate - IAM Permissions]({% post_url /writings/2020-02-12-snowplow-fargate-permissions %})
 
 ---
 
@@ -88,4 +88,4 @@ I switched both of mine to `http://` URI schemes to work around the problem, e.g
 
 ### Next
 
-Check out the next post in this series, [Snowplow on AWS Fargate - IAM Permissions]({% post_url /2020-02-12-snowplow-fargate-permissions %}), which covers IAM permissions required to run all Snowplow processes on AWS Fargate.
+Check out the next post in this series, [Snowplow on AWS Fargate - IAM Permissions]({% post_url /writings/2020-02-12-snowplow-fargate-permissions %}), which covers IAM permissions required to run all Snowplow processes on AWS Fargate.

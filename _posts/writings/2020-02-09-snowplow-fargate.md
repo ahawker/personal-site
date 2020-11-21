@@ -16,12 +16,12 @@ However, AWS ECS/Fargate is an undocumented platform on the [Snowplow Wiki](http
 
 ## Part 1: Using ECS Task Role Permissions
 
-**[Snowplow on AWS Fargate - Task Role]({% post_url /2020-02-10-snowplow-fargate-task-role %})** outlines how to configure your Snowplow components properly to give them access to the ECS task role.
+**[Snowplow on AWS Fargate - Task Role]({% post_url /writings/2020-02-10-snowplow-fargate-task-role %})** outlines how to configure your Snowplow components properly to give them access to the ECS task role.
 
 ## Part 2: Stream Enricher Gotchas
 
-**[Snowplow on AWS Fargate - Stream Enricher]({% post_url /2020-02-11-snowplow-fargate-enricher %})** contains more information for running the [Snowplow Stream Enrich](https://github.com/snowplow/snowplow/wiki/setting-up-stream-enrich) component.
+**[Snowplow on AWS Fargate - Stream Enricher]({% post_url /writings/2020-02-11-snowplow-fargate-enricher %})** contains more information for running the [Snowplow Stream Enrich](https://github.com/snowplow/snowplow/wiki/setting-up-stream-enrich) component.
 
 ## Part 3: IAM Permissions
 
-**[Snowplow on AWS Fargate - IAM Permissions]({% post_url /2020-02-12-snowplow-fargate-permissions %})** contains IAM policy document examples for each Snowplow component to give it the minimum required security access.
+**[Snowplow on AWS Fargate - IAM Permissions]({% post_url /writings/2020-02-12-snowplow-fargate-permissions %})** contains IAM policy document examples for each Snowplow component to give it the minimum required security access.

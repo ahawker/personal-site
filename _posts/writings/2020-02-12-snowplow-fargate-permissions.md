@@ -12,9 +12,9 @@ keywords: [snowplow, aws, ecs, fargate, kinesis, iam, kcl]
 
 This is part **four** of a blog post series about **Snowplow on AWS Fargate**.
 
-* [Part 1: Snowplow on AWS Fargate]({% post_url /2020-02-09-snowplow-fargate %})
-* [Part 2: Snowplow on AWS Fargate - Task Role]({% post_url /2020-02-10-snowplow-fargate-task-role %})
-* [Part 3: Snowplow on AWS Fargate - Stream Enrich]({% post_url /2020-02-11-snowplow-fargate-enricher %})
+* [Part 1: Snowplow on AWS Fargate]({% post_url /writings/2020-02-09-snowplow-fargate %})
+* [Part 2: Snowplow on AWS Fargate - Task Role]({% post_url /writings/2020-02-10-snowplow-fargate-task-role %})
+* [Part 3: Snowplow on AWS Fargate - Stream Enrich]({% post_url /writings/2020-02-11-snowplow-fargate-enricher %})
 
 ---
 

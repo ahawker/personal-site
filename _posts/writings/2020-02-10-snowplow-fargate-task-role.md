@@ -12,9 +12,9 @@ keywords: [snowplow, aws, ecs, fargate, task]
 
 This is part **two** of a blog post series about **Snowplow on AWS Fargate**.
 
-* [Part 1: Snowplow on AWS Fargate]({% post_url /2020-02-09-snowplow-fargate %})
-* [Part 3: Snowplow on AWS Fargate - Stream Enrich]({% post_url /2020-02-11-snowplow-fargate-enricher %})
-* [Part 4: Snowplow on AWS Fargate - IAM Permissions]({% post_url /2020-02-12-snowplow-fargate-permissions %})
+* [Part 1: Snowplow on AWS Fargate]({% post_url /writings/2020-02-09-snowplow-fargate %})
+* [Part 3: Snowplow on AWS Fargate - Stream Enrich]({% post_url /writings/2020-02-11-snowplow-fargate-enricher %})
+* [Part 4: Snowplow on AWS Fargate - IAM Permissions]({% post_url /writings/2020-02-12-snowplow-fargate-permissions %})
 
 ---
 
@@ -45,4 +45,4 @@ If you're following along with the Snowplow Wiki setup guide, you'll first run i
 
 ### Next
 
-Check out the next post in this series, [Snowplow on AWS Fargate - Stream Enrich]({% post_url /2020-02-11-snowplow-fargate-enricher %}), which covers the Stream Enrich process on AWS Fargate.
+Check out the next post in this series, [Snowplow on AWS Fargate - Stream Enrich]({% post_url /writings/2020-02-11-snowplow-fargate-enricher %}), which covers the Stream Enrich process on AWS Fargate.

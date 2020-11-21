@@ -12,7 +12,7 @@ keywords: [appthwack, jenkins]
 Today, were happy to announce the initial release of our [Jenkins](https://jenkins.io/) plugin, which introduces AppThwack into your [Continuous Integration](https://en.wikipedia.org/wiki/Continuous_integration) cycle.
 
 As developers ourselves, we understand the importance of seamless tool integrations within the development workflow.
-Last week we announced the release of our [Android Studio/Gradle]({% post_url /2013-08-28-android-app-testing-android-studio-gradle %}) plugin,
+Last week we announced the release of our [Android Studio/Gradle]({% post_url /writings/2013-08-28-android-app-testing-android-studio-gradle %}) plugin,
 which enables testing of Android apps on hundreds of devices directly from your IDE.
 
 Ready to get started? Here's a quick tutorial to get started with [AppThwack](http://web.archive.org/web/20140929012749/https://appthwack.com),
