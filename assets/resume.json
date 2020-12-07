@@ -1,0 +1,174 @@
+{
+  "selectedTemplate": 2,
+  "headings": {
+    "projects": "Projects",
+    "awards": ""
+  },
+  "basics": {
+    "name": "Andrew Hawker",
+    "phone": "(929) 242-9537",
+    "website": "https://andrew.hawker.io",
+    "location": {
+      "address": "Seattle, WA"
+    },
+    "email": "andrew.r.hawker@gmail.com"
+  },
+  "education": [
+    {
+      "institution": "Northern Michigan University",
+      "location": "Marquette, MI",
+      "studyType": "BS",
+      "area": "Computer Science, Cum Laude",
+      "startDate": "2006",
+      "endDate": "2010"
+    }
+  ],
+  "work": [
+    {
+      "company": "Routegy",
+      "location": "Seattle, WA",
+      "position": "Co-founder",
+      "website": "",
+      "startDate": "Aug 2019",
+      "endDate": "Present",
+      "highlights": [
+        "Responsible for product direction/ideation, system architecture, backend development, devops, outbound sales, graphic design, and technical writing.",
+        "Languages: Python, HCL, Javascript",
+        "Technologies: Django (DRF), Vue.js (Nuxt), Terraform, AWS (ECS Fargate, S3, RDS, SNS, SES, Lambda, DynamoDB), Postgres, Auth0, Snowplow"
+      ]
+    },
+    {
+      "highlights": [
+        "Operational support and pager rotation (24-7/7) for system receiving ~30B req/month (AWS, Kubernetes, ELK, Datadog, PagerDuty).",
+        "Design/implement product analytics features (DAU/MAU, retention tracking, popular times) using theta sketches (Druid, Scala, Akka).",
+        "Design/manage S3 data lake. Perform 100TiB backfill to Druid for analytics features (Druid, S3, EMR Hadoop) and plan/execute zero downtime migration of ~6B document collection from MongoDB to Cassandra (Debezium, Kafka).",
+        "Streaming CDC system for MongoDB/Cassandra replication on 100k qps system (MongoDB, Cassandra, Scala, Debezium, Python).",
+        "Save thousands/month in AWS spend with high traffic API redesign/caching (MongoDB, Cassandra, Rails).",
+        "Implement document scoring for significant phrase detection (Sinatra, Elasticsearch, Python).",
+        "Salesforce Service Cloud integration for Apptentive Message Center (Rails, MongoDB, Apex).",
+        "Champion org wide code/design/deployment standards.",
+        "Redesign the technical interview loop. Perform dozens of technical phone screenings and on-site interviews.",
+        "Languages: Scala, Ruby, Python",
+        "Technologies: Rails, Sinatra, Akka, Kubernetes, Druid, MongoDB, Cassandra, Redis, Kafka, Postgres, Travis CI, Jenkins, Hadoop, Debezium, AWS (EC2, S3, RDS, EMR), Auth0"
+      ],
+      "company": "Apptentive",
+      "position": "Senior Engineer > Platform Lead",
+      "location": "Seattle, WA",
+      "startDate": "Jan 2017",
+      "endDate": "Aug 2019"
+    },
+    {
+      "highlights": [
+        "Rebuild and redesign AppThwack for AWS. Train AWS engineers on product space, mentor interns, and domain expert for Android, iOS, and test-framework related inquires; hands-on customer support through forums, tickets, and emails.",
+        "Collaborate with datacenter hardware engineers to design and patent new mobile device lab architecture.",
+        "Envisioned and led implementation of features such as rule-based device pools, hierarchical result views, custom result log file format, and container integration.",
+        "Designed and developed an easily extensible framework used by all other developers for adding new test framework support.",
+        "Sole developer for all twelve of AWS Device Farm supported test frameworks (Appium, Calabash, XCTest, Espresso, etc).",
+        "Envisioned, designed, and fully developed a novel hierarchical file format for storing time-ordered, test-framework agnostic test execution results (log files, test results, screenshots, videos, perfomance data, etc).",
+        "Develop low-level tools for executing iOS tests on Linux.",
+        "Languages: Python, Java, C",
+        "Technologies: Android, iOS, AWS (EC2, S3, SWF, RDS, DDB), Sqlite, Postgres"
+      ],
+      "position": "AWS Device Farm",
+      "company": "Amazon Web Services",
+      "location": "Seattle, WA",
+      "startDate": "Sept 2014",
+      "endDate": "Nov 2016"
+    },
+    {
+      "highlights": [
+        "Build physical device lab for hundreds of mobile phones/tablets and manage it on a daily basis.",
+        "Built automated/reproducible local dev environments used by entire engineering team.",
+        "Full stack development, devops, on-call 24/7/7.",
+        "Built official AppThwack API language bindings (Python/Java), Jenkins CI plugin (Java/Jelly), and Gradle/Android Studio plugin (Java/Groovy).",
+        "Perform customer on-site training and daily hands-on customer support through Uservoice/Email/Phone.",
+        "Languages: Python, Java, Node.js, Bash",
+        "Technologies: Nginx, UWSGI, Redis, Postgres, S3, New Relic, Mailgun, Angular, Vagrant, Ansible"
+      ],
+      "company": "AppThwack",
+      "position": "Senior Engineer",
+      "location": "Portland, OR",
+      "startDate": "May 2013",
+      "endDate": "Jul 2015"
+    },
+    {
+      "highlights": [
+        "Lead developer for a 'Continuous Integration as a Service' platform composed as RESTful web services.",
+        "Designed & developed distributed automation framework used to test Intel wireless products.",
+        "Designed & developed pluggable Bluetooth automation library that supported Intel, Windows (XP/7/8), Motorola (XP/7+), Broadcom (Widcomm), and Bluez stacks.",
+        "Designed & developed libraries to control iRobot Create (roomba) robots for autonomous pathing.",
+        "Languages: C#, Python, C++, VBScript, JScript",
+        "Technologies: .NET, Bluetooth"
+      ],
+      "company": "Intel",
+      "position": "Software Engineer",
+      "location": "Hillsboro, OR",
+      "startDate": "May 2010",
+      "endDate": "May 2013"
+    }
+  ],
+  "skills": [
+    {
+      "level": "",
+      "keywords": [
+        null
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "adbpy",
+      "description": "Android Debug Bridge (ADB) in pure python",
+      "keywords": [
+        null
+      ],
+      "url": "https://github.com/adbpy"
+    },
+    {
+      "keywords": [
+        ""
+      ],
+      "name": "kettle",
+      "description": "Kademlia Distributed Hash Table (DHT) implementation",
+      "url": "https://github.com/ahawker/kettle"
+    },
+    {
+      "keywords": [
+        " "
+      ],
+      "name": "microsync-ci",
+      "description": "GitHub App to keep your repositories in sync automatically",
+      "url": "(closed source)"
+    },
+    {
+      "keywords": [
+        ""
+      ],
+      "name": "probot-py",
+      "description": "GitHub Probot framework in Python",
+      "url": "https://github.com/flyingdice/probot-py"
+    },
+    {
+      "keywords": [
+        ""
+      ],
+      "description": "Universally Unique Lexicographically Sortable Identifier",
+      "name": "ulid",
+      "url": "https://github.com/ahawker/ulid"
+    }
+  ],
+  "awards": [
+    {
+      "date": ""
+    }
+  ],
+  "sections": [
+    "templates",
+    "profile",
+    "work",
+    "skills",
+    "projects",
+    "awards",
+    "education"
+  ]
+}
