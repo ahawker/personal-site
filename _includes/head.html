@@ -12,7 +12,11 @@
   <meta name="keywords" content="{{ page.keywords | join: ' ' }}">
   {% endif %}
 
+  {% if page.canonical %}
+  <link rel="canonical" href="{{ page.canonical }}" />
+  {% else %}
   <link rel="canonical" href="{{ page.url | absolute_url }}" />
+  {% endif %}
 
   {% if page.title %}
   <title>{{ page.title }} – {{ site.title }}</title>
