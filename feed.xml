@@ -1,4 +1,341 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://andrew.hawker.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://andrew.hawker.io/" rel="alternate" type="text/html" /><updated>2020-12-24T11:55:57-08:00</updated><id>https://andrew.hawker.io/feed.xml</id><title type="html">Andrew Hawker</title><subtitle>Personal website of Andrew Hawker</subtitle><author><name>Andrew Hawker</name></author><entry><title type="html">String to Integer (atoi)</title><link href="https://andrew.hawker.io/leetcode/2020/11/20/string-to-integer/" rel="alternate" type="text/html" title="String to Integer (atoi)" /><published>2020-11-20T00:04:00-08:00</published><updated>2020-11-20T00:04:00-08:00</updated><id>https://andrew.hawker.io/leetcode/2020/11/20/string-to-integer</id><content type="html" xml:base="https://andrew.hawker.io/leetcode/2020/11/20/string-to-integer/">&lt;p&gt;I’m trying to get in a habit of starting my mornings off with coffee and a &lt;a href=&quot;https://leetcode.com/&quot;&gt;Leetcode&lt;/a&gt; problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://andrew.hawker.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://andrew.hawker.io/" rel="alternate" type="text/html" /><updated>2021-02-12T08:25:16-08:00</updated><id>https://andrew.hawker.io/feed.xml</id><title type="html">Andrew Hawker</title><subtitle>Personal website of Andrew Hawker</subtitle><author><name>Andrew Hawker</name></author><entry><title type="html">Druid Queries - Data Schema</title><link href="https://andrew.hawker.io/writings/2021/02/12/druid-queries-data-schema/" rel="alternate" type="text/html" title="Druid Queries - Data Schema" /><published>2021-02-12T00:23:00-08:00</published><updated>2021-02-12T00:23:00-08:00</updated><id>https://andrew.hawker.io/writings/2021/02/12/druid-queries-data-schema</id><content type="html" xml:base="https://andrew.hawker.io/writings/2021/02/12/druid-queries-data-schema/">&lt;p&gt;This is part &lt;strong&gt;one&lt;/strong&gt; of a blog post series about &lt;strong&gt;Druid Queries&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Part 2: Active Users (Coming soon)&lt;/li&gt;
+  &lt;li&gt;Part 3: Retention (Coming soon)&lt;/li&gt;
+  &lt;li&gt;Part 4: Popular Times (Coming soon)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;installation&quot;&gt;Installation&lt;/h2&gt;
+
+&lt;p&gt;To get started, we’re going to run a local Druid cluster using &lt;a href=&quot;https://www.docker.com/&quot;&gt;Docker&lt;/a&gt; and &lt;a href=&quot;https://docs.docker.com/compose/&quot;&gt;Docker Compose&lt;/a&gt;. Let’s start by grabbing the latest &lt;code class=&quot;highlighter-rouge&quot;&gt;docker-compose.yml&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;environment&lt;/code&gt; files from the Druid source code.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/src/blog/druid-queries
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;wget &lt;span class=&quot;s2&quot;&gt;&quot;https://raw.githubusercontent.com/apache/druid/master/distribution/docker/docker-compose.yml&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;wget &lt;span class=&quot;s2&quot;&gt;&quot;https://raw.githubusercontent.com/apache/druid/master/distribution/docker/environment&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker-compose up
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Once the cluster has fully launched, you can view the Druid unified console at &lt;a href=&quot;http://localhost:8888&quot;&gt;http://localhost:8888&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;download-our-dataset&quot;&gt;Download our dataset&lt;/h2&gt;
+
+&lt;p&gt;For this tutorial, we’re going to use the open &lt;a href=&quot;https://grouplens.org/datasets/movielens/25m/&quot;&gt;MovieLens 25M Dataset&lt;/a&gt; which contains &lt;code class=&quot;highlighter-rouge&quot;&gt;25M&lt;/code&gt; movie ratings, &lt;code class=&quot;highlighter-rouge&quot;&gt;1M&lt;/code&gt; tags, &lt;code class=&quot;highlighter-rouge&quot;&gt;62,000&lt;/code&gt; movies, and &lt;code class=&quot;highlighter-rouge&quot;&gt;162,000&lt;/code&gt; users. Additionally, since this download is over &lt;code class=&quot;highlighter-rouge&quot;&gt;HTTP&lt;/code&gt;, we’re also going to grab the &lt;code class=&quot;highlighter-rouge&quot;&gt;md5&lt;/code&gt; file so we can compare checksums to validate our payload is correct.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;wget &lt;span class=&quot;s2&quot;&gt;&quot;http://files.grouplens.org/datasets/movielens/ml-25m.zip&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;wget &lt;span class=&quot;s2&quot;&gt;&quot;http://files.grouplens.org/datasets/movielens/ml-25m.zip.md5&quot;&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;md5 ml-25m.zip &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;ml-25m.zip.md5
+MD5 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;ml-25m.zip&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 6b51fb2759a8657d3bfcbfc42b592ada
+6b51fb2759a8657d3bfcbfc42b592ada  ml-25m.zip
+
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;unzip ml-25m.zip
+Archive:  ml-25m.zip
+   creating: ml-25m/
+  inflating: ml-25m/tags.csv
+  inflating: ml-25m/links.csv
+  inflating: ml-25m/README.txt
+  inflating: ml-25m/ratings.csv
+  inflating: ml-25m/genome-tags.csv
+  inflating: ml-25m/genome-scores.csv
+  inflating: ml-25m/movies.csv
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;MD5 hashes &lt;code class=&quot;highlighter-rouge&quot;&gt;6b51fb2759a8657d3bfcbfc42b592ada&lt;/code&gt; match, so we’re safe to continue.&lt;/p&gt;
+
+&lt;h3 id=&quot;what-do-we-have-here&quot;&gt;What do we have here?&lt;/h3&gt;
+
+&lt;p&gt;Let’s examine a few records from &lt;code class=&quot;highlighter-rouge&quot;&gt;movies.csv&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;ratings.csv&lt;/code&gt; to get an idea of what our data contains.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/src/blog/druid-queries/ml-25m
+
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n5&lt;/span&gt; movies.csv
+movieId,title,genres
+1,Toy Story &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1995&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;,Adventure|Animation|Children|Comedy|Fantasy
+2,Jumanji &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1995&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;,Adventure|Children|Fantasy
+3,Grumpier Old Men &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1995&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;,Comedy|Romance
+4,Waiting to Exhale &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1995&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;,Comedy|Drama|Romance
+
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n5&lt;/span&gt; ratings.csv
+userId,movieId,rating,timestamp
+1,296,5.0,1147880044
+1,306,3.5,1147868817
+1,307,5.0,1147868828
+1,665,5.0,1147878820
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;It appears that &lt;code class=&quot;highlighter-rouge&quot;&gt;movies.csv&lt;/code&gt; contains static information about a movie and &lt;code class=&quot;highlighter-rouge&quot;&gt;ratings.csv&lt;/code&gt; contains information about individual users giving a movie a star rating at a specific time.&lt;/p&gt;
+
+&lt;p&gt;Druid’s primary partition dimension is on time, which we have in our &lt;code class=&quot;highlighter-rouge&quot;&gt;timestamp&lt;/code&gt; field, which appears to be unix epoch in seconds.&lt;/p&gt;
+
+&lt;p&gt;Users are uniquely identified by the &lt;code class=&quot;highlighter-rouge&quot;&gt;userId&lt;/code&gt; field but we don’t have anymore information on them.&lt;/p&gt;
+
+&lt;p&gt;The star rating is a float value but I’m not sure if it’s a zero based scale, up to 10, etc. Let’s see if &lt;a href=&quot;https://github.com/BurntSushi/xsv&quot;&gt;xsv&lt;/a&gt; can help.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;xsv stats &lt;span class=&quot;nt&quot;&gt;--select&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'3'&lt;/span&gt; ratings.csv
+field,type,sum,min,max,min_length,max_length,mean,stddev
+rating,Float,88346697,0.5,5,3,3,3.533854451353244,1.0607439399275103
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The min rating value is &lt;code class=&quot;highlighter-rouge&quot;&gt;0.5&lt;/code&gt; and the max is &lt;code class=&quot;highlighter-rouge&quot;&gt;5&lt;/code&gt; so it appears to be a &lt;code class=&quot;highlighter-rouge&quot;&gt;0-5&lt;/code&gt; scale, where I assume &lt;code class=&quot;highlighter-rouge&quot;&gt;5&lt;/code&gt; is the best.&lt;/p&gt;
+
+&lt;h2 id=&quot;preparing-our-dataset&quot;&gt;Preparing our dataset&lt;/h2&gt;
+
+&lt;p&gt;The default should be enough data for most of our queries except we don’t have a unique identifier for each individual rating event. Since this is a static dataset and we assume it has been somewhat cleaned, we’ll just add a column that maps to the CSV row number and use that as a ratings id.&lt;/p&gt;
+
+&lt;p&gt;Let’s write a quick python script to do that and save this as &lt;code class=&quot;highlighter-rouge&quot;&gt;add-rating-id.py&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;fileinput&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sys&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;row_number&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fileinput&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;row_number&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'ratingId,'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stdout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stdout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flush&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'{},'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;row_number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stdout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stdout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flush&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;row_number&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;With this script and &lt;a href=&quot;https://github.com/BurntSushi/xsv&quot;&gt;xsv&lt;/a&gt;, we can join our csv files and add our new rating id column.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; This joined csv file is going to be &lt;code class=&quot;highlighter-rouge&quot;&gt;~2GB&lt;/code&gt;, so make sure you have the available disk space.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;xsv &lt;span class=&quot;nb&quot;&gt;join&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--no-case&lt;/span&gt; movieId movies.csv movieId ratings.csv | xsv &lt;span class=&quot;k&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'!5'&lt;/span&gt; | python add-rating-id.py &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; ratings-joined.csv
+
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-lah&lt;/span&gt; ratings-joined.csv
+&lt;span class=&quot;nt&quot;&gt;-rw-r--r--&lt;/span&gt;  1 hawker  staff   1.9G Nov 24 10:31 ratings-joined.csv
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;These commands are doing the following:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Join the &lt;code class=&quot;highlighter-rouge&quot;&gt;movies.csv&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;ratings.csv&lt;/code&gt; files together on the &lt;code class=&quot;highlighter-rouge&quot;&gt;movieId&lt;/code&gt; column.&lt;/li&gt;
+  &lt;li&gt;Remove the duplicate &lt;code class=&quot;highlighter-rouge&quot;&gt;movieId&lt;/code&gt; column from the output. &lt;code class=&quot;highlighter-rouge&quot;&gt;select '!5'&lt;/code&gt; means select all columns excluding the 5th.&lt;/li&gt;
+  &lt;li&gt;Add a &lt;code class=&quot;highlighter-rouge&quot;&gt;ratingId&lt;/code&gt; column to the csv and add a zero based id value to each entry that represents the row number.&lt;/li&gt;
+  &lt;li&gt;Store the output of this process in &lt;code class=&quot;highlighter-rouge&quot;&gt;ratings-joined.csv&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The joined dataset looks as follows:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n5&lt;/span&gt; ratings-joined.csv
+ratingId,movieId,title,genres,userId,rating,timestamp
+0,1,Toy Story &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1995&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;,Adventure|Animation|Children|Comedy|Fantasy,2,3.5,1141415820
+1,1,Toy Story &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1995&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;,Adventure|Animation|Children|Comedy|Fantasy,3,4.0,1439472215
+2,1,Toy Story &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1995&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;,Adventure|Animation|Children|Comedy|Fantasy,4,3.0,1573944252
+3,1,Toy Story &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1995&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;,Adventure|Animation|Children|Comedy|Fantasy,5,4.0,858625949
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;defining-our-druid-datasource&quot;&gt;Defining our Druid datasource&lt;/h2&gt;
+
+&lt;p&gt;Druid &lt;a href=&quot;https://druid.apache.org/docs/latest/querying/datasource.html&quot;&gt;datasources&lt;/a&gt; are pretty much standard database tables. They have some additional properties which you can read about, for our purposes, just think of them as a table.&lt;/p&gt;
+
+&lt;p&gt;Let’s define a datasource that matches the structure of our &lt;code class=&quot;highlighter-rouge&quot;&gt;ratings-joined.csv&lt;/code&gt; file so we can ingest it. There’s a lot of here but don’t worry, we’ll go over it section by section.&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;index&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;spec&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;dataSchema&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;dataSource&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ratings&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;timestampSpec&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;column&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;timestamp&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;format&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;posix&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;dimensionsSpec&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;dimensions&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;genres&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;metricsSpec&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;count&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;count&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;fieldName&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;rating&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;rating_min&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;floatMin&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;fieldName&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;rating&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;rating_max&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;floatMax&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;fieldName&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;rating&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;rating_sum&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;floatSum&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;fieldName&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;rating_id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;rating_id_sketch&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;thetaSketch&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;fieldName&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;rating&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;rating_sketch&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;quantilesDoublesSketch&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;fieldName&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;user_id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;user_id_sketch&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;thetaSketch&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;granularitySpec&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;uniform&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;segmentGranularity&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;year&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;queryGranularity&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;day&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;intervals&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;2019-01-01/2020-01-01&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;ioConfig&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;index&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;listDelimiter&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;|&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;inputSource&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;local&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;baseDir&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/opt/data/datasets/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;filter&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ratings-joined.csv&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;inputFormat&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;csv&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;columns&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;rating_id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;movie_id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;genres&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;user_id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;rating&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;timestamp&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;findColumnsFromHeader&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;skipHeaderRows&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;appendToExisting&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;There’s a lot here, so let’s break it down. &lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;timestamps&quot;&gt;Timestamps&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;timestampSpec&lt;/code&gt; defines the time dimension of our data, which is the &lt;code class=&quot;highlighter-rouge&quot;&gt;timestamp&lt;/code&gt; field as an epoch (seconds) integer. Druid automatically partitions and sorts data by time and creates its segment files using these time values.&lt;/p&gt;
+
+&lt;h3 id=&quot;dimensions&quot;&gt;Dimensions&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;dimensionSpec&lt;/code&gt; defines columns that are stored, unmodified. These can be used for the usual query/sort/filter patterns one would expect.&lt;/p&gt;
+
+&lt;h3 id=&quot;metrics&quot;&gt;Metrics&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;metricsSpec&lt;/code&gt; defines columns that are aggregated at ingestion time. Druid will rollup multiple ingested rows into one and retain summary information about it. This is one of the approaches to compression that greatly speed up queries and save disk space.&lt;/p&gt;
+
+&lt;p&gt;We define two &lt;strong&gt;important&lt;/strong&gt; metrics here of type &lt;code class=&quot;highlighter-rouge&quot;&gt;thetaSketch&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;quantilesDoublesSketch&lt;/code&gt;. These fields are going to be the main drivers for our future query examples and we’ll cover them in more depth in future posts.&lt;/p&gt;
+
+&lt;h3 id=&quot;granularity&quot;&gt;Granularity&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;granularitySpec&lt;/code&gt; defines how rollups are performed and data is stored. The &lt;code class=&quot;highlighter-rouge&quot;&gt;segmentGranularity&lt;/code&gt; defines the time bounds for individual segment files. For the best performance, you’re looking for segment files around &lt;code class=&quot;highlighter-rouge&quot;&gt;~500mb&lt;/code&gt;. &lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; In our case, we’re creating one segment file for each &lt;code class=&quot;highlighter-rouge&quot;&gt;year&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;queryGranularity&lt;/code&gt; value defines the smallest interval of time we can filter/group our data. By setting this value to &lt;code class=&quot;highlighter-rouge&quot;&gt;day&lt;/code&gt;, it means we cannot find individual ratings by hour, minute, or second. Changing this value depends on your use cases, but the larger the &lt;code class=&quot;highlighter-rouge&quot;&gt;queryGranularity&lt;/code&gt;, the better query performance/data savings we’ll receive.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;intervals&lt;/code&gt; value lets us define a time range for “valid” data that should be ingested. If undefined, Druid will detect these time ranges based on the data being ingested but this can increase your memory usage requirements.&lt;/p&gt;
+
+&lt;h3 id=&quot;io&quot;&gt;I/O&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;ioConfig&lt;/code&gt; defines the data we’re ingesting, which is just a single &lt;code class=&quot;highlighter-rouge&quot;&gt;.csv&lt;/code&gt; file. Be sure to note that we’re setting &lt;code class=&quot;highlighter-rouge&quot;&gt;listDelimiter&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;|&lt;/code&gt; so the &lt;code class=&quot;highlighter-rouge&quot;&gt;genres&lt;/code&gt; column is properly split and stored as an array. We are also defining the &lt;code class=&quot;highlighter-rouge&quot;&gt;columns&lt;/code&gt; from the CSV. We can let Druid auto-discover these values, but I’ve decided to define them myself so we can enforce snake case naming conventions.&lt;/p&gt;
+
+&lt;h2 id=&quot;populating-our-datasource&quot;&gt;Populating our datasource&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; If you’re running a small cluster with docker-compose, it’s unlikely you have enough available RAM to ingest the file in one go. That’s OK. We’re going to outline the process for creating separate ingestion tasks for each year in the dataset.&lt;/p&gt;
+
+&lt;p&gt;Save the datasource JSON document defined above into &lt;code class=&quot;highlighter-rouge&quot;&gt;ratings-datasource.json&lt;/code&gt;. From there, we’re going to want to modify the &lt;code class=&quot;highlighter-rouge&quot;&gt;intervals&lt;/code&gt; value of our &lt;code class=&quot;highlighter-rouge&quot;&gt;granularitySpec&lt;/code&gt; for each individual year within the dataset.&lt;/p&gt;
+
+&lt;p&gt;According to the &lt;a href=&quot;http://files.grouplens.org/datasets/movielens/ml-25m-README.html&quot;&gt;MovieLens README&lt;/a&gt;, it should contain records from &lt;code class=&quot;highlighter-rouge&quot;&gt;1995&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;2019&lt;/code&gt;, so we’ll start with &lt;code class=&quot;highlighter-rouge&quot;&gt;1995&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;&quot;intervals&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1995-01-01/1996-01-01&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, we can schedule a Druid index task with a simple &lt;code class=&quot;highlighter-rouge&quot;&gt;curl&lt;/code&gt; command. This will consume our CSV file and create data segments for all data found in &lt;code class=&quot;highlighter-rouge&quot;&gt;1995&lt;/code&gt;. Since we’re also using a &lt;code class=&quot;highlighter-rouge&quot;&gt;segmentGranuarlity&lt;/code&gt; of &lt;code class=&quot;highlighter-rouge&quot;&gt;year&lt;/code&gt;, we’ll only create one segment file for running this task and it will only contain data from &lt;code class=&quot;highlighter-rouge&quot;&gt;1995&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-XPOST&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Content-type: application/json'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; @ratings-datasource.json http://localhost:8081/druid/indexer/v1/task
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img class=&quot;img-center&quot; src=&quot;/assets/images/posts/druid-ui-index-task.jpg&quot; alt=&quot;Screenshot of Druid index task running&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You should be able to see your &lt;a href=&quot;http://localhost:8888/unified-console.html#ingestion&quot;&gt;active ingestion task&lt;/a&gt; in the console and once completed, you should see a single segment for &lt;code class=&quot;highlighter-rouge&quot;&gt;1995&lt;/code&gt; listed in the &lt;a href=&quot;http://localhost:8888/unified-console.html#segments&quot;&gt;segments view&lt;/a&gt; as well.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;img-center&quot; src=&quot;/assets/images/posts/druid-ui-segment-one.jpg&quot; alt=&quot;Screenshot of Druid segment&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now, repeat this process for all of the years in the dataset. Once you’re done, you should have segments for each year from &lt;code class=&quot;highlighter-rouge&quot;&gt;1995&lt;/code&gt; through &lt;code class=&quot;highlighter-rouge&quot;&gt;2019&lt;/code&gt; and have a segment listing something like this.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;img-center&quot; src=&quot;/assets/images/posts/druid-ui-segment-all.jpg&quot; alt=&quot;Screenshot of Druid segment&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;validating-our-datasource&quot;&gt;Validating our datasource&lt;/h2&gt;
+
+&lt;p&gt;Now that we’re done ingesting all of the MovieLens data, let’s make some simple queries to validate everything is working as expected. Let’s open up the query dashboard in the Druid unified console at &lt;a href=&quot;http://localhost:8888/unified-console.html#query&quot;&gt;http://localhost:8888/unified-console.html#query&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;We can see the total number of records ingested, which aligns to the ~25 million we expect.&lt;/p&gt;
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&quot;count&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ratings&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;25000095&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We can count individual records stored after rollup, which is about 1/2 of the total ingested.&lt;/p&gt;
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ratings&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;11484733&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Whew, that was quite a bit. If you’ve made it this far, I salute you.
+&lt;img class=&quot;img-center&quot; src=&quot;/assets/images/posts/finally-play-the-game.gif&quot; alt=&quot;Make love not warcraft Southpark&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;whats-next&quot;&gt;What’s next?&lt;/h2&gt;
+
+&lt;p&gt;In the next post, Active Users, we’ll get into the actual queries and dive into tracking DAU, WAU, MAU over time. Stay tuned!&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;Druid data modeling &lt;a href=&quot;https://druid.apache.org/docs/latest/ingestion/index.html#druids-data-model&quot;&gt;https://druid.apache.org/docs/latest/ingestion/index.html#druids-data-model&lt;/a&gt;. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;Optimal segment file sizes &lt;a href=&quot;https://druid.apache.org/docs/latest/design/segments.html&quot;&gt;https://druid.apache.org/docs/latest/design/segments.html&lt;/a&gt; &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="writings" /><category term="druid" /><category term="olap" /><summary type="html">This is part one of a blog post series about Druid Queries.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Druid Queries</title><link href="https://andrew.hawker.io/writings/2021/01/20/druid-queries/" rel="alternate" type="text/html" title="Druid Queries" /><published>2021-01-20T01:04:00-08:00</published><updated>2021-01-20T01:04:00-08:00</updated><id>https://andrew.hawker.io/writings/2021/01/20/druid-queries</id><content type="html" xml:base="https://andrew.hawker.io/writings/2021/01/20/druid-queries/">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;Over the past few days, I’ve been working on re-introducing myself to the &lt;a href=&quot;https://druid.apache.org/&quot;&gt;Druid&lt;/a&gt; database after a ~2 year hiatus. Back then, there weren’t many real-world examples found online using the native query language, which made ramp up a bit cumbersome. The goal of these posts will attempt to address that by adding a few more examples into ether, where hopefully someone finds them useful.&lt;/p&gt;
+
+&lt;p&gt;While it looks like the Calcite SQL layer has moved out of beta and taken over as the official query interface (finally), I’m going to cover some more advanced queries using the &lt;a href=&quot;https://druid.apache.org/docs/latest/querying/querying.html&quot;&gt;Druid Native Query Language (JSON)&lt;/a&gt;. I’ll plan to amend these posts in the future with SQL versions of these queries (if available) so we can visualize the query translation between the two languages.&lt;/p&gt;
+
+&lt;p&gt;I don’t plan to dive into any deep details about how Druid works, beyond schema definiton and native query language, so I would recommend checking out some of the &lt;a href=&quot;https://druid.apache.org/docs/latest/design/&quot;&gt;introduction docs&lt;/a&gt; to (re)-familiarize yourself.&lt;/p&gt;
+
+&lt;h2 id=&quot;part-1-data-schema&quot;&gt;&lt;a href=&quot;/writings/2021/02/12/druid-queries-data-schema/&quot;&gt;Part 1: Data Schema&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;This post walks us through installing Druid, loading our dataset, and examines the basics of our data schema that we will build all future queries on.&lt;/p&gt;
+
+&lt;h2 id=&quot;part-2-active-users-coming-soon&quot;&gt;Part 2: Active Users (Coming soon)&lt;/h2&gt;
+
+&lt;p&gt;This future post will cover queries for counting unique active users over a period of time. These are commonly refered to as Daily Active Users (DAU), Weekly Active Users (WAU), and Monthly Active Users (MAU).&lt;/p&gt;
+
+&lt;h2 id=&quot;part-3-retention-coming-soon&quot;&gt;Part 3: Retention (Coming soon)&lt;/h2&gt;
+
+&lt;p&gt;This future post will cover queries for counting active users retained over periods of time, e.g. “how many users of my website in January returned to use it in February?”&lt;/p&gt;
+
+&lt;h2 id=&quot;part-4-popular-times-coming-soon&quot;&gt;Part 4: Popular Times (Coming soon)&lt;/h2&gt;
+
+&lt;p&gt;This future post will cover queries for determine usage over periods of time, e.g. Google Maps showing the popular times of day/week for a restaurant.&lt;/p&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="writings" /><category term="druid" /><category term="olap" /><summary type="html">Introduction</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">String to Integer (atoi)</title><link href="https://andrew.hawker.io/leetcode/2020/11/20/string-to-integer/" rel="alternate" type="text/html" title="String to Integer (atoi)" /><published>2020-11-20T00:04:00-08:00</published><updated>2020-11-20T00:04:00-08:00</updated><id>https://andrew.hawker.io/leetcode/2020/11/20/string-to-integer</id><content type="html" xml:base="https://andrew.hawker.io/leetcode/2020/11/20/string-to-integer/">&lt;p&gt;I’m trying to get in a habit of starting my mornings off with coffee and a &lt;a href=&quot;https://leetcode.com/&quot;&gt;Leetcode&lt;/a&gt; problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!&lt;/p&gt;
 
 &lt;h2 id=&quot;string-to-integer-atoi&quot;&gt;&lt;a href=&quot;https://leetcode.com/problems/string-to-integer-atoi/&quot;&gt;String to Integer (atoi)&lt;/a&gt;&lt;/h2&gt;
 
@@ -1077,134 +1414,4 @@ Memory Usage: 20 MB, less than 75.98% of Python3 online submissions for Remove I
 
 &lt;h2 id=&quot;how-does-routegy-solve-touchless-feedback&quot;&gt;How does Routegy solve touchless feedback?&lt;/h2&gt;
 
-&lt;p&gt;Routegy makes it easy for people to interact with your business in a contactless, app-less way. Purchases, issues, requests, and feedback are made by interacting with QR codes, NFC tags, sensors, and smart speakers. Collected information and context are sent to the destination of your choice: notifications via SMS or Slack, integrations with your existing software, and anything in-between; no code required.&lt;/p&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="writings" /><category term="routegy" /><category term="touchless" /><category term="contactless" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Adding Trello login support to Auth0</title><link href="https://andrew.hawker.io/writings/2020/07/06/trello-login-support-auth0/" rel="alternate" type="text/html" title="Adding Trello login support to Auth0" /><published>2020-07-06T02:19:00-07:00</published><updated>2020-07-06T02:19:00-07:00</updated><id>https://andrew.hawker.io/writings/2020/07/06/trello-login-support-auth0</id><content type="html" xml:base="https://andrew.hawker.io/writings/2020/07/06/trello-login-support-auth0/">&lt;p&gt;At my company &lt;a href=&quot;https://routegy.com&quot;&gt;Routegy&lt;/a&gt;, we use &lt;a href=&quot;https://auth0.com&quot;&gt;Auth0&lt;/a&gt; for identity management. While it is nice, in theory, to offload authn/authz to someone else so you can focus on building your product, integrating it does have a number of quirks.&lt;/p&gt;
-
-&lt;p&gt;In this instance, I was looking to support &lt;a href=&quot;https://trello.com&quot;&gt;Trello&lt;/a&gt; logins, which Auth0 doesn’t support with a native social connection. A quick Google search yields this &lt;a href=&quot;https://community.auth0.com/t/auth0-and-trello/17043&quot;&gt;community post&lt;/a&gt; which recommends that you use the &lt;a href=&quot;https://auth0.com/docs/extensions/custom-social-extensions&quot;&gt;Custom Social Connections&lt;/a&gt; extension. This doesn’t appear to work since Trello uses &lt;a href=&quot;https://developer.atlassian.com/cloud/trello/guides/rest-api/authorization/&quot;&gt;OAuth 1.1&lt;/a&gt; and the Custom Social Connections extension only appears to support OAuth 2.0.&lt;/p&gt;
-
-&lt;p&gt;After some further research, I thankfully came across documentation outlining Auth0 support for creating generic &lt;a href=&quot;https://auth0.com/docs/connections/adding-generic-oauth1-connection&quot;&gt;OAuth 1&lt;/a&gt; and &lt;a href=&quot;https://auth0.com/docs/connections/social/oauth2&quot;&gt;OAuth 2&lt;/a&gt; connections. This works by creating an Auth0 connection with OAuth 1.1 urls and writing a custom javascript function that takes information provided in the OAuth callback to create an Auth0 profile.&lt;/p&gt;
-
-&lt;p&gt;With some custom code, we should be able to support Trello logins. Let’s dive in!&lt;/p&gt;
-
-&lt;h3 id=&quot;getting-your-trello-credentials&quot;&gt;Getting your Trello credentials&lt;/h3&gt;
-
-&lt;p&gt;In order to create an OAuth 1.1 connection, you will need your &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;client_id&lt;/code&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;client_secret&lt;/code&gt;&lt;/strong&gt; pair for Trello. To get these, login to Trello and go to &lt;a href=&quot;https://trello.com/app-key&quot;&gt;https://trello.com/app-key&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;The &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;client_id&lt;/code&gt;&lt;/strong&gt; value will be the &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Key&lt;/code&gt;&lt;/strong&gt; value found on this page.&lt;/p&gt;
-
-&lt;p&gt;The &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;client_secret&lt;/code&gt;&lt;/strong&gt; value will be found by clicking the &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Token&lt;/code&gt;&lt;/strong&gt; URL found on that page. This will prompt you to give access to the Trello &lt;code class=&quot;highlighter-rouge&quot;&gt;Server Token&lt;/code&gt; application. Granting access will display the value to use.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/trello-server-token.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;creating-a-trello-connection&quot;&gt;Creating a Trello connection&lt;/h3&gt;
-
-&lt;p&gt;To create an arbitrary OAuth 1.1 connection in Auth0, we need to use the Auth0 Management API as there is no support for it in the management dashboard. If you don’t already have one, check out the &lt;a href=&quot;https://auth0.com/docs/api/management/v2/tokens&quot;&gt;official documentation&lt;/a&gt; for more details on creating your Management API access token. Once created, this can be done with a simple &lt;code class=&quot;highlighter-rouge&quot;&gt;curl&lt;/code&gt; command such as:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; POST
-     &lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Content-Type: application/json&quot;&lt;/span&gt;
-     &lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Authorization: Bearer ${YOUR_AUTH0_MANAGEMENT_API_TOKEN}'&lt;/span&gt;
-     &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; @trello.json https://&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;YOUR_AUTH0_DOMAIN&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;/api/v2/connections
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;This creates an Auth0 connection using the JSON data stored in our local &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;trello.json&lt;/code&gt;&lt;/strong&gt; file. The contents of this file will change based on specifics to your account but will look something like:&lt;/p&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;trello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;strategy&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;oauth1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;options&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;client_id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;${YOUR_TRELLO_CLIENT_ID}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;client_secret&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;${YOUR_TRELLO_CLIENT_SECRET}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;requestTokenURL&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://trello.com/1/OAuthGetRequestToken&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;accessTokenURL&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://trello.com/1/OAuthGetAccessToken&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;userAuthorizationURL&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://trello.com/1/OAuthAuthorizeToken?name=${APP_NAME}&amp;amp;scope=${SCOPE}&amp;amp;expiration=${EXPIRATION}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;fetchUserProfile&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;${SCRIPT}&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;enabled_clients&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;${AUTH0_CLIENT_1}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;${AUTH0_CLIENT_2}&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;This file has a number of variables in it. Let’s go through them one by one:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${YOUR_TRELLO_CLIENT_ID}&lt;/code&gt;&lt;/strong&gt; - The &lt;code class=&quot;highlighter-rouge&quot;&gt;client_id&lt;/code&gt; value from Trello noted above.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${YOUR_TRELLO_CLIENT_SECRET}&lt;/code&gt;&lt;/strong&gt; - The &lt;code class=&quot;highlighter-rouge&quot;&gt;client_secret&lt;/code&gt; value from Trello noted above.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${APP_NAME}&lt;/code&gt;&lt;/strong&gt; - The name of your Trello application, e.g. your company name.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${SCOPE}&lt;/code&gt;&lt;/strong&gt; - The OAuth scope your application is requesting. Comma-separated list of one or more of &lt;strong&gt;read&lt;/strong&gt;, &lt;strong&gt;write&lt;/strong&gt;, &lt;strong&gt;account&lt;/strong&gt;.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${EXPIRATION}&lt;/code&gt;&lt;/strong&gt; - The lifetime of the token/secret Trello sends to Auth0, e.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;never&lt;/code&gt;.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${SCRIPT}&lt;/code&gt;&lt;/strong&gt; - The javascript function run to convert Trello information into an Auth0 profile. &lt;strong&gt;See below&lt;/strong&gt;.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${AUTH0_CLIENT_XYZ}&lt;/code&gt;&lt;/strong&gt; - The ID’s of all Auth0 Clients that should allow Trello login.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The Trello &lt;a href=&quot;https://developer.atlassian.com/cloud/trello/guides/rest-api/authorization/&quot;&gt;official documentation&lt;/a&gt; contains more information on the specific values provided like application name, scope, and expiration.&lt;/p&gt;
-
-&lt;p&gt;The javascript code for fetch user profile &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${SCRIPT}&lt;/code&gt;&lt;/strong&gt; is:&lt;/p&gt;
-
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tokenSecret&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ctx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;OAuth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;oauth&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;OAuth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;oauth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;OAuth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-      &lt;span class=&quot;nx&quot;&gt;ctx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;requestTokenURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-      &lt;span class=&quot;nx&quot;&gt;ctx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;accessTokenURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-      &lt;span class=&quot;nx&quot;&gt;ctx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;client_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-      &lt;span class=&quot;nx&quot;&gt;ctx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;client_secret&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-      &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;1.0A&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-      &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-      &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;HMAC-SHA1&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;nx&quot;&gt;oauth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;https://api.trello.com/1/members/me&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tokenSecret&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-          &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;statusCode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-          &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Failed to authenticate with Trello. Code: &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;statusCode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-        &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;member&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-        &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;profile&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;user_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;member&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;member&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;member&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fullName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;email_verified&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;member&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;confirmed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;nickname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;member&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;token_secret&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tokenSecret&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-
-        &lt;span class=&quot;nx&quot;&gt;cb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;profile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;calling-the-trello-api-on-their-behalf&quot;&gt;Calling the Trello API on their behalf&lt;/h3&gt;
-
-&lt;p&gt;Once the user logs in with the Trello Auth0 connection, you’ll see the &lt;code class=&quot;highlighter-rouge&quot;&gt;token&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;tokenSecret&lt;/code&gt; values stored on that user profile. These can be used to call the Trello API on behalf of the user. For example:&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;trello&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TrelloClient&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TrelloClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;api_key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'${YOUR_TRELLO_CLIENT_ID}'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;api_secret&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'${YOUR_TRELLO_CLIENT_SECRET}'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'${TOKEN}'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;token_secret&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'${TOKEN_SECRET}'&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;The variables in this example are as follows:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${YOUR_TRELLO_CLIENT_ID}&lt;/code&gt;&lt;/strong&gt; - The &lt;code class=&quot;highlighter-rouge&quot;&gt;client_id&lt;/code&gt; value from Trello noted above.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${YOUR_TRELLO_CLIENT_SECRET}&lt;/code&gt;&lt;/strong&gt; - The &lt;code class=&quot;highlighter-rouge&quot;&gt;client_secret&lt;/code&gt; value from Trello noted above.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${TOKEN}&lt;/code&gt;&lt;/strong&gt; - The &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;token&lt;/code&gt;&lt;/strong&gt; value stored on the Auth0 user profile.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;${TOKEN_SECRET}&lt;/code&gt;&lt;/strong&gt; - The &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;tokenSecret&lt;/code&gt;&lt;/strong&gt; value stored on the Auth0 user profile.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;summary&quot;&gt;Summary&lt;/h3&gt;
-
-&lt;p&gt;In order to support Trello connections with Auth0, you must create a custom OAuth 1.1 connection with a custom javascript function that fetches Trello user information to create an Auth0 user profile.&lt;/p&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="writings" /><category term="auth0" /><category term="trello" /><summary type="html">At my company Routegy, we use Auth0 for identity management. While it is nice, in theory, to offload authn/authz to someone else so you can focus on building your product, integrating it does have a number of quirks.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">An examination of the curbside pickup experience</title><link href="https://andrew.hawker.io/writings/2020/06/30/an-examination-of-the-curbside-experience/" rel="alternate" type="text/html" title="An examination of the curbside pickup experience" /><published>2020-06-30T03:24:00-07:00</published><updated>2020-06-30T03:24:00-07:00</updated><id>https://andrew.hawker.io/writings/2020/06/30/an-examination-of-the-curbside-experience</id><content type="html" xml:base="https://andrew.hawker.io/writings/2020/06/30/an-examination-of-the-curbside-experience/">&lt;p&gt;&lt;img class=&quot;float-right&quot; src=&quot;/assets/images/routegy-logo-mountain-light-small.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Check out &lt;a href=&quot;https://blog.routegy.com/2020/06/30/examination-curbside-pickup-experience/&quot;&gt;my post&lt;/a&gt; on the &lt;a href=&quot;https://routegy.com&quot;&gt;Routegy&lt;/a&gt; company blog where I discuss curbside pickup industry trends during the COVID-19 pandemic.&lt;/p&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="writings" /><category term="routegy" /><category term="curbside pickup" /><category term="touchless" /><category term="contactless" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+&lt;p&gt;Routegy makes it easy for people to interact with your business in a contactless, app-less way. Purchases, issues, requests, and feedback are made by interacting with QR codes, NFC tags, sensors, and smart speakers. Collected information and context are sent to the destination of your choice: notifications via SMS or Slack, integrations with your existing software, and anything in-between; no code required.&lt;/p&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="writings" /><category term="routegy" /><category term="touchless" /><category term="contactless" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

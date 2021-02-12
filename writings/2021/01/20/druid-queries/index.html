@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8" lang="en">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Andrew Hawker">
+  <meta name="generator" content="jekyll">
+  
+  <meta name="dcterms.date" content="2021-01-20 01:04:00 -0800">
+  
+  
+  <meta name="keywords" content="druid olap">
+  
+
+  
+  <link rel="canonical" href="https://andrew.hawker.io/writings/2021/01/20/druid-queries/" />
+  
+
+  
+  <title>Druid Queries – Andrew Hawker</title>
+  
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
+  <link rel="stylesheet" href="/assets/styles/et-book.min.css">
+  <link rel="stylesheet" href="/assets/styles/site.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+
+  <link rel="manifest" href="/assets/site.webmanifest">
+
+  <meta name="msapplication-TileColor" content="#2d89ef">
+  <meta name="msapplication-config" content="/assets/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- RSS -->
+  <link type="application/atom+xml" rel="alternate" href="https://andrew.hawker.io/feed.xml" title="Andrew Hawker" />
+
+  <!-- Google Analytics -->
+  
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36365256-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  
+
+  <!-- SEO -->
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Druid Queries | Andrew Hawker</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Druid Queries" />
+<meta name="author" content="Andrew Hawker" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Introduction" />
+<meta property="og:description" content="Introduction" />
+<link rel="canonical" href="https://andrew.hawker.io/writings/2021/01/20/druid-queries/" />
+<meta property="og:url" content="https://andrew.hawker.io/writings/2021/01/20/druid-queries/" />
+<meta property="og:site_name" content="Andrew Hawker" />
+<meta property="og:image" content="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-01-20T01:04:00-08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:image" content="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" />
+<meta property="twitter:title" content="Druid Queries" />
+<meta name="twitter:site" content="@rekwah" />
+<meta name="twitter:creator" content="@rekwah" />
+<script type="application/ld+json">
+{"headline":"Druid Queries","dateModified":"2021-01-20T01:04:00-08:00","datePublished":"2021-01-20T01:04:00-08:00","url":"https://andrew.hawker.io/writings/2021/01/20/druid-queries/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2021/01/20/druid-queries/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"Introduction","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+
+<body>
+<div class="header container-xl px-5 my-5 markdown-body">
+  
+
+
+
+  
+<header>
+  
+  <h1>
+    <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+    Druid Queries
+  </h1>
+  
+  <div class="col-12">
+    
+    <p class="h4 color-grey">January 20, 2021</p>
+    
+  </div>
+  <div class="col-12">
+    
+    <ul class="tags">
+    
+      <li class="category"><a href="/archives/category/writings">WRITINGS</a></li>
+    
+    
+    
+    
+      <li class="tag"><a href="/archives/tag/druid">DRUID (2)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/olap">OLAP (2)</a></li>
+    
+    
+    </ul>
+  </div>
+</header>
+
+
+</div>
+<div class="content container-xl px-5 my-5 markdown-body">
+  <h2 id="introduction">Introduction</h2>
+
+<p>Over the past few days, I’ve been working on re-introducing myself to the <a href="https://druid.apache.org/">Druid</a> database after a ~2 year hiatus. Back then, there weren’t many real-world examples found online using the native query language, which made ramp up a bit cumbersome. The goal of these posts will attempt to address that by adding a few more examples into ether, where hopefully someone finds them useful.</p>
+
+<p>While it looks like the Calcite SQL layer has moved out of beta and taken over as the official query interface (finally), I’m going to cover some more advanced queries using the <a href="https://druid.apache.org/docs/latest/querying/querying.html">Druid Native Query Language (JSON)</a>. I’ll plan to amend these posts in the future with SQL versions of these queries (if available) so we can visualize the query translation between the two languages.</p>
+
+<p>I don’t plan to dive into any deep details about how Druid works, beyond schema definiton and native query language, so I would recommend checking out some of the <a href="https://druid.apache.org/docs/latest/design/">introduction docs</a> to (re)-familiarize yourself.</p>
+
+<h2 id="part-1-data-schema"><a href="/writings/2021/02/12/druid-queries-data-schema/">Part 1: Data Schema</a></h2>
+
+<p>This post walks us through installing Druid, loading our dataset, and examines the basics of our data schema that we will build all future queries on.</p>
+
+<h2 id="part-2-active-users-coming-soon">Part 2: Active Users (Coming soon)</h2>
+
+<p>This future post will cover queries for counting unique active users over a period of time. These are commonly refered to as Daily Active Users (DAU), Weekly Active Users (WAU), and Monthly Active Users (MAU).</p>
+
+<h2 id="part-3-retention-coming-soon">Part 3: Retention (Coming soon)</h2>
+
+<p>This future post will cover queries for counting active users retained over periods of time, e.g. “how many users of my website in January returned to use it in February?”</p>
+
+<h2 id="part-4-popular-times-coming-soon">Part 4: Popular Times (Coming soon)</h2>
+
+<p>This future post will cover queries for determine usage over periods of time, e.g. Google Maps showing the popular times of day/week for a restaurant.</p>
+
+
+
+<section>
+  <p class="return-home"><em><a href="/">Return home</a></em></p>
+</section>
+
+
+</div>
+<div class="footer container-xl px-5 my-5">
+  
+
+
+
+  <footer>
+    <hr class="footer-hr">
+    <ul class="social-links">
+      
+        <li><a href="https://www.routegy.com" target="_blank" title="Employer"><span class="fa fa-2x fa-building social-icon"></span></a></li>
+      
+        <li><a href="https://goo.gl/maps/kUBP3GgPGiG2" target="_blank" title="Location"><span class="fa fa-2x fa-map-marker social-icon"></span></a></li>
+      
+        <li><a href="https://stackoverflow.com/users/84942/ahawker" target="_blank" title="Stack Overflow"><span class="fa fa-2x fa-stack-overflow social-icon"></span></a></li>
+      
+        <li><a href="https://github.com/ahawker" target="_blank" title="GitHub"><span class="fa fa-2x fa-github-alt social-icon"></span></a></li>
+      
+        <li><a href="https://linkedin.com/in/ahawker" target="_blank" title="LinkedIn"><span class="fa fa-2x fa-linkedin-square social-icon"></span></a></li>
+      
+        <li><a href="https://twitter.com/rekwah" target="_blank" title="Twitter"><span class="fa fa-2x fa-twitter social-icon"></span></a></li>
+      
+        <li><a href="mailto:andrew.r.hawker@gmail.com" target="_blank" title="Email"><span class="fa fa-2x fa-envelope social-icon"></span></a></li>
+      
+        <li><a href="/feed.xml" target="_blank" title="RSS"><span class="fa fa-2x fa-rss social-icon"></span></a></li>
+      
+        <li><a href="/assets/resume.pdf" target="_blank" title="Resume"><span class="fa fa-2x fa-file social-icon"></span></a></li>
+        
+    </ul>
+  <div class="credits">
+    <span>&copy; 2013 - 2021 &nbsp;&nbsp;ANDREW HAWKER</span></br> <br>
+    <span>Code for this website can be found <a href="https://github.com/ahawker/personal-site">here</a>.</span>
+  </div>  
+</footer>
+
+</div>
+</body>
+</html>
+

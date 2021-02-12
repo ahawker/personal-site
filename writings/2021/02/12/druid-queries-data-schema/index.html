@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8" lang="en">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Andrew Hawker">
+  <meta name="generator" content="jekyll">
+  
+  <meta name="dcterms.date" content="2021-02-12 00:23:00 -0800">
+  
+  
+  <meta name="keywords" content="druid olap">
+  
+
+  
+  <link rel="canonical" href="https://andrew.hawker.io/writings/2021/02/12/druid-queries-data-schema/" />
+  
+
+  
+  <title>Druid Queries - Data Schema – Andrew Hawker</title>
+  
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
+  <link rel="stylesheet" href="/assets/styles/et-book.min.css">
+  <link rel="stylesheet" href="/assets/styles/site.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+
+  <link rel="manifest" href="/assets/site.webmanifest">
+
+  <meta name="msapplication-TileColor" content="#2d89ef">
+  <meta name="msapplication-config" content="/assets/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- RSS -->
+  <link type="application/atom+xml" rel="alternate" href="https://andrew.hawker.io/feed.xml" title="Andrew Hawker" />
+
+  <!-- Google Analytics -->
+  
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36365256-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  
+
+  <!-- SEO -->
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Druid Queries - Data Schema | Andrew Hawker</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Druid Queries - Data Schema" />
+<meta name="author" content="Andrew Hawker" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This is part one of a blog post series about Druid Queries." />
+<meta property="og:description" content="This is part one of a blog post series about Druid Queries." />
+<link rel="canonical" href="https://andrew.hawker.io/writings/2021/02/12/druid-queries-data-schema/" />
+<meta property="og:url" content="https://andrew.hawker.io/writings/2021/02/12/druid-queries-data-schema/" />
+<meta property="og:site_name" content="Andrew Hawker" />
+<meta property="og:image" content="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-02-12T00:23:00-08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:image" content="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" />
+<meta property="twitter:title" content="Druid Queries - Data Schema" />
+<meta name="twitter:site" content="@rekwah" />
+<meta name="twitter:creator" content="@rekwah" />
+<script type="application/ld+json">
+{"headline":"Druid Queries - Data Schema","dateModified":"2021-02-12T00:23:00-08:00","datePublished":"2021-02-12T00:23:00-08:00","url":"https://andrew.hawker.io/writings/2021/02/12/druid-queries-data-schema/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2021/02/12/druid-queries-data-schema/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"This is part one of a blog post series about Druid Queries.","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+
+<body>
+<div class="header container-xl px-5 my-5 markdown-body">
+  
+
+
+
+  
+<header>
+  
+  <h1>
+    <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+    Druid Queries - Data Schema
+  </h1>
+  
+  <div class="col-12">
+    
+    <p class="h4 color-grey">February 12, 2021</p>
+    
+  </div>
+  <div class="col-12">
+    
+    <ul class="tags">
+    
+      <li class="category"><a href="/archives/category/writings">WRITINGS</a></li>
+    
+    
+    
+    
+      <li class="tag"><a href="/archives/tag/druid">DRUID (2)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/olap">OLAP (2)</a></li>
+    
+    
+    </ul>
+  </div>
+</header>
+
+
+</div>
+<div class="content container-xl px-5 my-5 markdown-body">
+  <p>This is part <strong>one</strong> of a blog post series about <strong>Druid Queries</strong>.</p>
+
+<ul>
+  <li>Part 2: Active Users (Coming soon)</li>
+  <li>Part 3: Retention (Coming soon)</li>
+  <li>Part 4: Popular Times (Coming soon)</li>
+</ul>
+
+<h2 id="installation">Installation</h2>
+
+<p>To get started, we’re going to run a local Druid cluster using <a href="https://www.docker.com/">Docker</a> and <a href="https://docs.docker.com/compose/">Docker Compose</a>. Let’s start by grabbing the latest <code class="highlighter-rouge">docker-compose.yml</code> and <code class="highlighter-rouge">environment</code> files from the Druid source code.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> ~/src/blog/druid-queries
+<span class="nv">$ </span>wget <span class="s2">"https://raw.githubusercontent.com/apache/druid/master/distribution/docker/docker-compose.yml"</span>
+<span class="nv">$ </span>wget <span class="s2">"https://raw.githubusercontent.com/apache/druid/master/distribution/docker/environment"</span>
+<span class="nv">$ </span>docker-compose up
+</code></pre></div></div>
+
+<p>Once the cluster has fully launched, you can view the Druid unified console at <a href="http://localhost:8888">http://localhost:8888</a>.</p>
+
+<h2 id="download-our-dataset">Download our dataset</h2>
+
+<p>For this tutorial, we’re going to use the open <a href="https://grouplens.org/datasets/movielens/25m/">MovieLens 25M Dataset</a> which contains <code class="highlighter-rouge">25M</code> movie ratings, <code class="highlighter-rouge">1M</code> tags, <code class="highlighter-rouge">62,000</code> movies, and <code class="highlighter-rouge">162,000</code> users. Additionally, since this download is over <code class="highlighter-rouge">HTTP</code>, we’re also going to grab the <code class="highlighter-rouge">md5</code> file so we can compare checksums to validate our payload is correct.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>wget <span class="s2">"http://files.grouplens.org/datasets/movielens/ml-25m.zip"</span>
+<span class="nv">$ </span>wget <span class="s2">"http://files.grouplens.org/datasets/movielens/ml-25m.zip.md5"</span>
+
+<span class="nv">$ </span>md5 ml-25m.zip <span class="o">&amp;&amp;</span> <span class="nb">cat </span>ml-25m.zip.md5
+MD5 <span class="o">(</span>ml-25m.zip<span class="o">)</span> <span class="o">=</span> 6b51fb2759a8657d3bfcbfc42b592ada
+6b51fb2759a8657d3bfcbfc42b592ada  ml-25m.zip
+
+<span class="nv">$ </span>unzip ml-25m.zip
+Archive:  ml-25m.zip
+   creating: ml-25m/
+  inflating: ml-25m/tags.csv
+  inflating: ml-25m/links.csv
+  inflating: ml-25m/README.txt
+  inflating: ml-25m/ratings.csv
+  inflating: ml-25m/genome-tags.csv
+  inflating: ml-25m/genome-scores.csv
+  inflating: ml-25m/movies.csv
+</code></pre></div></div>
+
+<p>MD5 hashes <code class="highlighter-rouge">6b51fb2759a8657d3bfcbfc42b592ada</code> match, so we’re safe to continue.</p>
+
+<h3 id="what-do-we-have-here">What do we have here?</h3>
+
+<p>Let’s examine a few records from <code class="highlighter-rouge">movies.csv</code> and <code class="highlighter-rouge">ratings.csv</code> to get an idea of what our data contains.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> ~/src/blog/druid-queries/ml-25m
+
+<span class="nv">$ </span><span class="nb">head</span> <span class="nt">-n5</span> movies.csv
+movieId,title,genres
+1,Toy Story <span class="o">(</span>1995<span class="o">)</span>,Adventure|Animation|Children|Comedy|Fantasy
+2,Jumanji <span class="o">(</span>1995<span class="o">)</span>,Adventure|Children|Fantasy
+3,Grumpier Old Men <span class="o">(</span>1995<span class="o">)</span>,Comedy|Romance
+4,Waiting to Exhale <span class="o">(</span>1995<span class="o">)</span>,Comedy|Drama|Romance
+
+<span class="nv">$ </span><span class="nb">head</span> <span class="nt">-n5</span> ratings.csv
+userId,movieId,rating,timestamp
+1,296,5.0,1147880044
+1,306,3.5,1147868817
+1,307,5.0,1147868828
+1,665,5.0,1147878820
+</code></pre></div></div>
+
+<p>It appears that <code class="highlighter-rouge">movies.csv</code> contains static information about a movie and <code class="highlighter-rouge">ratings.csv</code> contains information about individual users giving a movie a star rating at a specific time.</p>
+
+<p>Druid’s primary partition dimension is on time, which we have in our <code class="highlighter-rouge">timestamp</code> field, which appears to be unix epoch in seconds.</p>
+
+<p>Users are uniquely identified by the <code class="highlighter-rouge">userId</code> field but we don’t have anymore information on them.</p>
+
+<p>The star rating is a float value but I’m not sure if it’s a zero based scale, up to 10, etc. Let’s see if <a href="https://github.com/BurntSushi/xsv">xsv</a> can help.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>xsv stats <span class="nt">--select</span> <span class="s1">'3'</span> ratings.csv
+field,type,sum,min,max,min_length,max_length,mean,stddev
+rating,Float,88346697,0.5,5,3,3,3.533854451353244,1.0607439399275103
+</code></pre></div></div>
+
+<p>The min rating value is <code class="highlighter-rouge">0.5</code> and the max is <code class="highlighter-rouge">5</code> so it appears to be a <code class="highlighter-rouge">0-5</code> scale, where I assume <code class="highlighter-rouge">5</code> is the best.</p>
+
+<h2 id="preparing-our-dataset">Preparing our dataset</h2>
+
+<p>The default should be enough data for most of our queries except we don’t have a unique identifier for each individual rating event. Since this is a static dataset and we assume it has been somewhat cleaned, we’ll just add a column that maps to the CSV row number and use that as a ratings id.</p>
+
+<p>Let’s write a quick python script to do that and save this as <code class="highlighter-rouge">add-rating-id.py</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">fileinput</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">row_number</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fileinput</span><span class="o">.</span><span class="nb">input</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">row_number</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="s">'ratingId,'</span> <span class="o">+</span> <span class="n">line</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="s">'{},'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">row_number</span><span class="p">)</span> <span class="o">+</span> <span class="n">line</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+    <span class="n">row_number</span> <span class="o">+=</span> <span class="mi">1</span>
+</code></pre></div></div>
+
+<p>With this script and <a href="https://github.com/BurntSushi/xsv">xsv</a>, we can join our csv files and add our new rating id column.</p>
+
+<p><strong>Note:</strong> This joined csv file is going to be <code class="highlighter-rouge">~2GB</code>, so make sure you have the available disk space.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>xsv <span class="nb">join</span> <span class="nt">--no-case</span> movieId movies.csv movieId ratings.csv | xsv <span class="k">select</span> <span class="s1">'!5'</span> | python add-rating-id.py <span class="o">&gt;</span> ratings-joined.csv
+
+<span class="nv">$ </span><span class="nb">ls</span> <span class="nt">-lah</span> ratings-joined.csv
+<span class="nt">-rw-r--r--</span>  1 hawker  staff   1.9G Nov 24 10:31 ratings-joined.csv
+</code></pre></div></div>
+
+<p>These commands are doing the following:</p>
+
+<ul>
+  <li>Join the <code class="highlighter-rouge">movies.csv</code> and <code class="highlighter-rouge">ratings.csv</code> files together on the <code class="highlighter-rouge">movieId</code> column.</li>
+  <li>Remove the duplicate <code class="highlighter-rouge">movieId</code> column from the output. <code class="highlighter-rouge">select '!5'</code> means select all columns excluding the 5th.</li>
+  <li>Add a <code class="highlighter-rouge">ratingId</code> column to the csv and add a zero based id value to each entry that represents the row number.</li>
+  <li>Store the output of this process in <code class="highlighter-rouge">ratings-joined.csv</code></li>
+</ul>
+
+<p>The joined dataset looks as follows:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">head</span> <span class="nt">-n5</span> ratings-joined.csv
+ratingId,movieId,title,genres,userId,rating,timestamp
+0,1,Toy Story <span class="o">(</span>1995<span class="o">)</span>,Adventure|Animation|Children|Comedy|Fantasy,2,3.5,1141415820
+1,1,Toy Story <span class="o">(</span>1995<span class="o">)</span>,Adventure|Animation|Children|Comedy|Fantasy,3,4.0,1439472215
+2,1,Toy Story <span class="o">(</span>1995<span class="o">)</span>,Adventure|Animation|Children|Comedy|Fantasy,4,3.0,1573944252
+3,1,Toy Story <span class="o">(</span>1995<span class="o">)</span>,Adventure|Animation|Children|Comedy|Fantasy,5,4.0,858625949
+</code></pre></div></div>
+
+<h2 id="defining-our-druid-datasource">Defining our Druid datasource</h2>
+
+<p>Druid <a href="https://druid.apache.org/docs/latest/querying/datasource.html">datasources</a> are pretty much standard database tables. They have some additional properties which you can read about, for our purposes, just think of them as a table.</p>
+
+<p>Let’s define a datasource that matches the structure of our <code class="highlighter-rouge">ratings-joined.csv</code> file so we can ingest it. There’s a lot of here but don’t worry, we’ll go over it section by section.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"index"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"spec"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"dataSchema"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"dataSource"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"ratings"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"timestampSpec"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"column"</span><span class="p">:</span><span class="w"> </span><span class="s2">"timestamp"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"posix"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"dimensionsSpec"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"dimensions"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"genres"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"title"</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"metricsSpec"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"count"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"count"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"fieldName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rating"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rating_min"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"floatMin"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"fieldName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rating"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rating_max"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"floatMax"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"fieldName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rating"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rating_sum"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"floatSum"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"fieldName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rating_id"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rating_id_sketch"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"thetaSketch"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"fieldName"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"rating"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"rating_sketch"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"quantilesDoublesSketch"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"fieldName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user_id"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user_id_sketch"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"thetaSketch"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"granularitySpec"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"uniform"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"segmentGranularity"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"year"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"queryGranularity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"day"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"intervals"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"2019-01-01/2020-01-01"</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"ioConfig"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"index"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"listDelimiter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"|"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"inputSource"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"local"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"baseDir"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"/opt/data/datasets/"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"filter"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"ratings-joined.csv"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"inputFormat"</span><span class="w"> </span><span class="p">:</span><span class="w">  </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"csv"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"columns"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"rating_id"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"movie_id"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"title"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"genres"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"user_id"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"rating"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"timestamp"</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nl">"findColumnsFromHeader"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"skipHeaderRows"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"appendToExisting"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>There’s a lot here, so let’s break it down. <sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote">1</a></sup></p>
+
+<h3 id="timestamps">Timestamps</h3>
+
+<p>The <code class="highlighter-rouge">timestampSpec</code> defines the time dimension of our data, which is the <code class="highlighter-rouge">timestamp</code> field as an epoch (seconds) integer. Druid automatically partitions and sorts data by time and creates its segment files using these time values.</p>
+
+<h3 id="dimensions">Dimensions</h3>
+
+<p>The <code class="highlighter-rouge">dimensionSpec</code> defines columns that are stored, unmodified. These can be used for the usual query/sort/filter patterns one would expect.</p>
+
+<h3 id="metrics">Metrics</h3>
+
+<p>The <code class="highlighter-rouge">metricsSpec</code> defines columns that are aggregated at ingestion time. Druid will rollup multiple ingested rows into one and retain summary information about it. This is one of the approaches to compression that greatly speed up queries and save disk space.</p>
+
+<p>We define two <strong>important</strong> metrics here of type <code class="highlighter-rouge">thetaSketch</code> and <code class="highlighter-rouge">quantilesDoublesSketch</code>. These fields are going to be the main drivers for our future query examples and we’ll cover them in more depth in future posts.</p>
+
+<h3 id="granularity">Granularity</h3>
+
+<p>The <code class="highlighter-rouge">granularitySpec</code> defines how rollups are performed and data is stored. The <code class="highlighter-rouge">segmentGranularity</code> defines the time bounds for individual segment files. For the best performance, you’re looking for segment files around <code class="highlighter-rouge">~500mb</code>. <sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote">2</a></sup> In our case, we’re creating one segment file for each <code class="highlighter-rouge">year</code>.</p>
+
+<p>The <code class="highlighter-rouge">queryGranularity</code> value defines the smallest interval of time we can filter/group our data. By setting this value to <code class="highlighter-rouge">day</code>, it means we cannot find individual ratings by hour, minute, or second. Changing this value depends on your use cases, but the larger the <code class="highlighter-rouge">queryGranularity</code>, the better query performance/data savings we’ll receive.</p>
+
+<p>The <code class="highlighter-rouge">intervals</code> value lets us define a time range for “valid” data that should be ingested. If undefined, Druid will detect these time ranges based on the data being ingested but this can increase your memory usage requirements.</p>
+
+<h3 id="io">I/O</h3>
+
+<p>The <code class="highlighter-rouge">ioConfig</code> defines the data we’re ingesting, which is just a single <code class="highlighter-rouge">.csv</code> file. Be sure to note that we’re setting <code class="highlighter-rouge">listDelimiter</code> to <code class="highlighter-rouge">|</code> so the <code class="highlighter-rouge">genres</code> column is properly split and stored as an array. We are also defining the <code class="highlighter-rouge">columns</code> from the CSV. We can let Druid auto-discover these values, but I’ve decided to define them myself so we can enforce snake case naming conventions.</p>
+
+<h2 id="populating-our-datasource">Populating our datasource</h2>
+
+<p><strong>Note:</strong> If you’re running a small cluster with docker-compose, it’s unlikely you have enough available RAM to ingest the file in one go. That’s OK. We’re going to outline the process for creating separate ingestion tasks for each year in the dataset.</p>
+
+<p>Save the datasource JSON document defined above into <code class="highlighter-rouge">ratings-datasource.json</code>. From there, we’re going to want to modify the <code class="highlighter-rouge">intervals</code> value of our <code class="highlighter-rouge">granularitySpec</code> for each individual year within the dataset.</p>
+
+<p>According to the <a href="http://files.grouplens.org/datasets/movielens/ml-25m-README.html">MovieLens README</a>, it should contain records from <code class="highlighter-rouge">1995</code> to <code class="highlighter-rouge">2019</code>, so we’ll start with <code class="highlighter-rouge">1995</code>.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"intervals"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"1995-01-01/1996-01-01"</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Now, we can schedule a Druid index task with a simple <code class="highlighter-rouge">curl</code> command. This will consume our CSV file and create data segments for all data found in <code class="highlighter-rouge">1995</code>. Since we’re also using a <code class="highlighter-rouge">segmentGranuarlity</code> of <code class="highlighter-rouge">year</code>, we’ll only create one segment file for running this task and it will only contain data from <code class="highlighter-rouge">1995</code>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-XPOST</span> <span class="nt">-H</span> <span class="s1">'Content-type: application/json'</span> <span class="nt">-d</span> @ratings-datasource.json http://localhost:8081/druid/indexer/v1/task
+</code></pre></div></div>
+
+<p><img class="img-center" src="/assets/images/posts/druid-ui-index-task.jpg" alt="Screenshot of Druid index task running" /></p>
+
+<p>You should be able to see your <a href="http://localhost:8888/unified-console.html#ingestion">active ingestion task</a> in the console and once completed, you should see a single segment for <code class="highlighter-rouge">1995</code> listed in the <a href="http://localhost:8888/unified-console.html#segments">segments view</a> as well.</p>
+
+<p><img class="img-center" src="/assets/images/posts/druid-ui-segment-one.jpg" alt="Screenshot of Druid segment" /></p>
+
+<p>Now, repeat this process for all of the years in the dataset. Once you’re done, you should have segments for each year from <code class="highlighter-rouge">1995</code> through <code class="highlighter-rouge">2019</code> and have a segment listing something like this.</p>
+
+<p><img class="img-center" src="/assets/images/posts/druid-ui-segment-all.jpg" alt="Screenshot of Druid segment" /></p>
+
+<h2 id="validating-our-datasource">Validating our datasource</h2>
+
+<p>Now that we’re done ingesting all of the MovieLens data, let’s make some simple queries to validate everything is working as expected. Let’s open up the query dashboard in the Druid unified console at <a href="http://localhost:8888/unified-console.html#query">http://localhost:8888/unified-console.html#query</a>.</p>
+
+<p>We can see the total number of records ingested, which aligns to the ~25 million we expect.</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">sum</span><span class="p">(</span><span class="nv">"count"</span><span class="p">)</span> <span class="k">from</span> <span class="n">ratings</span>
+<span class="mi">25000095</span>
+</code></pre></div></div>
+
+<p>We can count individual records stored after rollup, which is about 1/2 of the total ingested.</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">from</span> <span class="n">ratings</span>
+<span class="mi">11484733</span>
+</code></pre></div></div>
+
+<p>Whew, that was quite a bit. If you’ve made it this far, I salute you.
+<img class="img-center" src="/assets/images/posts/finally-play-the-game.gif" alt="Make love not warcraft Southpark" /></p>
+
+<h2 id="whats-next">What’s next?</h2>
+
+<p>In the next post, Active Users, we’ll get into the actual queries and dive into tracking DAU, WAU, MAU over time. Stay tuned!</p>
+
+<hr />
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>Druid data modeling <a href="https://druid.apache.org/docs/latest/ingestion/index.html#druids-data-model">https://druid.apache.org/docs/latest/ingestion/index.html#druids-data-model</a>. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>Optimal segment file sizes <a href="https://druid.apache.org/docs/latest/design/segments.html">https://druid.apache.org/docs/latest/design/segments.html</a> <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+
+
+<section>
+  <p class="return-home"><em><a href="/">Return home</a></em></p>
+</section>
+
+
+</div>
+<div class="footer container-xl px-5 my-5">
+  
+
+
+
+  <footer>
+    <hr class="footer-hr">
+    <ul class="social-links">
+      
+        <li><a href="https://www.routegy.com" target="_blank" title="Employer"><span class="fa fa-2x fa-building social-icon"></span></a></li>
+      
+        <li><a href="https://goo.gl/maps/kUBP3GgPGiG2" target="_blank" title="Location"><span class="fa fa-2x fa-map-marker social-icon"></span></a></li>
+      
+        <li><a href="https://stackoverflow.com/users/84942/ahawker" target="_blank" title="Stack Overflow"><span class="fa fa-2x fa-stack-overflow social-icon"></span></a></li>
+      
+        <li><a href="https://github.com/ahawker" target="_blank" title="GitHub"><span class="fa fa-2x fa-github-alt social-icon"></span></a></li>
+      
+        <li><a href="https://linkedin.com/in/ahawker" target="_blank" title="LinkedIn"><span class="fa fa-2x fa-linkedin-square social-icon"></span></a></li>
+      
+        <li><a href="https://twitter.com/rekwah" target="_blank" title="Twitter"><span class="fa fa-2x fa-twitter social-icon"></span></a></li>
+      
+        <li><a href="mailto:andrew.r.hawker@gmail.com" target="_blank" title="Email"><span class="fa fa-2x fa-envelope social-icon"></span></a></li>
+      
+        <li><a href="/feed.xml" target="_blank" title="RSS"><span class="fa fa-2x fa-rss social-icon"></span></a></li>
+      
+        <li><a href="/assets/resume.pdf" target="_blank" title="Resume"><span class="fa fa-2x fa-file social-icon"></span></a></li>
+        
+    </ul>
+  <div class="credits">
+    <span>&copy; 2013 - 2021 &nbsp;&nbsp;ANDREW HAWKER</span></br> <br>
+    <span>Code for this website can be found <a href="https://github.com/ahawker/personal-site">here</a>.</span>
+  </div>  
+</footer>
+
+</div>
+</body>
+</html>
+
