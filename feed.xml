@@ -1,4 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://andrew.hawker.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://andrew.hawker.io/" rel="alternate" type="text/html" /><updated>2021-02-12T08:25:16-08:00</updated><id>https://andrew.hawker.io/feed.xml</id><title type="html">Andrew Hawker</title><subtitle>Personal website of Andrew Hawker</subtitle><author><name>Andrew Hawker</name></author><entry><title type="html">Druid Queries - Data Schema</title><link href="https://andrew.hawker.io/writings/2021/02/12/druid-queries-data-schema/" rel="alternate" type="text/html" title="Druid Queries - Data Schema" /><published>2021-02-12T00:23:00-08:00</published><updated>2021-02-12T00:23:00-08:00</updated><id>https://andrew.hawker.io/writings/2021/02/12/druid-queries-data-schema</id><content type="html" xml:base="https://andrew.hawker.io/writings/2021/02/12/druid-queries-data-schema/">&lt;p&gt;This is part &lt;strong&gt;one&lt;/strong&gt; of a blog post series about &lt;strong&gt;Druid Queries&lt;/strong&gt;.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://andrew.hawker.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://andrew.hawker.io/" rel="alternate" type="text/html" /><updated>2021-03-01T22:14:50-08:00</updated><id>https://andrew.hawker.io/feed.xml</id><title type="html">Andrew Hawker</title><subtitle>Personal website of Andrew Hawker</subtitle><author><name>Andrew Hawker</name></author><entry><title type="html">Migrate Divvy Window Manager Configuration</title><link href="https://andrew.hawker.io/dailies/2021/03/01/migrate-divvy-configuration/" rel="alternate" type="text/html" title="Migrate Divvy Window Manager Configuration" /><published>2021-03-01T11:33:00-08:00</published><updated>2021-03-01T11:33:00-08:00</updated><id>https://andrew.hawker.io/dailies/2021/03/01/migrate-divvy-configuration</id><content type="html" xml:base="https://andrew.hawker.io/dailies/2021/03/01/migrate-divvy-configuration/">&lt;p&gt;I’ve been working to migrate to a new laptop and have run into a problem with configuration for &lt;a href=&quot;https://mizage.com/divvy/&quot;&gt;Divvy&lt;/a&gt;, my window manager.&lt;/p&gt;
+
+&lt;p&gt;If you’re also trying to figure this out, your first google search will take you to a &lt;a href=&quot;http://alexeymk.com/2013/06/18/migrating-divvy-configurations-between-computers.html&quot;&gt;blog post from 2013&lt;/a&gt; which just says to copy the preferences file at &lt;code class=&quot;highlighter-rouge&quot;&gt;~/Library/Preferences/com.mizage.direct.Divvy.plist&lt;/code&gt; to your new machine.&lt;/p&gt;
+
+&lt;p&gt;This doesn’t work. Once you copy the config and re-launch Divvy, it immediately just overwrites the file.&lt;/p&gt;
+
+&lt;p&gt;The blog post also links to a &lt;a href=&quot;http://mizage.clarify-it.com/d/nxr9qg&quot;&gt;native guide (2016)&lt;/a&gt; from Divvy but the link is dead.&lt;/p&gt;
+
+&lt;p&gt;Fun.&lt;/p&gt;
+
+&lt;p&gt;Long story short, you can do this with an &lt;code class=&quot;highlighter-rouge&quot;&gt;export&lt;/code&gt; + &lt;code class=&quot;highlighter-rouge&quot;&gt;import&lt;/code&gt; using OSX &lt;a href=&quot;https://en.wikipedia.org/wiki/Defaults_(software)&quot;&gt;defaults&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;On your old machine, export your settings into &lt;code class=&quot;highlighter-rouge&quot;&gt;com.mizage.direct.Divvy.plist&lt;/code&gt; with:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;defaults &lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;com.mizage.direct.Divvy com.mizage.direct.Divvy.plist
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Copy this binary plist to your new machine and import your settings with:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;defaults import com.mizage.direct.Divvy com.mizage.direct.Divvy.plist
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; These settings contain your Divvy license key so be sure to treat it as a secret.&lt;/p&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="dailies" /><category term="osx" /><category term="mac os" /><category term="divvy" /><category term="defaults" /><summary type="html">I’ve been working to migrate to a new laptop and have run into a problem with configuration for Divvy, my window manager.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Druid Queries - Data Schema</title><link href="https://andrew.hawker.io/writings/2021/02/12/druid-queries-data-schema/" rel="alternate" type="text/html" title="Druid Queries - Data Schema" /><published>2021-02-12T00:23:00-08:00</published><updated>2021-02-12T00:23:00-08:00</updated><id>https://andrew.hawker.io/writings/2021/02/12/druid-queries-data-schema</id><content type="html" xml:base="https://andrew.hawker.io/writings/2021/02/12/druid-queries-data-schema/">&lt;p&gt;This is part &lt;strong&gt;one&lt;/strong&gt; of a blog post series about &lt;strong&gt;Druid Queries&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Part 2: Active Users (Coming soon)&lt;/li&gt;
@@ -1294,124 +1316,4 @@ Memory Usage: 20 MB, less than 75.98% of Python3 online submissions for Remove I
         &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
         &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="dailies" /><category term="django" /><category term="django-rest-framework" /><category term="ngrok" /><summary type="html">By default, Django REST Framework contains an implementation for managing API versions via hostname, e.g. v1.example.org. The downside of this implementation is that it doesn’t support N level nesting of subdomains to parse the version value, e.g. v1.api.example.org or running local instances behind proxies like ngrok.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">How touchless customer feedback is evolving</title><link href="https://andrew.hawker.io/writings/2020/07/23/how-touchless-customer-feedback-is-evolving/" rel="alternate" type="text/html" title="How touchless customer feedback is evolving" /><published>2020-07-23T04:07:00-07:00</published><updated>2020-07-23T04:07:00-07:00</updated><id>https://andrew.hawker.io/writings/2020/07/23/how-touchless-customer-feedback-is-evolving</id><content type="html" xml:base="https://andrew.hawker.io/writings/2020/07/23/how-touchless-customer-feedback-is-evolving/">&lt;p&gt;&lt;img class=&quot;img-center&quot; src=&quot;/assets/images/posts/ron-swanson-phone-smash.jpg&quot; alt=&quot;Ron Swanson smashing cell phone with a hammer&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Touchless customer feedback isn’t new. We’ve all experienced our fair share of day old email surveys and yelling magical incantations to an &lt;a href=&quot;https://en.wikipedia.org/wiki/Interactive_voice_response&quot;&gt;interactive voice response&lt;/a&gt; system on the telephone. While these systems do provide some value, the COVID-19 pandemic is demonstrating that your customer feedback tools must evolve if they’re going to serve you and your customers in a rapidly changing environment.&lt;/p&gt;
-
-&lt;p&gt;Let’s discuss some of the existing tools, gaps in their ability to perform touchless feedback, and how the landscape is evolving.&lt;/p&gt;
-
-&lt;h2 id=&quot;why-care-about-customer-feedback&quot;&gt;Why care about customer feedback?&lt;/h2&gt;
-
-&lt;p&gt;Regardless of industry, providing top notch customer experience &lt;strong&gt;is&lt;/strong&gt; your business.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.reviewtrackers.com/reports/online-reviews-survey&quot;&gt;94% of customers&lt;/a&gt; avoid businesses with negative reviews.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.pwc.com/us/en/advisory-services/publications/consumer-intelligence-series/pwc-consumer-intelligence-series-customer-experience.pdf#page=9&quot;&gt;32% of customers&lt;/a&gt; will stop doing business with a brand after &lt;strong&gt;one&lt;/strong&gt; bad experience.&lt;/li&gt;
-  &lt;li&gt;When customers have a great experience, they are willing to pay up to a &lt;a href=&quot;https://www.pwc.com/us/en/advisory-services/publications/consumer-intelligence-series/pwc-consumer-intelligence-series-customer-experience.pdf#page=10&quot;&gt;16% price premium&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Your business survives and thrives by retaining customers and creating fans. The best way to do this is to talk to them, listen to their feedback, and take action on it.&lt;/p&gt;
-
-&lt;h2 id=&quot;touchless-customer-feedback-we-already-do-that&quot;&gt;Touchless customer feedback? We already do that.&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“Please stay on the line to complete a brief survey…”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;strong&gt;Click.&lt;/strong&gt; These are rarely, if ever, brief.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“Please press these smiley faces in our heavily trafficked airport bathroom…”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;strong&gt;Yuck.&lt;/strong&gt; When was this last cleaned?&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“Please respond to our email survey regarding your visit from last tuesday…”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;strong&gt;Hrm.&lt;/strong&gt; I think it was OK but I don’t really remember anymore.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“Text HELP to 83641…”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;strong&gt;Where does this go?&lt;/strong&gt;  I don’t want robocalls.&lt;/p&gt;
-
-&lt;p&gt;Businesses need to design a seamless customer experience for providing feedback. This may seem intuitive yet it is commonly overlooked. If you’re going to ask for their help to improve your business, don’t punish them for it. Make it quick, convenient, and timely.&lt;/p&gt;
-
-&lt;h2 id=&quot;do-it-and-do-it-well&quot;&gt;Do it and do it well.&lt;/h2&gt;
-
-&lt;p&gt;&lt;img class=&quot;img-right&quot; src=&quot;/assets/images/posts/routegy-nps.jpg&quot; alt=&quot;A touchpoint showing Routegy NPS survey question&quot; width=&quot;25%&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Quick&lt;/strong&gt;, &lt;a href=&quot;https://thecustomerfocus.com/customer-feedback/&quot;&gt;one-question surveys&lt;/a&gt; provide great insight into how a customer feels.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;“The next time you need service, would you want the same person to help? Yes/No?”&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;“On a scale of one to ten, what’s the likelihood you would recommend Routegy to a friend or colleague?”&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;“Did you have a positive interaction with us today? Yes/No?”&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;These short surveys give you an overall sense of their experience and open the door to future communication where you can dive deeper with more thorough questions.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://hyken.com/customer-experience-2/big-trend-customer-experience-cx-convenience/&quot;&gt;&lt;strong&gt;Convenient&lt;/strong&gt;&lt;/a&gt; feedback should take no more than 30 seconds to complete. Response rates drop precipitously as &lt;a href=&quot;https://www.surveycrest.com/blog/survey-fatigue-101&quot;&gt;survey fatigue&lt;/a&gt; sets in. Feedback tools must have context about the interaction so time is not wasted asking unnecessary questions.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;“How was your experience at our South Lake Union location today?”&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;“Did you enjoy your room service in #2501?”&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Timely&lt;/strong&gt;, instantaneous feedback is actionable. Delayed, stale feedback is not. It’s nearly impossible to remediate a negative customer experience well after it happened. Act quickly to maintain customer trust.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;“We’re sorry your experience earlier today didn’t meet expectations. May we reach out to you and make this right?”&lt;/em&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;will-existing-tools-help-you-accomplish-your-goals&quot;&gt;Will existing tools help you accomplish your goals?&lt;/h2&gt;
-
-&lt;p&gt;IVR/telephone feedback systems don’t have much evolutionary potential and have remained relatively unchanged for years. Customers shouldn’t have to call a service center and work through a touch-tone interface to reach a representative. If already on the premises, they should be able to provide feedback about their experience exactly where they’re standing.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;img-left&quot; src=&quot;/assets/images/posts/bathroom-feedback-sign.jpg&quot; alt=&quot;A sign with buttons on a airport bathroom wall asking about the experience&quot; width=&quot;30%&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Mobile apps with in-app feedback are in a favorable spot but have barriers to entry with installation and account creation. This makes adoption difficult for high churn businesses like tourism and quick interactions like Grab &amp;amp; Go food pickup.&lt;/p&gt;
-
-&lt;p&gt;SMS feedback systems, with their 160 characters, are limited by the amount of information they can ask. Questions that require context about the customer, their interaction, or nuance are near impossible to perform. These systems don’t capture the customer narrative well and are best left to highly structured questions with fixed responses.&lt;/p&gt;
-
-&lt;p&gt;Feedback terminals, commonly seen in airport bathrooms, are falling out of favor with physical buttons that must be pressed. These require constant cleaning and are likely to see a steady decline in usage as cleanliness becomes a driving factor. The worst customer feedback systems are the ones that customers &lt;em&gt;don’t&lt;/em&gt; use.&lt;/p&gt;
-
-&lt;p&gt;“Only 31% of men and 65% of women wash their hands after using the bathroom” according to the Centers for Disease Control and Prevention (CDC).&lt;/p&gt;
-
-&lt;h2 id=&quot;how-is-the-landscape-evolving&quot;&gt;How is the landscape evolving?&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“Alexa, the room service tasted great.”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Smart speaker adoption in industries like hospitality show ways to capture customer feedback immediately after interactions with concierge or room service staff.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;img-right&quot; src=&quot;/assets/images/posts/touchless-bathroom-sensor.jpg&quot; alt=&quot;A sign with touchless sensors asking about bathroom experience&quot; width=&quot;30%&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Feedback terminals are evolving into gesture sensors and QR/NFC based systems. Waving your hand in front of a sensor or tapping your phone is a much more sanitary approach to gathering feedback in high traffic areas.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;img-left&quot; src=&quot;/assets/images/posts/touchpoint-comment-card.jpg&quot; alt=&quot;A touchpoint showing a restaurant comment card&quot; width=&quot;30%&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Paper feedback, like restaurant comment cards, are going the way of the dodo. These are quickly evolving to QR/NFC table stands or integrations into your email receipts. Restaurants receive instantaneous feedback, giving them a chance to remediate a bad experience immediately and avoid negative Yelp reviews.&lt;/p&gt;
-
-&lt;p&gt;With sensors and QR/NFC based systems, customer feedback is being captured at the point of interaction, not minutes, hours, day later through an isolated email or text. Did you have a great experience with your bank teller? Tap your phone right here on the counter to let them know that your experience with Johnathan in the Bellevue branch was wonderful.&lt;/p&gt;
-
-&lt;h2 id=&quot;feedback-across-all-areas-of-your-business&quot;&gt;Feedback across all areas of your business&lt;/h2&gt;
-
-&lt;p&gt;While a scoring system like &lt;a href=&quot;https://www.netpromoter.com/know/&quot;&gt;NPS&lt;/a&gt; helps you capture broad customer sentiment, businesses should look to capture localized feedback at common customer touchpoints. Immediate, actionable feedback for these will help you improve the experience for all future customers, not just the ones providing it.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;img-right&quot; src=&quot;/assets/images/posts/customer-feedback-survey.jpg&quot; alt=&quot;A sign in a doorway asking for customer feedback with a QR code&quot; width=&quot;30%&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Are the bathrooms dirty or out of hand soap?&lt;/p&gt;
-
-&lt;p&gt;Is the 4th floor too hot or cold?&lt;/p&gt;
-
-&lt;p&gt;Is the music on the patio too loud?&lt;/p&gt;
-
-&lt;p&gt;Is the cell service/WiFi poor in certain areas?&lt;/p&gt;
-
-&lt;p&gt;Don’t think of these as issues for building management, maintenance, or IT. These are customer touchpoints with your business. Using a unified system to capture feedback across your business enables your customers to provide feedback whenever and wherever they are.&lt;/p&gt;
-
-&lt;h2 id=&quot;how-does-routegy-solve-touchless-feedback&quot;&gt;How does Routegy solve touchless feedback?&lt;/h2&gt;
-
-&lt;p&gt;Routegy makes it easy for people to interact with your business in a contactless, app-less way. Purchases, issues, requests, and feedback are made by interacting with QR codes, NFC tags, sensors, and smart speakers. Collected information and context are sent to the destination of your choice: notifications via SMS or Slack, integrations with your existing software, and anything in-between; no code required.&lt;/p&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="writings" /><category term="routegy" /><category term="touchless" /><category term="contactless" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Andrew Hawker</name><email>andrew.r.hawker@gmail.com</email></author><category term="dailies" /><category term="django" /><category term="django-rest-framework" /><category term="ngrok" /><summary type="html">By default, Django REST Framework contains an implementation for managing API versions via hostname, e.g. v1.example.org. The downside of this implementation is that it doesn’t support N level nesting of subdomains to parse the version value, e.g. v1.api.example.org or running local instances behind proxies like ngrok.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" /><media:content medium="image" url="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

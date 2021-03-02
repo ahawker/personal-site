@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8" lang="en">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Andrew Hawker">
+  <meta name="generator" content="jekyll">
+  
+  <meta name="dcterms.date" content="2021-03-01 11:33:00 -0800">
+  
+  
+  <meta name="keywords" content="osx mac os divvy defaults">
+  
+
+  
+  <link rel="canonical" href="https://andrew.hawker.io/dailies/2021/03/01/migrate-divvy-configuration/" />
+  
+
+  
+  <title>Migrate Divvy Window Manager Configuration – Andrew Hawker</title>
+  
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
+  <link rel="stylesheet" href="/assets/styles/et-book.min.css">
+  <link rel="stylesheet" href="/assets/styles/site.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+
+  <link rel="manifest" href="/assets/site.webmanifest">
+
+  <meta name="msapplication-TileColor" content="#2d89ef">
+  <meta name="msapplication-config" content="/assets/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- RSS -->
+  <link type="application/atom+xml" rel="alternate" href="https://andrew.hawker.io/feed.xml" title="Andrew Hawker" />
+
+  <!-- Google Analytics -->
+  
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36365256-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  
+
+  <!-- SEO -->
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Migrate Divvy Window Manager Configuration | Andrew Hawker</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Migrate Divvy Window Manager Configuration" />
+<meta name="author" content="Andrew Hawker" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I’ve been working to migrate to a new laptop and have run into a problem with configuration for Divvy, my window manager." />
+<meta property="og:description" content="I’ve been working to migrate to a new laptop and have run into a problem with configuration for Divvy, my window manager." />
+<link rel="canonical" href="https://andrew.hawker.io/dailies/2021/03/01/migrate-divvy-configuration/" />
+<meta property="og:url" content="https://andrew.hawker.io/dailies/2021/03/01/migrate-divvy-configuration/" />
+<meta property="og:site_name" content="Andrew Hawker" />
+<meta property="og:image" content="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-01T11:33:00-08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:image" content="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" />
+<meta property="twitter:title" content="Migrate Divvy Window Manager Configuration" />
+<meta name="twitter:site" content="@rekwah" />
+<meta name="twitter:creator" content="@rekwah" />
+<script type="application/ld+json">
+{"headline":"Migrate Divvy Window Manager Configuration","dateModified":"2021-03-01T11:33:00-08:00","datePublished":"2021-03-01T11:33:00-08:00","url":"https://andrew.hawker.io/dailies/2021/03/01/migrate-divvy-configuration/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/dailies/2021/03/01/migrate-divvy-configuration/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"I’ve been working to migrate to a new laptop and have run into a problem with configuration for Divvy, my window manager.","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+
+<body>
+<div class="header container-xl px-5 my-5 markdown-body">
+  
+
+
+
+  
+<header>
+  
+  <h1>
+    <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+    Migrate Divvy Window Manager Configuration
+  </h1>
+  
+  <div class="col-12">
+    
+    <p class="h4 color-grey">March 1, 2021</p>
+    
+  </div>
+  <div class="col-12">
+    
+    <ul class="tags">
+    
+      <li class="category"><a href="/archives/category/dailies">DAILIES</a></li>
+    
+    
+    
+    
+      <li class="tag"><a href="/archives/tag/osx">OSX (1)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/mac-os">MAC OS (1)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/divvy">DIVVY (1)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/defaults">DEFAULTS (1)</a></li>
+    
+    
+    </ul>
+  </div>
+</header>
+
+
+</div>
+<div class="content container-xl px-5 my-5 markdown-body">
+  <p>I’ve been working to migrate to a new laptop and have run into a problem with configuration for <a href="https://mizage.com/divvy/">Divvy</a>, my window manager.</p>
+
+<p>If you’re also trying to figure this out, your first google search will take you to a <a href="http://alexeymk.com/2013/06/18/migrating-divvy-configurations-between-computers.html">blog post from 2013</a> which just says to copy the preferences file at <code class="highlighter-rouge">~/Library/Preferences/com.mizage.direct.Divvy.plist</code> to your new machine.</p>
+
+<p>This doesn’t work. Once you copy the config and re-launch Divvy, it immediately just overwrites the file.</p>
+
+<p>The blog post also links to a <a href="http://mizage.clarify-it.com/d/nxr9qg">native guide (2016)</a> from Divvy but the link is dead.</p>
+
+<p>Fun.</p>
+
+<p>Long story short, you can do this with an <code class="highlighter-rouge">export</code> + <code class="highlighter-rouge">import</code> using OSX <a href="https://en.wikipedia.org/wiki/Defaults_(software)">defaults</a>.</p>
+
+<p>On your old machine, export your settings into <code class="highlighter-rouge">com.mizage.direct.Divvy.plist</code> with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>defaults <span class="nb">export </span>com.mizage.direct.Divvy com.mizage.direct.Divvy.plist
+</code></pre></div></div>
+
+<p>Copy this binary plist to your new machine and import your settings with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>defaults import com.mizage.direct.Divvy com.mizage.direct.Divvy.plist
+</code></pre></div></div>
+
+<p><strong>Note:</strong> These settings contain your Divvy license key so be sure to treat it as a secret.</p>
+
+
+
+<section>
+  <p class="return-home"><em><a href="/">Return home</a></em></p>
+</section>
+
+
+</div>
+<div class="footer container-xl px-5 my-5">
+  
+
+
+
+  <footer>
+    <hr class="footer-hr">
+    <ul class="social-links">
+      
+        <li><a href="https://www.routegy.com" target="_blank" title="Employer"><span class="fa fa-2x fa-building social-icon"></span></a></li>
+      
+        <li><a href="https://goo.gl/maps/kUBP3GgPGiG2" target="_blank" title="Location"><span class="fa fa-2x fa-map-marker social-icon"></span></a></li>
+      
+        <li><a href="https://stackoverflow.com/users/84942/ahawker" target="_blank" title="Stack Overflow"><span class="fa fa-2x fa-stack-overflow social-icon"></span></a></li>
+      
+        <li><a href="https://github.com/ahawker" target="_blank" title="GitHub"><span class="fa fa-2x fa-github-alt social-icon"></span></a></li>
+      
+        <li><a href="https://linkedin.com/in/ahawker" target="_blank" title="LinkedIn"><span class="fa fa-2x fa-linkedin-square social-icon"></span></a></li>
+      
+        <li><a href="https://twitter.com/rekwah" target="_blank" title="Twitter"><span class="fa fa-2x fa-twitter social-icon"></span></a></li>
+      
+        <li><a href="mailto:andrew.r.hawker@gmail.com" target="_blank" title="Email"><span class="fa fa-2x fa-envelope social-icon"></span></a></li>
+      
+        <li><a href="/feed.xml" target="_blank" title="RSS"><span class="fa fa-2x fa-rss social-icon"></span></a></li>
+      
+        <li><a href="/assets/resume.pdf" target="_blank" title="Resume"><span class="fa fa-2x fa-file social-icon"></span></a></li>
+        
+    </ul>
+  <div class="credits">
+    <span>&copy; 2013 - 2021 &nbsp;&nbsp;ANDREW HAWKER</span></br> <br>
+    <span>Code for this website can be found <a href="https://github.com/ahawker/personal-site">here</a>.</span>
+  </div>  
+</footer>
+
+</div>
+</body>
+</html>
+
