@@ -4,5 +4,9 @@
   },
   "devDependencies": {
     "@primer/sync": "2.0.0"
+  },
+  "volta": {
+    "node": "14.16.0",
+    "yarn": "1.22.10"
   }
 }
