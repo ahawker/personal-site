@@ -78,7 +78,7 @@
 <meta name="twitter:site" content="@rekwah" />
 <meta name="twitter:creator" content="@rekwah" />
 <script type="application/ld+json">
-{"headline":"Android app testing with Android Studio (Gradle) and AppThwack","dateModified":"2013-08-28T04:43:00-07:00","datePublished":"2013-08-28T04:43:00-07:00","url":"https://andrew.hawker.io/writings/2013/08/28/android-app-testing-android-studio-gradle/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2013/08/28/android-app-testing-android-studio-gradle/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"Heres a quick tutorial to get started with AppThwack, Android Studio and Gradle. Once you’re up and running you’ll be able to kick off tests on our device lab from the IDE or command line. You can run our built-in compatibility tests or run your own (JUnit/Robotium, Calabash, MonkeyTalk, etc), giving you full control over when, what, and where youre testing your app.","@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"headline":"Android app testing with Android Studio (Gradle) and AppThwack","dateModified":"2013-08-28T04:43:00-07:00","datePublished":"2013-08-28T04:43:00-07:00","url":"https://andrew.hawker.io/writings/2013/08/28/android-app-testing-android-studio-gradle/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2013/08/28/android-app-testing-android-studio-gradle/"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"Heres a quick tutorial to get started with AppThwack, Android Studio and Gradle. Once you’re up and running you’ll be able to kick off tests on our device lab from the IDE or command line. You can run our built-in compatibility tests or run your own (JUnit/Robotium, Calabash, MonkeyTalk, etc), giving you full control over when, what, and where youre testing your app.","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
@@ -139,7 +139,7 @@ giving you full control over when, what, and where youre testing your app.</p>
 
 <h2 id="configure-gradle">Configure Gradle</h2>
 
-<p><sup id="fnref:project-layout" role="doc-noteref"><a href="#fn:project-layout" class="footnote">1</a></sup> To add AppThwack support to an existing Android Studio project, we must modify the project specific build.gradle file.
+<p><sup id="fnref:project-layout" role="doc-noteref"><a href="#fn:project-layout" class="footnote" rel="footnote">1</a></sup> To add AppThwack support to an existing Android Studio project, we must modify the project specific build.gradle file.
 Be sure to select your app specific build.gradle file as the top-level file is for configuration options across all projects.</p>
 
 <p><img src="/assets/images/posts/gradle-appthwack-project-layout.png" alt="Project Layout" /></p>
@@ -170,7 +170,7 @@ Be sure to select your app specific build.gradle file as the top-level file is f
 The first step is adding your account <a href="http://web.archive.org/web/20140717021901/https://appthwack.com/user/profile">API Key</a>,
 the target project to use and a pool of devices to test on.</p>
 
-<p><sup id="fnref:api-key" role="doc-noteref"><a href="#fn:api-key" class="footnote">2</a></sup></p>
+<p><sup id="fnref:api-key" role="doc-noteref"><a href="#fn:api-key" class="footnote" rel="footnote">2</a></sup></p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>appthwack {
     apiKey='...'
     project='My Android App Project'
@@ -187,7 +187,7 @@ Within the same appthwack closure, we can configure JUnit/Robotium, Calabash or 
 
 <p>Selecting a JUnit run will automatically use the test APK which is built with your application.</p>
 
-<p><sup id="fnref:test-filter" role="doc-noteref"><a href="#fn:test-filter" class="footnote">3</a></sup></p>
+<p><sup id="fnref:test-filter" role="doc-noteref"><a href="#fn:test-filter" class="footnote" rel="footnote">3</a></sup></p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>appthwack {
     // ...
     junit (
@@ -201,7 +201,7 @@ Within the same appthwack closure, we can configure JUnit/Robotium, Calabash or 
 
 <p>Selecting a Calabash run will test your newly built application with the selected features.</p>
 
-<p><sup id="fnref:calabash-path" role="doc-noteref"><a href="#fn:calabash-path" class="footnote">4</a></sup>
+<p><sup id="fnref:calabash-path" role="doc-noteref"><a href="#fn:calabash-path" class="footnote" rel="footnote">4</a></sup>
 [^calabash-tags]</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>appthwack {
     // ...
@@ -219,8 +219,8 @@ Within the same appthwack closure, we can configure JUnit/Robotium, Calabash or 
 
 <p>Selecting an AppExplorer run will test your newly built application with the AppThwack AppExplorer and Exerciser Monkey.</p>
 
-<p><sup id="fnref:explorer-username" role="doc-noteref"><a href="#fn:explorer-username" class="footnote">5</a></sup>
-<sup id="fnref:explorer-username:1" role="doc-noteref"><a href="#fn:explorer-username" class="footnote">5</a></sup>
+<p><sup id="fnref:explorer-username" role="doc-noteref"><a href="#fn:explorer-username" class="footnote" rel="footnote">5</a></sup>
+<sup id="fnref:explorer-username:1" role="doc-noteref"><a href="#fn:explorer-username" class="footnote" rel="footnote">5</a></sup>
 [^explorer-launchdata]
 [^explorer-eventcount]
 [^explorer-monkeyseed]</p>
@@ -253,7 +253,7 @@ Within the same appthwack closure, we can configure JUnit/Robotium, Calabash or 
 
 <h3 id="add-a-new-run-configuration">Add a new Run Configuration</h3>
 
-<p><sup id="fnref:add-configuration" role="doc-noteref"><a href="#fn:add-configuration" class="footnote">6</a></sup> Select <strong>Run &gt; Edit Configurations</strong> from the Android Studio menu bar.</p>
+<p><sup id="fnref:add-configuration" role="doc-noteref"><a href="#fn:add-configuration" class="footnote" rel="footnote">6</a></sup> Select <strong>Run &gt; Edit Configurations</strong> from the Android Studio menu bar.</p>
 
 <p><img src="/assets/images/posts/gradle-appthwack-task.png" alt="Add Configuration" /></p>
 
@@ -270,7 +270,7 @@ Within the same appthwack closure, we can configure JUnit/Robotium, Calabash or 
 
 <h3 id="android-studio">Android Studio</h3>
 
-<p><sup id="fnref:run-configuration" role="doc-noteref"><a href="#fn:run-configuration" class="footnote">7</a></sup> Select our <strong>Run Tests on AppThwack</strong> configuration from the drop down on the menu bar and hit play!</p>
+<p><sup id="fnref:run-configuration" role="doc-noteref"><a href="#fn:run-configuration" class="footnote" rel="footnote">7</a></sup> Select our <strong>Run Tests on AppThwack</strong> configuration from the drop down on the menu bar and hit play!</p>
 
 <p><img src="/assets/images/posts/gradle-appthwack-run-configuration.png" alt="Run Configuration" /></p>
 
@@ -296,7 +296,7 @@ Within the same appthwack closure, we can configure JUnit/Robotium, Calabash or 
 <span class="o">[</span>AppThwack] Congrats! See your <span class="nb">test </span>results at https://appthwack.com/project/demoproject/run/24219.
 </code></pre></div></div>
 
-<p>Now you can kick off AppThwack test runs from your shell or IDE. <sup id="fnref:archived" role="doc-noteref"><a href="#fn:archived" class="footnote">8</a></sup></p>
+<p>Now you can kick off AppThwack test runs from your shell or IDE. <sup id="fnref:archived" role="doc-noteref"><a href="#fn:archived" class="footnote" rel="footnote">8</a></sup></p>
 
 <p>This post was migrated from the <a href="https://blog.appthwack.com">AppThwack Blog</a> which is no longer available.
   A copy of the original post can be viewed from <a href="http://web.archive.org/web/20140717021901/http://blog.appthwack.com/android-app-testing-android-studio-gradle/">archive.org</a>.</p>

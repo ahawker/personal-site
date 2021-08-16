@@ -78,7 +78,7 @@
 <meta name="twitter:site" content="@rekwah" />
 <meta name="twitter:creator" content="@rekwah" />
 <script type="application/ld+json">
-{"headline":"ULID’s in Python","dateModified":"2019-11-05T09:53:00-08:00","datePublished":"2019-11-05T09:53:00-08:00","url":"https://andrew.hawker.io/writings/2019/11/05/ulid-in-python/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2019/11/05/ulid-in-python/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"ULID stands for Universally Unique Lexicographically Sortable Identifier.","@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"headline":"ULID’s in Python","dateModified":"2019-11-05T09:53:00-08:00","datePublished":"2019-11-05T09:53:00-08:00","url":"https://andrew.hawker.io/writings/2019/11/05/ulid-in-python/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2019/11/05/ulid-in-python/"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"ULID stands for Universally Unique Lexicographically Sortable Identifier.","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
@@ -146,7 +146,7 @@
 
 <h3 id="structure">Structure</h3>
 
-<p>A ULID is a 128 bit/16 byte/26 character value with the <a href="https://en.wikipedia.org/wiki/Bit_numbering#Most_significant_bit">most significant bit</a> first. <sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote">1</a></sup></p>
+<p>A ULID is a 128 bit/16 byte/26 character value with the <a href="https://en.wikipedia.org/wiki/Bit_numbering#Most_significant_bit">most significant bit</a> first. <sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup></p>
 
 <p>The <a href="https://ulid.readthedocs.io/en/latest/ulid.html#ulid.ulid.ULID">ULID</a> type supports a number of different representations.</p>
 
@@ -174,7 +174,7 @@
 
 <h3 id="timestamp">Timestamp</h3>
 
-<p>The timestamp value is stored in the first 48 bits/6 bytes/10 characters. It is a Unix timestamp in milliseconds. <sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote">2</a></sup></p>
+<p>The timestamp value is stored in the first 48 bits/6 bytes/10 characters. It is a Unix timestamp in milliseconds. <sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup></p>
 
 <p>The <a href="https://ulid.readthedocs.io/en/latest/ulid.html#ulid.ulid.Timestamp">Timestamp</a> type supports a number of different representations.</p>
 
@@ -197,7 +197,7 @@
 
 <h3 id="randomness">Randomness</h3>
 
-<p>The randomness value is stored in the remaining 80 bits/8 bytes/16 characters. It is a cryptographically secure random value. <sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote">3</a></sup></p>
+<p>The randomness value is stored in the remaining 80 bits/8 bytes/16 characters. It is a cryptographically secure random value. <sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup></p>
 
 <p>The <a href="https://ulid.readthedocs.io/en/latest/ulid.html#ulid.ulid.Randomness">Randomess</a> type supports a number of different representations.</p>
 
@@ -216,7 +216,7 @@
 
 <h3 id="crockfords-base32">Crockford’s Base32</h3>
 
-<p>When represented as a string, ULID’s use Crockford’s Base32 encoding. This encoding uses 5 bits per character, gaining an extra bit per character over hexadecimal (Base16). Crockford’s implementation excludes the letters “I”, “L”, and “O” to avoid visual confusion with digits “0” and “1”. It also excludes the letter “U” to reduce likelyhood of obsenities.<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote">4</a></sup></p>
+<p>When represented as a string, ULID’s use Crockford’s Base32 encoding. This encoding uses 5 bits per character, gaining an extra bit per character over hexadecimal (Base16). Crockford’s implementation excludes the letters “I”, “L”, and “O” to avoid visual confusion with digits “0” and “1”. It also excludes the letter “U” to reduce likelyhood of obsenities.<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">4</a></sup></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">ulid</span><span class="o">.</span><span class="n">base32</span><span class="o">.</span><span class="n">ENCODING</span>
 <span class="s">'0123456789ABCDEFGHJKMNPQRSTVWXYZ'</span>
@@ -256,7 +256,7 @@
 
 <h3 id="sorting">Sorting</h3>
 
-<p>Since the <a href="./#timestamp">timestamp</a> value is the first 48 bits/6 bytes/10 characters of a ULID value, they can be lexicographically sorted with millisecond precision. The ulid spec also defines support for monotonically<sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote">5</a></sup> increasing randomness values to maintain sort order within the same millisecond. However, due to some questions/concerns/discussion<sup id="fnref:6" role="doc-noteref"><a href="#fn:6" class="footnote">6</a></sup> around the implementation, it is not <em>yet</em> supported by the <code class="highlighter-rouge">ulid-py</code> package.</p>
+<p>Since the <a href="./#timestamp">timestamp</a> value is the first 48 bits/6 bytes/10 characters of a ULID value, they can be lexicographically sorted with millisecond precision. The ulid spec also defines support for monotonically<sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote" rel="footnote">5</a></sup> increasing randomness values to maintain sort order within the same millisecond. However, due to some questions/concerns/discussion<sup id="fnref:6" role="doc-noteref"><a href="#fn:6" class="footnote" rel="footnote">6</a></sup> around the implementation, it is not <em>yet</em> supported by the <code class="highlighter-rouge">ulid-py</code> package.</p>
 
 <p><strong>Update (11/10/2020):</strong> As of Sept. 2020, in the <code class="highlighter-rouge">1.1.0</code> release, the <code class="highlighter-rouge">ulid-py</code> package has monotonic support. It has implementations using a lock protected counter or using microsecond precision clocks.</p>
 

@@ -78,7 +78,7 @@
 <meta name="twitter:site" content="@rekwah" />
 <meta name="twitter:creator" content="@rekwah" />
 <script type="application/ld+json">
-{"headline":"Routing Traffic for Subdomains with Route53 &amp; Terraform","dateModified":"2019-08-21T19:55:00-07:00","datePublished":"2019-08-21T19:55:00-07:00","url":"https://andrew.hawker.io/writings/2019/08/21/route-traffic-subdomains-route-53-terraform/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2019/08/21/route-traffic-subdomains-route-53-terraform/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"Scenario","@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"headline":"Routing Traffic for Subdomains with Route53 &amp; Terraform","dateModified":"2019-08-21T19:55:00-07:00","datePublished":"2019-08-21T19:55:00-07:00","url":"https://andrew.hawker.io/writings/2019/08/21/route-traffic-subdomains-route-53-terraform/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2019/08/21/route-traffic-subdomains-route-53-terraform/"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"Scenario","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
@@ -215,7 +215,7 @@
 
 <h3 id="hosted-zone-service-records">Hosted Zone Service Records</h3>
 
-<p>Each Hosted Zone will need to add records to route the <code class="highlighter-rouge">api</code> and <code class="highlighter-rouge">web</code> services to their correct locations. For this example, let’s just assume they’re <code class="highlighter-rouge">CNAME</code> records to another domain and these are parametrized using Terraform variables. <sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote">1</a></sup></p>
+<p>Each Hosted Zone will need to add records to route the <code class="highlighter-rouge">api</code> and <code class="highlighter-rouge">web</code> services to their correct locations. For this example, let’s just assume they’re <code class="highlighter-rouge">CNAME</code> records to another domain and these are parametrized using Terraform variables. <sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup></p>
 
 <div class="language-tf highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">variable</span> <span class="s2">"api_cname_record"</span> <span class="p">{</span>
     <span class="nx">description</span> <span class="p">=</span> <span class="s2">"Value of CNAME record for api.example.com"</span>
@@ -242,7 +242,7 @@
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>Using the variable definitons from above, we can parametrize our <code class="highlighter-rouge">CNAME</code> record creation for our service subdomains. <sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote">2</a></sup></p>
+<p>Using the variable definitons from above, we can parametrize our <code class="highlighter-rouge">CNAME</code> record creation for our service subdomains. <sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup></p>
 
 <div class="language-tf highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># CNAME record in the example.com hosted zone that points to 'api' service.</span>
 <span class="k">resource</span> <span class="s2">"aws_route53_record"</span> <span class="s2">"record_apex_api"</span> <span class="p">{</span>
@@ -301,7 +301,7 @@
 
 <h2 id="summary">Summary</h2>
 
-<p>In order to route traffic to n-tier levels of subdomains in Route53, you must create a new hosted zone for each subdomain that contains records and must add an <code class="highlighter-rouge">NS</code> record for that subdomain in the hosted zone of its parent.<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote">3</a></sup></p>
+<p>In order to route traffic to n-tier levels of subdomains in Route53, you must create a new hosted zone for each subdomain that contains records and must add an <code class="highlighter-rouge">NS</code> record for that subdomain in the hosted zone of its parent.<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup></p>
 
 <hr />
 <div class="footnotes" role="doc-endnotes">

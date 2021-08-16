@@ -78,7 +78,7 @@
 <meta name="twitter:site" content="@rekwah" />
 <meta name="twitter:creator" content="@rekwah" />
 <script type="application/ld+json">
-{"headline":"Druid Queries - Data Schema","dateModified":"2021-02-12T00:23:00-08:00","datePublished":"2021-02-12T00:23:00-08:00","url":"https://andrew.hawker.io/writings/2021/02/12/druid-queries-data-schema/","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2021/02/12/druid-queries-data-schema/"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"This is part one of a blog post series about Druid Queries.","@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"headline":"Druid Queries - Data Schema","dateModified":"2021-02-12T00:23:00-08:00","datePublished":"2021-02-12T00:23:00-08:00","url":"https://andrew.hawker.io/writings/2021/02/12/druid-queries-data-schema/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/writings/2021/02/12/druid-queries-data-schema/"},"author":{"@type":"Person","name":"Andrew Hawker"},"description":"This is part one of a blog post series about Druid Queries.","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
@@ -351,7 +351,7 @@ ratingId,movieId,title,genres,userId,rating,timestamp
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
-<p>There’s a lot here, so let’s break it down. <sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote">1</a></sup></p>
+<p>There’s a lot here, so let’s break it down. <sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup></p>
 
 <h3 id="timestamps">Timestamps</h3>
 
@@ -369,7 +369,7 @@ ratingId,movieId,title,genres,userId,rating,timestamp
 
 <h3 id="granularity">Granularity</h3>
 
-<p>The <code class="highlighter-rouge">granularitySpec</code> defines how rollups are performed and data is stored. The <code class="highlighter-rouge">segmentGranularity</code> defines the time bounds for individual segment files. For the best performance, you’re looking for segment files around <code class="highlighter-rouge">~500mb</code>. <sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote">2</a></sup> In our case, we’re creating one segment file for each <code class="highlighter-rouge">year</code>.</p>
+<p>The <code class="highlighter-rouge">granularitySpec</code> defines how rollups are performed and data is stored. The <code class="highlighter-rouge">segmentGranularity</code> defines the time bounds for individual segment files. For the best performance, you’re looking for segment files around <code class="highlighter-rouge">~500mb</code>. <sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup> In our case, we’re creating one segment file for each <code class="highlighter-rouge">year</code>.</p>
 
 <p>The <code class="highlighter-rouge">queryGranularity</code> value defines the smallest interval of time we can filter/group our data. By setting this value to <code class="highlighter-rouge">day</code>, it means we cannot find individual ratings by hour, minute, or second. Changing this value depends on your use cases, but the larger the <code class="highlighter-rouge">queryGranularity</code>, the better query performance/data savings we’ll receive.</p>
 
