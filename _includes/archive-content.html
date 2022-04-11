@@ -18,11 +18,11 @@
 
   {% if forloop.first %}
   <section id="section-{{ forloop.index }}">
-    <h3><a href="{{ site.baseurl }}/archives/year/{{ this_year }}">{{ this_year }}</a></h3>
+    <h4><a href="{{ site.baseurl }}/archives/year/{{ this_year }}">{{ this_year }}</a></h4>
     <ul>
   {% endif %}
 
-  <li><p><a href="{{ post.url }}">{{ post.title }}</a> - {{ post.date | date: '%B %-d' }}</p></li>
+  <li><p><i>{{ post.date | date:"%b %d %Y" }}</i> » <a href="{{ post.url }}">{{ post.title }}</a></p></li>
 
   {% if forloop.last %}
       </ul>
@@ -32,7 +32,7 @@
       </ul>
     </section>
     <section id="section-{{ forloop.index }}">
-      <h3><a href="{{ site.baseurl }}/archives/year/{{ next_year }}">{{ next_year }}</a></h3>
+      <h4><a href="{{ site.baseurl }}/archives/year/{{ next_year }}">{{ next_year }}</a></h4>
       <ul>
     {% endif %}
   {% endif %}
