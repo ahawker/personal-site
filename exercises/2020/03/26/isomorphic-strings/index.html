@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8" lang="en">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Andrew Hawker">
+  <meta name="generator" content="jekyll">
+  
+  <meta name="dcterms.date" content="2020-03-26 02:24:00 -0700">
+  
+  
+  <meta name="keywords" content="leetcode easy python">
+  
+
+  
+  <link rel="canonical" href="https://andrew.hawker.io/exercises/2020/03/26/isomorphic-strings/" />
+  
+
+  
+  <title>Isomorphic Strings – Andrew Hawker</title>
+  
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/styles/font-awesome.min.css"/>
+  <link rel="stylesheet" href="/assets/styles/et-book.min.css">
+  <link rel="stylesheet" href="/assets/styles/site.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+
+  <link rel="manifest" href="/assets/site.webmanifest">
+
+  <meta name="msapplication-TileColor" content="#2d89ef">
+  <meta name="msapplication-config" content="/assets/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- RSS -->
+  <link type="application/atom+xml" rel="alternate" href="https://andrew.hawker.io/feed.xml" title="Andrew Hawker" />
+
+  <!-- Google Analytics -->
+  
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-36365256-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  
+
+  <!-- SEO -->
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Isomorphic Strings | Andrew Hawker</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Isomorphic Strings" />
+<meta name="author" content="Andrew Hawker" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I’m trying to get in a habit of starting my mornings off with coffee and a Leetcode problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!" />
+<meta property="og:description" content="I’m trying to get in a habit of starting my mornings off with coffee and a Leetcode problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!" />
+<link rel="canonical" href="https://andrew.hawker.io/exercises/2020/03/26/isomorphic-strings/" />
+<meta property="og:url" content="https://andrew.hawker.io/exercises/2020/03/26/isomorphic-strings/" />
+<meta property="og:site_name" content="Andrew Hawker" />
+<meta property="og:image" content="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-26T02:24:00-07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:image" content="https://andrew.hawker.io/assets/images/android-chrome-512x512.png" />
+<meta property="twitter:title" content="Isomorphic Strings" />
+<meta name="twitter:site" content="@rekwah" />
+<meta name="twitter:creator" content="@rekwah" />
+<script type="application/ld+json">
+{"url":"https://andrew.hawker.io/exercises/2020/03/26/isomorphic-strings/","headline":"Isomorphic Strings","dateModified":"2020-03-26T02:24:00-07:00","datePublished":"2020-03-26T02:24:00-07:00","image":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrew.hawker.io/assets/images/android-chrome-512x512.png"},"name":"Andrew Hawker"},"author":{"@type":"Person","name":"Andrew Hawker"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://andrew.hawker.io/exercises/2020/03/26/isomorphic-strings/"},"description":"I’m trying to get in a habit of starting my mornings off with coffee and a Leetcode problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+
+<body>
+<div class="header container-xl px-5 my-5 markdown-body">
+  
+
+
+
+  
+<header>
+  
+  <h1>
+    <a href="/"><img class="title-logo" src="/assets/images/hawk-logo.svg"></a>
+    
+    Isomorphic Strings
+    
+  </h1>
+  
+  <div class="col-12">
+    
+    <p class="h4 color-grey">March 26, 2020</p>
+    
+  </div>
+  <div class="col-12">
+    <ul class="tags">
+    
+    
+    
+      <li class="category"><a href="/archives/category/exercises">EXERCISES (11)</a></li>
+    
+    
+    
+    
+      <li class="tag"><a href="/archives/tag/leetcode-easy">LEETCODE EASY (7)</a></li>
+    
+      <li class="tag"><a href="/archives/tag/python">PYTHON (12)</a></li>
+    
+    
+    </ul>
+  </div>
+</header>
+
+
+</div>
+<div class="content container-xl px-5 my-5 markdown-body">
+  <p>I’m trying to get in a habit of starting my mornings off with coffee and a <a href="https://leetcode.com/">Leetcode</a> problem before work. Ease my way into the day and get the brain juices flowing. Let’s jump in!</p>
+
+<h2 id="isomorphic-strings"><a href="https://leetcode.com/problems/isomorphic-strings/">Isomorphic Strings</a></h2>
+
+<h3 id="problem">Problem</h3>
+
+<p>Given two strings <code class="highlighter-rouge">s</code> and <code class="highlighter-rouge">t</code>, determine if they are isomorphic.</p>
+
+<p>Two strings are isomorphic if the characters in <code class="highlighter-rouge">s</code> can be replaced to get <code class="highlighter-rouge">t</code>.</p>
+
+<p>All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character but a character may map to itself.</p>
+
+<p>You may assume both <code class="highlighter-rouge">s</code> and <code class="highlighter-rouge">t</code> have the same length.</p>
+
+<p>Example inputs:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Input: s = "egg", t = "add"
+Output: true
+
+Input: s = "foo", t = "bar"
+Output: false
+
+Input: s = "paper", t = "title"
+Output: true
+</code></pre></div></div>
+
+<h3 id="thinking">Thinking</h3>
+
+<p>This one took me longer than it should have. It was a case of me not reading the problem statement correctly and just hammering my head on it before going back, reading carefully, and continuing forward. A mistake I make often, unfortunately.</p>
+
+<p>Initial thought was to just to group by and count characters for each string. If they were different, the input strings were of a different “pattern”, thus false. This works for <em>most</em> test cases but eventually you run into the cases where they try and remap the input character multiple times and it breaks. Luckly, there isn’t much to change to support that.</p>
+
+<p>In short, my solution does this:</p>
+
+<ul>
+  <li>Loop through all chars in the strings</li>
+  <li>Store mapping of char at index <code class="highlighter-rouge">i</code> in string <code class="highlighter-rouge">s</code> to char at index <code class="highlighter-rouge">i</code> in string <code class="highlighter-rouge">t</code></li>
+  <li>If this was already mapped and they don’t match, it’s not isomorphic</li>
+  <li>Bump counts for the characters in string <code class="highlighter-rouge">s</code> and string <code class="highlighter-rouge">t</code></li>
+  <li>If the counts aren’t equal, we have inconsistent “patterns” between the strings, so not isomorphic</li>
+</ul>
+
+<h3 id="corner-cases">Corner Cases</h3>
+
+<p>The following corner cases are what I missed in my initial solution:</p>
+
+<ul>
+  <li>Empty input strings. Originally considered them false, although two empty strings <em>are</em> identical.</li>
+  <li>Completely messed the character re-mapping rules in the problem statement. <strong>READ SLOWLY</strong></li>
+</ul>
+
+<h3 id="improvements">Improvements</h3>
+
+<p>You can do this without using counters by doing a current/previous iteration and doing a few comparisons but this code feels a bit more idiomatic. My intuition says that it’ll be slightly slower in runtime but use less memory.</p>
+
+<h3 id="solution">Solution</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">collections</span>
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">isIsomorphic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">s</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">t</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        
+        <span class="n">s_counts</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">()</span>
+        <span class="n">t_counts</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">()</span>
+        <span class="n">charmap</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)):</span>
+            <span class="n">s_char</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">t_char</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            
+            <span class="n">r_char</span> <span class="o">=</span> <span class="n">charmap</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">s_char</span><span class="p">,</span> <span class="n">t_char</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">r_char</span> <span class="o">!=</span> <span class="n">t_char</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">False</span>
+
+            <span class="n">s_counts</span><span class="p">[</span><span class="n">s_char</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">t_counts</span><span class="p">[</span><span class="n">t_char</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="k">if</span> <span class="n">s_counts</span><span class="p">[</span><span class="n">s_char</span><span class="p">]</span> <span class="o">!=</span> <span class="n">t_counts</span><span class="p">[</span><span class="n">t_char</span><span class="p">]:</span>
+                <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="k">return</span> <span class="bp">True</span>
+</code></pre></div></div>
+
+<h3 id="score">Score</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Runtime: 64 ms, faster than 11.29% of Python3 online submissions for Isomorphic Strings.
+Memory Usage: 13 MB, less than 100.00% of Python3 online submissions for Isomorphic Strings.
+</code></pre></div></div>
+
+
+
+<section>
+  <p class="return-home"><em><a href="/">Return home</a></em></p>
+</section>
+
+
+</div>
+<div class="footer container-xl px-5 my-5">
+  
+
+
+
+  <footer>
+    <hr class="footer-hr">
+    <ul class="social-links">
+      
+        <li><a href="https://www.routegy.com" target="_blank" title="Employer"><span class="fa fa-2x fa-building social-icon"></span></a></li>
+      
+        <li><a href="https://goo.gl/maps/kUBP3GgPGiG2" target="_blank" title="Location"><span class="fa fa-2x fa-map-marker social-icon"></span></a></li>
+      
+        <li><a href="https://stackoverflow.com/users/84942/ahawker" target="_blank" title="Stack Overflow"><span class="fa fa-2x fa-stack-overflow social-icon"></span></a></li>
+      
+        <li><a href="https://github.com/ahawker" target="_blank" title="GitHub"><span class="fa fa-2x fa-github-alt social-icon"></span></a></li>
+      
+        <li><a href="https://linkedin.com/in/ahawker" target="_blank" title="LinkedIn"><span class="fa fa-2x fa-linkedin-square social-icon"></span></a></li>
+      
+        <li><a href="https://twitter.com/rekwah" target="_blank" title="Twitter"><span class="fa fa-2x fa-twitter social-icon"></span></a></li>
+      
+        <li><a href="mailto:andrew.r.hawker@gmail.com" target="_blank" title="Email"><span class="fa fa-2x fa-envelope social-icon"></span></a></li>
+      
+        <li><a href="/feed.xml" target="_blank" title="RSS"><span class="fa fa-2x fa-rss social-icon"></span></a></li>
+      
+        <li><a href="/assets/resume.pdf" target="_blank" title="Resume"><span class="fa fa-2x fa-file social-icon"></span></a></li>
+        
+    </ul>
+  <div class="credits">
+    <span>&copy; 2013 - 2022 &nbsp;&nbsp;ANDREW HAWKER</span></br> <br>
+    <span>Code for this website can be found <a href="https://github.com/ahawker/personal-site">here</a>.</span>
+  </div>  
+</footer>
+
+</div>
+</body>
+</html>
+
